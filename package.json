@@ -1,6 +1,6 @@
 {
   "name": "typepurify",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Deep-clean any API response while preserving precisely inferred recursive types—no schemas, no boilerplate.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
