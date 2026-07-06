@@ -47,17 +47,17 @@ graph TD
 ## Installation
 
 ```bash
-npm install typeclean
+npm install typepurify
 # or
-yarn add typeclean
+yarn add typepurify
 # or
-pnpm add typeclean
+pnpm add typepurify
 ```
 
 ## Usage
 
 ```typescript
-import { clean } from 'typeclean';
+import { clean } from 'typepurify';
 
 const messyPayload = {
   id: 101,
