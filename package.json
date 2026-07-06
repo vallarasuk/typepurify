@@ -1,5 +1,5 @@
 {
-  "name": "typeclean",
+  "name": "@vallarasuk/typeclean",
   "version": "1.0.0",
   "description": "Deep-clean any API response while preserving precisely inferred recursive types—no schemas, no boilerplate.",
   "main": "./dist/index.js",
