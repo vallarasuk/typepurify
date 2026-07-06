@@ -7,12 +7,42 @@
 
 [![npm version](https://img.shields.io/npm/v/typeclean.svg?style=flat-square)](https://www.npmjs.com/package/typeclean)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT)
+[![Build Status](https://github.com/vallarasuk/typeclean/actions/workflows/ci.yml/badge.svg)](https://github.com/vallarasuk/typeclean/actions)
 
 ## Overview
 
 `typeclean` is a lightning-fast, zero-schema data cleaner designed to deeply strip `null`, `undefined`, and optionally empty strings/arrays/objects from your data maps while keeping your TypeScript types perfectly aligned.
 
 Instead of writing complex Zod or Joi schemas just to clean a payload, `typeclean` automatically re-infers your types at compile-time and safely handles nested records and array structures.
+
+---
+
+## 🧠 How it Works
+
+Understanding how `typeclean` processes your data is simple. It uses a recursive engine to traverse your nested payloads and instantly strips out unwanted, empty, or undefined values based on your configuration.
+
+```mermaid
+graph TD
+    A[Raw API Payload] --> B(typeclean Engine)
+    B --> C{Value Check}
+
+    C -->|null / undefined| D[Discard Property]
+    C -->|String / Array / Object| E{IsEmpty? & Options set?}
+
+    E -->|Yes| D
+    E -->|No, but it's an Object/Array| F[Recursively Clean Child]
+    E -->|No, it's a Primitive| G[Keep Property]
+
+    F --> B
+    D --> H[Optimized Output]
+    G --> H
+
+    H --> I[(Perfectly Typed Data)]
+
+    style A fill:#4b5563,stroke:#374151,stroke-width:2px,color:#fff
+    style B fill:#3b82f6,stroke:#2563eb,stroke-width:2px,color:#fff
+    style I fill:#10b981,stroke:#059669,stroke-width:2px,color:#fff
+```
 
 ## Installation
 
@@ -40,24 +70,38 @@ const messyPayload = {
   emptyArray: [],
 };
 
-// Standard clean
+// Standard clean (removes null and undefined natively)
 const cleanPayload = clean(messyPayload);
-// -> { id: 101, profile: { geo: "IN" }, tags: ["React", "TypeScript"], emptyString: "", emptyArray: [] }
-// Note: Types are automatically inferred! `title` is removed from `profile`.
+/* Result: 
+{ 
+  id: 101, 
+  profile: { geo: "IN" }, 
+  tags: ["React", "TypeScript"], 
+  emptyString: "", 
+  emptyArray: [] 
+} 
+*/
+// Note: Types are automatically inferred! `title` is instantly removed from the `profile` type at compile time.
 
-// With Options
+// Aggressive clean with Options
 const ultraCleanPayload = clean(messyPayload, {
   stripEmptyStrings: true,
   stripEmptyArrays: true,
 });
-// -> { id: 101, profile: { geo: "IN" }, tags: ["React", "TypeScript"] }
+/* Result: 
+{ 
+  id: 101, 
+  profile: { geo: "IN" }, 
+  tags: ["React", "TypeScript"] 
+} 
+*/
 ```
 
 ## API
 
 ### `clean<T>(obj: T, options?: CleanOptions): DeepRequired<T>`
 
-Recursively deep-cleans null/undefined values from objects and arrays, dynamically re-inferring compile-time types without schemas.
+Recursively deep-cleans null/undefined values from objects and arrays, dynamically re-inferring compile-time types without generating heavy schemas.
 
 **Options:**
 
@@ -72,3 +116,14 @@ Contributions, issues, and feature requests are welcome! See our [Contributing G
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
+
+---
+
+## About Me
+
+**Vallarasu Kanthasamy**
+
+I'm a software engineer deeply passionate about creating frictionless, robust developer tools and scalable architectures. I built `typeclean` to eliminate the friction of dealing with messy API payloads in enterprise TypeScript environments.
+
+- GitHub: [@vallarasuk](https://github.com/vallarasuk)
+- If you find this package useful, feel free to give it a ⭐️ on GitHub and reach out for collaborations!
