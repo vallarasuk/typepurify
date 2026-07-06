@@ -125,6 +125,7 @@ I build lightweight, high-performance developer utilities and media automation e
 **Developer Tools & Extensions**
 
 - [Auto Console Log (VS Code)](https://marketplace.visualstudio.com/items?itemName=VallarasuKanthasamy.auto-console-log-by-vallarasu-kanthasamy) – Lightning-fast debugging for JS/TS.
+- [Opacity Adjuster (Chrome Extension)](https://chromewebstore.google.com/detail/opacity-adjuster-by-valla/elgajofcbjicopepiodbabodkajnihog?pli=1)
 - [Tech Stack Checker (Chrome Extension)](https://chromewebstore.google.com/detail/tech-stack-checker/lhcplmfhkmjobfnndaabeddibhimghgf)
 - [Universal Spreadsheet Markdown Editor](https://open-vsx.org/extension/VallarasuKanthasamy/universal-spreadsheet-markdown-editor)
 - [Media Bucket Sync for Amazon S3 (WordPress)](https://wordpress.org/plugins/vallarasu-media-bucket-sync-amazon-s3/)
