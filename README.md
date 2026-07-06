@@ -84,11 +84,17 @@ const ultraCleanPayload = clean(messyPayload, {
 
 Recursively deep-cleans null/undefined values from objects and arrays, dynamically re-inferring compile-time types without generating heavy schemas.
 
+### `cleanInPlace<T>(obj: T, options?: CleanOptions): DeepRequired<T>`
+
+Operates exactly like `clean()`, but **mutates the original payload directly** instead of allocating new objects in memory. This offers maximum performance and zero memory overhead for massive data payloads.
+
 **Options:**
 
 - `stripEmptyStrings` (boolean): Removes empty strings `""`.
 - `stripEmptyArrays` (boolean): Removes arrays with zero length `[]`.
 - `stripEmptyObjects` (boolean): Removes objects with no keys `{}`.
+- `trimStrings` (boolean): Trims whitespace from strings before processing.
+- `stripWhen` (function): Custom predicate function to strip any specific value (e.g., `(val) => val === 'N/A'`).
 
 ## Contributing
 

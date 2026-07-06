@@ -26,6 +26,8 @@ export interface CleanOptions {
   stripEmptyStrings?: boolean;
   stripEmptyArrays?: boolean;
   stripEmptyObjects?: boolean;
+  trimStrings?: boolean;
+  stripWhen?: (value: any) => boolean;
 }
 
 /**
@@ -41,8 +43,16 @@ export function clean<T>(
     return undefined as any;
   }
 
+  if (options.stripWhen && options.stripWhen(obj)) {
+    return undefined as any;
+  }
+
   if (typeof obj !== 'object') {
-    if (obj === '' && options.stripEmptyStrings) return undefined as any;
+    if (typeof obj === 'string') {
+      const val = options.trimStrings ? obj.trim() : obj;
+      if (val === '' && options.stripEmptyStrings) return undefined as any;
+      return val as any;
+    }
     return obj as any;
   }
 
@@ -50,9 +60,13 @@ export function clean<T>(
   seen.add(obj as any);
 
   if (Array.isArray(obj)) {
-    const cleanedArray = obj
-      .map((item) => clean(item, options, seen))
-      .filter((item) => item !== undefined);
+    const cleanedArray = [];
+    for (let i = 0; i < obj.length; i++) {
+      const cleanedItem = clean(obj[i], options, seen);
+      if (cleanedItem !== undefined) {
+        cleanedArray.push(cleanedItem);
+      }
+    }
 
     if (cleanedArray.length === 0 && options.stripEmptyArrays) {
       return undefined as any;
@@ -66,9 +80,6 @@ export function clean<T>(
   for (const key in obj) {
     if (Object.prototype.hasOwnProperty.call(obj, key)) {
       const val = obj[key];
-      if (val === null || val === undefined) continue;
-      if (val === '' && options.stripEmptyStrings) continue;
-
       const cleanedVal = clean(val, options, seen);
 
       if (cleanedVal !== undefined) {
@@ -83,4 +94,73 @@ export function clean<T>(
   }
 
   return cleanedObj as any;
+}
+
+/**
+ * Recursively deep-cleans null/undefined values by mutating the original object directly.
+ * Offers extreme performance and zero memory overhead for massive payloads.
+ * WARNING: Mutates the provided object.
+ */
+export function cleanInPlace<T>(
+  obj: T,
+  options: CleanOptions = {},
+  seen = new WeakSet(),
+): DeepRequired<T> {
+  if (obj === null || obj === undefined) {
+    return undefined as any;
+  }
+
+  if (options.stripWhen && options.stripWhen(obj)) {
+    return undefined as any;
+  }
+
+  if (typeof obj !== 'object') {
+    if (typeof obj === 'string') {
+      const val = options.trimStrings ? obj.trim() : obj;
+      if (val === '' && options.stripEmptyStrings) return undefined as any;
+      return val as any;
+    }
+    return obj as any;
+  }
+
+  if (seen.has(obj as any)) return obj as any;
+  seen.add(obj as any);
+
+  if (Array.isArray(obj)) {
+    let writeIndex = 0;
+    for (let i = 0; i < obj.length; i++) {
+      const cleanedItem = cleanInPlace(obj[i], options, seen);
+      if (cleanedItem !== undefined) {
+        obj[writeIndex++] = cleanedItem;
+      }
+    }
+    obj.length = writeIndex;
+
+    if (obj.length === 0 && options.stripEmptyArrays) {
+      return undefined as any;
+    }
+    return obj as any;
+  }
+
+  let hasKeys = false;
+
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      const val = obj[key];
+      const cleanedVal = cleanInPlace(val, options, seen);
+
+      if (cleanedVal === undefined) {
+        delete (obj as any)[key];
+      } else {
+        (obj as any)[key] = cleanedVal;
+        hasKeys = true;
+      }
+    }
+  }
+
+  if (!hasKeys && options.stripEmptyObjects) {
+    return undefined as any;
+  }
+
+  return obj as any;
 }
