@@ -122,11 +122,24 @@ I build lightweight, high-performance developer utilities and media automation e
 
 ### 🌐 Digital Ecosystem & Platforms
 
-- **Official Website:** [vallarasuk.com](https://vallarasuk.com)
-- **Production Showcase:** [space.vallarasuk.com](https://space.vallarasuk.com) (Automated Universe Media Platform)
-- **GitHub Ecosystem:** [@vallarasuk](https://github.com/vallarasuk)
-- **LinkedIn Professional Hub:** [linkedin.com/in/vallarasuk](https://linkedin.com/in/vallarasuk)
-- **Instagram Creator Portal:** [@space_gallary](https://instagram.com/space_gallary)
+**Developer Tools & Extensions**
+
+- [Auto Console Log (VS Code)](https://marketplace.visualstudio.com/items?itemName=VallarasuKanthasamy.auto-console-log-by-vallarasu-kanthasamy) – Lightning-fast debugging for JS/TS.
+- [Tech Stack Checker (Chrome Extension)](https://chromewebstore.google.com/detail/tech-stack-checker/lhcplmfhkmjobfnndaabeddibhimghgf)
+- [Universal Spreadsheet Markdown Editor](https://open-vsx.org/extension/VallarasuKanthasamy/universal-spreadsheet-markdown-editor)
+- [Media Bucket Sync for Amazon S3 (WordPress)](https://wordpress.org/plugins/vallarasu-media-bucket-sync-amazon-s3/)
+
+**Open Source & Resources**
+
+- [Awesome Developer Resources](https://github.com/vallarasuk/awesome-developer-resources) – A curated list of high-value tools for developers.
+- [My Developer Resources & Blog](https://vallarasuk.com/resources)
+
+**Connect With Me**
+
+- **Portfolio:** [vallarasuk.com](https://vallarasuk.com)
+- **GitHub:** [github.vallarasuk.com](https://github.com/vallarasuk)
+- **LinkedIn:** [linkedin.vallarasuk.com](https://linkedin.com/in/vallarasuk)
+- **Community:** [Join my WhatsApp Developer Squad](http://squad.vallarasuk.com/)
 
 ---
 
