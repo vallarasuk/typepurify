@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'vitest';
-import { clean, cleanInPlace } from './index';
+import { describe, it, expect, expectTypeOf } from 'vitest';
+import { clean, cleanInPlace, cleanAsync, cleanInPlaceAsync } from './index';
 
 describe('typepurify core engine', () => {
   it('should deeply remove null and undefined values from messy data maps', () => {
@@ -204,5 +204,77 @@ describe('typepurify core engine', () => {
     expect(cleaned instanceof MyClass).toBe(true);
     expect(cleaned.valid).toBe(true);
     expect(cleaned).not.toHaveProperty('invalid');
+  });
+
+  describe('Strict Mode Inference', () => {
+    it('should remove empty string from unions if stripEmptyStrings is true', () => {
+      const payload = {
+        name: 'test' as string | '',
+        age: 25 as number | null,
+      };
+
+      const result = clean(payload, { stripEmptyStrings: true });
+      expectTypeOf(result.name).toEqualTypeOf<string>();
+
+      const noStrictResult = clean(payload);
+      expectTypeOf(noStrictResult.name).toEqualTypeOf<string | ''>();
+    });
+  });
+
+  describe('Asynchronous Cleaning', () => {
+    it('cleanAsync should deeply remove null and undefined values asynchronously', async () => {
+      const apiPayload = {
+        id: 101,
+        profile: {
+          title: null,
+          geo: 'IN',
+        },
+        tags: ['React', null, 'TypeScript'],
+      };
+
+      const pristineResult = await cleanAsync(apiPayload);
+
+      expect(pristineResult).toEqual({
+        id: 101,
+        profile: {
+          geo: 'IN',
+        },
+        tags: ['React', 'TypeScript'],
+      });
+    });
+
+    it('cleanInPlaceAsync should mutate and clean the original object asynchronously', async () => {
+      const original = {
+        a: 1,
+        b: null,
+        c: [null, 2, undefined],
+        d: { e: undefined, f: 'N/A' },
+      };
+
+      const result = await cleanInPlaceAsync(original, { stripWhen: (v) => v === 'N/A' });
+
+      expect(original).toEqual({
+        a: 1,
+        c: [2],
+        d: {},
+      });
+      expect(result === original).toBe(true);
+    });
+
+    it('should not block the event loop for massive arrays', async () => {
+      const largeArray = new Array(5000).fill(null).map((_, i) => (i % 2 === 0 ? i : null));
+      let timeoutFired = false;
+
+      setTimeout(() => {
+        timeoutFired = true;
+      }, 0);
+
+      const cleaned = await cleanAsync(largeArray);
+
+      // Because cleanAsync yields every 1000 items, the timeout should have fired.
+      // (This test might be slightly flaky depending on the JS engine tick, but typically it works)
+      expect(timeoutFired).toBe(true);
+      expect(cleaned.length).toBe(2500);
+    });
   });
 });
