@@ -6,9 +6,9 @@ This document outlines our current state, where we are heading, and how other de
 
 ## 📍 Current State
 
-**Current Version:** `v1.1.9`
+**Current Version:** `v1.4.0`
 
-- **Features:** Deep cleaning for Objects and Arrays natively.
+- **Features:** Deep cleaning for Objects and Arrays natively. Includes `cleanParse` for single-pass JSON string parsing and cleaning.
 - **TypeScript:** Perfectly infers types and removes `null`/`undefined` at compile time via `DeepRequired`.
 - **Options:** `stripEmptyStrings`, `stripEmptyArrays`, `stripEmptyObjects`, `trimStrings`, `stripWhen`.
 
@@ -38,12 +38,11 @@ _Focus: Pushing the boundaries of TypeScript's type system._
 - **Strict Mode Inference:** Provide a stricter version of `DeepRequired`. If a developer passes `{ stripEmptyStrings: true }`, the type engine will physically remove `""` (empty string literals) from the TypeScript unions of the returned object.
 - **Asynchronous Cleaning (`cleanAsync`):** A non-blocking version using `setImmediate` or microtasks to traverse massive data payloads without freezing the Node.js event loop.
 
-### 🌟 Version 2.0.0 (The Performance Era)
+### 🌟 Version 3.0.0 (The Systems Era)
 
-_Focus: Complete architectural overhaul for extreme scale._
+_Focus: Complete architectural overhaul for extreme scale across languages._
 
 - **Rust / WASM Core:** Explore writing the recursive traversal engine in Rust/WebAssembly for near-native execution speed when cleaning multi-megabyte API responses.
-- **JSON String Cleaning (`cleanParse`):** A utility to parse and clean raw JSON strings in a single pass, bypassing standard `JSON.parse` intermediate object allocation entirely to save massive amounts of RAM.
 
 ---
 

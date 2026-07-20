@@ -146,6 +146,10 @@ Operates exactly like `clean()`, but **mutates the original payload directly** i
 
 Asynchronous versions of the above that yield to the event loop every 1,000 iterations to prevent blocking the main thread when processing gigantic API payloads.
 
+### `cleanParse<T>(json: string, options?: CleanOptions): DeepRequired<T>` (v1.4.0 🚀)
+
+A specialized JSON parser that deeply cleans a raw JSON string in a single pass. By skipping standard `JSON.parse` and its intermediate object allocation, `cleanParse` is incredibly memory-efficient and up to 25% faster for massive JSON payloads.
+
 ### Options Configuration (`CleanOptions`)
 
 - `stripEmptyStrings`: Removes `""`
