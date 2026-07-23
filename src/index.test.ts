@@ -279,4 +279,47 @@ describe('typepurify core engine', () => {
       expect(cleaned.length).toBe(2500);
     });
   });
+
+  describe('Edge Cases and Advanced Configurations', () => {
+    it('should deeply remove empty arrays and objects when requested', () => {
+      const payload = {
+        a: [],
+        b: {},
+        c: { nested: null },
+        d: [null],
+        e: { deeply: { nested: {} } },
+        f: [[[null]]],
+      };
+
+      expect(clean(payload, { stripEmptyArrays: true, stripEmptyObjects: true })).toBeUndefined();
+    });
+
+    it('should handle Set and Map properly with empty stripping', () => {
+      const payload = {
+        set1: new Set(),
+        set2: new Set([null]),
+        map1: new Map(),
+        map2: new Map([['a', null]]),
+      };
+
+      expect(clean(payload, { stripEmptyArrays: true, stripEmptyObjects: true })).toBeUndefined();
+    });
+
+    it('should run stripWhen and trimStrings even if transform is applied', () => {
+      const payload = {
+        name: ' VALLARASU ',
+        age: 25,
+        removeMe: 'strip',
+      };
+
+      const result = clean(payload, {
+        trimStrings: true,
+        stripEmptyStrings: true,
+        stripWhen: (v: any) => v === 'STRIP', // it should see uppercase
+        transform: (v: any) => (typeof v === 'string' ? v.toUpperCase() : v),
+      });
+
+      expect(result).toEqual({ name: 'VALLARASU', age: 25 });
+    });
+  });
 });

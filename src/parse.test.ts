@@ -115,4 +115,41 @@ describe('cleanParse core engine', () => {
 
     expect(result).toBeUndefined();
   });
+
+  it('should run stripWhen and trimStrings even if transform is applied to a string', () => {
+    const rawJSON = JSON.stringify({
+      name: ' VALLARASU ',
+      age: 25,
+      removeMe: 'strip',
+    });
+
+    const result = cleanParse(rawJSON, {
+      trimStrings: true,
+      stripEmptyStrings: true,
+      stripWhen: (v: any) => v === 'STRIP', // it should see uppercase
+      transform: (v: any) => (typeof v === 'string' ? v.toUpperCase() : v),
+    });
+
+    expect(result).toEqual({ name: 'VALLARASU', age: 25 });
+  });
+
+  it('should run stripEmptyObjects after an object is transformed to a new object', () => {
+    const rawJSON = JSON.stringify({
+      data: {
+        keepMe: false,
+      },
+    });
+
+    const result = cleanParse(rawJSON, {
+      stripEmptyObjects: true,
+      transform: (v: any) => {
+        if (typeof v === 'object' && v !== null && 'keepMe' in v) {
+          if (!v.keepMe) return {}; // transform to empty object
+        }
+        return v;
+      },
+    });
+
+    expect(result).toBeUndefined();
+  });
 });

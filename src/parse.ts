@@ -48,6 +48,19 @@ export function cleanParse<T, const O extends CleanOptions = {}>(
     throw new SyntaxError(`Unexpected token at position ${i}`);
   }
 
+  function processPrimitive(val: any, key?: any): any {
+    if (options.transform) {
+      val = options.transform(val, key);
+    }
+    if (val === null || val === undefined) return undefined;
+    if (options.stripWhen && options.stripWhen(val)) return undefined;
+    if (typeof val === 'string') {
+      if (options.trimStrings) val = val.trim();
+      if (val === '' && options.stripEmptyStrings) return undefined;
+    }
+    return val;
+  }
+
   function parseStringRaw(): string {
     i++; // Skip opening quote
     let result = '';
@@ -91,18 +104,7 @@ export function cleanParse<T, const O extends CleanOptions = {}>(
   }
 
   function parseString(key?: any): any {
-    let str = parseStringRaw();
-    if (options.transform) {
-      const transformed = options.transform(str, key);
-      if (transformed !== str) return transformed;
-    }
-
-    if (options.trimStrings) str = str.trim();
-    if (str === '' && options.stripEmptyStrings) return undefined;
-
-    if (options.stripWhen && options.stripWhen(str)) return undefined;
-
-    return str;
+    return processPrimitive(parseStringRaw(), key);
   }
 
   function parseNumber(key?: any): any {
@@ -127,25 +129,13 @@ export function cleanParse<T, const O extends CleanOptions = {}>(
     }
 
     const num = Number(json.slice(start, i));
-    if (options.transform) {
-      const transformed = options.transform(num, key);
-      if (transformed !== num) return transformed;
-    }
-    if (options.stripWhen && options.stripWhen(num)) return undefined;
-
-    return num;
+    return processPrimitive(num, key);
   }
 
   function parseTrue(key?: any): any {
     if (json.slice(i, i + 4) === 'true') {
       i += 4;
-      const val = true;
-      if (options.transform) {
-        const transformed = options.transform(val, key);
-        if (transformed !== val) return transformed;
-      }
-      if (options.stripWhen && options.stripWhen(val)) return undefined;
-      return val;
+      return processPrimitive(true, key);
     }
     throw new SyntaxError(`Unexpected token at position ${i}`);
   }
@@ -153,13 +143,7 @@ export function cleanParse<T, const O extends CleanOptions = {}>(
   function parseFalse(key?: any): any {
     if (json.slice(i, i + 5) === 'false') {
       i += 5;
-      const val = false;
-      if (options.transform) {
-        const transformed = options.transform(val, key);
-        if (transformed !== val) return transformed;
-      }
-      if (options.stripWhen && options.stripWhen(val)) return undefined;
-      return val;
+      return processPrimitive(false, key);
     }
     throw new SyntaxError(`Unexpected token at position ${i}`);
   }
@@ -167,12 +151,7 @@ export function cleanParse<T, const O extends CleanOptions = {}>(
   function parseNull(key?: any): any {
     if (json.slice(i, i + 4) === 'null') {
       i += 4;
-      if (options.transform) {
-        const transformed = options.transform(null, key);
-        if (transformed !== null) return transformed;
-      }
-      // We always strip null natively, as per clean() logic
-      return undefined;
+      return processPrimitive(null, key);
     }
     throw new SyntaxError(`Unexpected token at position ${i}`);
   }
@@ -186,43 +165,54 @@ export function cleanParse<T, const O extends CleanOptions = {}>(
     if (json.charCodeAt(i) === 0x5d) {
       // ']'
       i++;
-      if (options.stripEmptyArrays) return undefined;
-      return arr;
-    }
+    } else {
+      let index = 0;
+      while (i < len) {
+        const val = parseValue(index);
+        if (val !== undefined) {
+          arr.push(val);
+        }
+        index++;
 
-    let index = 0;
-    while (i < len) {
-      const val = parseValue(index);
-      if (val !== undefined) {
-        arr.push(val);
-      }
-      index++;
-
-      skipWhitespace();
-      const c = json.charCodeAt(i);
-      if (c === 0x5d) {
-        // ']'
-        i++;
-        break;
-      }
-      if (c === 0x2c) {
-        // ','
-        i++;
-      } else {
-        throw new SyntaxError(`Expected ',' or ']' at position ${i}`);
+        skipWhitespace();
+        const c = json.charCodeAt(i);
+        if (c === 0x5d) {
+          // ']'
+          i++;
+          break;
+        }
+        if (c === 0x2c) {
+          // ','
+          i++;
+        } else {
+          throw new SyntaxError(`Expected ',' or ']' at position ${i}`);
+        }
       }
     }
 
-    if (arr.length === 0 && options.stripEmptyArrays) return undefined;
-
+    let result: any = arr;
     if (options.transform) {
-      const transformed = options.transform(arr, key);
-      if (transformed !== arr) return transformed;
+      result = options.transform(result, key);
     }
 
-    if (options.stripWhen && options.stripWhen(arr)) return undefined;
+    if (result === null || result === undefined) return undefined;
+    if (options.stripWhen && options.stripWhen(result)) return undefined;
 
-    return arr;
+    if (result === arr) {
+      if (arr.length === 0 && options.stripEmptyArrays) return undefined;
+    } else {
+      if (options.stripEmptyArrays && Array.isArray(result) && result.length === 0)
+        return undefined;
+      if (
+        options.stripEmptyObjects &&
+        typeof result === 'object' &&
+        !Array.isArray(result) &&
+        Object.keys(result).length === 0
+      )
+        return undefined;
+    }
+
+    return result;
   }
 
   function parseObject(key?: any): any {
@@ -235,68 +225,74 @@ export function cleanParse<T, const O extends CleanOptions = {}>(
     if (json.charCodeAt(i) === 0x7d) {
       // '}'
       i++;
-      if (options.stripEmptyObjects) return undefined;
-      return obj;
-    }
+    } else {
+      while (i < len) {
+        skipWhitespace();
+        if (json.charCodeAt(i) !== 0x22) {
+          // '"'
+          throw new SyntaxError(`Expected string key at position ${i}`);
+        }
 
-    while (i < len) {
-      skipWhitespace();
-      if (json.charCodeAt(i) !== 0x22) {
-        // '"'
-        throw new SyntaxError(`Expected string key at position ${i}`);
-      }
+        const objKey = parseStringRaw();
 
-      const key = parseStringRaw();
+        skipWhitespace();
+        if (json.charCodeAt(i) !== 0x3a) {
+          // ':'
+          throw new SyntaxError(`Expected ':' at position ${i}`);
+        }
+        i++; // skip ':'
 
-      skipWhitespace();
-      if (json.charCodeAt(i) !== 0x3a) {
-        // ':'
-        throw new SyntaxError(`Expected ':' at position ${i}`);
-      }
-      i++; // skip ':'
+        const val = parseValue(objKey);
+        if (val !== undefined) {
+          obj[objKey] = val;
+          hasKeys = true;
+        }
 
-      const val = parseValue(key);
-      if (val !== undefined) {
-        obj[key] = val;
-        hasKeys = true;
-      }
-
-      skipWhitespace();
-      const c = json.charCodeAt(i);
-      if (c === 0x7d) {
-        // '}'
-        i++;
-        break;
-      }
-      if (c === 0x2c) {
-        // ','
-        i++;
-      } else {
-        throw new SyntaxError(`Expected ',' or '}' at position ${i}`);
+        skipWhitespace();
+        const c = json.charCodeAt(i);
+        if (c === 0x7d) {
+          // '}'
+          i++;
+          break;
+        }
+        if (c === 0x2c) {
+          // ','
+          i++;
+        } else {
+          throw new SyntaxError(`Expected ',' or '}' at position ${i}`);
+        }
       }
     }
 
-    if (!hasKeys && options.stripEmptyObjects) return undefined;
-
+    let result: any = obj;
     if (options.transform) {
-      const transformed = options.transform(obj, key);
-      if (transformed !== obj) return transformed;
+      result = options.transform(result, key);
     }
 
-    if (options.stripWhen && options.stripWhen(obj)) return undefined;
+    if (result === null || result === undefined) return undefined;
+    if (options.stripWhen && options.stripWhen(result)) return undefined;
 
-    return obj;
+    if (result === obj) {
+      if (!hasKeys && options.stripEmptyObjects) return undefined;
+    } else {
+      if (
+        options.stripEmptyObjects &&
+        typeof result === 'object' &&
+        !Array.isArray(result) &&
+        Object.keys(result).length === 0
+      )
+        return undefined;
+      if (options.stripEmptyArrays && Array.isArray(result) && result.length === 0)
+        return undefined;
+    }
+
+    return result;
   }
 
   const result = parseValue();
   skipWhitespace();
   if (i < len) {
     throw new SyntaxError(`Unexpected data after JSON at position ${i}`);
-  }
-
-  if (result === undefined) {
-    // If the entire payload was stripped to undefined, typepurify core logic
-    // handles it as undefined, but for top-level JSON we might just return undefined.
   }
 
   return result as any;
