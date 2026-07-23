@@ -10,7 +10,7 @@ describe('@typepurify/react-state', () => {
 
   it('should update state when mounted', () => {
     const { result } = renderHook(() => useSafeState('a'));
-    
+
     act(() => {
       result.current[1]('b');
     });
@@ -20,7 +20,7 @@ describe('@typepurify/react-state', () => {
 
   it('should not update state when unmounted', () => {
     const { result, unmount } = renderHook(() => useSafeState(10));
-    
+
     unmount();
 
     act(() => {

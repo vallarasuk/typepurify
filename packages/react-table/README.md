@@ -17,7 +17,11 @@ A headless React hook that handles sorting and pagination for arrays of data. Yo
 ```tsx
 import { useTable } from '@typepurify/react-table';
 
-interface User { id: number; name: string; age: number; }
+interface User {
+  id: number;
+  name: string;
+  age: number;
+}
 
 const MOCK_DATA: User[] = [
   { id: 1, name: 'Alice', age: 30 },
@@ -26,22 +30,15 @@ const MOCK_DATA: User[] = [
 ];
 
 export function UserTable() {
-  const { 
-    data, 
-    handleSort, 
-    sortKey, 
-    sortDirection, 
-    currentPage, 
-    totalPages, 
-    setCurrentPage 
-  } = useTable({
-    data: MOCK_DATA,
-    columns: [
-      { key: 'name', title: 'Name' },
-      { key: 'age', title: 'Age' }
-    ],
-    initialPageSize: 2
-  });
+  const { data, handleSort, sortKey, sortDirection, currentPage, totalPages, setCurrentPage } =
+    useTable({
+      data: MOCK_DATA,
+      columns: [
+        { key: 'name', title: 'Name' },
+        { key: 'age', title: 'Age' },
+      ],
+      initialPageSize: 2,
+    });
 
   return (
     <div>
@@ -57,7 +54,7 @@ export function UserTable() {
           </tr>
         </thead>
         <tbody>
-          {data.map(user => (
+          {data.map((user) => (
             <tr key={user.id}>
               <td>{user.name}</td>
               <td>{user.age}</td>
@@ -65,19 +62,15 @@ export function UserTable() {
           ))}
         </tbody>
       </table>
-      
+
       <div>
-        <button 
-          disabled={currentPage === 1} 
-          onClick={() => setCurrentPage(p => p - 1)}
-        >
+        <button disabled={currentPage === 1} onClick={() => setCurrentPage((p) => p - 1)}>
           Previous
         </button>
-        <span>Page {currentPage} of {totalPages}</span>
-        <button 
-          disabled={currentPage === totalPages} 
-          onClick={() => setCurrentPage(p => p + 1)}
-        >
+        <span>
+          Page {currentPage} of {totalPages}
+        </span>
+        <button disabled={currentPage === totalPages} onClick={() => setCurrentPage((p) => p + 1)}>
           Next
         </button>
       </div>

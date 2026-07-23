@@ -35,7 +35,7 @@ export function prompt(strings: TemplateStringsArray, ...values: any[]): string 
   // Remove that indentation from all lines
   if (minIndent !== Infinity && minIndent > 0) {
     result = lines
-      .map(line => line.startsWith(' '.repeat(minIndent)) ? line.slice(minIndent) : line)
+      .map((line) => (line.startsWith(' '.repeat(minIndent)) ? line.slice(minIndent) : line))
       .join('\n');
   }
 

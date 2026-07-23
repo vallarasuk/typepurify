@@ -16,7 +16,7 @@ describe('@typepurify/paginate', () => {
     const results = await fetchAllPages({
       initialParams: 1,
       fetchPage,
-      getNextPageParams
+      getNextPageParams,
     });
 
     expect(results).toEqual([1, 2, 3, 4]);
@@ -36,7 +36,7 @@ describe('@typepurify/paginate', () => {
     const results = await fetchAllPages({
       initialParams: 1,
       fetchPage,
-      getNextPageParams
+      getNextPageParams,
     });
 
     expect(results).toEqual([1, 2]);
@@ -54,7 +54,7 @@ describe('@typepurify/paginate', () => {
       initialParams: 1,
       fetchPage,
       getNextPageParams,
-      maxPages: 3
+      maxPages: 3,
     });
 
     expect(results).toEqual([1, 2, 3]);

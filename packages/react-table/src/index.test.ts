@@ -2,7 +2,11 @@ import { describe, it, expect } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { useTable } from './index';
 
-interface User { id: number; name: string; age: number; }
+interface User {
+  id: number;
+  name: string;
+  age: number;
+}
 
 const MOCK_DATA: User[] = [
   { id: 1, name: 'Alice', age: 30 },
@@ -13,16 +17,18 @@ const MOCK_DATA: User[] = [
 const MOCK_COLUMNS = [
   { key: 'id' as const, title: 'ID' },
   { key: 'name' as const, title: 'Name' },
-  { key: 'age' as const, title: 'Age' }
+  { key: 'age' as const, title: 'Age' },
 ];
 
 describe('@typepurify/react-table', () => {
   it('should initialize correctly', () => {
-    const { result } = renderHook(() => useTable({
-      data: MOCK_DATA,
-      columns: MOCK_COLUMNS,
-      initialPageSize: 2
-    }));
+    const { result } = renderHook(() =>
+      useTable({
+        data: MOCK_DATA,
+        columns: MOCK_COLUMNS,
+        initialPageSize: 2,
+      }),
+    );
 
     expect(result.current.data.length).toBe(2);
     expect(result.current.data[0].name).toBe('Alice');
@@ -31,11 +37,13 @@ describe('@typepurify/react-table', () => {
   });
 
   it('should handle pagination', () => {
-    const { result } = renderHook(() => useTable({
-      data: MOCK_DATA,
-      columns: MOCK_COLUMNS,
-      initialPageSize: 2
-    }));
+    const { result } = renderHook(() =>
+      useTable({
+        data: MOCK_DATA,
+        columns: MOCK_COLUMNS,
+        initialPageSize: 2,
+      }),
+    );
 
     act(() => {
       result.current.setCurrentPage(2);
@@ -46,11 +54,13 @@ describe('@typepurify/react-table', () => {
   });
 
   it('should handle sorting', () => {
-    const { result } = renderHook(() => useTable({
-      data: MOCK_DATA,
-      columns: MOCK_COLUMNS,
-      initialPageSize: 10
-    }));
+    const { result } = renderHook(() =>
+      useTable({
+        data: MOCK_DATA,
+        columns: MOCK_COLUMNS,
+        initialPageSize: 10,
+      }),
+    );
 
     // Initial order: Alice, Bob, Charlie
 

@@ -15,9 +15,9 @@ import { createLogger } from '@typepurify/logger';
 
 // Create a logger instance
 const logger = createLogger({
-  level: 'debug',       // 'debug' | 'info' | 'warn' | 'error' | 'silent' (default: 'info')
-  prefix: 'MyApp',      // Optional prefix
-  timestamp: true       // Optional ISO timestamp
+  level: 'debug', // 'debug' | 'info' | 'warn' | 'error' | 'silent' (default: 'info')
+  prefix: 'MyApp', // Optional prefix
+  timestamp: true, // Optional ISO timestamp
 });
 
 logger.debug('This is a debug message');

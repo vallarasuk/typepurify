@@ -28,7 +28,7 @@ const dedupedFetch = dedupe(fetchUserData);
 const [user1, user2, user3] = await Promise.all([
   dedupedFetch(123),
   dedupedFetch(123),
-  dedupedFetch(123)
+  dedupedFetch(123),
 ]);
 ```
 
@@ -38,6 +38,6 @@ By default, `dedupe` uses `JSON.stringify(args)` to determine if a call is ident
 
 ```typescript
 const dedupedFetch = dedupe(fetchUserData, {
-  keyGenerator: (userId) => `user_${userId}`
+  keyGenerator: (userId) => `user_${userId}`,
 });
 ```

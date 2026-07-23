@@ -1,7 +1,7 @@
 export interface PaginateOptions<T, P> {
   /** Function to fetch a single page of data */
   fetchPage: (params: P) => Promise<T[]>;
-  /** 
+  /**
    * Function to determine the parameters for the next page.
    * Return null if there are no more pages.
    */
@@ -26,7 +26,7 @@ export async function fetchAllPages<T, P>(options: PaginateOptions<T, P>): Promi
 
   while (currentParams !== null && pagesFetched < maxPages) {
     const pageResults = await options.fetchPage(currentParams);
-    
+
     // Safety check: if no results are returned, assume pagination is finished
     if (pageResults.length === 0) {
       break;

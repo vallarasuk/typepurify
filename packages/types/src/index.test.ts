@@ -1,11 +1,5 @@
 import { describe, it, expectTypeOf } from 'vitest';
-import type {
-  DeepRequired,
-  DeepPartial,
-  NonNullableDeep,
-  Awaitable,
-  AwaitedReturn
-} from './index';
+import type { DeepRequired, DeepPartial, NonNullableDeep, Awaitable, AwaitedReturn } from './index';
 
 describe('@typepurify/types', () => {
   it('DeepRequired should make nested properties required', () => {
@@ -38,7 +32,7 @@ describe('@typepurify/types', () => {
   });
 
   it('AwaitedReturn extracts return type', () => {
-    const asyncFn = async () => 'hello';
-    expectTypeOf<AwaitedReturn<typeof asyncFn>>().toEqualTypeOf<string>();
+    type AsyncFn = () => Promise<string>;
+    expectTypeOf<AwaitedReturn<AsyncFn>>().toEqualTypeOf<string>();
   });
 });

@@ -15,7 +15,10 @@ Define how to fetch a single page, and how to determine the parameters for the n
 ```typescript
 import { fetchAllPages } from '@typepurify/paginate';
 
-interface User { id: number; name: string; }
+interface User {
+  id: number;
+  name: string;
+}
 
 // Example API that uses a 'page' query parameter
 const fetchUsersPage = async (page: number): Promise<User[]> => {
@@ -29,7 +32,7 @@ const allUsers = await fetchAllPages({
   getNextPageParams: (lastPage, currentPage) => {
     // If the API returned a full page of 20 items, assume there's another page
     return lastPage.length === 20 ? currentPage + 1 : null;
-  }
+  },
 });
 
 console.log(`Fetched ${allUsers.length} users in total!`);

@@ -31,9 +31,9 @@ const p = prompt`
 
 console.log(p);
 // You are an expert who speaks like a pirate.
-// 
+//
 // Please answer the following request:
 //   - User says: "Explain quantum physics"
-// 
+//
 // Be concise.
 ```

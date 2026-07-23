@@ -24,9 +24,9 @@ function MyComponent() {
     let isCancelled = false;
 
     fetch('https://api.example.com/data')
-      .then(res => res.json())
-      .then(json => {
-        // If the component unmounts before the fetch completes, 
+      .then((res) => res.json())
+      .then((json) => {
+        // If the component unmounts before the fetch completes,
         // this state update is safely ignored!
         setData(json.message);
       });

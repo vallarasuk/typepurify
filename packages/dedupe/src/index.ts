@@ -1,5 +1,5 @@
 export interface DedupeOptions {
-  /** 
+  /**
    * Custom function to generate a cache key from the arguments.
    * If not provided, `JSON.stringify(args)` is used.
    */
@@ -17,14 +17,12 @@ export interface DedupeOptions {
  */
 export function dedupe<T extends (...args: any[]) => Promise<any>>(
   fn: T,
-  options: DedupeOptions = {}
+  options: DedupeOptions = {},
 ): T {
   const ongoingPromises = new Map<string, Promise<any>>();
 
   return (async (...args: any[]) => {
-    const key = options.keyGenerator
-      ? options.keyGenerator(...args)
-      : JSON.stringify(args);
+    const key = options.keyGenerator ? options.keyGenerator(...args) : JSON.stringify(args);
 
     if (ongoingPromises.has(key)) {
       return ongoingPromises.get(key)!;

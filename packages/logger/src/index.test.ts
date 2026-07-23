@@ -31,7 +31,7 @@ describe('@typepurify/logger', () => {
     logger.info('test info');
     logger.warn('test warn');
     logger.error('test error');
-    
+
     expect(console.info).not.toHaveBeenCalled();
     expect(console.warn).not.toHaveBeenCalled();
     expect(console.error).toHaveBeenCalledWith('test error');
@@ -47,10 +47,10 @@ describe('@typepurify/logger', () => {
     const logger = createLogger({ timestamp: true });
     vi.useFakeTimers();
     vi.setSystemTime(new Date('2026-01-01T00:00:00.000Z'));
-    
+
     logger.info('test info');
     expect(console.info).toHaveBeenCalledWith('[2026-01-01T00:00:00.000Z]', 'test info');
-    
+
     vi.useRealTimers();
   });
 
@@ -60,7 +60,13 @@ describe('@typepurify/logger', () => {
     vi.setSystemTime(new Date('2026-01-01T00:00:00.000Z'));
 
     logger.warn('Warning user', { id: 1 }, 'retry 2');
-    expect(console.warn).toHaveBeenCalledWith('[2026-01-01T00:00:00.000Z]', '[APP]', 'Warning user', { id: 1 }, 'retry 2');
+    expect(console.warn).toHaveBeenCalledWith(
+      '[2026-01-01T00:00:00.000Z]',
+      '[APP]',
+      'Warning user',
+      { id: 1 },
+      'retry 2',
+    );
 
     vi.useRealTimers();
   });
@@ -71,7 +77,7 @@ describe('@typepurify/logger', () => {
     logger.info('test');
     logger.warn('test');
     logger.error('test');
-    
+
     expect(console.debug).not.toHaveBeenCalled();
     expect(console.info).not.toHaveBeenCalled();
     expect(console.warn).not.toHaveBeenCalled();

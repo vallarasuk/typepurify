@@ -13,12 +13,12 @@ npm install @typepurify/types
 Simply import the types you need.
 
 ```typescript
-import type { 
-  DeepRequired, 
-  DeepPartial, 
-  NonNullableDeep, 
-  Awaitable, 
-  AwaitedReturn 
+import type {
+  DeepRequired,
+  DeepPartial,
+  NonNullableDeep,
+  Awaitable,
+  AwaitedReturn,
 } from '@typepurify/types';
 
 // Example: DeepRequired

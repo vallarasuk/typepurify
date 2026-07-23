@@ -38,6 +38,6 @@ By default, `withCache` uses `JSON.stringify(args)` to determine if a call match
 ```typescript
 const cachedFetch = withCache(fetchUserData, {
   ttl: 60000,
-  keyGenerator: (userId) => `user_${userId}`
+  keyGenerator: (userId) => `user_${userId}`,
 });
 ```

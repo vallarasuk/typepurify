@@ -27,14 +27,14 @@ const data = await withRetry(fetchUserData);
 
 ```typescript
 const data = await withRetry(fetchUserData, {
-  retries: 5,             // Retry up to 5 times
-  delay: 2000,            // Wait 2 seconds between retries
+  retries: 5, // Retry up to 5 times
+  delay: 2000, // Wait 2 seconds between retries
   onRetry: (err, attempt) => {
     console.log(`Retry attempt ${attempt} due to error: ${err.message}`);
   },
   shouldRetry: (err) => {
     // Only retry if it's a 500 server error, don't retry on 404
     return err.message.includes('500');
-  }
+  },
 });
 ```

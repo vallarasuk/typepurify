@@ -22,7 +22,9 @@ const data = safeParse('invalid json', { default: true });
 console.log(data); // { default: true }
 
 // Parse JSON and sanitize prototypes via typepurify core
-const secureData = safeParse('{"__proto__": {"admin": true}}', undefined, { sanitizePrototypes: true });
+const secureData = safeParse('{"__proto__": {"admin": true}}', undefined, {
+  sanitizePrototypes: true,
+});
 ```
 
 ### `safeStringify`

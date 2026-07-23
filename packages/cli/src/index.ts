@@ -10,7 +10,7 @@ export function parseArgs(args: string[]): Record<string, string | boolean> {
 
     if (arg.startsWith('--')) {
       const keyStr = arg.slice(2);
-      
+
       if (keyStr.includes('=')) {
         const [key, value] = keyStr.split('=');
         result[key] = value;

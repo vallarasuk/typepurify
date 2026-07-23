@@ -17,7 +17,7 @@ A zero-dependency, tiny command line argument parser that converts `process.argv
 ```typescript
 import { parseArgs } from '@typepurify/cli';
 
-// For example, if run with: 
+// For example, if run with:
 // node script.js --verbose --port=8080 --name "Alice"
 
 const args = parseArgs(process.argv.slice(2));

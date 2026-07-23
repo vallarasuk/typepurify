@@ -4,10 +4,10 @@
 export type DeepRequired<T> = T extends Function
   ? T
   : T extends Array<infer U>
-  ? _DeepRequiredArray<U>
-  : T extends object
-  ? _DeepRequiredObject<T>
-  : T | undefined;
+    ? _DeepRequiredArray<U>
+    : T extends object
+      ? _DeepRequiredObject<T>
+      : T | undefined;
 
 interface _DeepRequiredArray<T> extends Array<DeepRequired<T>> {}
 type _DeepRequiredObject<T> = {
@@ -20,10 +20,10 @@ type _DeepRequiredObject<T> = {
 export type DeepPartial<T> = T extends Function
   ? T
   : T extends Array<infer U>
-  ? _DeepPartialArray<U>
-  : T extends object
-  ? _DeepPartialObject<T>
-  : T | undefined;
+    ? _DeepPartialArray<U>
+    : T extends object
+      ? _DeepPartialObject<T>
+      : T | undefined;
 
 interface _DeepPartialArray<T> extends Array<DeepPartial<T>> {}
 type _DeepPartialObject<T> = {
@@ -36,10 +36,10 @@ type _DeepPartialObject<T> = {
 export type NonNullableDeep<T> = T extends Function
   ? T
   : T extends Array<infer U>
-  ? _NonNullableArray<U>
-  : T extends object
-  ? _NonNullableObject<T>
-  : NonNullable<T>;
+    ? _NonNullableArray<U>
+    : T extends object
+      ? _NonNullableObject<T>
+      : NonNullable<T>;
 
 interface _NonNullableArray<T> extends Array<NonNullableDeep<T>> {}
 type _NonNullableObject<T> = {

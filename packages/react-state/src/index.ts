@@ -1,12 +1,14 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 
 /**
- * A drop-in replacement for useState that automatically prevents 
+ * A drop-in replacement for useState that automatically prevents
  * state updates if the component has been unmounted.
- * This is useful for avoiding memory leaks and React warnings 
+ * This is useful for avoiding memory leaks and React warnings
  * when dealing with asynchronous operations.
  */
-export function useSafeState<T>(initialState: T | (() => T)): [T, React.Dispatch<React.SetStateAction<T>>] {
+export function useSafeState<T>(
+  initialState: T | (() => T),
+): [T, React.Dispatch<React.SetStateAction<T>>] {
   const [state, setState] = useState<T>(initialState);
   const isMounted = useRef(true);
 

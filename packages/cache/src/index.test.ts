@@ -28,14 +28,14 @@ describe('@typepurify/cache', () => {
     const cachedFn = withCache(fn, { ttl: 1000 });
 
     await cachedFn(1); // Call 1
-    
+
     vi.advanceTimersByTime(500);
     await cachedFn(1); // Call 2 (cached)
     expect(fn).toHaveBeenCalledTimes(1);
 
     vi.advanceTimersByTime(600); // 1100ms total, expired
     await cachedFn(1); // Call 3 (not cached)
-    
+
     expect(fn).toHaveBeenCalledTimes(2);
   });
 
@@ -52,7 +52,7 @@ describe('@typepurify/cache', () => {
   it('should use a custom key generator', async () => {
     const fn = vi.fn().mockResolvedValue('success');
     const cachedFn = withCache(fn, {
-      keyGenerator: (obj: { id: number }) => String(obj.id)
+      keyGenerator: (obj: { id: number }) => String(obj.id),
     });
 
     await cachedFn({ id: 1, ignore: true });

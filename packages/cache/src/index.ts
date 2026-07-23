@@ -19,15 +19,13 @@ interface CacheEntry<T> {
  */
 export function withCache<T extends (...args: any[]) => Promise<any>>(
   fn: T,
-  options: CacheOptions = {}
+  options: CacheOptions = {},
 ): T {
   const ttl = options.ttl ?? 60000;
   const cache = new Map<string, CacheEntry<any>>();
 
   return (async (...args: any[]) => {
-    const key = options.keyGenerator
-      ? options.keyGenerator(...args)
-      : JSON.stringify(args);
+    const key = options.keyGenerator ? options.keyGenerator(...args) : JSON.stringify(args);
 
     const now = Date.now();
     const cached = cache.get(key);
@@ -40,7 +38,7 @@ export function withCache<T extends (...args: any[]) => Promise<any>>(
 
     cache.set(key, {
       value,
-      expiresAt: now + ttl
+      expiresAt: now + ttl,
     });
 
     return value;

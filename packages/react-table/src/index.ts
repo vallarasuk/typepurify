@@ -20,7 +20,7 @@ export function useTable<T>({ data, columns, initialPageSize = 10 }: UseTableOpt
 
   const handleSort = (key: keyof T) => {
     if (sortKey === key) {
-      setSortDirection(prev => prev === 'asc' ? 'desc' : 'asc');
+      setSortDirection((prev) => (prev === 'asc' ? 'desc' : 'asc'));
     } else {
       setSortKey(key);
       setSortDirection('asc');
@@ -28,13 +28,13 @@ export function useTable<T>({ data, columns, initialPageSize = 10 }: UseTableOpt
   };
 
   const processedData = useMemo(() => {
-    let result = [...data];
+    const result = [...data];
 
     if (sortKey) {
       result.sort((a, b) => {
         const aVal = a[sortKey];
         const bVal = b[sortKey];
-        
+
         if (aVal < bVal) return sortDirection === 'asc' ? -1 : 1;
         if (aVal > bVal) return sortDirection === 'asc' ? 1 : -1;
         return 0;

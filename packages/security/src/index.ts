@@ -36,10 +36,10 @@ export function stripHtml(str: string): string {
  */
 export function sanitizeUrl(url: string): string {
   if (typeof url !== 'string') return '#';
-  
+
   const trimmed = url.trim();
   const lower = trimmed.toLowerCase();
-  
+
   if (
     lower.startsWith('javascript:') ||
     lower.startsWith('vbscript:') ||
@@ -47,6 +47,6 @@ export function sanitizeUrl(url: string): string {
   ) {
     return '#';
   }
-  
+
   return trimmed;
 }
