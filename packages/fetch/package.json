@@ -2,6 +2,9 @@
   "name": "@typepurify/fetch",
   "version": "0.2.0",
   "description": "A lightweight wrapper around native fetch that automatically purifies API responses.",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
