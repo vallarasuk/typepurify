@@ -1,6 +1,6 @@
 {
   "name": "@typepurify/react-state",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Tiny alternatives for form, loading, and query state.",
   "publishConfig": {
     "access": "public"
