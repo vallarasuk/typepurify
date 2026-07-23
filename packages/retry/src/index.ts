@@ -45,4 +45,5 @@ export async function withRetry<T>(fn: () => Promise<T>, options: RetryOptions =
       await sleep(delay);
     }
   }
+  throw new Error('Unreachable');
 }
