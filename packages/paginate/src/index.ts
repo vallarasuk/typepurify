@@ -1,43 +1,114 @@
-export interface PaginateOptions<T, P> {
-  /** Function to fetch a single page of data */
-  fetchPage: (params: P) => Promise<T[]>;
-  /**
-   * Function to determine the parameters for the next page.
-   * Return null if there are no more pages.
-   */
-  getNextPageParams: (lastPage: T[], currentParams: P) => P | null;
-  /** The parameters to fetch the first page */
-  initialParams: P;
-  /** Maximum number of pages to fetch (default: Infinity) to prevent infinite loops */
-  maxPages?: number;
+/**
+ * Parses a base64 encoded cursor into its original string value.
+ * @param cursor The base64 encoded cursor
+ * @returns The decoded cursor string, or the original cursor if decoding fails or environment doesn't support it
+ */
+export function parseCursor(cursor: string): string {
+  try {
+    if (typeof atob === 'function') {
+      return atob(cursor);
+    }
+    if (typeof Buffer !== 'undefined') {
+      return Buffer.from(cursor, 'base64').toString('utf-8');
+    }
+  } catch {
+    // Ignore decoding errors and fallback to original
+  }
+  return cursor;
 }
 
 /**
- * Automatically fetches all pages of data from a paginated API.
- *
- * @param options Pagination configuration
- * @returns An array containing all items from all pages combined.
+ * Creates a base64 encoded cursor from a string value.
+ * @param value The value to encode
+ * @returns The base64 encoded cursor
  */
-export async function fetchAllPages<T, P>(options: PaginateOptions<T, P>): Promise<T[]> {
-  const allResults: T[] = [];
-  let currentParams: P | null = options.initialParams;
-  let pagesFetched = 0;
-  const maxPages = options.maxPages ?? Infinity;
-
-  while (currentParams !== null && pagesFetched < maxPages) {
-    const pageResults = await options.fetchPage(currentParams);
-
-    // Safety check: if no results are returned, assume pagination is finished
-    if (pageResults.length === 0) {
-      break;
+export function createCursor(value: string): string {
+  try {
+    if (typeof btoa === 'function') {
+      return btoa(value);
     }
+    if (typeof Buffer !== 'undefined') {
+      return Buffer.from(value, 'utf-8').toString('base64');
+    }
+  } catch {
+    // Fallback to original
+  }
+  return value;
+}
 
-    allResults.push(...pageResults);
-    pagesFetched++;
+/**
+ * Calculates the offset based on page number and limit.
+ * @param page The 1-indexed page number
+ * @param limit The number of items per page
+ * @returns The calculated offset (0-indexed)
+ */
+export function parseOffset(page: number, limit: number): number {
+  const p = Math.max(1, page);
+  const l = Math.max(1, limit);
+  return (p - 1) * l;
+}
 
-    // Calculate parameters for the next fetch
-    currentParams = options.getNextPageParams(pageResults, currentParams);
+export interface InfiniteScrollState {
+  page: number;
+  hasMore: boolean;
+  isLoading: boolean;
+  error: Error | null;
+}
+
+export class InfiniteScrollManager {
+  private state: InfiniteScrollState = {
+    page: 1,
+    hasMore: true,
+    isLoading: false,
+    error: null,
+  };
+
+  private listeners: Set<(state: InfiniteScrollState) => void> = new Set();
+
+  getState(): InfiniteScrollState {
+    return { ...this.state };
   }
 
-  return allResults;
+  subscribe(listener: (state: InfiniteScrollState) => void) {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
+  }
+
+  private notify() {
+    const s = this.getState();
+    this.listeners.forEach((l) => l(s));
+  }
+
+  startLoad() {
+    if (this.state.isLoading || !this.state.hasMore) return false;
+    this.state.isLoading = true;
+    this.state.error = null;
+    this.notify();
+    return true;
+  }
+
+  completeLoad(itemsCount: number, limit: number) {
+    this.state.isLoading = false;
+    this.state.hasMore = itemsCount >= limit && itemsCount > 0;
+    if (this.state.hasMore) {
+      this.state.page += 1;
+    }
+    this.notify();
+  }
+
+  failLoad(error: Error) {
+    this.state.isLoading = false;
+    this.state.error = error;
+    this.notify();
+  }
+
+  reset() {
+    this.state = {
+      page: 1,
+      hasMore: true,
+      isLoading: false,
+      error: null,
+    };
+    this.notify();
+  }
 }

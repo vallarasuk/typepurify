@@ -1,86 +1,90 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { createLogger, Logger } from './index';
+import { describe, it, expect, vi } from 'vitest';
+import { Logger, requestLogger, formatError } from './index';
 
 describe('@typepurify/logger', () => {
-  beforeEach(() => {
-    vi.spyOn(console, 'debug').mockImplementation(() => {});
-    vi.spyOn(console, 'info').mockImplementation(() => {});
-    vi.spyOn(console, 'warn').mockImplementation(() => {});
-    vi.spyOn(console, 'error').mockImplementation(() => {});
+  describe('Logger', () => {
+    it('should format logs in JSON', () => {
+      const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+      const logger = new Logger({ format: 'json', level: 'info' });
+
+      logger.info('Test Message', { userId: 1 });
+
+      expect(consoleSpy).toHaveBeenCalledTimes(1);
+      const output = JSON.parse(consoleSpy.mock.calls[0][0]);
+
+      expect(output.level).toBe('info');
+      expect(output.message).toBe('Test Message');
+      expect(output.userId).toBe(1);
+      expect(output.timestamp).toBeDefined();
+
+      consoleSpy.mockRestore();
+    });
+
+    it('should respect log levels', () => {
+      const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      const logger = new Logger({ level: 'warn' });
+
+      logger.info('Info message'); // Should not log
+      logger.warn('Warn message'); // Should log
+
+      expect(consoleWarnSpy).toHaveBeenCalledTimes(1);
+      expect(consoleWarnSpy.mock.calls[0][0]).toContain('Warn message');
+
+      consoleWarnSpy.mockRestore();
+    });
+
+    it('should format text with color', () => {
+      const consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+      const logger = new Logger({ format: 'text', colorize: true });
+
+      logger.info('Color message');
+
+      expect(consoleLogSpy).toHaveBeenCalledTimes(1);
+      expect(consoleLogSpy.mock.calls[0][0]).toContain('\x1b[32m'); // Green color code
+
+      consoleLogSpy.mockRestore();
+    });
   });
 
-  afterEach(() => {
-    vi.restoreAllMocks();
+  describe('requestLogger', () => {
+    it('should log request on finish', () => {
+      const logger = new Logger({ level: 'info' });
+      const infoSpy = vi.spyOn(logger, 'info').mockImplementation(() => {});
+
+      const middleware = requestLogger(logger);
+
+      let finishCallback: any;
+      const req = { method: 'GET', originalUrl: '/api/test' };
+      const res = {
+        statusCode: 200,
+        on: (event: string, cb: any) => {
+          if (event === 'finish') finishCallback = cb;
+        },
+      };
+      const next = vi.fn();
+
+      middleware(req, res, next);
+
+      expect(next).toHaveBeenCalled();
+      expect(infoSpy).not.toHaveBeenCalled(); // Not called until finish
+
+      finishCallback();
+
+      expect(infoSpy).toHaveBeenCalledTimes(1);
+      expect(infoSpy.mock.calls[0][0]).toBe('GET /api/test');
+      expect(infoSpy.mock.calls[0][1].status).toBe(200);
+
+      infoSpy.mockRestore();
+    });
   });
 
-  it('should initialize successfully', () => {
-    const logger = createLogger();
-    expect(logger).toBeInstanceOf(Logger);
-  });
+  describe('formatError', () => {
+    it('should format stack trace beautifully', () => {
+      const err = new Error('Test Error');
+      const formatted = formatError(err);
 
-  it('should log info by default', () => {
-    const logger = createLogger();
-    logger.info('test info');
-    expect(console.info).toHaveBeenCalledWith('test info');
-    logger.debug('test debug');
-    expect(console.debug).not.toHaveBeenCalled();
-  });
-
-  it('should respect the log level', () => {
-    const logger = createLogger({ level: 'error' });
-    logger.info('test info');
-    logger.warn('test warn');
-    logger.error('test error');
-
-    expect(console.info).not.toHaveBeenCalled();
-    expect(console.warn).not.toHaveBeenCalled();
-    expect(console.error).toHaveBeenCalledWith('test error');
-  });
-
-  it('should prefix logs when configured', () => {
-    const logger = createLogger({ prefix: 'MyPrefix' });
-    logger.info('test info');
-    expect(console.info).toHaveBeenCalledWith('[MyPrefix]', 'test info');
-  });
-
-  it('should append timestamps when configured', () => {
-    const logger = createLogger({ timestamp: true });
-    vi.useFakeTimers();
-    vi.setSystemTime(new Date('2026-01-01T00:00:00.000Z'));
-
-    logger.info('test info');
-    expect(console.info).toHaveBeenCalledWith('[2026-01-01T00:00:00.000Z]', 'test info');
-
-    vi.useRealTimers();
-  });
-
-  it('should format message with multiple arguments', () => {
-    const logger = createLogger({ prefix: 'APP', timestamp: true });
-    vi.useFakeTimers();
-    vi.setSystemTime(new Date('2026-01-01T00:00:00.000Z'));
-
-    logger.warn('Warning user', { id: 1 }, 'retry 2');
-    expect(console.warn).toHaveBeenCalledWith(
-      '[2026-01-01T00:00:00.000Z]',
-      '[APP]',
-      'Warning user',
-      { id: 1 },
-      'retry 2',
-    );
-
-    vi.useRealTimers();
-  });
-
-  it('should be completely silent if level is silent', () => {
-    const logger = createLogger({ level: 'silent' });
-    logger.debug('test');
-    logger.info('test');
-    logger.warn('test');
-    logger.error('test');
-
-    expect(console.debug).not.toHaveBeenCalled();
-    expect(console.info).not.toHaveBeenCalled();
-    expect(console.warn).not.toHaveBeenCalled();
-    expect(console.error).not.toHaveBeenCalled();
+      expect(formatted).toContain('💥 Error: Test Error');
+      expect(formatted).toContain('↳');
+    });
   });
 });

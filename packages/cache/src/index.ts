@@ -1,46 +1,90 @@
 export interface CacheOptions {
   /** Time to live in milliseconds. Default: 60000 (1 minute) */
   ttl?: number;
-  /** Custom function to generate a cache key from the arguments. */
-  keyGenerator?: (...args: any[]) => string;
+  /** Maximum number of items the cache can hold. Default: 1000 */
+  maxSize?: number;
 }
 
-interface CacheEntry<T> {
+interface CacheItem<T> {
   value: T;
   expiresAt: number;
 }
 
 /**
- * Wraps an asynchronous function with an in-memory TTL cache.
- *
- * @param fn The async function to cache
- * @param options Cache options like TTL and key generator
- * @returns The wrapped cached async function
+ * A simple in-memory REST API cache with TTL and LRU eviction.
  */
-export function withCache<T extends (...args: any[]) => Promise<any>>(
-  fn: T,
-  options: CacheOptions = {},
-): T {
-  const ttl = options.ttl ?? 60000;
-  const cache = new Map<string, CacheEntry<any>>();
+export class Cache<T = any> {
+  private store: Map<string, CacheItem<T>> = new Map();
+  private ttl: number;
+  private maxSize: number;
 
-  return (async (...args: any[]) => {
-    const key = options.keyGenerator ? options.keyGenerator(...args) : JSON.stringify(args);
+  constructor(options: CacheOptions = {}) {
+    this.ttl = options.ttl ?? 60000;
+    this.maxSize = options.maxSize ?? 1000;
+  }
 
-    const now = Date.now();
-    const cached = cache.get(key);
+  /**
+   * Retrieves a value from the cache.
+   * If the item is expired, it is removed and undefined is returned.
+   * If the item is valid, it is refreshed as the most recently used (LRU bump).
+   */
+  get(key: string): T | undefined {
+    const item = this.store.get(key);
+    if (!item) return undefined;
 
-    if (cached && cached.expiresAt > now) {
-      return cached.value;
+    if (Date.now() > item.expiresAt) {
+      this.store.delete(key);
+      return undefined;
     }
 
-    const value = await fn(...args);
+    // LRU bump: delete and re-insert to move to the end of the Map (most recently used)
+    this.store.delete(key);
+    this.store.set(key, item);
 
-    cache.set(key, {
-      value,
-      expiresAt: now + ttl,
-    });
+    return item.value;
+  }
 
-    return value;
-  }) as unknown as T;
+  /**
+   * Sets a value in the cache.
+   * If the cache exceeds maxSize, the least recently used item is evicted.
+   */
+  set(key: string, value: T, customTtl?: number): void {
+    if (this.store.size >= this.maxSize && !this.store.has(key)) {
+      // Evict least recently used (the first item in the Map)
+      const firstKey = this.store.keys().next().value;
+      if (firstKey !== undefined) {
+        this.store.delete(firstKey);
+      }
+    }
+
+    // If it already exists, setting it will update it but might not move it to the end in all engines.
+    // To be safe for LRU, delete it first.
+    if (this.store.has(key)) {
+      this.store.delete(key);
+    }
+
+    const expiresAt = Date.now() + (customTtl ?? this.ttl);
+    this.store.set(key, { value, expiresAt });
+  }
+
+  /**
+   * Deletes a specific key from the cache.
+   */
+  delete(key: string): void {
+    this.store.delete(key);
+  }
+
+  /**
+   * Clears the entire cache.
+   */
+  clear(): void {
+    this.store.clear();
+  }
+
+  /**
+   * Returns the current number of items in the cache.
+   */
+  get size(): number {
+    return this.store.size;
+  }
 }

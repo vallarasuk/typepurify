@@ -1,6 +1,6 @@
 {
   "name": "@typepurify/cache",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Simple in-memory REST API cache.",
   "publishConfig": {
     "access": "public"

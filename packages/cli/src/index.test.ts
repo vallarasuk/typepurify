@@ -1,45 +1,50 @@
-import { describe, it, expect } from 'vitest';
-import { parseArgs } from './index';
+import { describe, it, expect, vi } from 'vitest';
+import * as fs from 'fs';
+import { EnvValidator, findDuplicateDependencies, bootstrapProject } from './index';
+
+vi.mock('fs');
 
 describe('@typepurify/cli', () => {
-  it('should parse boolean flags', () => {
-    const args = ['--verbose', '--force'];
-    const result = parseArgs(args);
+  describe('EnvValidator', () => {
+    it('should parse env file correctly', () => {
+      const content = 'DB_HOST=localhost\nDB_USER=root\n# comment\nDB_PASS=';
+      const validator = new EnvValidator(content);
 
-    expect(result).toEqual({
-      verbose: true,
-      force: true,
+      const missing = validator.validate(['DB_HOST', 'DB_USER', 'DB_PASS', 'PORT']);
+      expect(missing).toEqual(['DB_PASS', 'PORT']);
+    });
+
+    it('should generate env.example', () => {
+      const content = 'DB_HOST=localhost\nDB_USER=root';
+      const validator = new EnvValidator(content);
+
+      const example = validator.generateExample();
+      expect(example).toContain('DB_HOST=\nDB_USER=');
     });
   });
 
-  it('should parse key-value pairs with equals sign', () => {
-    const args = ['--name=alice', '--age=30'];
-    const result = parseArgs(args);
+  describe('findDuplicateDependencies', () => {
+    it('should find duplicates', () => {
+      const pkgs: any[] = [
+        { dependencies: { react: '18.0.0', lodash: '4.0.0' } },
+        { devDependencies: { typescript: '5.0.0', react: '18.0.0' } },
+      ];
 
-    expect(result).toEqual({
-      name: 'alice',
-      age: '30',
+      const duplicates = findDuplicateDependencies(pkgs);
+      expect(duplicates).toEqual({ react: 2 });
     });
   });
 
-  it('should parse key-value pairs separated by space', () => {
-    const args = ['--name', 'bob', '--age', '25'];
-    const result = parseArgs(args);
+  describe('bootstrapProject', () => {
+    it('should create node template', () => {
+      (fs.existsSync as any).mockReturnValue(false);
+      (fs.mkdirSync as any).mockImplementation(() => {});
+      (fs.writeFileSync as any).mockImplementation(() => {});
 
-    expect(result).toEqual({
-      name: 'bob',
-      age: '25',
-    });
-  });
+      bootstrapProject('/tmp/test-proj', 'node');
 
-  it('should parse mixed arguments', () => {
-    const args = ['--verbose', '--name=charlie', '--city', 'new york'];
-    const result = parseArgs(args);
-
-    expect(result).toEqual({
-      verbose: true,
-      name: 'charlie',
-      city: 'new york',
+      expect(fs.mkdirSync).toHaveBeenCalledWith('/tmp/test-proj', { recursive: true });
+      expect(fs.writeFileSync).toHaveBeenCalledTimes(2); // package.json and index.js
     });
   });
 });

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.5.0
+
+### Minor Changes
+
+- Update ecosystem features and resolve type errors.
+
 ## 1.4.4
 
 ### Patch Changes

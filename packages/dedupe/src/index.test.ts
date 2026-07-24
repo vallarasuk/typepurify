@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import { dedupe } from './index';
 
 describe('@typepurify/dedupe', () => {
@@ -12,11 +12,10 @@ describe('@typepurify/dedupe', () => {
 
     const dedupedFn = dedupe(asyncFn);
 
-    // Call simultaneously
     const results = await Promise.all([dedupedFn(1), dedupedFn(1), dedupedFn(1)]);
 
     expect(results).toEqual(['result-1', 'result-1', 'result-1']);
-    expect(callCount).toBe(1); // Should only be executed once
+    expect(callCount).toBe(1);
   });
 
   it('should call the function again after the previous promise has resolved', async () => {
@@ -29,7 +28,7 @@ describe('@typepurify/dedupe', () => {
     const dedupedFn = dedupe(asyncFn);
 
     await dedupedFn(1);
-    await dedupedFn(1); // Called after the first one finishes
+    await dedupedFn(1);
 
     expect(callCount).toBe(2);
   });
@@ -44,7 +43,6 @@ describe('@typepurify/dedupe', () => {
 
     const dedupedFn = dedupe(asyncFn);
 
-    // Call with different arguments
     const results = await Promise.all([dedupedFn(1), dedupedFn(2)]);
 
     expect(results).toEqual(['result-1', 'result-2']);
@@ -59,7 +57,6 @@ describe('@typepurify/dedupe', () => {
       return obj.id;
     };
 
-    // Ignore `rand` in the key generator
     const dedupedFn = dedupe(asyncFn, {
       keyGenerator: (obj) => String(obj.id),
     });
@@ -70,5 +67,43 @@ describe('@typepurify/dedupe', () => {
     ]);
 
     expect(callCount).toBe(1);
+  });
+
+  it('should debounce identical calls within the window', async () => {
+    const fn = vi.fn().mockResolvedValue('ok');
+    const deduped = dedupe(fn, { debounce: 20 });
+
+    // Call 3 times quickly
+    const p1 = deduped(1);
+    const p2 = deduped(1);
+    const p3 = deduped(1);
+
+    // fn shouldn't be called yet
+    expect(fn).not.toHaveBeenCalled();
+
+    const results = await Promise.all([p1, p2, p3]);
+
+    expect(results).toEqual(['ok', 'ok', 'ok']);
+    expect(fn).toHaveBeenCalledTimes(1);
+  });
+
+  it('should reset the debounce timer if called before expiry', async () => {
+    const fn = vi.fn().mockResolvedValue('ok');
+    const deduped = dedupe(fn, { debounce: 30 });
+
+    const p1 = deduped(1);
+
+    await new Promise((r) => setTimeout(r, 20)); // wait 20ms
+    const p2 = deduped(1); // this resets the 30ms timer
+
+    // Total wait > 30ms, but fn shouldn't fire yet because p2 reset the timer
+    expect(fn).not.toHaveBeenCalled();
+
+    await new Promise((r) => setTimeout(r, 40));
+
+    expect(fn).toHaveBeenCalledTimes(1);
+
+    const results = await Promise.all([p1, p2]);
+    expect(results).toEqual(['ok', 'ok']);
   });
 });

@@ -1,5 +1,16 @@
 # @typepurify/react-state
 
+## 0.4.0
+
+### Minor Changes
+
+- Update ecosystem features and resolve type errors.
+
+### Patch Changes
+
+- Updated dependencies
+  - typepurify@1.5.0
+
 ## 0.3.1
 
 ### Patch Changes

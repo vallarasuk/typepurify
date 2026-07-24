@@ -1,7 +1,11 @@
 import { describe, it, expect, vi } from 'vitest';
-import { withRetry } from './index';
+import { withRetry, retry, TimeoutError } from './index';
 
 describe('@typepurify/retry', () => {
+  it('should export retry as an alias to withRetry', () => {
+    expect(retry).toBe(withRetry);
+  });
+
   it('should resolve immediately if function succeeds', async () => {
     const fn = vi.fn().mockResolvedValue('success');
     const result = await withRetry(fn);
@@ -44,5 +48,45 @@ describe('@typepurify/retry', () => {
       'DoNotRetry',
     );
     expect(fn).toHaveBeenCalledTimes(1); // Fails immediately, no retries
+  });
+
+  it('should backoff exponentially', async () => {
+    const fn = vi.fn().mockRejectedValue(new Error('fail'));
+
+    const startTime = Date.now();
+    await expect(withRetry(fn, { retries: 2, delay: 100, backoff: 'exponential' })).rejects.toThrow(
+      'fail',
+    );
+    const endTime = Date.now();
+
+    // Delays should be 100ms, 200ms -> total ~300ms
+    const duration = endTime - startTime;
+    expect(duration).toBeGreaterThanOrEqual(250);
+    expect(duration).toBeLessThan(500);
+  });
+
+  it('should support jitter', async () => {
+    const fn = vi.fn().mockRejectedValue(new Error('fail'));
+
+    const startTime = Date.now();
+    await expect(withRetry(fn, { retries: 2, delay: 100, jitter: true })).rejects.toThrow('fail');
+    const endTime = Date.now();
+
+    const duration = endTime - startTime;
+    expect(duration).toBeGreaterThanOrEqual(0);
+  });
+
+  it('should throw TimeoutError if execution exceeds timeout', async () => {
+    const fn = vi.fn().mockImplementation(() => new Promise((resolve) => setTimeout(resolve, 200)));
+
+    await expect(withRetry(fn, { timeout: 100 })).rejects.toThrow(TimeoutError);
+    expect(fn).toHaveBeenCalledTimes(1);
+  });
+
+  it('should throw TimeoutError during retry delay', async () => {
+    const fn = vi.fn().mockRejectedValue(new Error('fail'));
+    await expect(withRetry(fn, { retries: 2, delay: 1000, timeout: 500 })).rejects.toThrow(
+      TimeoutError,
+    );
   });
 });

@@ -1,67 +1,111 @@
-export type LogLevel = 'debug' | 'info' | 'warn' | 'error' | 'silent';
+export type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 
 export interface LoggerOptions {
   level?: LogLevel;
-  prefix?: string;
-  timestamp?: boolean;
+  format?: 'json' | 'text';
+  colorize?: boolean;
 }
 
-const LOG_LEVELS: Record<LogLevel, number> = {
-  debug: 0,
-  info: 1,
-  warn: 2,
-  error: 3,
-  silent: 4,
+const LEVEL_COLORS: Record<LogLevel, string> = {
+  debug: '\x1b[34m', // Blue
+  info: '\x1b[32m', // Green
+  warn: '\x1b[33m', // Yellow
+  error: '\x1b[31m', // Red
 };
+const RESET_COLOR = '\x1b[0m';
 
+/**
+ * Enterprise Logger supporting JSON and colorized text output.
+ */
 export class Logger {
-  private level: number;
-  private prefix: string;
-  private timestamp: boolean;
+  private levelValue: Record<LogLevel, number> = {
+    debug: 10,
+    info: 20,
+    warn: 30,
+    error: 40,
+  };
 
-  constructor(options: LoggerOptions = {}) {
-    this.level = LOG_LEVELS[options.level || 'info'];
-    this.prefix = options.prefix || '';
-    this.timestamp = options.timestamp ?? false;
+  private currentLevel: number;
+
+  constructor(private options: LoggerOptions = {}) {
+    this.currentLevel = this.levelValue[options.level || 'info'];
   }
 
-  private formatMessage(message: any, args: any[]): any[] {
-    const parts = [];
-    if (this.timestamp) {
-      parts.push(`[${new Date().toISOString()}]`);
+  private formatMessage(level: LogLevel, message: string, meta?: any): string {
+    const timestamp = new Date().toISOString();
+
+    if (this.options.format === 'json') {
+      return JSON.stringify({ timestamp, level, message, ...meta });
     }
-    if (this.prefix) {
-      parts.push(`[${this.prefix}]`);
+
+    const metaStr = meta ? ` ${JSON.stringify(meta)}` : '';
+    let levelStr = `[${level.toUpperCase()}]`;
+
+    if (this.options.colorize) {
+      levelStr = `${LEVEL_COLORS[level]}${levelStr}${RESET_COLOR}`;
     }
-    parts.push(message);
-    return [...parts, ...args];
+
+    return `${timestamp} ${levelStr} ${message}${metaStr}`;
   }
 
-  debug(message: any, ...args: any[]) {
-    if (this.level <= LOG_LEVELS.debug) {
-      console.debug(...this.formatMessage(message, args));
+  private log(level: LogLevel, message: string, meta?: any) {
+    if (this.levelValue[level] >= this.currentLevel) {
+      const output = this.formatMessage(level, message, meta);
+      if (level === 'error') {
+        console.error(output);
+      } else if (level === 'warn') {
+        console.warn(output);
+      } else {
+        console.log(output);
+      }
     }
   }
 
-  info(message: any, ...args: any[]) {
-    if (this.level <= LOG_LEVELS.info) {
-      console.info(...this.formatMessage(message, args));
-    }
+  debug(message: string, meta?: any) {
+    this.log('debug', message, meta);
   }
-
-  warn(message: any, ...args: any[]) {
-    if (this.level <= LOG_LEVELS.warn) {
-      console.warn(...this.formatMessage(message, args));
-    }
+  info(message: string, meta?: any) {
+    this.log('info', message, meta);
   }
-
-  error(message: any, ...args: any[]) {
-    if (this.level <= LOG_LEVELS.error) {
-      console.error(...this.formatMessage(message, args));
-    }
+  warn(message: string, meta?: any) {
+    this.log('warn', message, meta);
+  }
+  error(message: string, meta?: any) {
+    this.log('error', message, meta);
   }
 }
 
-export function createLogger(options?: LoggerOptions): Logger {
-  return new Logger(options);
+/**
+ * Express middleware for logging requests
+ */
+export function requestLogger(logger: Logger) {
+  return (req: any, res: any, next: any) => {
+    const start = Date.now();
+    res.on('finish', () => {
+      const duration = Date.now() - start;
+      logger.info(`${req.method} ${req.originalUrl || req.url}`, {
+        method: req.method,
+        url: req.originalUrl || req.url,
+        status: res.statusCode,
+        duration,
+      });
+    });
+    next();
+  };
+}
+
+/**
+ * Formats an error stack trace beautifully.
+ */
+export function formatError(err: Error): string {
+  if (!err.stack) return err.message;
+
+  const lines = err.stack.split('\n');
+  const header = `💥 ${lines[0]}`;
+  const stack = lines
+    .slice(1)
+    .map((line) => `  ↳ ${line.trim()}`)
+    .join('\n');
+
+  return `${header}\n${stack}`;
 }
