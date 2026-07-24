@@ -6,11 +6,13 @@ describe('@typepurify/react-state', () => {
   describe('useLoading', () => {
     it('should handle loading states', async () => {
       const { result } = renderHook(() => useLoading());
-      
+
       expect(result.current[0]).toBe(false);
 
       let resolvePromise: any;
-      const promise = new Promise((resolve) => { resolvePromise = resolve; });
+      const promise = new Promise((resolve) => {
+        resolvePromise = resolve;
+      });
 
       let wrapperPromise: any;
       act(() => {
@@ -45,7 +47,10 @@ describe('@typepurify/react-state', () => {
       const { result } = renderHook(() => useSmartForm({ name: 'Alice' }));
 
       let resolveSubmit: any;
-      const submitFn = () => new Promise(resolve => { resolveSubmit = resolve; });
+      const submitFn = () =>
+        new Promise<void>((resolve) => {
+          resolveSubmit = resolve;
+        });
 
       const onSubmit = result.current.handleSubmit(submitFn);
 
