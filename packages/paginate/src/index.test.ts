@@ -1,5 +1,11 @@
 import { describe, it, expect, vi } from 'vitest';
-import { parseCursor, createCursor, parseOffset, InfiniteScrollManager, extractCursor } from './index';
+import {
+  parseCursor,
+  createCursor,
+  parseOffset,
+  InfiniteScrollManager,
+  extractCursor,
+} from './index';
 
 describe('@typepurify/paginate', () => {
   describe('cursor parsing', () => {
@@ -97,23 +103,23 @@ describe('@typepurify/paginate', () => {
   describe('paginateAll', () => {
     it('should iterate through all pages', async () => {
       const { paginateAll } = await import('./index');
-      
+
       const pages = [
         { items: [1, 2], nextCursor: 'A' },
         { items: [3, 4], nextCursor: 'B' },
-        { items: [5], nextCursor: undefined }
+        { items: [5], nextCursor: undefined },
       ];
-      
+
       let callCount = 0;
-      const fetchPage = async (cursor?: string) => {
+      const fetchPage = async () => {
         return pages[callCount++];
       };
-      
+
       const results: number[] = [];
       for await (const items of paginateAll(fetchPage)) {
         results.push(...items);
       }
-      
+
       expect(results).toEqual([1, 2, 3, 4, 5]);
       expect(callCount).toBe(3);
     });
@@ -122,10 +128,13 @@ describe('@typepurify/paginate', () => {
   describe('buildConnection', () => {
     it('should build a Relay-compliant connection', async () => {
       const { buildConnection } = await import('./index');
-      const items = [{ id: '1', name: 'A' }, { id: '2', name: 'B' }];
-      
-      const connection = buildConnection(items, item => item.id, true, false, 100);
-      
+      const items = [
+        { id: '1', name: 'A' },
+        { id: '2', name: 'B' },
+      ];
+
+      const connection = buildConnection(items, (item) => item.id, true, false, 100);
+
       expect(connection.edges.length).toBe(2);
       expect(connection.edges[0].node.name).toBe('A');
       expect(connection.edges[0].cursor).toBe('1');
