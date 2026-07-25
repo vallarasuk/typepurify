@@ -96,15 +96,17 @@ export function generateEnvExample(files: string[]): string {
   const envVars = new Set<string>();
   const regex = /process\.env\.([A-Z0-9_]+)/g;
   for (const file of files) {
-    if (require('fs').existsSync(file)) {
-      const text = require('fs').readFileSync(file, 'utf8');
+    if (fs.existsSync(file)) {
+      const text = fs.readFileSync(file, 'utf8');
       let match;
       while ((match = regex.exec(text)) !== null) {
         envVars.add(match[1]);
       }
     }
   }
-  return Array.from(envVars).map(v => `${v}=`).join('\n');
+  return Array.from(envVars)
+    .map((v) => `${v}=`)
+    .join('\n');
 }
 
 export function findUnusedDependencies(
@@ -115,9 +117,8 @@ export function findUnusedDependencies(
   const usedDeps = new Set<string>();
 
   for (const file of sourceFiles) {
-    if (require('fs').existsSync(file)) {
-      // eslint-disable-next-line @typescript-eslint/no-require-imports
-      const text = require('fs').readFileSync(file, 'utf8');
+    if (fs.existsSync(file)) {
+      const text = fs.readFileSync(file, 'utf8');
       // Very basic regex for matching require/import statements
       const regex = /(?:require\(|from\s+)['"]([^'"]+)['"]/g;
       let match;
@@ -135,5 +136,5 @@ export function findUnusedDependencies(
     }
   }
 
-  return deps.filter(dep => !usedDeps.has(dep) && !dep.startsWith('@types/'));
+  return deps.filter((dep) => !usedDeps.has(dep) && !dep.startsWith('@types/'));
 }
