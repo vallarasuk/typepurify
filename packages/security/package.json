@@ -1,6 +1,6 @@
 {
   "name": "@typepurify/security",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Security inspection tools.",
   "publishConfig": {
     "access": "public"
@@ -41,7 +41,7 @@
   "author": "Vallarasu Kanthasamy",
   "license": "MIT",
   "dependencies": {
-    "typepurify": "*"
+    "typepurify": "^1.5.3"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.62.1",

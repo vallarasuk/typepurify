@@ -1,6 +1,6 @@
 {
   "name": "@typepurify/fetch",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "A lightweight wrapper around native fetch that automatically purifies API responses.",
   "publishConfig": {
     "access": "public"
@@ -48,7 +48,7 @@
   "author": "Vallarasu Kanthasamy",
   "license": "MIT",
   "dependencies": {
-    "typepurify": "*"
+    "typepurify": "^1.5.3"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^8.62.1",

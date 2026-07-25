@@ -302,7 +302,14 @@ describe('typepurify core engine', () => {
         map2: new Map([['a', null]]),
       };
 
-      expect(clean(payload, { stripEmptyArrays: true, stripEmptyObjects: true })).toBeUndefined();
+      expect(
+        clean(payload, {
+          stripEmptyArrays: true,
+          stripEmptyObjects: true,
+          stripEmptySets: true,
+          stripEmptyMaps: true,
+        }),
+      ).toBeUndefined();
     });
 
     it('should run stripWhen and trimStrings even if transform is applied', () => {

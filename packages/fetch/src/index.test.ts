@@ -105,6 +105,21 @@ describe('tFetch wrapper', () => {
         tFetch('https://api.example.com/data', undefined, { timeout: 50 }),
       ).rejects.toThrow('Timeout of 50ms exceeded');
     });
+
+    it('should clear the timeout if the request succeeds', async () => {
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        headers: new Headers({ 'content-type': 'application/json' }),
+        json: async () => ({ success: true }),
+      });
+
+      const clearTimeoutSpy = vi.spyOn(global, 'clearTimeout');
+
+      await tFetch('https://api.example.com/data', undefined, { timeout: 50 });
+
+      expect(clearTimeoutSpy).toHaveBeenCalled();
+      clearTimeoutSpy.mockRestore();
+    });
   });
 
   describe('Retries', () => {

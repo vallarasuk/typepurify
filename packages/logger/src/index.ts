@@ -1,4 +1,4 @@
-export type LogLevel = 'debug' | 'info' | 'warn' | 'error';
+export type LogLevel = 'debug' | 'info' | 'warn' | 'error' | 'fatal';
 
 export interface LoggerOptions {
   level?: LogLevel;
@@ -11,6 +11,7 @@ const LEVEL_COLORS: Record<LogLevel, string> = {
   info: '\x1b[32m', // Green
   warn: '\x1b[33m', // Yellow
   error: '\x1b[31m', // Red
+  fatal: '\x1b[41m\x1b[37m', // White on Red
 };
 const RESET_COLOR = '\x1b[0m';
 
@@ -23,6 +24,7 @@ export class Logger {
     info: 20,
     warn: 30,
     error: 40,
+    fatal: 50,
   };
 
   private currentLevel: number;
@@ -34,6 +36,13 @@ export class Logger {
   private safeStringify(obj: any): string {
     const cache = new Set();
     return JSON.stringify(obj, (key, value) => {
+      if (value instanceof Error) {
+        return {
+          name: value.name,
+          message: value.message,
+          stack: value.stack,
+        };
+      }
       if (typeof value === 'object' && value !== null) {
         if (cache.has(value)) return '[Circular]';
         cache.add(value);
@@ -62,7 +71,7 @@ export class Logger {
   private log(level: LogLevel, message: string, meta?: any) {
     if (this.levelValue[level] >= this.currentLevel) {
       const output = this.formatMessage(level, message, meta);
-      if (level === 'error') {
+      if (level === 'error' || level === 'fatal') {
         console.error(output);
       } else if (level === 'warn') {
         console.warn(output);
@@ -83,6 +92,9 @@ export class Logger {
   }
   error(message: string, meta?: any) {
     this.log('error', message, meta);
+  }
+  fatal(message: string, meta?: any) {
+    this.log('fatal', message, meta);
   }
 }
 

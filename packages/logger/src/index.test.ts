@@ -38,17 +38,40 @@ describe('@typepurify/logger', () => {
       consoleSpy.mockRestore();
     });
 
+    it('should correctly serialize Error objects in JSON format', () => {
+      const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      const logger = new Logger({ format: 'json', level: 'error' });
+
+      const err = new Error('Database connection failed');
+      logger.error('Error Log', err);
+
+      expect(consoleSpy).toHaveBeenCalledTimes(1);
+      const output = JSON.parse(consoleSpy.mock.calls[0][0]);
+
+      expect(output.name).toBe('Error');
+      expect(output.message).toBe('Database connection failed');
+      expect(output.stack).toBeDefined();
+
+      consoleSpy.mockRestore();
+    });
+
     it('should respect log levels', () => {
       const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
+      const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
       const logger = new Logger({ level: 'warn' });
 
       logger.info('Info message'); // Should not log
       logger.warn('Warn message'); // Should log
+      logger.fatal('Fatal message'); // Should log to error console
 
       expect(consoleWarnSpy).toHaveBeenCalledTimes(1);
       expect(consoleWarnSpy.mock.calls[0][0]).toContain('Warn message');
 
+      expect(consoleErrorSpy).toHaveBeenCalledTimes(1);
+      expect(consoleErrorSpy.mock.calls[0][0]).toContain('Fatal message');
+
       consoleWarnSpy.mockRestore();
+      consoleErrorSpy.mockRestore();
     });
 
     it('should format text with color', () => {

@@ -76,10 +76,13 @@ export async function tFetch<T = any>(
         }, purifyOptions.timeout);
       }
 
-      let response = await fetch(currentInput, currentInit);
-
-      if (timeoutId) {
-        clearTimeout(timeoutId);
+      let response;
+      try {
+        response = await fetch(currentInput, currentInit);
+      } finally {
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
       }
 
       if (purifyOptions?.interceptors?.onResponse) {
