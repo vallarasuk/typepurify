@@ -108,12 +108,12 @@ export function useTable<T>(options: UseTableOptions<T>) {
   const handleSort = (key: string, isMulti: boolean = false) => {
     if (isMulti) {
       setMultiSort((prev) => {
-        const existing = prev.find(s => s.key === key);
+        const existing = prev.find((s) => s.key === key);
         if (existing) {
           if (existing.direction === 'asc') {
-            return prev.map(s => s.key === key ? { ...s, direction: 'desc' as const } : s);
+            return prev.map((s) => (s.key === key ? { ...s, direction: 'desc' as const } : s));
           } else {
-            return prev.filter(s => s.key !== key);
+            return prev.filter((s) => s.key !== key);
           }
         } else {
           return [...prev, { key, direction: 'asc' as const }];
@@ -139,7 +139,7 @@ export function useTable<T>(options: UseTableOptions<T>) {
   };
 
   const handleColumnResize = (key: string, width: number) => {
-    setColumnWidths(prev => ({ ...prev, [key]: width }));
+    setColumnWidths((prev) => ({ ...prev, [key]: width }));
   };
 
   const exportToCsv = (filename: string = 'export.csv') => {
@@ -203,12 +203,15 @@ export function useRowSelection() {
   const toggleRowSelected = (id: string, value?: boolean) => {
     setSelectedRowIds((prev: Record<string, boolean>) => ({
       ...prev,
-      [id]: value !== undefined ? value : !prev[id]
+      [id]: value !== undefined ? value : !prev[id],
     }));
   };
   const toggleAllRowsSelected = (ids: string[], value: boolean) => {
     const next: Record<string, boolean> = {};
-    if (value) ids.forEach(id => { next[id] = true; });
+    if (value)
+      ids.forEach((id) => {
+        next[id] = true;
+      });
     setSelectedRowIds(next);
   };
   return { selectedRowIds, toggleRowSelected, toggleAllRowsSelected };

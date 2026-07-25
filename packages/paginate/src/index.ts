@@ -121,7 +121,7 @@ export class InfiniteScrollManager {
  */
 export function extractCursor(data: any): string | undefined {
   if (!data) return undefined;
-  
+
   if (Array.isArray(data)) {
     if (data.length === 0) return undefined;
     const lastItem = data[data.length - 1];
@@ -147,7 +147,7 @@ export function extractCursor(data: any): string | undefined {
  */
 export async function* paginateAll<T>(
   fetchPageFn: (cursor?: string) => Promise<{ items: T[]; nextCursor?: string }>,
-  initialCursor?: string
+  initialCursor?: string,
 ): AsyncGenerator<T[], void, unknown> {
   let currentCursor: string | undefined = initialCursor;
   let hasNext = true;
@@ -157,7 +157,7 @@ export async function* paginateAll<T>(
     if (page.items && page.items.length > 0) {
       yield page.items;
     }
-    
+
     currentCursor = page.nextCursor;
     hasNext = !!currentCursor;
   }
@@ -194,9 +194,9 @@ export function buildConnection<T>(
   cursorExtractor: (item: T) => string = (item) => extractCursor(item) ?? '',
   hasNextPage: boolean = false,
   hasPreviousPage: boolean = false,
-  totalCount?: number
+  totalCount?: number,
 ): RelayConnection<T> {
-  const edges = items.map(item => ({
+  const edges = items.map((item) => ({
     node: item,
     cursor: cursorExtractor(item),
   }));

@@ -1,5 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { detectSecrets, inspectJwt, isJwtExpired, sanitizeUrl, escapeHtml, maskIPAddress, maskEmail } from './index';
+import {
+  detectSecrets,
+  inspectJwt,
+  isJwtExpired,
+  sanitizeUrl,
+  escapeHtml,
+  maskIPAddress,
+  maskEmail,
+} from './index';
 
 describe('@typepurify/security', () => {
   describe('detectSecrets', () => {
@@ -82,7 +90,7 @@ describe('@typepurify/security', () => {
       expect(isEmail('test@.com')).toBe(false);
     });
   });
-  
+
   describe('detectSecrets extensions', () => {
     it('should detect AWS keys', () => {
       const secrets = detectSecrets('AKIAIOSFODNN7EXAMPLE');

@@ -70,9 +70,9 @@ describe('@typepurify/llm', () => {
       const { buildChatPrompt } = await import('./index');
       const messages: any = [
         { role: 'user', content: 'Hello' },
-        { role: 'assistant', content: 'Hi there' }
+        { role: 'assistant', content: 'Hi there' },
       ];
-      
+
       const prompt = buildChatPrompt(messages, 'You are a helpful assistant.');
       expect(prompt).toContain('System: You are a helpful assistant.');
       expect(prompt).toContain('User: Hello');
@@ -83,8 +83,9 @@ describe('@typepurify/llm', () => {
   describe('parseMarkdownBlocks', () => {
     it('should parse markdown blocks correctly', async () => {
       const { parseMarkdownBlocks } = await import('./index');
-      const text = 'Here is some code:\n```javascript\nconsole.log("hello");\n```\nAnd some json:\n```json\n{"a": 1}\n```';
-      
+      const text =
+        'Here is some code:\n```javascript\nconsole.log("hello");\n```\nAnd some json:\n```json\n{"a": 1}\n```';
+
       const blocks = parseMarkdownBlocks(text);
       expect(blocks['javascript']).toEqual(['console.log("hello");']);
       expect(blocks['json']).toEqual(['{"a": 1}']);

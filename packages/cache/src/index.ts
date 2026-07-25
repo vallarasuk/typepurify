@@ -137,7 +137,7 @@ export class Cache<T = any> {
 
 /**
  * Wraps an async function with an automatic caching layer.
- * 
+ *
  * @param fn The async function to wrap.
  * @param options Cache options (ttl, maxSize, etc).
  * @param keyBuilder Optional custom key generator based on arguments.
@@ -146,20 +146,20 @@ export class Cache<T = any> {
 export function withCache<T, Args extends any[]>(
   fn: (...args: Args) => Promise<T>,
   options: CacheOptions = {},
-  keyBuilder: (...args: Args) => string = (...args) => JSON.stringify(args)
+  keyBuilder: (...args: Args) => string = (...args) => JSON.stringify(args),
 ): (...args: Args) => Promise<T> {
   const cache = new Cache<T>(options);
-  
+
   const wrapped = async (...args: Args): Promise<T> => {
     const key = keyBuilder(...args);
     const cached = cache.get(key);
     if (cached !== undefined) return cached;
-    
+
     const result = await fn(...args);
     cache.set(key, result);
     return result;
   };
-  
+
   // Expose the cache instance for manual operations (e.g. invalidation)
   (wrapped as any).cache = cache;
   return wrapped;

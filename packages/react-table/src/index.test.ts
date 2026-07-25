@@ -122,19 +122,19 @@ describe('@typepurify/react-table', () => {
         { id: 2, name: 'Alice', age: 25 },
         { id: 3, name: 'Bob', age: 35 },
       ];
-      
+
       const { result } = renderHook(() => useTable({ data, columns }));
-      
+
       // Sort by name ASC
       act(() => {
         result.current.handleSort('name', true);
       });
-      
+
       // Then sort by age ASC
       act(() => {
         result.current.handleSort('age', true);
       });
-      
+
       expect(result.current.multiSort.length).toBe(2);
       expect(result.current.paginatedData[0].name).toBe('Alice');
       expect(result.current.paginatedData[0].age).toBe(25); // Alice 25 comes before Alice 30
@@ -144,11 +144,11 @@ describe('@typepurify/react-table', () => {
   describe('column resizing', () => {
     it('should update column widths', () => {
       const { result } = renderHook(() => useTable({ data: mockData, columns }));
-      
+
       act(() => {
         result.current.handleColumnResize('name', 200);
       });
-      
+
       expect(result.current.columnWidths['name']).toBe(200);
     });
   });

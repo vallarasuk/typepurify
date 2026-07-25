@@ -33,7 +33,7 @@ export class TimeoutError extends Error {
  */
 export async function withRetry<T>(
   fn: (signal?: AbortSignal) => Promise<T>,
-  options: RetryOptions = {}
+  options: RetryOptions = {},
 ): Promise<T> {
   const retries = options.retries ?? 3;
   const initialDelay = options.delay ?? 1000;
@@ -119,12 +119,12 @@ export const retry = withRetry;
 
 export interface CircuitBreakerOptions {
   failureThreshold?: number; // How many failures before tripping (default 5)
-  resetTimeout?: number;     // How long to wait in Open state before trying again (Half-Open) (ms) (default 10000)
+  resetTimeout?: number; // How long to wait in Open state before trying again (Half-Open) (ms) (default 10000)
 }
 
 /**
  * A basic Circuit Breaker implementation.
- * States: 
+ * States:
  * CLOSED: Normal operation, passing calls through.
  * OPEN: Failing operation, immediately rejecting calls.
  * HALF_OPEN: Testing if operation has recovered.
@@ -132,7 +132,7 @@ export interface CircuitBreakerOptions {
 export class CircuitBreaker {
   private failureThreshold: number;
   private resetTimeout: number;
-  
+
   private state: 'CLOSED' | 'OPEN' | 'HALF_OPEN' = 'CLOSED';
   private failures = 0;
   private nextAttempt = 0;

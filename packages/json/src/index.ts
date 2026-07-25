@@ -150,7 +150,11 @@ export function deepMerge<T extends object = any>(target: T, ...sources: Partial
   if (typeof target === 'object' && typeof source === 'object' && source !== null) {
     for (const key in source) {
       if (Object.prototype.hasOwnProperty.call(source, key)) {
-        if (typeof source[key] === 'object' && source[key] !== null && !Array.isArray(source[key])) {
+        if (
+          typeof source[key] === 'object' &&
+          source[key] !== null &&
+          !Array.isArray(source[key])
+        ) {
           if (!target[key]) Object.assign(target, { [key]: {} });
           deepMerge(target[key] as any, source[key] as any);
         } else {
@@ -168,12 +172,12 @@ export function deepMerge<T extends object = any>(target: T, ...sources: Partial
  */
 export function jsonSize(obj: any): number {
   if (obj === undefined) return 0;
-  
+
   // Fast path for simple primitives
   if (typeof obj === 'string') return obj.length + 2; // includes quotes
   if (typeof obj === 'number' || typeof obj === 'boolean') return String(obj).length;
   if (obj === null) return 4;
-  
+
   // Slower accurate path for objects/arrays
   return Buffer.byteLength(JSON.stringify(obj) || '', 'utf8');
 }

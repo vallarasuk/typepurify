@@ -89,7 +89,7 @@ describe('@typepurify/cache', () => {
       const cache = new Cache({ ttl: 10 });
       cache.set('a', 1);
       cache.set('b', 2, 1000);
-      await new Promise(r => setTimeout(r, 20));
+      await new Promise((r) => setTimeout(r, 20));
       cache.clearExpired();
       expect(cache.size).toBe(1);
       expect(cache.get('b')).toBe(2);
@@ -101,8 +101,8 @@ describe('@typepurify/cache', () => {
       let hit = '';
       let miss = '';
       const cache = new Cache({
-        onCacheHit: (k) => hit = k,
-        onCacheMiss: (k) => miss = k,
+        onCacheHit: (k) => (hit = k),
+        onCacheMiss: (k) => (miss = k),
       });
       cache.set('x', 100);
       cache.get('y');
@@ -117,9 +117,9 @@ describe('@typepurify/cache', () => {
       const cache = new Cache({ ttl: 10 });
       cache.set('a', 1);
       cache.startCleanupInterval(15);
-      
-      await new Promise(r => setTimeout(r, 20));
-      
+
+      await new Promise((r) => setTimeout(r, 20));
+
       expect(cache.size).toBe(0);
       cache.stopCleanupInterval();
     });
@@ -132,19 +132,19 @@ describe('@typepurify/cache', () => {
         calls++;
         return a * 2;
       };
-      
+
       const { withCache } = await import('./index');
       const cachedFn = withCache(fn, { ttl: 50 });
-      
+
       const r1 = await cachedFn(5);
       const r2 = await cachedFn(5);
-      
+
       expect(r1).toBe(10);
       expect(r2).toBe(10);
       expect(calls).toBe(1); // Second call used cache
-      
-      await new Promise(r => setTimeout(r, 60)); // Wait for expiration
-      
+
+      await new Promise((r) => setTimeout(r, 60)); // Wait for expiration
+
       const r3 = await cachedFn(5);
       expect(r3).toBe(10);
       expect(calls).toBe(2); // Cache expired, called again

@@ -41,7 +41,7 @@ export function dedupe<T extends (...args: any[]) => Promise<any>>(
   options: DedupeOptions = {},
 ): DeduplicatedFunction<T> {
   const ongoingPromises = new Map<string, Promise<any>>();
-  const cachedResults = new Map<string, { value: any, expiresAt: number }>();
+  const cachedResults = new Map<string, { value: any; expiresAt: number }>();
   const debounceTimers = new Map<string, any>();
   const pendingResolvers = new Map<
     string,
@@ -52,7 +52,10 @@ export function dedupe<T extends (...args: any[]) => Promise<any>>(
   const executionQueue: Array<() => void> = [];
 
   const dequeue = () => {
-    if (executionQueue.length > 0 && (!options.maxConcurrent || activeCount < options.maxConcurrent)) {
+    if (
+      executionQueue.length > 0 &&
+      (!options.maxConcurrent || activeCount < options.maxConcurrent)
+    ) {
       const next = executionQueue.shift();
       next?.();
     }

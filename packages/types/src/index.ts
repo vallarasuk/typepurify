@@ -74,10 +74,18 @@ export function get<T = any>(obj: any, path: string | string[], defaultValue?: T
   return result !== undefined ? result : (defaultValue as T);
 }
 
-export type DeepPartial<T> = T extends Function ? T : T extends Array<infer U> ? _DeepPartialArray<U> : T extends object ? _DeepPartialObject<T> : T | undefined;
+export type DeepPartial<T> = T extends Function
+  ? T
+  : T extends Array<infer U>
+    ? _DeepPartialArray<U>
+    : T extends object
+      ? _DeepPartialObject<T>
+      : T | undefined;
 interface _DeepPartialArray<T> extends Array<DeepPartial<T>> {}
 type _DeepPartialObject<T> = { [P in keyof T]?: DeepPartial<T[P]> };
-export type DeepOmit<T, K> = T extends object ? { [P in keyof T as Exclude<P, K>]: DeepOmit<T[P], K> } : T;
+export type DeepOmit<T, K> = T extends object
+  ? { [P in keyof T as Exclude<P, K>]: DeepOmit<T[P], K> }
+  : T;
 
 // New Types
 export type Merge<T, U> = Omit<T, keyof U> & U;
