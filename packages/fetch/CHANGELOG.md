@@ -1,3 +1,9 @@
+## 0.4.3
+
+### Minor Changes
+
+- Enhanced fetch package with advanced utilities and additional test cases
+
 # @typepurify/fetch
 
 ## 0.4.2

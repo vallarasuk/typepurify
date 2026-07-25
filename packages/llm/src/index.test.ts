@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { cleanLlmJson, PromptTemplate, countTokens, parseAiStream } from './index';
+import { cleanLlmJson, PromptTemplate, countTokens, parseAiStream, estimateCost } from './index';
 
 describe('@typepurify/llm', () => {
   describe('cleanLlmJson', () => {
@@ -49,6 +49,45 @@ describe('@typepurify/llm', () => {
       }
 
       expect(results).toEqual(['{"id": 1}', '{"id": 2}']);
+    });
+  });
+
+  describe('estimateCost', () => {
+    it('should return cost', () => {
+      expect(estimateCost(1000, 'gpt-4o')).toBe(0.005);
+      expect(estimateCost(1000, 'gemini-1.5-pro')).toBe(0.0035);
+      expect(estimateCost(1000, 'unknown')).toBe(0);
+    });
+  });
+  describe('countTokens', () => {
+    it('should count correctly for new models', () => {
+      expect(countTokens('hello world', 'gpt-4o')).toBe(3);
+    });
+  });
+
+  describe('buildChatPrompt', () => {
+    it('should build prompt correctly', async () => {
+      const { buildChatPrompt } = await import('./index');
+      const messages: any = [
+        { role: 'user', content: 'Hello' },
+        { role: 'assistant', content: 'Hi there' }
+      ];
+      
+      const prompt = buildChatPrompt(messages, 'You are a helpful assistant.');
+      expect(prompt).toContain('System: You are a helpful assistant.');
+      expect(prompt).toContain('User: Hello');
+      expect(prompt).toContain('Assistant: Hi there');
+    });
+  });
+
+  describe('parseMarkdownBlocks', () => {
+    it('should parse markdown blocks correctly', async () => {
+      const { parseMarkdownBlocks } = await import('./index');
+      const text = 'Here is some code:\n```javascript\nconsole.log("hello");\n```\nAnd some json:\n```json\n{"a": 1}\n```';
+      
+      const blocks = parseMarkdownBlocks(text);
+      expect(blocks['javascript']).toEqual(['console.log("hello");']);
+      expect(blocks['json']).toEqual(['{"a": 1}']);
     });
   });
 });

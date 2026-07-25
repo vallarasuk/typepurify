@@ -1,3 +1,9 @@
+## 0.4.3
+
+### Minor Changes
+
+- Enhanced paginate package with advanced utilities and additional test cases
+
 # @typepurify/paginate
 
 ## 0.4.2

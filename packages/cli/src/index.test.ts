@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import * as fs from 'fs';
-import { EnvValidator, findDuplicateDependencies, bootstrapProject } from './index';
+import { EnvValidator, findDuplicateDependencies, bootstrapProject, generateEnvExample } from './index';
 
 vi.mock('fs');
 
@@ -45,6 +45,40 @@ describe('@typepurify/cli', () => {
 
       expect(fs.mkdirSync).toHaveBeenCalledWith('/tmp/test-proj', { recursive: true });
       expect(fs.writeFileSync).toHaveBeenCalledTimes(2); // package.json and index.js
+    });
+  });
+
+  describe('generateEnvExample', () => {
+    it('should extract process.env variables from files', () => {
+      const fs = require('fs');
+      fs.writeFileSync('temp.js', 'const x = process.env.API_KEY; const y = process.env.DB_PASS;');
+      const out = generateEnvExample(['temp.js']);
+      expect(out).toContain('API_KEY=');
+      expect(out).toContain('DB_PASS=');
+      fs.unlinkSync('temp.js');
+    });
+  });
+
+  describe('findUnusedDependencies', () => {
+    it('should identify unused dependencies', async () => {
+      const { findUnusedDependencies } = await import('./index');
+      const fs = require('fs');
+      fs.writeFileSync('temp_unused.js', "import { clone } from 'lodash';");
+      
+      const pkg = {
+        dependencies: {
+          'lodash': '1.0.0',
+          'moment': '2.0.0',
+          '@types/node': '1.0.0'
+        }
+      };
+      
+      const unused = findUnusedDependencies(pkg, ['temp_unused.js']);
+      expect(unused).toContain('moment');
+      expect(unused).not.toContain('lodash');
+      expect(unused).not.toContain('@types/node');
+      
+      fs.unlinkSync('temp_unused.js');
     });
   });
 });

@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { parseCursor, createCursor, parseOffset, InfiniteScrollManager } from './index';
+import { parseCursor, createCursor, parseOffset, InfiniteScrollManager, extractCursor } from './index';
 
 describe('@typepurify/paginate', () => {
   describe('cursor parsing', () => {
@@ -76,6 +76,64 @@ describe('@typepurify/paginate', () => {
       manager.reset();
       expect(manager.getState().page).toBe(1);
       expect(manager.getState().error).toBeNull();
+    });
+  });
+
+  describe('extractCursor', () => {
+    it('should extract cursor from object', () => {
+      expect(extractCursor({ next_cursor: 'abc' })).toBe('abc');
+      expect(extractCursor({ cursor: 'xyz' })).toBe('xyz');
+      expect(extractCursor({ id: 123 })).toBe('123');
+    });
+    it('should extract cursor from array of objects', () => {
+      expect(extractCursor([{ id: 1 }, { id: 2 }])).toBe('2');
+    });
+    it('should return undefined if not found', () => {
+      expect(extractCursor({ name: 'test' })).toBeUndefined();
+      expect(extractCursor(null)).toBeUndefined();
+    });
+  });
+
+  describe('paginateAll', () => {
+    it('should iterate through all pages', async () => {
+      const { paginateAll } = await import('./index');
+      
+      const pages = [
+        { items: [1, 2], nextCursor: 'A' },
+        { items: [3, 4], nextCursor: 'B' },
+        { items: [5], nextCursor: undefined }
+      ];
+      
+      let callCount = 0;
+      const fetchPage = async (cursor?: string) => {
+        return pages[callCount++];
+      };
+      
+      const results: number[] = [];
+      for await (const items of paginateAll(fetchPage)) {
+        results.push(...items);
+      }
+      
+      expect(results).toEqual([1, 2, 3, 4, 5]);
+      expect(callCount).toBe(3);
+    });
+  });
+
+  describe('buildConnection', () => {
+    it('should build a Relay-compliant connection', async () => {
+      const { buildConnection } = await import('./index');
+      const items = [{ id: '1', name: 'A' }, { id: '2', name: 'B' }];
+      
+      const connection = buildConnection(items, item => item.id, true, false, 100);
+      
+      expect(connection.edges.length).toBe(2);
+      expect(connection.edges[0].node.name).toBe('A');
+      expect(connection.edges[0].cursor).toBe('1');
+      expect(connection.pageInfo.hasNextPage).toBe(true);
+      expect(connection.pageInfo.hasPreviousPage).toBe(false);
+      expect(connection.pageInfo.startCursor).toBe('1');
+      expect(connection.pageInfo.endCursor).toBe('2');
+      expect(connection.totalCount).toBe(100);
     });
   });
 });

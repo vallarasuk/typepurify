@@ -91,3 +91,49 @@ export function bootstrapProject(targetDir: string, template: 'node' | 'react' =
     );
   }
 }
+
+export function generateEnvExample(files: string[]): string {
+  const envVars = new Set<string>();
+  const regex = /process\.env\.([A-Z0-9_]+)/g;
+  for (const file of files) {
+    if (require('fs').existsSync(file)) {
+      const text = require('fs').readFileSync(file, 'utf8');
+      let match;
+      while ((match = regex.exec(text)) !== null) {
+        envVars.add(match[1]);
+      }
+    }
+  }
+  return Array.from(envVars).map(v => `${v}=`).join('\n');
+}
+
+export function findUnusedDependencies(
+  packageJson: Record<string, any>,
+  sourceFiles: string[],
+): string[] {
+  const deps = Object.keys(packageJson.dependencies || {});
+  const usedDeps = new Set<string>();
+
+  for (const file of sourceFiles) {
+    if (require('fs').existsSync(file)) {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const text = require('fs').readFileSync(file, 'utf8');
+      // Very basic regex for matching require/import statements
+      const regex = /(?:require\(|from\s+)['"]([^'"]+)['"]/g;
+      let match;
+      while ((match = regex.exec(text)) !== null) {
+        let pkgName = match[1];
+        // Handle scoped packages and subpaths
+        if (pkgName.startsWith('@')) {
+          const parts = pkgName.split('/');
+          pkgName = parts[0] + '/' + (parts[1] || '');
+        } else {
+          pkgName = pkgName.split('/')[0];
+        }
+        usedDeps.add(pkgName);
+      }
+    }
+  }
+
+  return deps.filter(dep => !usedDeps.has(dep) && !dep.startsWith('@types/'));
+}

@@ -1,3 +1,9 @@
+## 0.4.3
+
+### Minor Changes
+
+- Enhanced cache package with advanced utilities and additional test cases
+
 # @typepurify/cache
 
 ## 0.4.2

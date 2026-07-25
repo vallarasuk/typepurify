@@ -6,6 +6,9 @@ const SECRET_PATTERNS = [
   /sk-(?:[a-zA-Z0-9]{48}|proj-[a-zA-Z0-9]+)/, // OpenAI API Key
   /xox[baprs]-[0-9]{12}-[0-9]{12}-[0-9a-zA-Z]{24}/, // Slack Token
   /gh[pousr]_[A-Za-z0-9_]{36}/, // GitHub Token
+  /(?:A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}/, // AWS Access Key
+  /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/, // Generic UUID/Token
+  /ya29\.[0-9A-Za-z_-]+/, // GCP OAuth Token
 ];
 
 /**
@@ -120,4 +123,18 @@ export function escapeHtml(input: string): string {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+}
+
+export function maskIPAddress(ip: string): string {
+  return ip.replace(/(\d+\.\d+\.\d+)\.\d+/, '$1.***');
+}
+export function maskEmail(email: string): string {
+  const [user, domain] = email.split('@');
+  if (!domain) return email;
+  return user.substring(0, 2) + '***@' + domain;
+}
+
+export function isEmail(email: string): boolean {
+  // Simple regex for format validation
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }

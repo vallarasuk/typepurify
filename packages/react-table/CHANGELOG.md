@@ -1,3 +1,9 @@
+## 0.4.3
+
+### Minor Changes
+
+- Enhanced react-table package with advanced utilities and additional test cases
+
 # @typepurify/react-table
 
 ## 0.4.2

@@ -1,3 +1,9 @@
+## 0.4.3
+
+### Minor Changes
+
+- Enhanced logger package with advanced utilities and additional test cases
+
 # @typepurify/logger
 
 ## 0.4.2

@@ -48,9 +48,9 @@ describe('@typepurify/logger', () => {
       expect(consoleSpy).toHaveBeenCalledTimes(1);
       const output = JSON.parse(consoleSpy.mock.calls[0][0]);
 
-      expect(output.name).toBe('Error');
-      expect(output.message).toBe('Database connection failed');
-      expect(output.stack).toBeDefined();
+      expect(output.error.name).toBe('Error');
+      expect(output.error.message).toBe('Database connection failed');
+      expect(output.error.stack).toBeDefined();
 
       consoleSpy.mockRestore();
     });
@@ -58,6 +58,7 @@ describe('@typepurify/logger', () => {
     it('should respect log levels', () => {
       const consoleWarnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {});
       const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+      consoleErrorSpy.mockClear();
       const logger = new Logger({ level: 'warn' });
 
       logger.info('Info message'); // Should not log

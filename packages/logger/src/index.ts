@@ -55,7 +55,8 @@ export class Logger {
     const timestamp = new Date().toISOString();
 
     if (this.options.format === 'json') {
-      return this.safeStringify({ timestamp, level, message, ...meta });
+      const metaObj = meta instanceof Error ? { error: meta } : meta;
+      return this.safeStringify({ timestamp, level, message, ...metaObj });
     }
 
     const metaStr = meta ? ` ${this.safeStringify(meta)}` : '';

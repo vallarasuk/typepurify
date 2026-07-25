@@ -1,3 +1,9 @@
+## 0.4.3
+
+### Minor Changes
+
+- Enhanced cli package with advanced utilities and additional test cases
+
 # @typepurify/cli
 
 ## 0.4.2

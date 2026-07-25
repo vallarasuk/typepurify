@@ -46,16 +46,19 @@ export class PromptTemplate {
  */
 export function countTokens(
   text: string,
-  model: 'openai' | 'claude' | 'gemini' = 'openai',
+  model: 'openai' | 'claude' | 'gemini' | 'gpt-4' | 'gpt-4o' | 'gemini-1.5-pro' = 'openai',
 ): number {
   const chars = text.length;
   // Very rough approximations for fallback without heavy tokenizers
   switch (model) {
     case 'gemini':
+    case 'gemini-1.5-pro':
       return Math.ceil(chars / 3.5);
     case 'claude':
       return Math.ceil(chars / 3.8);
     case 'openai':
+    case 'gpt-4':
+    case 'gpt-4o':
     default:
       return Math.ceil(chars / 4.0);
   }
@@ -76,4 +79,44 @@ export function* parseAiStream(chunk: string): Generator<string, void, unknown> 
       }
     }
   }
+}
+
+export function estimateCost(tokens: number, model: string): number {
+  if (model === 'gpt-4o') return (tokens / 1000) * 0.005;
+  if (model === 'gemini-1.5-pro') return (tokens / 1000) * 0.0035;
+  return 0;
+}
+
+export interface ChatMessage {
+  role: 'system' | 'user' | 'assistant';
+  content: string;
+}
+
+export function buildChatPrompt(messages: ChatMessage[], systemPrompt?: string): string {
+  let prompt = '';
+  if (systemPrompt) {
+    prompt += `System: ${systemPrompt}\n\n`;
+  }
+  for (const msg of messages) {
+    const role = msg.role.charAt(0).toUpperCase() + msg.role.slice(1);
+    prompt += `${role}: ${msg.content}\n\n`;
+  }
+  return prompt.trim();
+}
+
+export function parseMarkdownBlocks(text: string): Record<string, string[]> {
+  const blocks: Record<string, string[]> = {};
+  const regex = /```([a-z0-9]+)?\n([\s\S]*?)```/g;
+  let match;
+
+  while ((match = regex.exec(text)) !== null) {
+    const lang = match[1] || 'text';
+    const content = match[2].trim();
+    if (!blocks[lang]) {
+      blocks[lang] = [];
+    }
+    blocks[lang].push(content);
+  }
+
+  return blocks;
 }

@@ -1,3 +1,9 @@
+## 0.4.3
+
+### Minor Changes
+
+- Enhanced core package with advanced utilities and additional test cases
+
 # Changelog
 
 ## 1.5.2

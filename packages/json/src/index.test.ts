@@ -66,4 +66,46 @@ describe('@typepurify/json', () => {
       expect(compareIgnoreKeys(obj1, obj2, new Set(['user.meta.ts']))).toBe(true);
     });
   });
+
+  describe('removeCircular (sortKeys)', () => {
+    it('should sort keys if sortKeys is true', () => {
+      const obj = { b: 2, a: 1 };
+      const res = removeCircular(obj, { sortKeys: true });
+      expect(Object.keys(res)).toEqual(['a', 'b']);
+    });
+  });
+
+  describe('safeParse', () => {
+    it('should parse valid json', async () => {
+      const { safeParse } = await import('./index');
+      expect(safeParse('{"a":1}', {})).toEqual({ a: 1 });
+    });
+    
+    it('should return fallback on invalid json', async () => {
+      const { safeParse } = await import('./index');
+      expect(safeParse('invalid', { fallback: true })).toEqual({ fallback: true });
+    });
+  });
+
+  describe('deepMerge', () => {
+    it('should deeply merge objects', async () => {
+      const { deepMerge } = await import('./index');
+      const target = { a: 1, b: { c: 2 } };
+      const source = { b: { d: 3 }, e: 4 };
+      
+      const result = deepMerge(target, source);
+      expect(result).toEqual({ a: 1, b: { c: 2, d: 3 }, e: 4 });
+      // Mutates target
+      expect(target).toEqual({ a: 1, b: { c: 2, d: 3 }, e: 4 });
+    });
+  });
+
+  describe('jsonSize', () => {
+    it('should calculate approximate byte size', async () => {
+      const { jsonSize } = await import('./index');
+      expect(jsonSize("test")).toBe(6); // "test" is 6 chars including quotes
+      expect(jsonSize(123)).toBe(3);
+      expect(jsonSize({ a: 1 })).toBe(7); // {"a":1}
+    });
+  });
 });

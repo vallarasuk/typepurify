@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { clean, type DeepRequired, type CleanOptions } from 'typepurify';
 
 /**
@@ -110,4 +110,74 @@ export function useApiQuery<T>(queryFn: () => Promise<T>, deps: any[] = []) {
   }, deps);
 
   return { data, isLoading, error, refetch };
+}
+
+export function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+  useEffect(() => {
+    const handler = setTimeout(() => setDebouncedValue(value), delay);
+    return () => clearTimeout(handler);
+  }, [value, delay]);
+  return debouncedValue;
+}
+
+export function useLocalStorage<T>(key: string, initialValue: T | (() => T)): [T, (value: T | ((val: T) => T)) => void] {
+  const readValue = useCallback((): T => {
+    if (typeof window === 'undefined') {
+      return initialValue instanceof Function ? initialValue() : initialValue;
+    }
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? (JSON.parse(item) as T) : (initialValue instanceof Function ? initialValue() : initialValue);
+    } catch (error) {
+      console.warn(`Error reading localStorage key "${key}":`, error);
+      return initialValue instanceof Function ? initialValue() : initialValue;
+    }
+  }, [key, initialValue]);
+
+  const [storedValue, setStoredValue] = useState<T>(readValue);
+
+  const setValue = useCallback((value: T | ((val: T) => T)) => {
+    try {
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
+      setStoredValue(valueToStore);
+      if (typeof window !== 'undefined') {
+        window.localStorage.setItem(key, JSON.stringify(valueToStore));
+      }
+    } catch (error) {
+      console.warn(`Error setting localStorage key "${key}":`, error);
+    }
+  }, [key, storedValue]);
+
+  return [storedValue, setValue];
+}
+
+import { useRef } from 'react';
+
+export function useThrottledState<T>(initialState: T | (() => T), limitMs: number): [T, (newState: T | ((prevState: T) => T)) => void] {
+  const [state, setState] = useState<T>(initialState);
+  const lastRan = useRef<number>(Date.now());
+  const lastTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const setThrottledState = useCallback((newState: T | ((prevState: T) => T)) => {
+    const now = Date.now();
+    const isCallback = typeof newState === 'function';
+    
+    if (now - lastRan.current >= limitMs) {
+      setState(newState);
+      lastRan.current = now;
+    } else {
+      if (lastTimeout.current) {
+        clearTimeout(lastTimeout.current);
+      }
+      lastTimeout.current = setTimeout(() => {
+        if (now - lastRan.current >= limitMs) {
+          setState(newState);
+          lastRan.current = Date.now();
+        }
+      }, limitMs - (now - lastRan.current));
+    }
+  }, [limitMs]);
+
+  return [state, setThrottledState];
 }

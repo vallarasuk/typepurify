@@ -73,3 +73,23 @@ export function get<T = any>(obj: any, path: string | string[], defaultValue?: T
 
   return result !== undefined ? result : (defaultValue as T);
 }
+
+export type DeepPartial<T> = T extends Function ? T : T extends Array<infer U> ? _DeepPartialArray<U> : T extends object ? _DeepPartialObject<T> : T | undefined;
+interface _DeepPartialArray<T> extends Array<DeepPartial<T>> {}
+type _DeepPartialObject<T> = { [P in keyof T]?: DeepPartial<T[P]> };
+export type DeepOmit<T, K> = T extends object ? { [P in keyof T as Exclude<P, K>]: DeepOmit<T[P], K> } : T;
+
+// New Types
+export type Merge<T, U> = Omit<T, keyof U> & U;
+export type IsAny<T> = 0 extends 1 & T ? true : false;
+export type IsNever<T> = [T] extends [never] ? true : false;
+export type TupleToObject<T extends readonly any[]> = {
+  [K in T[number]]: K;
+};
+
+export type JsonPrimitive = string | number | boolean | null;
+export type JsonArray = JsonValue[];
+export interface JsonObject {
+  [key: string]: JsonValue;
+}
+export type JsonValue = JsonPrimitive | JsonObject | JsonArray;

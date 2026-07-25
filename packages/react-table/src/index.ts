@@ -14,6 +14,11 @@ export interface UseTableOptions<T> {
 
 export type SortDirection = 'asc' | 'desc' | null;
 
+export interface SortState {
+  key: string;
+  direction: 'asc' | 'desc';
+}
+
 export function useTable<T>(options: UseTableOptions<T>) {
   const [data, setData] = useState<T[]>(options.data);
   const [searchQuery, setSearchQuery] = useState('');
@@ -21,6 +26,10 @@ export function useTable<T>(options: UseTableOptions<T>) {
   // Sorting State
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortDirection, setSortDirection] = useState<SortDirection>(null);
+  const [multiSort, setMultiSort] = useState<SortState[]>([]);
+
+  // Column Resizing State
+  const [columnWidths, setColumnWidths] = useState<Record<string, number>>({});
 
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
@@ -42,10 +51,31 @@ export function useTable<T>(options: UseTableOptions<T>) {
     }
 
     // Sort (Optimized)
-    if (sortKey && sortDirection) {
+    if (multiSort.length > 0) {
+      // Pre-compute accessors
+      const mapped = result.map((item, index) => {
+        const values: Record<string, any> = {};
+        for (const sort of multiSort) {
+          const col = options.columns.find((c) => c.key === sort.key);
+          values[sort.key] = col?.accessor ? col.accessor(item) : (item as any)[sort.key];
+        }
+        return { index, values };
+      });
+
+      mapped.sort((a, b) => {
+        for (const sort of multiSort) {
+          const valA = a.values[sort.key];
+          const valB = b.values[sort.key];
+          if (valA < valB) return sort.direction === 'asc' ? -1 : 1;
+          if (valA > valB) return sort.direction === 'asc' ? 1 : -1;
+        }
+        return 0;
+      });
+
+      result = mapped.map((el) => result[el.index]);
+    } else if (sortKey && sortDirection) {
       const col = options.columns.find((c) => c.key === sortKey);
       if (col) {
-        // Pre-compute accessors to avoid O(N log N) accessor calls
         const mapped = result.map((item, index) => {
           return {
             index,
@@ -64,7 +94,7 @@ export function useTable<T>(options: UseTableOptions<T>) {
     }
 
     return result;
-  }, [data, searchQuery, sortKey, sortDirection, options.columns]);
+  }, [data, searchQuery, sortKey, sortDirection, multiSort, options.columns]);
 
   // Paginated Data
   const paginatedData = useMemo(() => {
@@ -75,17 +105,41 @@ export function useTable<T>(options: UseTableOptions<T>) {
   const totalPages = Math.ceil(processedData.length / pageSize);
 
   // Actions
-  const handleSort = (key: string) => {
-    if (sortKey === key) {
-      if (sortDirection === 'asc') setSortDirection('desc');
-      else if (sortDirection === 'desc') {
-        setSortDirection(null);
-        setSortKey(null);
-      }
+  const handleSort = (key: string, isMulti: boolean = false) => {
+    if (isMulti) {
+      setMultiSort((prev) => {
+        const existing = prev.find(s => s.key === key);
+        if (existing) {
+          if (existing.direction === 'asc') {
+            return prev.map(s => s.key === key ? { ...s, direction: 'desc' as const } : s);
+          } else {
+            return prev.filter(s => s.key !== key);
+          }
+        } else {
+          return [...prev, { key, direction: 'asc' as const }];
+        }
+      });
+      // Clear single sort state
+      setSortKey(null);
+      setSortDirection(null);
     } else {
-      setSortKey(key);
-      setSortDirection('asc');
+      // Clear multi sort state
+      setMultiSort([]);
+      if (sortKey === key) {
+        if (sortDirection === 'asc') setSortDirection('desc');
+        else if (sortDirection === 'desc') {
+          setSortDirection(null);
+          setSortKey(null);
+        }
+      } else {
+        setSortKey(key);
+        setSortDirection('asc');
+      }
     }
+  };
+
+  const handleColumnResize = (key: string, width: number) => {
+    setColumnWidths(prev => ({ ...prev, [key]: width }));
   };
 
   const exportToCsv = (filename: string = 'export.csv') => {
@@ -122,10 +176,12 @@ export function useTable<T>(options: UseTableOptions<T>) {
     searchQuery,
     sortKey,
     sortDirection,
+    multiSort,
     currentPage,
     pageSize,
     totalPages,
     totalItems: processedData.length,
+    columnWidths,
 
     // Data
     paginatedData,
@@ -136,7 +192,24 @@ export function useTable<T>(options: UseTableOptions<T>) {
     setCurrentPage,
     setPageSize,
     handleSort,
+    handleColumnResize,
     exportToCsv,
     setData,
   };
+}
+
+export function useRowSelection() {
+  const [selectedRowIds, setSelectedRowIds] = useState<Record<string, boolean>>({});
+  const toggleRowSelected = (id: string, value?: boolean) => {
+    setSelectedRowIds((prev: Record<string, boolean>) => ({
+      ...prev,
+      [id]: value !== undefined ? value : !prev[id]
+    }));
+  };
+  const toggleAllRowsSelected = (ids: string[], value: boolean) => {
+    const next: Record<string, boolean> = {};
+    if (value) ids.forEach(id => { next[id] = true; });
+    setSelectedRowIds(next);
+  };
+  return { selectedRowIds, toggleRowSelected, toggleAllRowsSelected };
 }

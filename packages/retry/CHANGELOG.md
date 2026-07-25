@@ -1,3 +1,9 @@
+## 0.4.3
+
+### Minor Changes
+
+- Enhanced retry package with advanced utilities and additional test cases
+
 # @typepurify/retry
 
 ## 0.4.2

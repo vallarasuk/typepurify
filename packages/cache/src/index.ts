@@ -3,6 +3,10 @@ export interface CacheOptions {
   ttl?: number;
   /** Maximum number of items the cache can hold. Default: 1000 */
   maxSize?: number;
+  /** Callback fired when a cache hit occurs */
+  onCacheHit?: (key: string) => void;
+  /** Callback fired when a cache miss occurs */
+  onCacheMiss?: (key: string) => void;
 }
 
 interface CacheItem<T> {
@@ -17,10 +21,15 @@ export class Cache<T = any> {
   private store: Map<string, CacheItem<T>> = new Map();
   private ttl: number;
   private maxSize: number;
+  private onCacheHit?: (key: string) => void;
+  private onCacheMiss?: (key: string) => void;
+  private cleanupInterval?: ReturnType<typeof setInterval>;
 
   constructor(options: CacheOptions = {}) {
     this.ttl = options.ttl ?? 60000;
     this.maxSize = options.maxSize ?? 1000;
+    this.onCacheHit = options.onCacheHit;
+    this.onCacheMiss = options.onCacheMiss;
   }
 
   /**
@@ -30,10 +39,14 @@ export class Cache<T = any> {
    */
   get(key: string): T | undefined {
     const item = this.store.get(key);
-    if (!item) return undefined;
+    if (!item) {
+      this.onCacheMiss?.(key);
+      return undefined;
+    }
 
     if (Date.now() > item.expiresAt) {
       this.store.delete(key);
+      this.onCacheMiss?.(key);
       return undefined;
     }
 
@@ -41,6 +54,7 @@ export class Cache<T = any> {
     this.store.delete(key);
     this.store.set(key, item);
 
+    this.onCacheHit?.(key);
     return item.value;
   }
 
@@ -82,9 +96,71 @@ export class Cache<T = any> {
   }
 
   /**
+   * Manually evicts all expired items from the cache.
+   */
+  clearExpired(): void {
+    const now = Date.now();
+    for (const [key, item] of this.store.entries()) {
+      if (now > item.expiresAt) {
+        this.store.delete(key);
+      }
+    }
+  }
+
+  /**
    * Returns the current number of items in the cache.
    */
   get size(): number {
     return this.store.size;
   }
+
+  /**
+   * Starts a background interval to sweep expired items periodically.
+   */
+  startCleanupInterval(ms: number = 60000): void {
+    this.stopCleanupInterval();
+    this.cleanupInterval = setInterval(() => {
+      this.clearExpired();
+    }, ms);
+  }
+
+  /**
+   * Stops the background cleanup interval.
+   */
+  stopCleanupInterval(): void {
+    if (this.cleanupInterval) {
+      clearInterval(this.cleanupInterval);
+      this.cleanupInterval = undefined;
+    }
+  }
+}
+
+/**
+ * Wraps an async function with an automatic caching layer.
+ * 
+ * @param fn The async function to wrap.
+ * @param options Cache options (ttl, maxSize, etc).
+ * @param keyBuilder Optional custom key generator based on arguments.
+ * @returns A cached version of the async function.
+ */
+export function withCache<T, Args extends any[]>(
+  fn: (...args: Args) => Promise<T>,
+  options: CacheOptions = {},
+  keyBuilder: (...args: Args) => string = (...args) => JSON.stringify(args)
+): (...args: Args) => Promise<T> {
+  const cache = new Cache<T>(options);
+  
+  const wrapped = async (...args: Args): Promise<T> => {
+    const key = keyBuilder(...args);
+    const cached = cache.get(key);
+    if (cached !== undefined) return cached;
+    
+    const result = await fn(...args);
+    cache.set(key, result);
+    return result;
+  };
+  
+  // Expose the cache instance for manual operations (e.g. invalidation)
+  (wrapped as any).cache = cache;
+  return wrapped;
 }

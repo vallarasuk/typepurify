@@ -1,3 +1,9 @@
+## 0.4.3
+
+### Minor Changes
+
+- Enhanced types package with advanced utilities and additional test cases
+
 # @typepurify/types
 
 ## 0.4.2

@@ -1,3 +1,9 @@
+## 0.4.3
+
+### Minor Changes
+
+- Enhanced llm package with advanced utilities and additional test cases
+
 # @typepurify/llm
 
 ## 0.4.2

@@ -52,7 +52,7 @@ export function repairJson(str: string): string {
 /**
  * Removes circular references from an object to allow JSON.stringify to succeed.
  */
-export function removeCircular(obj: any): any {
+export function removeCircular(obj: any, options?: { sortKeys?: boolean }): any {
   const seen = new WeakSet();
 
   function clone(val: any): any {
@@ -70,7 +70,8 @@ export function removeCircular(obj: any): any {
     }
 
     const res: any = {};
-    for (const key in val) {
+    const keys = options?.sortKeys ? Object.keys(val).sort() : Object.keys(val);
+    for (const key of keys) {
       if (Object.prototype.hasOwnProperty.call(val, key)) {
         res[key] = clone(val[key]);
       }
@@ -121,4 +122,58 @@ export function compareIgnoreKeys(
   }
 
   return checkDiff(diff, '');
+}
+
+/**
+ * Resilient JSON parser that falls back to a default value instead of throwing.
+ */
+export function safeParse<T = any>(str: string, fallback: T): T {
+  try {
+    return JSON.parse(str) as T;
+  } catch {
+    return fallback;
+  }
+}
+
+/**
+ * Deep merges multiple JSON-serializable objects.
+ * Arrays are overwritten by default unless custom logic is provided.
+ */
+export function deepMerge<T extends object = any>(target: T, ...sources: Partial<T>[]): T {
+  if (!sources.length) return target;
+  const source = sources.shift();
+
+  if (target === undefined || target === null) {
+    return deepMerge(source as any, ...sources);
+  }
+
+  if (typeof target === 'object' && typeof source === 'object' && source !== null) {
+    for (const key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        if (typeof source[key] === 'object' && source[key] !== null && !Array.isArray(source[key])) {
+          if (!target[key]) Object.assign(target, { [key]: {} });
+          deepMerge(target[key] as any, source[key] as any);
+        } else {
+          Object.assign(target, { [key]: source[key] });
+        }
+      }
+    }
+  }
+
+  return deepMerge(target, ...sources);
+}
+
+/**
+ * Estimates the byte size of an object if it were to be JSON stringified.
+ */
+export function jsonSize(obj: any): number {
+  if (obj === undefined) return 0;
+  
+  // Fast path for simple primitives
+  if (typeof obj === 'string') return obj.length + 2; // includes quotes
+  if (typeof obj === 'number' || typeof obj === 'boolean') return String(obj).length;
+  if (obj === null) return 4;
+  
+  // Slower accurate path for objects/arrays
+  return Buffer.byteLength(JSON.stringify(obj) || '', 'utf8');
 }

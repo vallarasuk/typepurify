@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import { useTable } from './index';
+import { useTable, useRowSelection } from './index';
 
 // Polyfill URL.createObjectURL for the CSV export test
 if (typeof URL.createObjectURL === 'undefined') {
@@ -107,5 +107,49 @@ describe('@typepurify/react-table', () => {
     expect(lines[0]).toBe('ID,Name,Age');
     expect(lines[1]).toBe('"1","Alice","30"');
     expect(lines.length).toBe(4); // header + 3 rows
+  });
+
+  describe('useRowSelection', () => {
+    it('should exist', () => {
+      expect(typeof useRowSelection).toBe('function');
+    });
+  });
+
+  describe('multi-column sorting', () => {
+    it('should handle multi-column sorting', () => {
+      const data = [
+        { id: 1, name: 'Alice', age: 30 },
+        { id: 2, name: 'Alice', age: 25 },
+        { id: 3, name: 'Bob', age: 35 },
+      ];
+      
+      const { result } = renderHook(() => useTable({ data, columns }));
+      
+      // Sort by name ASC
+      act(() => {
+        result.current.handleSort('name', true);
+      });
+      
+      // Then sort by age ASC
+      act(() => {
+        result.current.handleSort('age', true);
+      });
+      
+      expect(result.current.multiSort.length).toBe(2);
+      expect(result.current.paginatedData[0].name).toBe('Alice');
+      expect(result.current.paginatedData[0].age).toBe(25); // Alice 25 comes before Alice 30
+    });
+  });
+
+  describe('column resizing', () => {
+    it('should update column widths', () => {
+      const { result } = renderHook(() => useTable({ data: mockData, columns }));
+      
+      act(() => {
+        result.current.handleColumnResize('name', 200);
+      });
+      
+      expect(result.current.columnWidths['name']).toBe(200);
+    });
   });
 });

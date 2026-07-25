@@ -1,3 +1,9 @@
+## 0.4.3
+
+### Minor Changes
+
+- Enhanced json package with advanced utilities and additional test cases
+
 # @typepurify/json
 
 ## 0.4.2

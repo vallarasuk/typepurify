@@ -27,11 +27,14 @@ export class TimeoutError extends Error {
 /**
  * Wraps an asynchronous function with robust retry logic.
  *
- * @param fn The async function to execute.
+ * @param fn The async function to execute. Can optionally take an AbortSignal.
  * @param options Configuration for retries.
  * @returns The resolved value of the async function.
  */
-export async function withRetry<T>(fn: () => Promise<T>, options: RetryOptions = {}): Promise<T> {
+export async function withRetry<T>(
+  fn: (signal?: AbortSignal) => Promise<T>,
+  options: RetryOptions = {}
+): Promise<T> {
   const retries = options.retries ?? 3;
   const initialDelay = options.delay ?? 1000;
   const backoff = options.backoff ?? 'fixed';
@@ -57,12 +60,7 @@ export async function withRetry<T>(fn: () => Promise<T>, options: RetryOptions =
       });
 
       try {
-        // We pass the abort signal to the function if it supports it.
-        // Assuming the user's function can take an AbortSignal, we would pass it.
-        // For backwards compatibility without breaking types, we just use Promise.race,
-        // but if they passed a custom fetch inside, they should hook up to the signal.
-        // In the future, we could augment `fn` to accept a signal.
-        const result = await Promise.race([fn(), timeoutPromise]);
+        const result = await Promise.race([fn(controller?.signal), timeoutPromise]);
         clearTimeout(timeoutId);
         return result;
       } catch (err) {
@@ -118,3 +116,65 @@ export async function withRetry<T>(fn: () => Promise<T>, options: RetryOptions =
  * Alias for withRetry
  */
 export const retry = withRetry;
+
+export interface CircuitBreakerOptions {
+  failureThreshold?: number; // How many failures before tripping (default 5)
+  resetTimeout?: number;     // How long to wait in Open state before trying again (Half-Open) (ms) (default 10000)
+}
+
+/**
+ * A basic Circuit Breaker implementation.
+ * States: 
+ * CLOSED: Normal operation, passing calls through.
+ * OPEN: Failing operation, immediately rejecting calls.
+ * HALF_OPEN: Testing if operation has recovered.
+ */
+export class CircuitBreaker {
+  private failureThreshold: number;
+  private resetTimeout: number;
+  
+  private state: 'CLOSED' | 'OPEN' | 'HALF_OPEN' = 'CLOSED';
+  private failures = 0;
+  private nextAttempt = 0;
+
+  constructor(options: CircuitBreakerOptions = {}) {
+    this.failureThreshold = options.failureThreshold ?? 5;
+    this.resetTimeout = options.resetTimeout ?? 10000;
+  }
+
+  async execute<T>(fn: () => Promise<T>): Promise<T> {
+    if (this.state === 'OPEN') {
+      if (Date.now() > this.nextAttempt) {
+        this.state = 'HALF_OPEN';
+      } else {
+        throw new Error('CircuitBreaker is OPEN');
+      }
+    }
+
+    try {
+      const result = await fn();
+      this.onSuccess();
+      return result;
+    } catch (err) {
+      this.onFailure();
+      throw err;
+    }
+  }
+
+  private onSuccess() {
+    this.failures = 0;
+    this.state = 'CLOSED';
+  }
+
+  private onFailure() {
+    this.failures++;
+    if (this.failures >= this.failureThreshold) {
+      this.state = 'OPEN';
+      this.nextAttempt = Date.now() + this.resetTimeout;
+    }
+  }
+
+  getState() {
+    return this.state;
+  }
+}

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { detectSecrets, inspectJwt, isJwtExpired, sanitizeUrl, escapeHtml } from './index';
+import { detectSecrets, inspectJwt, isJwtExpired, sanitizeUrl, escapeHtml, maskIPAddress, maskEmail } from './index';
 
 describe('@typepurify/security', () => {
   describe('detectSecrets', () => {
@@ -59,6 +59,41 @@ describe('@typepurify/security', () => {
       expect(escapeHtml('<script>alert("1 & 2")</script>')).toBe(
         '&lt;script&gt;alert(&quot;1 &amp; 2&quot;)&lt;/script&gt;',
       );
+    });
+  });
+
+  describe('maskIPAddress', () => {
+    it('should mask ip', () => {
+      expect(maskIPAddress('192.168.1.100')).toBe('192.168.1.***');
+    });
+  });
+  describe('maskEmail', () => {
+    it('should mask email', () => {
+      expect(maskEmail('john.doe@example.com')).toBe('jo***@example.com');
+      expect(maskEmail('invalid-email')).toBe('invalid-email');
+    });
+  });
+
+  describe('isEmail', () => {
+    it('should validate emails correctly', async () => {
+      const { isEmail } = await import('./index');
+      expect(isEmail('test@example.com')).toBe(true);
+      expect(isEmail('invalid')).toBe(false);
+      expect(isEmail('test@.com')).toBe(false);
+    });
+  });
+  
+  describe('detectSecrets extensions', () => {
+    it('should detect AWS keys', () => {
+      const secrets = detectSecrets('AKIAIOSFODNN7EXAMPLE');
+      expect(secrets).toHaveLength(1);
+      expect(secrets[0]).toBe('AKIA...MPLE');
+    });
+
+    it('should detect GCP tokens', () => {
+      const secrets = detectSecrets('ya29.a0AfB_byCM');
+      expect(secrets).toHaveLength(1);
+      expect(secrets[0]).toBe('ya29...byCM');
     });
   });
 });

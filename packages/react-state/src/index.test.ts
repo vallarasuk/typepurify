@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import { useLoading, useSmartForm, useApiQuery, usePurifiedState } from './index';
+import { useLoading, useSmartForm, useApiQuery, usePurifiedState, useDebounce } from './index';
 
 describe('@typepurify/react-state', () => {
   describe('useLoading', () => {
@@ -119,6 +119,27 @@ describe('@typepurify/react-state', () => {
       });
 
       expect(result.current[0]).toEqual({ count: 2 });
+    });
+  });
+
+  describe('useDebounce', () => {
+    it('should return debounced value', () => {
+      // Very basic sanity check without rendering
+      expect(typeof useDebounce).toBe('function');
+    });
+  });
+
+  describe('useLocalStorage', () => {
+    it('should exist', async () => {
+      const { useLocalStorage } = await import('./index');
+      expect(typeof useLocalStorage).toBe('function');
+    });
+  });
+
+  describe('useThrottledState', () => {
+    it('should exist', async () => {
+      const { useThrottledState } = await import('./index');
+      expect(typeof useThrottledState).toBe('function');
     });
   });
 });

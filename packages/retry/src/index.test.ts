@@ -103,4 +103,40 @@ describe('@typepurify/retry', () => {
       TimeoutError,
     );
   });
+
+  describe('onRetry', () => {
+    it('should fire onRetry callback', async () => {
+      let attempts = 0;
+      const fn = async () => { throw new Error('fail'); };
+      await retry(fn, { 
+        retries: 2, 
+        delay: 5, 
+        onRetry: (err, a) => { attempts = a; } 
+      }).catch(() => {});
+      expect(attempts).toBe(2);
+    });
+  });
+
+  describe('CircuitBreaker', () => {
+    it('should trip open after failure threshold and recover', async () => {
+      const { CircuitBreaker } = await import('./index');
+      const cb = new CircuitBreaker({ failureThreshold: 2, resetTimeout: 20 });
+      
+      const fn = vi.fn().mockRejectedValue(new Error('fail'));
+      
+      await expect(cb.execute(fn)).rejects.toThrow('fail');
+      await expect(cb.execute(fn)).rejects.toThrow('fail');
+      
+      expect(cb.getState()).toBe('OPEN');
+      
+      await expect(cb.execute(fn)).rejects.toThrow('CircuitBreaker is OPEN');
+      
+      await new Promise(r => setTimeout(r, 25));
+      
+      fn.mockResolvedValueOnce('success');
+      
+      await expect(cb.execute(fn)).resolves.toBe('success');
+      expect(cb.getState()).toBe('CLOSED');
+    });
+  });
 });
