@@ -55,18 +55,23 @@ describe('@typepurify/cli', () => {
 
   describe('generateEnvExample', () => {
     it('should extract process.env variables from files', () => {
-      fs.writeFileSync('temp.js', 'const x = process.env.API_KEY; const y = process.env.DB_PASS;');
+      (fs.existsSync as any).mockReturnValue(true);
+      (fs.readFileSync as any).mockReturnValue(
+        'const x = process.env.API_KEY; const y = process.env.DB_PASS;',
+      );
+
       const out = generateEnvExample(['temp.js']);
       expect(out).toContain('API_KEY=');
       expect(out).toContain('DB_PASS=');
-      fs.unlinkSync('temp.js');
     });
   });
 
   describe('findUnusedDependencies', () => {
     it('should identify unused dependencies', async () => {
       const { findUnusedDependencies } = await import('./index');
-      fs.writeFileSync('temp_unused.js', "import { clone } from 'lodash';");
+
+      (fs.existsSync as any).mockReturnValue(true);
+      (fs.readFileSync as any).mockReturnValue("import { clone } from 'lodash';");
 
       const pkg = {
         dependencies: {
@@ -80,8 +85,6 @@ describe('@typepurify/cli', () => {
       expect(unused).toContain('moment');
       expect(unused).not.toContain('lodash');
       expect(unused).not.toContain('@types/node');
-
-      fs.unlinkSync('temp_unused.js');
     });
   });
 });
