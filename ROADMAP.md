@@ -1,159 +1,4136 @@
 # 🚀 TypePurify Ecosystem Roadmap (AI-Optimized)
 
-> **Agent Instruction:** When instructed to "build the next feature", find the first package that is not `[x] Completed`. Then, find the first feature within that package that is `[ ] Pending` and implement it. Update the checkbox to `[x]` upon completion.
+> **Agent Instruction:** When instructed to "build the next feature", find the first package that is not `[x] Completed`. Then, find the first feature within that package that is `[ ] Pending` and implement it. Update the checkbox to `[x]` upon completion. This roadmap outlines the exact feature set up to version 5.0.0 following professional semantic versioning (Major -> Patch -> Minor -> Patch).
+> The tasks below contain detailed descriptions of what needs to be implemented for each specific package.
 
 ---
 
-## 1. API & Backend Utilities
+## 1. @typepurify/core
 
-### `@typepurify/core` (Formerly `typepurify`)
-
-**Status:** 🟢 Completed (Active Maintenance)
 **Description:** The core engine. Removes null, undefined, empty arrays/objects.
 
-- `[x]` feat: `clean()`, `cleanAsync()`, `cleanParse()` APIs.
-- `[x]` feat: Deep recursive zero-schema type inference.
+- **v1.0.0** - Major Release: JSON parser
+  - `[ ]` feat: [MAJOR] Implement the core JSON parser for @typepurify/core to enhance performance and developer experience.
+  - **v1.0.1** - Bugfix: memory leak edge cases
+    - `[ ]` fix: [PATCH] Investigate and resolve memory leak edge cases reported by users post-major release.
+  - **v1.0.2** - Bugfix: infinite recursion bug
+    - `[ ]` fix: [PATCH] Investigate and resolve infinite recursion bug reported by users post-major release.
+  - **v1.0.3** - Bugfix: stack overflow on deep objects
+    - `[ ]` fix: [PATCH] Investigate and resolve stack overflow on deep objects reported by users post-major release.
+  - **v1.0.4** - Bugfix: null pointer exception
+    - `[ ]` fix: [PATCH] Investigate and resolve null pointer exception reported by users post-major release.
+  - **v1.0.5** - Bugfix: type confusion flaw
+    - `[ ]` fix: [PATCH] Investigate and resolve type confusion flaw reported by users post-major release.
+  - **v1.1.0** - Feature: memory buffer
+    - `[ ]` feat: [MINOR] Refactor new memory buffer capabilities to expand the API surface of @typepurify/core.
+    - **v1.1.1** - Bugfix: null pointer exception
+      - `[ ]` fix: [PATCH] Debug and resolve null pointer exception occurring under specific edge cases.
+    - **v1.1.2** - Bugfix: type confusion flaw
+      - `[ ]` fix: [PATCH] Debug and resolve type confusion flaw occurring under specific edge cases.
+    - **v1.1.3** - Bugfix: circular reference loop
+      - `[ ]` fix: [PATCH] Debug and resolve circular reference loop occurring under specific edge cases.
+    - **v1.1.4** - Bugfix: prototype pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve prototype pollution vulnerability occurring under specific edge cases.
+    - **v1.1.5** - Bugfix: heap out of memory error
+      - `[ ]` fix: [PATCH] Debug and resolve heap out of memory error occurring under specific edge cases.
+  - **v1.2.0** - Feature: object graph traversal
+    - `[ ]` feat: [MINOR] Architect new object graph traversal capabilities to expand the API surface of @typepurify/core.
+    - **v1.2.1** - Bugfix: type confusion flaw
+      - `[ ]` fix: [PATCH] Debug and resolve type confusion flaw occurring under specific edge cases.
+    - **v1.2.2** - Bugfix: circular reference loop
+      - `[ ]` fix: [PATCH] Debug and resolve circular reference loop occurring under specific edge cases.
+    - **v1.2.3** - Bugfix: prototype pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve prototype pollution vulnerability occurring under specific edge cases.
+    - **v1.2.4** - Bugfix: heap out of memory error
+      - `[ ]` fix: [PATCH] Debug and resolve heap out of memory error occurring under specific edge cases.
+    - **v1.2.5** - Bugfix: garbage collection latency
+      - `[ ]` fix: [PATCH] Debug and resolve garbage collection latency occurring under specific edge cases.
+  - **v1.3.0** - Feature: array crawler
+    - `[ ]` feat: [MINOR] Optimize new array crawler capabilities to expand the API surface of @typepurify/core.
+    - **v1.3.1** - Bugfix: circular reference loop
+      - `[ ]` fix: [PATCH] Debug and resolve circular reference loop occurring under specific edge cases.
+    - **v1.3.2** - Bugfix: prototype pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve prototype pollution vulnerability occurring under specific edge cases.
+    - **v1.3.3** - Bugfix: heap out of memory error
+      - `[ ]` fix: [PATCH] Debug and resolve heap out of memory error occurring under specific edge cases.
+    - **v1.3.4** - Bugfix: garbage collection latency
+      - `[ ]` fix: [PATCH] Debug and resolve garbage collection latency occurring under specific edge cases.
+    - **v1.3.5** - Bugfix: segmentation fault in WASM
+      - `[ ]` fix: [PATCH] Debug and resolve segmentation fault in WASM occurring under specific edge cases.
+  - **v1.4.0** - Feature: schema inferencer
+    - `[ ]` feat: [MINOR] Parallelize new schema inferencer capabilities to expand the API surface of @typepurify/core.
+    - **v1.4.1** - Bugfix: prototype pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve prototype pollution vulnerability occurring under specific edge cases.
+    - **v1.4.2** - Bugfix: heap out of memory error
+      - `[ ]` fix: [PATCH] Debug and resolve heap out of memory error occurring under specific edge cases.
+    - **v1.4.3** - Bugfix: garbage collection latency
+      - `[ ]` fix: [PATCH] Debug and resolve garbage collection latency occurring under specific edge cases.
+    - **v1.4.4** - Bugfix: segmentation fault in WASM
+      - `[ ]` fix: [PATCH] Debug and resolve segmentation fault in WASM occurring under specific edge cases.
+    - **v1.4.5** - Bugfix: memory leak edge cases
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak edge cases occurring under specific edge cases.
+  - **v1.5.0** - Feature: WASM bindings
+    - `[ ]` feat: [MINOR] Redesign new WASM bindings capabilities to expand the API surface of @typepurify/core.
+    - **v1.5.1** - Bugfix: heap out of memory error
+      - `[ ]` fix: [PATCH] Debug and resolve heap out of memory error occurring under specific edge cases.
+    - **v1.5.2** - Bugfix: garbage collection latency
+      - `[ ]` fix: [PATCH] Debug and resolve garbage collection latency occurring under specific edge cases.
+    - **v1.5.3** - Bugfix: segmentation fault in WASM
+      - `[ ]` fix: [PATCH] Debug and resolve segmentation fault in WASM occurring under specific edge cases.
+    - **v1.5.4** - Bugfix: memory leak edge cases
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak edge cases occurring under specific edge cases.
+    - **v1.5.5** - Bugfix: infinite recursion bug
+      - `[ ]` fix: [PATCH] Debug and resolve infinite recursion bug occurring under specific edge cases.
+- **v2.0.0** - Major Release: purification engine
+  - `[ ]` feat: [MAJOR] Rewrite the core purification engine for @typepurify/core to enhance performance and developer experience.
+  - **v2.0.1** - Bugfix: memory leak edge cases
+    - `[ ]` fix: [PATCH] Investigate and resolve memory leak edge cases reported by users post-major release.
+  - **v2.0.2** - Bugfix: infinite recursion bug
+    - `[ ]` fix: [PATCH] Investigate and resolve infinite recursion bug reported by users post-major release.
+  - **v2.0.3** - Bugfix: stack overflow on deep objects
+    - `[ ]` fix: [PATCH] Investigate and resolve stack overflow on deep objects reported by users post-major release.
+  - **v2.0.4** - Bugfix: null pointer exception
+    - `[ ]` fix: [PATCH] Investigate and resolve null pointer exception reported by users post-major release.
+  - **v2.0.5** - Bugfix: type confusion flaw
+    - `[ ]` fix: [PATCH] Investigate and resolve type confusion flaw reported by users post-major release.
+  - **v2.1.0** - Feature: object graph traversal
+    - `[ ]` feat: [MINOR] Architect new object graph traversal capabilities to expand the API surface of @typepurify/core.
+    - **v2.1.1** - Bugfix: type confusion flaw
+      - `[ ]` fix: [PATCH] Debug and resolve type confusion flaw occurring under specific edge cases.
+    - **v2.1.2** - Bugfix: circular reference loop
+      - `[ ]` fix: [PATCH] Debug and resolve circular reference loop occurring under specific edge cases.
+    - **v2.1.3** - Bugfix: prototype pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve prototype pollution vulnerability occurring under specific edge cases.
+    - **v2.1.4** - Bugfix: heap out of memory error
+      - `[ ]` fix: [PATCH] Debug and resolve heap out of memory error occurring under specific edge cases.
+    - **v2.1.5** - Bugfix: garbage collection latency
+      - `[ ]` fix: [PATCH] Debug and resolve garbage collection latency occurring under specific edge cases.
+  - **v2.2.0** - Feature: array crawler
+    - `[ ]` feat: [MINOR] Optimize new array crawler capabilities to expand the API surface of @typepurify/core.
+    - **v2.2.1** - Bugfix: circular reference loop
+      - `[ ]` fix: [PATCH] Debug and resolve circular reference loop occurring under specific edge cases.
+    - **v2.2.2** - Bugfix: prototype pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve prototype pollution vulnerability occurring under specific edge cases.
+    - **v2.2.3** - Bugfix: heap out of memory error
+      - `[ ]` fix: [PATCH] Debug and resolve heap out of memory error occurring under specific edge cases.
+    - **v2.2.4** - Bugfix: garbage collection latency
+      - `[ ]` fix: [PATCH] Debug and resolve garbage collection latency occurring under specific edge cases.
+    - **v2.2.5** - Bugfix: segmentation fault in WASM
+      - `[ ]` fix: [PATCH] Debug and resolve segmentation fault in WASM occurring under specific edge cases.
+  - **v2.3.0** - Feature: schema inferencer
+    - `[ ]` feat: [MINOR] Parallelize new schema inferencer capabilities to expand the API surface of @typepurify/core.
+    - **v2.3.1** - Bugfix: prototype pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve prototype pollution vulnerability occurring under specific edge cases.
+    - **v2.3.2** - Bugfix: heap out of memory error
+      - `[ ]` fix: [PATCH] Debug and resolve heap out of memory error occurring under specific edge cases.
+    - **v2.3.3** - Bugfix: garbage collection latency
+      - `[ ]` fix: [PATCH] Debug and resolve garbage collection latency occurring under specific edge cases.
+    - **v2.3.4** - Bugfix: segmentation fault in WASM
+      - `[ ]` fix: [PATCH] Debug and resolve segmentation fault in WASM occurring under specific edge cases.
+    - **v2.3.5** - Bugfix: memory leak edge cases
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak edge cases occurring under specific edge cases.
+  - **v2.4.0** - Feature: WASM bindings
+    - `[ ]` feat: [MINOR] Redesign new WASM bindings capabilities to expand the API surface of @typepurify/core.
+    - **v2.4.1** - Bugfix: heap out of memory error
+      - `[ ]` fix: [PATCH] Debug and resolve heap out of memory error occurring under specific edge cases.
+    - **v2.4.2** - Bugfix: garbage collection latency
+      - `[ ]` fix: [PATCH] Debug and resolve garbage collection latency occurring under specific edge cases.
+    - **v2.4.3** - Bugfix: segmentation fault in WASM
+      - `[ ]` fix: [PATCH] Debug and resolve segmentation fault in WASM occurring under specific edge cases.
+    - **v2.4.4** - Bugfix: memory leak edge cases
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak edge cases occurring under specific edge cases.
+    - **v2.4.5** - Bugfix: infinite recursion bug
+      - `[ ]` fix: [PATCH] Debug and resolve infinite recursion bug occurring under specific edge cases.
+  - **v2.5.0** - Feature: AST walker
+    - `[ ]` feat: [MINOR] Distribute new AST walker capabilities to expand the API surface of @typepurify/core.
+    - **v2.5.1** - Bugfix: garbage collection latency
+      - `[ ]` fix: [PATCH] Debug and resolve garbage collection latency occurring under specific edge cases.
+    - **v2.5.2** - Bugfix: segmentation fault in WASM
+      - `[ ]` fix: [PATCH] Debug and resolve segmentation fault in WASM occurring under specific edge cases.
+    - **v2.5.3** - Bugfix: memory leak edge cases
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak edge cases occurring under specific edge cases.
+    - **v2.5.4** - Bugfix: infinite recursion bug
+      - `[ ]` fix: [PATCH] Debug and resolve infinite recursion bug occurring under specific edge cases.
+    - **v2.5.5** - Bugfix: stack overflow on deep objects
+      - `[ ]` fix: [PATCH] Debug and resolve stack overflow on deep objects occurring under specific edge cases.
+- **v3.0.0** - Major Release: memory buffer
+  - `[ ]` feat: [MAJOR] Refactor the core memory buffer for @typepurify/core to enhance performance and developer experience.
+  - **v3.0.1** - Bugfix: memory leak edge cases
+    - `[ ]` fix: [PATCH] Investigate and resolve memory leak edge cases reported by users post-major release.
+  - **v3.0.2** - Bugfix: infinite recursion bug
+    - `[ ]` fix: [PATCH] Investigate and resolve infinite recursion bug reported by users post-major release.
+  - **v3.0.3** - Bugfix: stack overflow on deep objects
+    - `[ ]` fix: [PATCH] Investigate and resolve stack overflow on deep objects reported by users post-major release.
+  - **v3.0.4** - Bugfix: null pointer exception
+    - `[ ]` fix: [PATCH] Investigate and resolve null pointer exception reported by users post-major release.
+  - **v3.0.5** - Bugfix: type confusion flaw
+    - `[ ]` fix: [PATCH] Investigate and resolve type confusion flaw reported by users post-major release.
+  - **v3.1.0** - Feature: array crawler
+    - `[ ]` feat: [MINOR] Optimize new array crawler capabilities to expand the API surface of @typepurify/core.
+    - **v3.1.1** - Bugfix: circular reference loop
+      - `[ ]` fix: [PATCH] Debug and resolve circular reference loop occurring under specific edge cases.
+    - **v3.1.2** - Bugfix: prototype pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve prototype pollution vulnerability occurring under specific edge cases.
+    - **v3.1.3** - Bugfix: heap out of memory error
+      - `[ ]` fix: [PATCH] Debug and resolve heap out of memory error occurring under specific edge cases.
+    - **v3.1.4** - Bugfix: garbage collection latency
+      - `[ ]` fix: [PATCH] Debug and resolve garbage collection latency occurring under specific edge cases.
+    - **v3.1.5** - Bugfix: segmentation fault in WASM
+      - `[ ]` fix: [PATCH] Debug and resolve segmentation fault in WASM occurring under specific edge cases.
+  - **v3.2.0** - Feature: schema inferencer
+    - `[ ]` feat: [MINOR] Parallelize new schema inferencer capabilities to expand the API surface of @typepurify/core.
+    - **v3.2.1** - Bugfix: prototype pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve prototype pollution vulnerability occurring under specific edge cases.
+    - **v3.2.2** - Bugfix: heap out of memory error
+      - `[ ]` fix: [PATCH] Debug and resolve heap out of memory error occurring under specific edge cases.
+    - **v3.2.3** - Bugfix: garbage collection latency
+      - `[ ]` fix: [PATCH] Debug and resolve garbage collection latency occurring under specific edge cases.
+    - **v3.2.4** - Bugfix: segmentation fault in WASM
+      - `[ ]` fix: [PATCH] Debug and resolve segmentation fault in WASM occurring under specific edge cases.
+    - **v3.2.5** - Bugfix: memory leak edge cases
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak edge cases occurring under specific edge cases.
+  - **v3.3.0** - Feature: WASM bindings
+    - `[ ]` feat: [MINOR] Redesign new WASM bindings capabilities to expand the API surface of @typepurify/core.
+    - **v3.3.1** - Bugfix: heap out of memory error
+      - `[ ]` fix: [PATCH] Debug and resolve heap out of memory error occurring under specific edge cases.
+    - **v3.3.2** - Bugfix: garbage collection latency
+      - `[ ]` fix: [PATCH] Debug and resolve garbage collection latency occurring under specific edge cases.
+    - **v3.3.3** - Bugfix: segmentation fault in WASM
+      - `[ ]` fix: [PATCH] Debug and resolve segmentation fault in WASM occurring under specific edge cases.
+    - **v3.3.4** - Bugfix: memory leak edge cases
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak edge cases occurring under specific edge cases.
+    - **v3.3.5** - Bugfix: infinite recursion bug
+      - `[ ]` fix: [PATCH] Debug and resolve infinite recursion bug occurring under specific edge cases.
+  - **v3.4.0** - Feature: AST walker
+    - `[ ]` feat: [MINOR] Distribute new AST walker capabilities to expand the API surface of @typepurify/core.
+    - **v3.4.1** - Bugfix: garbage collection latency
+      - `[ ]` fix: [PATCH] Debug and resolve garbage collection latency occurring under specific edge cases.
+    - **v3.4.2** - Bugfix: segmentation fault in WASM
+      - `[ ]` fix: [PATCH] Debug and resolve segmentation fault in WASM occurring under specific edge cases.
+    - **v3.4.3** - Bugfix: memory leak edge cases
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak edge cases occurring under specific edge cases.
+    - **v3.4.4** - Bugfix: infinite recursion bug
+      - `[ ]` fix: [PATCH] Debug and resolve infinite recursion bug occurring under specific edge cases.
+    - **v3.4.5** - Bugfix: stack overflow on deep objects
+      - `[ ]` fix: [PATCH] Debug and resolve stack overflow on deep objects occurring under specific edge cases.
+  - **v3.5.0** - Feature: proxy layer interceptor
+    - `[ ]` feat: [MINOR] Consolidate new proxy layer interceptor capabilities to expand the API surface of @typepurify/core.
+    - **v3.5.1** - Bugfix: segmentation fault in WASM
+      - `[ ]` fix: [PATCH] Debug and resolve segmentation fault in WASM occurring under specific edge cases.
+    - **v3.5.2** - Bugfix: memory leak edge cases
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak edge cases occurring under specific edge cases.
+    - **v3.5.3** - Bugfix: infinite recursion bug
+      - `[ ]` fix: [PATCH] Debug and resolve infinite recursion bug occurring under specific edge cases.
+    - **v3.5.4** - Bugfix: stack overflow on deep objects
+      - `[ ]` fix: [PATCH] Debug and resolve stack overflow on deep objects occurring under specific edge cases.
+    - **v3.5.5** - Bugfix: null pointer exception
+      - `[ ]` fix: [PATCH] Debug and resolve null pointer exception occurring under specific edge cases.
+- **v4.0.0** - Major Release: object graph traversal
+  - `[ ]` feat: [MAJOR] Architect the core object graph traversal for @typepurify/core to enhance performance and developer experience.
+  - **v4.0.1** - Bugfix: memory leak edge cases
+    - `[ ]` fix: [PATCH] Investigate and resolve memory leak edge cases reported by users post-major release.
+  - **v4.0.2** - Bugfix: infinite recursion bug
+    - `[ ]` fix: [PATCH] Investigate and resolve infinite recursion bug reported by users post-major release.
+  - **v4.0.3** - Bugfix: stack overflow on deep objects
+    - `[ ]` fix: [PATCH] Investigate and resolve stack overflow on deep objects reported by users post-major release.
+  - **v4.0.4** - Bugfix: null pointer exception
+    - `[ ]` fix: [PATCH] Investigate and resolve null pointer exception reported by users post-major release.
+  - **v4.0.5** - Bugfix: type confusion flaw
+    - `[ ]` fix: [PATCH] Investigate and resolve type confusion flaw reported by users post-major release.
+  - **v4.1.0** - Feature: schema inferencer
+    - `[ ]` feat: [MINOR] Parallelize new schema inferencer capabilities to expand the API surface of @typepurify/core.
+    - **v4.1.1** - Bugfix: prototype pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve prototype pollution vulnerability occurring under specific edge cases.
+    - **v4.1.2** - Bugfix: heap out of memory error
+      - `[ ]` fix: [PATCH] Debug and resolve heap out of memory error occurring under specific edge cases.
+    - **v4.1.3** - Bugfix: garbage collection latency
+      - `[ ]` fix: [PATCH] Debug and resolve garbage collection latency occurring under specific edge cases.
+    - **v4.1.4** - Bugfix: segmentation fault in WASM
+      - `[ ]` fix: [PATCH] Debug and resolve segmentation fault in WASM occurring under specific edge cases.
+    - **v4.1.5** - Bugfix: memory leak edge cases
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak edge cases occurring under specific edge cases.
+  - **v4.2.0** - Feature: WASM bindings
+    - `[ ]` feat: [MINOR] Redesign new WASM bindings capabilities to expand the API surface of @typepurify/core.
+    - **v4.2.1** - Bugfix: heap out of memory error
+      - `[ ]` fix: [PATCH] Debug and resolve heap out of memory error occurring under specific edge cases.
+    - **v4.2.2** - Bugfix: garbage collection latency
+      - `[ ]` fix: [PATCH] Debug and resolve garbage collection latency occurring under specific edge cases.
+    - **v4.2.3** - Bugfix: segmentation fault in WASM
+      - `[ ]` fix: [PATCH] Debug and resolve segmentation fault in WASM occurring under specific edge cases.
+    - **v4.2.4** - Bugfix: memory leak edge cases
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak edge cases occurring under specific edge cases.
+    - **v4.2.5** - Bugfix: infinite recursion bug
+      - `[ ]` fix: [PATCH] Debug and resolve infinite recursion bug occurring under specific edge cases.
+  - **v4.3.0** - Feature: AST walker
+    - `[ ]` feat: [MINOR] Distribute new AST walker capabilities to expand the API surface of @typepurify/core.
+    - **v4.3.1** - Bugfix: garbage collection latency
+      - `[ ]` fix: [PATCH] Debug and resolve garbage collection latency occurring under specific edge cases.
+    - **v4.3.2** - Bugfix: segmentation fault in WASM
+      - `[ ]` fix: [PATCH] Debug and resolve segmentation fault in WASM occurring under specific edge cases.
+    - **v4.3.3** - Bugfix: memory leak edge cases
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak edge cases occurring under specific edge cases.
+    - **v4.3.4** - Bugfix: infinite recursion bug
+      - `[ ]` fix: [PATCH] Debug and resolve infinite recursion bug occurring under specific edge cases.
+    - **v4.3.5** - Bugfix: stack overflow on deep objects
+      - `[ ]` fix: [PATCH] Debug and resolve stack overflow on deep objects occurring under specific edge cases.
+  - **v4.4.0** - Feature: proxy layer interceptor
+    - `[ ]` feat: [MINOR] Consolidate new proxy layer interceptor capabilities to expand the API surface of @typepurify/core.
+    - **v4.4.1** - Bugfix: segmentation fault in WASM
+      - `[ ]` fix: [PATCH] Debug and resolve segmentation fault in WASM occurring under specific edge cases.
+    - **v4.4.2** - Bugfix: memory leak edge cases
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak edge cases occurring under specific edge cases.
+    - **v4.4.3** - Bugfix: infinite recursion bug
+      - `[ ]` fix: [PATCH] Debug and resolve infinite recursion bug occurring under specific edge cases.
+    - **v4.4.4** - Bugfix: stack overflow on deep objects
+      - `[ ]` fix: [PATCH] Debug and resolve stack overflow on deep objects occurring under specific edge cases.
+    - **v4.4.5** - Bugfix: null pointer exception
+      - `[ ]` fix: [PATCH] Debug and resolve null pointer exception occurring under specific edge cases.
+  - **v4.5.0** - Feature: garbage collector optimization
+    - `[ ]` feat: [MINOR] Enhance new garbage collector optimization capabilities to expand the API surface of @typepurify/core.
+    - **v4.5.1** - Bugfix: memory leak edge cases
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak edge cases occurring under specific edge cases.
+    - **v4.5.2** - Bugfix: infinite recursion bug
+      - `[ ]` fix: [PATCH] Debug and resolve infinite recursion bug occurring under specific edge cases.
+    - **v4.5.3** - Bugfix: stack overflow on deep objects
+      - `[ ]` fix: [PATCH] Debug and resolve stack overflow on deep objects occurring under specific edge cases.
+    - **v4.5.4** - Bugfix: null pointer exception
+      - `[ ]` fix: [PATCH] Debug and resolve null pointer exception occurring under specific edge cases.
+    - **v4.5.5** - Bugfix: type confusion flaw
+      - `[ ]` fix: [PATCH] Debug and resolve type confusion flaw occurring under specific edge cases.
+- **v5.0.0** - Major Release: array crawler
+  - `[ ]` feat: [MAJOR] Optimize the core array crawler for @typepurify/core to enhance performance and developer experience.
 
-### `@typepurify/fetch`
+## 2. @typepurify/fetch
 
-**Status:** 🟢 Completed (Active Maintenance)
 **Description:** Safe fetch wrapper with auto-purification, retries, timeouts, and JSON parsing.
 
-- `[x]` feat: Initial wrapper around native `fetch`.
-- `[x]` feat: Auto-parse and purify JSON responses.
-- `[x]` feat: Automatic retry strategies (exponential backoff).
-- `[x]` feat: Timeout configuration with AbortController.
-- `[x]` feat: Request/Response interceptors.
+- **v1.0.0** - Major Release: request queue
+  - `[ ]` feat: [MAJOR] Build the core request queue for @typepurify/fetch to enhance performance and developer experience.
+  - **v1.0.1** - Bugfix: socket hangup issue
+    - `[ ]` fix: [PATCH] Investigate and resolve socket hangup issue reported by users post-major release.
+  - **v1.0.2** - Bugfix: DNS resolution timeout
+    - `[ ]` fix: [PATCH] Investigate and resolve DNS resolution timeout reported by users post-major release.
+  - **v1.0.3** - Bugfix: HTTP header parsing error
+    - `[ ]` fix: [PATCH] Investigate and resolve HTTP header parsing error reported by users post-major release.
+  - **v1.0.4** - Bugfix: connection reset exception
+    - `[ ]` fix: [PATCH] Investigate and resolve connection reset exception reported by users post-major release.
+  - **v1.0.5** - Bugfix: CORS preflight failure
+    - `[ ]` fix: [PATCH] Investigate and resolve CORS preflight failure reported by users post-major release.
+  - **v1.1.0** - Feature: WebSocket stream processor
+    - `[ ]` feat: [MINOR] Batch new WebSocket stream processor capabilities to expand the API surface of @typepurify/fetch.
+    - **v1.1.1** - Bugfix: connection reset exception
+      - `[ ]` fix: [PATCH] Debug and resolve connection reset exception occurring under specific edge cases.
+    - **v1.1.2** - Bugfix: CORS preflight failure
+      - `[ ]` fix: [PATCH] Debug and resolve CORS preflight failure occurring under specific edge cases.
+    - **v1.1.3** - Bugfix: SSL handshake error
+      - `[ ]` fix: [PATCH] Debug and resolve SSL handshake error occurring under specific edge cases.
+    - **v1.1.4** - Bugfix: memory leak on aborted request
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak on aborted request occurring under specific edge cases.
+    - **v1.1.5** - Bugfix: stale cache collision
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache collision occurring under specific edge cases.
+  - **v1.2.0** - Feature: HTTP/3 transport adapter
+    - `[ ]` feat: [MINOR] Throttle new HTTP/3 transport adapter capabilities to expand the API surface of @typepurify/fetch.
+    - **v1.2.1** - Bugfix: CORS preflight failure
+      - `[ ]` fix: [PATCH] Debug and resolve CORS preflight failure occurring under specific edge cases.
+    - **v1.2.2** - Bugfix: SSL handshake error
+      - `[ ]` fix: [PATCH] Debug and resolve SSL handshake error occurring under specific edge cases.
+    - **v1.2.3** - Bugfix: memory leak on aborted request
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak on aborted request occurring under specific edge cases.
+    - **v1.2.4** - Bugfix: stale cache collision
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache collision occurring under specific edge cases.
+    - **v1.2.5** - Bugfix: thundering herd problem
+      - `[ ]` fix: [PATCH] Debug and resolve thundering herd problem occurring under specific edge cases.
+  - **v1.3.0** - Feature: cache layer
+    - `[ ]` feat: [MINOR] Debounce new cache layer capabilities to expand the API surface of @typepurify/fetch.
+    - **v1.3.1** - Bugfix: SSL handshake error
+      - `[ ]` fix: [PATCH] Debug and resolve SSL handshake error occurring under specific edge cases.
+    - **v1.3.2** - Bugfix: memory leak on aborted request
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak on aborted request occurring under specific edge cases.
+    - **v1.3.3** - Bugfix: stale cache collision
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache collision occurring under specific edge cases.
+    - **v1.3.4** - Bugfix: thundering herd problem
+      - `[ ]` fix: [PATCH] Debug and resolve thundering herd problem occurring under specific edge cases.
+    - **v1.3.5** - Bugfix: zombie connection thread
+      - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
+  - **v1.4.0** - Feature: rate limiter logic
+    - `[ ]` feat: [MINOR] Cache new rate limiter logic capabilities to expand the API surface of @typepurify/fetch.
+    - **v1.4.1** - Bugfix: memory leak on aborted request
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak on aborted request occurring under specific edge cases.
+    - **v1.4.2** - Bugfix: stale cache collision
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache collision occurring under specific edge cases.
+    - **v1.4.3** - Bugfix: thundering herd problem
+      - `[ ]` fix: [PATCH] Debug and resolve thundering herd problem occurring under specific edge cases.
+    - **v1.4.4** - Bugfix: zombie connection thread
+      - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
+    - **v1.4.5** - Bugfix: socket hangup issue
+      - `[ ]` fix: [PATCH] Debug and resolve socket hangup issue occurring under specific edge cases.
+  - **v1.5.0** - Feature: DNS resolver pool
+    - `[ ]` feat: [MINOR] Intercept new DNS resolver pool capabilities to expand the API surface of @typepurify/fetch.
+    - **v1.5.1** - Bugfix: stale cache collision
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache collision occurring under specific edge cases.
+    - **v1.5.2** - Bugfix: thundering herd problem
+      - `[ ]` fix: [PATCH] Debug and resolve thundering herd problem occurring under specific edge cases.
+    - **v1.5.3** - Bugfix: zombie connection thread
+      - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
+    - **v1.5.4** - Bugfix: socket hangup issue
+      - `[ ]` fix: [PATCH] Debug and resolve socket hangup issue occurring under specific edge cases.
+    - **v1.5.5** - Bugfix: DNS resolution timeout
+      - `[ ]` fix: [PATCH] Debug and resolve DNS resolution timeout occurring under specific edge cases.
+- **v2.0.0** - Major Release: circuit breaker
+  - `[ ]` feat: [MAJOR] Multiplex the core circuit breaker for @typepurify/fetch to enhance performance and developer experience.
+  - **v2.0.1** - Bugfix: socket hangup issue
+    - `[ ]` fix: [PATCH] Investigate and resolve socket hangup issue reported by users post-major release.
+  - **v2.0.2** - Bugfix: DNS resolution timeout
+    - `[ ]` fix: [PATCH] Investigate and resolve DNS resolution timeout reported by users post-major release.
+  - **v2.0.3** - Bugfix: HTTP header parsing error
+    - `[ ]` fix: [PATCH] Investigate and resolve HTTP header parsing error reported by users post-major release.
+  - **v2.0.4** - Bugfix: connection reset exception
+    - `[ ]` fix: [PATCH] Investigate and resolve connection reset exception reported by users post-major release.
+  - **v2.0.5** - Bugfix: CORS preflight failure
+    - `[ ]` fix: [PATCH] Investigate and resolve CORS preflight failure reported by users post-major release.
+  - **v2.1.0** - Feature: HTTP/3 transport adapter
+    - `[ ]` feat: [MINOR] Throttle new HTTP/3 transport adapter capabilities to expand the API surface of @typepurify/fetch.
+    - **v2.1.1** - Bugfix: CORS preflight failure
+      - `[ ]` fix: [PATCH] Debug and resolve CORS preflight failure occurring under specific edge cases.
+    - **v2.1.2** - Bugfix: SSL handshake error
+      - `[ ]` fix: [PATCH] Debug and resolve SSL handshake error occurring under specific edge cases.
+    - **v2.1.3** - Bugfix: memory leak on aborted request
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak on aborted request occurring under specific edge cases.
+    - **v2.1.4** - Bugfix: stale cache collision
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache collision occurring under specific edge cases.
+    - **v2.1.5** - Bugfix: thundering herd problem
+      - `[ ]` fix: [PATCH] Debug and resolve thundering herd problem occurring under specific edge cases.
+  - **v2.2.0** - Feature: cache layer
+    - `[ ]` feat: [MINOR] Debounce new cache layer capabilities to expand the API surface of @typepurify/fetch.
+    - **v2.2.1** - Bugfix: SSL handshake error
+      - `[ ]` fix: [PATCH] Debug and resolve SSL handshake error occurring under specific edge cases.
+    - **v2.2.2** - Bugfix: memory leak on aborted request
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak on aborted request occurring under specific edge cases.
+    - **v2.2.3** - Bugfix: stale cache collision
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache collision occurring under specific edge cases.
+    - **v2.2.4** - Bugfix: thundering herd problem
+      - `[ ]` fix: [PATCH] Debug and resolve thundering herd problem occurring under specific edge cases.
+    - **v2.2.5** - Bugfix: zombie connection thread
+      - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
+  - **v2.3.0** - Feature: rate limiter logic
+    - `[ ]` feat: [MINOR] Cache new rate limiter logic capabilities to expand the API surface of @typepurify/fetch.
+    - **v2.3.1** - Bugfix: memory leak on aborted request
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak on aborted request occurring under specific edge cases.
+    - **v2.3.2** - Bugfix: stale cache collision
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache collision occurring under specific edge cases.
+    - **v2.3.3** - Bugfix: thundering herd problem
+      - `[ ]` fix: [PATCH] Debug and resolve thundering herd problem occurring under specific edge cases.
+    - **v2.3.4** - Bugfix: zombie connection thread
+      - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
+    - **v2.3.5** - Bugfix: socket hangup issue
+      - `[ ]` fix: [PATCH] Debug and resolve socket hangup issue occurring under specific edge cases.
+  - **v2.4.0** - Feature: DNS resolver pool
+    - `[ ]` feat: [MINOR] Intercept new DNS resolver pool capabilities to expand the API surface of @typepurify/fetch.
+    - **v2.4.1** - Bugfix: stale cache collision
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache collision occurring under specific edge cases.
+    - **v2.4.2** - Bugfix: thundering herd problem
+      - `[ ]` fix: [PATCH] Debug and resolve thundering herd problem occurring under specific edge cases.
+    - **v2.4.3** - Bugfix: zombie connection thread
+      - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
+    - **v2.4.4** - Bugfix: socket hangup issue
+      - `[ ]` fix: [PATCH] Debug and resolve socket hangup issue occurring under specific edge cases.
+    - **v2.4.5** - Bugfix: DNS resolution timeout
+      - `[ ]` fix: [PATCH] Debug and resolve DNS resolution timeout occurring under specific edge cases.
+  - **v2.5.0** - Feature: connection pooler
+    - `[ ]` feat: [MINOR] Abort new connection pooler capabilities to expand the API surface of @typepurify/fetch.
+    - **v2.5.1** - Bugfix: thundering herd problem
+      - `[ ]` fix: [PATCH] Debug and resolve thundering herd problem occurring under specific edge cases.
+    - **v2.5.2** - Bugfix: zombie connection thread
+      - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
+    - **v2.5.3** - Bugfix: socket hangup issue
+      - `[ ]` fix: [PATCH] Debug and resolve socket hangup issue occurring under specific edge cases.
+    - **v2.5.4** - Bugfix: DNS resolution timeout
+      - `[ ]` fix: [PATCH] Debug and resolve DNS resolution timeout occurring under specific edge cases.
+    - **v2.5.5** - Bugfix: HTTP header parsing error
+      - `[ ]` fix: [PATCH] Debug and resolve HTTP header parsing error occurring under specific edge cases.
+- **v3.0.0** - Major Release: WebSocket stream processor
+  - `[ ]` feat: [MAJOR] Batch the core WebSocket stream processor for @typepurify/fetch to enhance performance and developer experience.
+  - **v3.0.1** - Bugfix: socket hangup issue
+    - `[ ]` fix: [PATCH] Investigate and resolve socket hangup issue reported by users post-major release.
+  - **v3.0.2** - Bugfix: DNS resolution timeout
+    - `[ ]` fix: [PATCH] Investigate and resolve DNS resolution timeout reported by users post-major release.
+  - **v3.0.3** - Bugfix: HTTP header parsing error
+    - `[ ]` fix: [PATCH] Investigate and resolve HTTP header parsing error reported by users post-major release.
+  - **v3.0.4** - Bugfix: connection reset exception
+    - `[ ]` fix: [PATCH] Investigate and resolve connection reset exception reported by users post-major release.
+  - **v3.0.5** - Bugfix: CORS preflight failure
+    - `[ ]` fix: [PATCH] Investigate and resolve CORS preflight failure reported by users post-major release.
+  - **v3.1.0** - Feature: cache layer
+    - `[ ]` feat: [MINOR] Debounce new cache layer capabilities to expand the API surface of @typepurify/fetch.
+    - **v3.1.1** - Bugfix: SSL handshake error
+      - `[ ]` fix: [PATCH] Debug and resolve SSL handshake error occurring under specific edge cases.
+    - **v3.1.2** - Bugfix: memory leak on aborted request
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak on aborted request occurring under specific edge cases.
+    - **v3.1.3** - Bugfix: stale cache collision
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache collision occurring under specific edge cases.
+    - **v3.1.4** - Bugfix: thundering herd problem
+      - `[ ]` fix: [PATCH] Debug and resolve thundering herd problem occurring under specific edge cases.
+    - **v3.1.5** - Bugfix: zombie connection thread
+      - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
+  - **v3.2.0** - Feature: rate limiter logic
+    - `[ ]` feat: [MINOR] Cache new rate limiter logic capabilities to expand the API surface of @typepurify/fetch.
+    - **v3.2.1** - Bugfix: memory leak on aborted request
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak on aborted request occurring under specific edge cases.
+    - **v3.2.2** - Bugfix: stale cache collision
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache collision occurring under specific edge cases.
+    - **v3.2.3** - Bugfix: thundering herd problem
+      - `[ ]` fix: [PATCH] Debug and resolve thundering herd problem occurring under specific edge cases.
+    - **v3.2.4** - Bugfix: zombie connection thread
+      - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
+    - **v3.2.5** - Bugfix: socket hangup issue
+      - `[ ]` fix: [PATCH] Debug and resolve socket hangup issue occurring under specific edge cases.
+  - **v3.3.0** - Feature: DNS resolver pool
+    - `[ ]` feat: [MINOR] Intercept new DNS resolver pool capabilities to expand the API surface of @typepurify/fetch.
+    - **v3.3.1** - Bugfix: stale cache collision
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache collision occurring under specific edge cases.
+    - **v3.3.2** - Bugfix: thundering herd problem
+      - `[ ]` fix: [PATCH] Debug and resolve thundering herd problem occurring under specific edge cases.
+    - **v3.3.3** - Bugfix: zombie connection thread
+      - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
+    - **v3.3.4** - Bugfix: socket hangup issue
+      - `[ ]` fix: [PATCH] Debug and resolve socket hangup issue occurring under specific edge cases.
+    - **v3.3.5** - Bugfix: DNS resolution timeout
+      - `[ ]` fix: [PATCH] Debug and resolve DNS resolution timeout occurring under specific edge cases.
+  - **v3.4.0** - Feature: connection pooler
+    - `[ ]` feat: [MINOR] Abort new connection pooler capabilities to expand the API surface of @typepurify/fetch.
+    - **v3.4.1** - Bugfix: thundering herd problem
+      - `[ ]` fix: [PATCH] Debug and resolve thundering herd problem occurring under specific edge cases.
+    - **v3.4.2** - Bugfix: zombie connection thread
+      - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
+    - **v3.4.3** - Bugfix: socket hangup issue
+      - `[ ]` fix: [PATCH] Debug and resolve socket hangup issue occurring under specific edge cases.
+    - **v3.4.4** - Bugfix: DNS resolution timeout
+      - `[ ]` fix: [PATCH] Debug and resolve DNS resolution timeout occurring under specific edge cases.
+    - **v3.4.5** - Bugfix: HTTP header parsing error
+      - `[ ]` fix: [PATCH] Debug and resolve HTTP header parsing error occurring under specific edge cases.
+  - **v3.5.0** - Feature: payload parser
+    - `[ ]` feat: [MINOR] Compress new payload parser capabilities to expand the API surface of @typepurify/fetch.
+    - **v3.5.1** - Bugfix: zombie connection thread
+      - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
+    - **v3.5.2** - Bugfix: socket hangup issue
+      - `[ ]` fix: [PATCH] Debug and resolve socket hangup issue occurring under specific edge cases.
+    - **v3.5.3** - Bugfix: DNS resolution timeout
+      - `[ ]` fix: [PATCH] Debug and resolve DNS resolution timeout occurring under specific edge cases.
+    - **v3.5.4** - Bugfix: HTTP header parsing error
+      - `[ ]` fix: [PATCH] Debug and resolve HTTP header parsing error occurring under specific edge cases.
+    - **v3.5.5** - Bugfix: connection reset exception
+      - `[ ]` fix: [PATCH] Debug and resolve connection reset exception occurring under specific edge cases.
+- **v4.0.0** - Major Release: HTTP/3 transport adapter
+  - `[ ]` feat: [MAJOR] Throttle the core HTTP/3 transport adapter for @typepurify/fetch to enhance performance and developer experience.
+  - **v4.0.1** - Bugfix: socket hangup issue
+    - `[ ]` fix: [PATCH] Investigate and resolve socket hangup issue reported by users post-major release.
+  - **v4.0.2** - Bugfix: DNS resolution timeout
+    - `[ ]` fix: [PATCH] Investigate and resolve DNS resolution timeout reported by users post-major release.
+  - **v4.0.3** - Bugfix: HTTP header parsing error
+    - `[ ]` fix: [PATCH] Investigate and resolve HTTP header parsing error reported by users post-major release.
+  - **v4.0.4** - Bugfix: connection reset exception
+    - `[ ]` fix: [PATCH] Investigate and resolve connection reset exception reported by users post-major release.
+  - **v4.0.5** - Bugfix: CORS preflight failure
+    - `[ ]` fix: [PATCH] Investigate and resolve CORS preflight failure reported by users post-major release.
+  - **v4.1.0** - Feature: rate limiter logic
+    - `[ ]` feat: [MINOR] Cache new rate limiter logic capabilities to expand the API surface of @typepurify/fetch.
+    - **v4.1.1** - Bugfix: memory leak on aborted request
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak on aborted request occurring under specific edge cases.
+    - **v4.1.2** - Bugfix: stale cache collision
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache collision occurring under specific edge cases.
+    - **v4.1.3** - Bugfix: thundering herd problem
+      - `[ ]` fix: [PATCH] Debug and resolve thundering herd problem occurring under specific edge cases.
+    - **v4.1.4** - Bugfix: zombie connection thread
+      - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
+    - **v4.1.5** - Bugfix: socket hangup issue
+      - `[ ]` fix: [PATCH] Debug and resolve socket hangup issue occurring under specific edge cases.
+  - **v4.2.0** - Feature: DNS resolver pool
+    - `[ ]` feat: [MINOR] Intercept new DNS resolver pool capabilities to expand the API surface of @typepurify/fetch.
+    - **v4.2.1** - Bugfix: stale cache collision
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache collision occurring under specific edge cases.
+    - **v4.2.2** - Bugfix: thundering herd problem
+      - `[ ]` fix: [PATCH] Debug and resolve thundering herd problem occurring under specific edge cases.
+    - **v4.2.3** - Bugfix: zombie connection thread
+      - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
+    - **v4.2.4** - Bugfix: socket hangup issue
+      - `[ ]` fix: [PATCH] Debug and resolve socket hangup issue occurring under specific edge cases.
+    - **v4.2.5** - Bugfix: DNS resolution timeout
+      - `[ ]` fix: [PATCH] Debug and resolve DNS resolution timeout occurring under specific edge cases.
+  - **v4.3.0** - Feature: connection pooler
+    - `[ ]` feat: [MINOR] Abort new connection pooler capabilities to expand the API surface of @typepurify/fetch.
+    - **v4.3.1** - Bugfix: thundering herd problem
+      - `[ ]` fix: [PATCH] Debug and resolve thundering herd problem occurring under specific edge cases.
+    - **v4.3.2** - Bugfix: zombie connection thread
+      - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
+    - **v4.3.3** - Bugfix: socket hangup issue
+      - `[ ]` fix: [PATCH] Debug and resolve socket hangup issue occurring under specific edge cases.
+    - **v4.3.4** - Bugfix: DNS resolution timeout
+      - `[ ]` fix: [PATCH] Debug and resolve DNS resolution timeout occurring under specific edge cases.
+    - **v4.3.5** - Bugfix: HTTP header parsing error
+      - `[ ]` fix: [PATCH] Debug and resolve HTTP header parsing error occurring under specific edge cases.
+  - **v4.4.0** - Feature: payload parser
+    - `[ ]` feat: [MINOR] Compress new payload parser capabilities to expand the API surface of @typepurify/fetch.
+    - **v4.4.1** - Bugfix: zombie connection thread
+      - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
+    - **v4.4.2** - Bugfix: socket hangup issue
+      - `[ ]` fix: [PATCH] Debug and resolve socket hangup issue occurring under specific edge cases.
+    - **v4.4.3** - Bugfix: DNS resolution timeout
+      - `[ ]` fix: [PATCH] Debug and resolve DNS resolution timeout occurring under specific edge cases.
+    - **v4.4.4** - Bugfix: HTTP header parsing error
+      - `[ ]` fix: [PATCH] Debug and resolve HTTP header parsing error occurring under specific edge cases.
+    - **v4.4.5** - Bugfix: connection reset exception
+      - `[ ]` fix: [PATCH] Debug and resolve connection reset exception occurring under specific edge cases.
+  - **v4.5.0** - Feature: timeout controller
+    - `[ ]` feat: [MINOR] Encrypt new timeout controller capabilities to expand the API surface of @typepurify/fetch.
+    - **v4.5.1** - Bugfix: socket hangup issue
+      - `[ ]` fix: [PATCH] Debug and resolve socket hangup issue occurring under specific edge cases.
+    - **v4.5.2** - Bugfix: DNS resolution timeout
+      - `[ ]` fix: [PATCH] Debug and resolve DNS resolution timeout occurring under specific edge cases.
+    - **v4.5.3** - Bugfix: HTTP header parsing error
+      - `[ ]` fix: [PATCH] Debug and resolve HTTP header parsing error occurring under specific edge cases.
+    - **v4.5.4** - Bugfix: connection reset exception
+      - `[ ]` fix: [PATCH] Debug and resolve connection reset exception occurring under specific edge cases.
+    - **v4.5.5** - Bugfix: CORS preflight failure
+      - `[ ]` fix: [PATCH] Debug and resolve CORS preflight failure occurring under specific edge cases.
+- **v5.0.0** - Major Release: cache layer
+  - `[ ]` feat: [MAJOR] Debounce the core cache layer for @typepurify/fetch to enhance performance and developer experience.
 
-### `@typepurify/retry`
+## 3. @typepurify/retry
 
-**Status:** 🟢 Completed (Active Maintenance)
 **Description:** Standalone retry utility for async functions.
 
-- `[x]` feat: Implement `retry(asyncFn, options)`.
-- `[x]` feat: Support exponential backoff and jitter algorithms.
-- `[x]` feat: Implement retry limits and timeout bounds.
+- **v1.0.0** - Major Release: exponential backoff algorithm
+  - `[ ]` feat: [MAJOR] Calculate the core exponential backoff algorithm for @typepurify/retry to enhance performance and developer experience.
+  - **v1.0.1** - Bugfix: infinite retry loop
+    - `[ ]` fix: [PATCH] Investigate and resolve infinite retry loop reported by users post-major release.
+  - **v1.0.2** - Bugfix: math overflow in delay calc
+    - `[ ]` fix: [PATCH] Investigate and resolve math overflow in delay calc reported by users post-major release.
+  - **v1.0.3** - Bugfix: race condition during lock
+    - `[ ]` fix: [PATCH] Investigate and resolve race condition during lock reported by users post-major release.
+  - **v1.0.4** - Bugfix: lock expiration bug
+    - `[ ]` fix: [PATCH] Investigate and resolve lock expiration bug reported by users post-major release.
+  - **v1.0.5** - Bugfix: deadlock in queue
+    - `[ ]` fix: [PATCH] Investigate and resolve deadlock in queue reported by users post-major release.
+  - **v1.1.0** - Feature: retry lock mechanism
+    - `[ ]` feat: [MINOR] Synchronize new retry lock mechanism capabilities to expand the API surface of @typepurify/retry.
+    - **v1.1.1** - Bugfix: lock expiration bug
+      - `[ ]` fix: [PATCH] Debug and resolve lock expiration bug occurring under specific edge cases.
+    - **v1.1.2** - Bugfix: deadlock in queue
+      - `[ ]` fix: [PATCH] Debug and resolve deadlock in queue occurring under specific edge cases.
+    - **v1.1.3** - Bugfix: timer drift
+      - `[ ]` fix: [PATCH] Debug and resolve timer drift occurring under specific edge cases.
+    - **v1.1.4** - Bugfix: event listener memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve event listener memory leak occurring under specific edge cases.
+    - **v1.1.5** - Bugfix: false positive fast-fail
+      - `[ ]` fix: [PATCH] Debug and resolve false positive fast-fail occurring under specific edge cases.
+  - **v1.2.0** - Feature: event emitter listener
+    - `[ ]` feat: [MINOR] Broadcast new event emitter listener capabilities to expand the API surface of @typepurify/retry.
+    - **v1.2.1** - Bugfix: deadlock in queue
+      - `[ ]` fix: [PATCH] Debug and resolve deadlock in queue occurring under specific edge cases.
+    - **v1.2.2** - Bugfix: timer drift
+      - `[ ]` fix: [PATCH] Debug and resolve timer drift occurring under specific edge cases.
+    - **v1.2.3** - Bugfix: event listener memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve event listener memory leak occurring under specific edge cases.
+    - **v1.2.4** - Bugfix: false positive fast-fail
+      - `[ ]` fix: [PATCH] Debug and resolve false positive fast-fail occurring under specific edge cases.
+    - **v1.2.5** - Bugfix: network state desync
+      - `[ ]` fix: [PATCH] Debug and resolve network state desync occurring under specific edge cases.
+  - **v1.3.0** - Feature: circuit state machine
+    - `[ ]` feat: [MINOR] Pause new circuit state machine capabilities to expand the API surface of @typepurify/retry.
+    - **v1.3.1** - Bugfix: timer drift
+      - `[ ]` fix: [PATCH] Debug and resolve timer drift occurring under specific edge cases.
+    - **v1.3.2** - Bugfix: event listener memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve event listener memory leak occurring under specific edge cases.
+    - **v1.3.3** - Bugfix: false positive fast-fail
+      - `[ ]` fix: [PATCH] Debug and resolve false positive fast-fail occurring under specific edge cases.
+    - **v1.3.4** - Bugfix: network state desync
+      - `[ ]` fix: [PATCH] Debug and resolve network state desync occurring under specific edge cases.
+    - **v1.3.5** - Bugfix: state machine panic
+      - `[ ]` fix: [PATCH] Debug and resolve state machine panic occurring under specific edge cases.
+  - **v1.4.0** - Feature: token bucket rate limiter
+    - `[ ]` feat: [MINOR] Resume new token bucket rate limiter capabilities to expand the API surface of @typepurify/retry.
+    - **v1.4.1** - Bugfix: event listener memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve event listener memory leak occurring under specific edge cases.
+    - **v1.4.2** - Bugfix: false positive fast-fail
+      - `[ ]` fix: [PATCH] Debug and resolve false positive fast-fail occurring under specific edge cases.
+    - **v1.4.3** - Bugfix: network state desync
+      - `[ ]` fix: [PATCH] Debug and resolve network state desync occurring under specific edge cases.
+    - **v1.4.4** - Bugfix: state machine panic
+      - `[ ]` fix: [PATCH] Debug and resolve state machine panic occurring under specific edge cases.
+    - **v1.4.5** - Bugfix: infinite retry loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite retry loop occurring under specific edge cases.
+  - **v1.5.0** - Feature: failover router
+    - `[ ]` feat: [MINOR] Predict new failover router capabilities to expand the API surface of @typepurify/retry.
+    - **v1.5.1** - Bugfix: false positive fast-fail
+      - `[ ]` fix: [PATCH] Debug and resolve false positive fast-fail occurring under specific edge cases.
+    - **v1.5.2** - Bugfix: network state desync
+      - `[ ]` fix: [PATCH] Debug and resolve network state desync occurring under specific edge cases.
+    - **v1.5.3** - Bugfix: state machine panic
+      - `[ ]` fix: [PATCH] Debug and resolve state machine panic occurring under specific edge cases.
+    - **v1.5.4** - Bugfix: infinite retry loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite retry loop occurring under specific edge cases.
+    - **v1.5.5** - Bugfix: math overflow in delay calc
+      - `[ ]` fix: [PATCH] Debug and resolve math overflow in delay calc occurring under specific edge cases.
+- **v2.0.0** - Major Release: jitter generator
+  - `[ ]` feat: [MAJOR] Delay the core jitter generator for @typepurify/retry to enhance performance and developer experience.
+  - **v2.0.1** - Bugfix: infinite retry loop
+    - `[ ]` fix: [PATCH] Investigate and resolve infinite retry loop reported by users post-major release.
+  - **v2.0.2** - Bugfix: math overflow in delay calc
+    - `[ ]` fix: [PATCH] Investigate and resolve math overflow in delay calc reported by users post-major release.
+  - **v2.0.3** - Bugfix: race condition during lock
+    - `[ ]` fix: [PATCH] Investigate and resolve race condition during lock reported by users post-major release.
+  - **v2.0.4** - Bugfix: lock expiration bug
+    - `[ ]` fix: [PATCH] Investigate and resolve lock expiration bug reported by users post-major release.
+  - **v2.0.5** - Bugfix: deadlock in queue
+    - `[ ]` fix: [PATCH] Investigate and resolve deadlock in queue reported by users post-major release.
+  - **v2.1.0** - Feature: event emitter listener
+    - `[ ]` feat: [MINOR] Broadcast new event emitter listener capabilities to expand the API surface of @typepurify/retry.
+    - **v2.1.1** - Bugfix: deadlock in queue
+      - `[ ]` fix: [PATCH] Debug and resolve deadlock in queue occurring under specific edge cases.
+    - **v2.1.2** - Bugfix: timer drift
+      - `[ ]` fix: [PATCH] Debug and resolve timer drift occurring under specific edge cases.
+    - **v2.1.3** - Bugfix: event listener memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve event listener memory leak occurring under specific edge cases.
+    - **v2.1.4** - Bugfix: false positive fast-fail
+      - `[ ]` fix: [PATCH] Debug and resolve false positive fast-fail occurring under specific edge cases.
+    - **v2.1.5** - Bugfix: network state desync
+      - `[ ]` fix: [PATCH] Debug and resolve network state desync occurring under specific edge cases.
+  - **v2.2.0** - Feature: circuit state machine
+    - `[ ]` feat: [MINOR] Pause new circuit state machine capabilities to expand the API surface of @typepurify/retry.
+    - **v2.2.1** - Bugfix: timer drift
+      - `[ ]` fix: [PATCH] Debug and resolve timer drift occurring under specific edge cases.
+    - **v2.2.2** - Bugfix: event listener memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve event listener memory leak occurring under specific edge cases.
+    - **v2.2.3** - Bugfix: false positive fast-fail
+      - `[ ]` fix: [PATCH] Debug and resolve false positive fast-fail occurring under specific edge cases.
+    - **v2.2.4** - Bugfix: network state desync
+      - `[ ]` fix: [PATCH] Debug and resolve network state desync occurring under specific edge cases.
+    - **v2.2.5** - Bugfix: state machine panic
+      - `[ ]` fix: [PATCH] Debug and resolve state machine panic occurring under specific edge cases.
+  - **v2.3.0** - Feature: token bucket rate limiter
+    - `[ ]` feat: [MINOR] Resume new token bucket rate limiter capabilities to expand the API surface of @typepurify/retry.
+    - **v2.3.1** - Bugfix: event listener memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve event listener memory leak occurring under specific edge cases.
+    - **v2.3.2** - Bugfix: false positive fast-fail
+      - `[ ]` fix: [PATCH] Debug and resolve false positive fast-fail occurring under specific edge cases.
+    - **v2.3.3** - Bugfix: network state desync
+      - `[ ]` fix: [PATCH] Debug and resolve network state desync occurring under specific edge cases.
+    - **v2.3.4** - Bugfix: state machine panic
+      - `[ ]` fix: [PATCH] Debug and resolve state machine panic occurring under specific edge cases.
+    - **v2.3.5** - Bugfix: infinite retry loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite retry loop occurring under specific edge cases.
+  - **v2.4.0** - Feature: failover router
+    - `[ ]` feat: [MINOR] Predict new failover router capabilities to expand the API surface of @typepurify/retry.
+    - **v2.4.1** - Bugfix: false positive fast-fail
+      - `[ ]` fix: [PATCH] Debug and resolve false positive fast-fail occurring under specific edge cases.
+    - **v2.4.2** - Bugfix: network state desync
+      - `[ ]` fix: [PATCH] Debug and resolve network state desync occurring under specific edge cases.
+    - **v2.4.3** - Bugfix: state machine panic
+      - `[ ]` fix: [PATCH] Debug and resolve state machine panic occurring under specific edge cases.
+    - **v2.4.4** - Bugfix: infinite retry loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite retry loop occurring under specific edge cases.
+    - **v2.4.5** - Bugfix: math overflow in delay calc
+      - `[ ]` fix: [PATCH] Debug and resolve math overflow in delay calc occurring under specific edge cases.
+  - **v2.5.0** - Feature: consensus node manager
+    - `[ ]` feat: [MINOR] Shape new consensus node manager capabilities to expand the API surface of @typepurify/retry.
+    - **v2.5.1** - Bugfix: network state desync
+      - `[ ]` fix: [PATCH] Debug and resolve network state desync occurring under specific edge cases.
+    - **v2.5.2** - Bugfix: state machine panic
+      - `[ ]` fix: [PATCH] Debug and resolve state machine panic occurring under specific edge cases.
+    - **v2.5.3** - Bugfix: infinite retry loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite retry loop occurring under specific edge cases.
+    - **v2.5.4** - Bugfix: math overflow in delay calc
+      - `[ ]` fix: [PATCH] Debug and resolve math overflow in delay calc occurring under specific edge cases.
+    - **v2.5.5** - Bugfix: race condition during lock
+      - `[ ]` fix: [PATCH] Debug and resolve race condition during lock occurring under specific edge cases.
+- **v3.0.0** - Major Release: retry lock mechanism
+  - `[ ]` feat: [MAJOR] Synchronize the core retry lock mechanism for @typepurify/retry to enhance performance and developer experience.
+  - **v3.0.1** - Bugfix: infinite retry loop
+    - `[ ]` fix: [PATCH] Investigate and resolve infinite retry loop reported by users post-major release.
+  - **v3.0.2** - Bugfix: math overflow in delay calc
+    - `[ ]` fix: [PATCH] Investigate and resolve math overflow in delay calc reported by users post-major release.
+  - **v3.0.3** - Bugfix: race condition during lock
+    - `[ ]` fix: [PATCH] Investigate and resolve race condition during lock reported by users post-major release.
+  - **v3.0.4** - Bugfix: lock expiration bug
+    - `[ ]` fix: [PATCH] Investigate and resolve lock expiration bug reported by users post-major release.
+  - **v3.0.5** - Bugfix: deadlock in queue
+    - `[ ]` fix: [PATCH] Investigate and resolve deadlock in queue reported by users post-major release.
+  - **v3.1.0** - Feature: circuit state machine
+    - `[ ]` feat: [MINOR] Pause new circuit state machine capabilities to expand the API surface of @typepurify/retry.
+    - **v3.1.1** - Bugfix: timer drift
+      - `[ ]` fix: [PATCH] Debug and resolve timer drift occurring under specific edge cases.
+    - **v3.1.2** - Bugfix: event listener memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve event listener memory leak occurring under specific edge cases.
+    - **v3.1.3** - Bugfix: false positive fast-fail
+      - `[ ]` fix: [PATCH] Debug and resolve false positive fast-fail occurring under specific edge cases.
+    - **v3.1.4** - Bugfix: network state desync
+      - `[ ]` fix: [PATCH] Debug and resolve network state desync occurring under specific edge cases.
+    - **v3.1.5** - Bugfix: state machine panic
+      - `[ ]` fix: [PATCH] Debug and resolve state machine panic occurring under specific edge cases.
+  - **v3.2.0** - Feature: token bucket rate limiter
+    - `[ ]` feat: [MINOR] Resume new token bucket rate limiter capabilities to expand the API surface of @typepurify/retry.
+    - **v3.2.1** - Bugfix: event listener memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve event listener memory leak occurring under specific edge cases.
+    - **v3.2.2** - Bugfix: false positive fast-fail
+      - `[ ]` fix: [PATCH] Debug and resolve false positive fast-fail occurring under specific edge cases.
+    - **v3.2.3** - Bugfix: network state desync
+      - `[ ]` fix: [PATCH] Debug and resolve network state desync occurring under specific edge cases.
+    - **v3.2.4** - Bugfix: state machine panic
+      - `[ ]` fix: [PATCH] Debug and resolve state machine panic occurring under specific edge cases.
+    - **v3.2.5** - Bugfix: infinite retry loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite retry loop occurring under specific edge cases.
+  - **v3.3.0** - Feature: failover router
+    - `[ ]` feat: [MINOR] Predict new failover router capabilities to expand the API surface of @typepurify/retry.
+    - **v3.3.1** - Bugfix: false positive fast-fail
+      - `[ ]` fix: [PATCH] Debug and resolve false positive fast-fail occurring under specific edge cases.
+    - **v3.3.2** - Bugfix: network state desync
+      - `[ ]` fix: [PATCH] Debug and resolve network state desync occurring under specific edge cases.
+    - **v3.3.3** - Bugfix: state machine panic
+      - `[ ]` fix: [PATCH] Debug and resolve state machine panic occurring under specific edge cases.
+    - **v3.3.4** - Bugfix: infinite retry loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite retry loop occurring under specific edge cases.
+    - **v3.3.5** - Bugfix: math overflow in delay calc
+      - `[ ]` fix: [PATCH] Debug and resolve math overflow in delay calc occurring under specific edge cases.
+  - **v3.4.0** - Feature: consensus node manager
+    - `[ ]` feat: [MINOR] Shape new consensus node manager capabilities to expand the API surface of @typepurify/retry.
+    - **v3.4.1** - Bugfix: network state desync
+      - `[ ]` fix: [PATCH] Debug and resolve network state desync occurring under specific edge cases.
+    - **v3.4.2** - Bugfix: state machine panic
+      - `[ ]` fix: [PATCH] Debug and resolve state machine panic occurring under specific edge cases.
+    - **v3.4.3** - Bugfix: infinite retry loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite retry loop occurring under specific edge cases.
+    - **v3.4.4** - Bugfix: math overflow in delay calc
+      - `[ ]` fix: [PATCH] Debug and resolve math overflow in delay calc occurring under specific edge cases.
+    - **v3.4.5** - Bugfix: race condition during lock
+      - `[ ]` fix: [PATCH] Debug and resolve race condition during lock occurring under specific edge cases.
+  - **v3.5.0** - Feature: webhook ping service
+    - `[ ]` feat: [MINOR] Orchestrate new webhook ping service capabilities to expand the API surface of @typepurify/retry.
+    - **v3.5.1** - Bugfix: state machine panic
+      - `[ ]` fix: [PATCH] Debug and resolve state machine panic occurring under specific edge cases.
+    - **v3.5.2** - Bugfix: infinite retry loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite retry loop occurring under specific edge cases.
+    - **v3.5.3** - Bugfix: math overflow in delay calc
+      - `[ ]` fix: [PATCH] Debug and resolve math overflow in delay calc occurring under specific edge cases.
+    - **v3.5.4** - Bugfix: race condition during lock
+      - `[ ]` fix: [PATCH] Debug and resolve race condition during lock occurring under specific edge cases.
+    - **v3.5.5** - Bugfix: lock expiration bug
+      - `[ ]` fix: [PATCH] Debug and resolve lock expiration bug occurring under specific edge cases.
+- **v4.0.0** - Major Release: event emitter listener
+  - `[ ]` feat: [MAJOR] Broadcast the core event emitter listener for @typepurify/retry to enhance performance and developer experience.
+  - **v4.0.1** - Bugfix: infinite retry loop
+    - `[ ]` fix: [PATCH] Investigate and resolve infinite retry loop reported by users post-major release.
+  - **v4.0.2** - Bugfix: math overflow in delay calc
+    - `[ ]` fix: [PATCH] Investigate and resolve math overflow in delay calc reported by users post-major release.
+  - **v4.0.3** - Bugfix: race condition during lock
+    - `[ ]` fix: [PATCH] Investigate and resolve race condition during lock reported by users post-major release.
+  - **v4.0.4** - Bugfix: lock expiration bug
+    - `[ ]` fix: [PATCH] Investigate and resolve lock expiration bug reported by users post-major release.
+  - **v4.0.5** - Bugfix: deadlock in queue
+    - `[ ]` fix: [PATCH] Investigate and resolve deadlock in queue reported by users post-major release.
+  - **v4.1.0** - Feature: token bucket rate limiter
+    - `[ ]` feat: [MINOR] Resume new token bucket rate limiter capabilities to expand the API surface of @typepurify/retry.
+    - **v4.1.1** - Bugfix: event listener memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve event listener memory leak occurring under specific edge cases.
+    - **v4.1.2** - Bugfix: false positive fast-fail
+      - `[ ]` fix: [PATCH] Debug and resolve false positive fast-fail occurring under specific edge cases.
+    - **v4.1.3** - Bugfix: network state desync
+      - `[ ]` fix: [PATCH] Debug and resolve network state desync occurring under specific edge cases.
+    - **v4.1.4** - Bugfix: state machine panic
+      - `[ ]` fix: [PATCH] Debug and resolve state machine panic occurring under specific edge cases.
+    - **v4.1.5** - Bugfix: infinite retry loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite retry loop occurring under specific edge cases.
+  - **v4.2.0** - Feature: failover router
+    - `[ ]` feat: [MINOR] Predict new failover router capabilities to expand the API surface of @typepurify/retry.
+    - **v4.2.1** - Bugfix: false positive fast-fail
+      - `[ ]` fix: [PATCH] Debug and resolve false positive fast-fail occurring under specific edge cases.
+    - **v4.2.2** - Bugfix: network state desync
+      - `[ ]` fix: [PATCH] Debug and resolve network state desync occurring under specific edge cases.
+    - **v4.2.3** - Bugfix: state machine panic
+      - `[ ]` fix: [PATCH] Debug and resolve state machine panic occurring under specific edge cases.
+    - **v4.2.4** - Bugfix: infinite retry loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite retry loop occurring under specific edge cases.
+    - **v4.2.5** - Bugfix: math overflow in delay calc
+      - `[ ]` fix: [PATCH] Debug and resolve math overflow in delay calc occurring under specific edge cases.
+  - **v4.3.0** - Feature: consensus node manager
+    - `[ ]` feat: [MINOR] Shape new consensus node manager capabilities to expand the API surface of @typepurify/retry.
+    - **v4.3.1** - Bugfix: network state desync
+      - `[ ]` fix: [PATCH] Debug and resolve network state desync occurring under specific edge cases.
+    - **v4.3.2** - Bugfix: state machine panic
+      - `[ ]` fix: [PATCH] Debug and resolve state machine panic occurring under specific edge cases.
+    - **v4.3.3** - Bugfix: infinite retry loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite retry loop occurring under specific edge cases.
+    - **v4.3.4** - Bugfix: math overflow in delay calc
+      - `[ ]` fix: [PATCH] Debug and resolve math overflow in delay calc occurring under specific edge cases.
+    - **v4.3.5** - Bugfix: race condition during lock
+      - `[ ]` fix: [PATCH] Debug and resolve race condition during lock occurring under specific edge cases.
+  - **v4.4.0** - Feature: webhook ping service
+    - `[ ]` feat: [MINOR] Orchestrate new webhook ping service capabilities to expand the API surface of @typepurify/retry.
+    - **v4.4.1** - Bugfix: state machine panic
+      - `[ ]` fix: [PATCH] Debug and resolve state machine panic occurring under specific edge cases.
+    - **v4.4.2** - Bugfix: infinite retry loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite retry loop occurring under specific edge cases.
+    - **v4.4.3** - Bugfix: math overflow in delay calc
+      - `[ ]` fix: [PATCH] Debug and resolve math overflow in delay calc occurring under specific edge cases.
+    - **v4.4.4** - Bugfix: race condition during lock
+      - `[ ]` fix: [PATCH] Debug and resolve race condition during lock occurring under specific edge cases.
+    - **v4.4.5** - Bugfix: lock expiration bug
+      - `[ ]` fix: [PATCH] Debug and resolve lock expiration bug occurring under specific edge cases.
+  - **v4.5.0** - Feature: telemetry tracker
+    - `[ ]` feat: [MINOR] Delegate new telemetry tracker capabilities to expand the API surface of @typepurify/retry.
+    - **v4.5.1** - Bugfix: infinite retry loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite retry loop occurring under specific edge cases.
+    - **v4.5.2** - Bugfix: math overflow in delay calc
+      - `[ ]` fix: [PATCH] Debug and resolve math overflow in delay calc occurring under specific edge cases.
+    - **v4.5.3** - Bugfix: race condition during lock
+      - `[ ]` fix: [PATCH] Debug and resolve race condition during lock occurring under specific edge cases.
+    - **v4.5.4** - Bugfix: lock expiration bug
+      - `[ ]` fix: [PATCH] Debug and resolve lock expiration bug occurring under specific edge cases.
+    - **v4.5.5** - Bugfix: deadlock in queue
+      - `[ ]` fix: [PATCH] Debug and resolve deadlock in queue occurring under specific edge cases.
+- **v5.0.0** - Major Release: circuit state machine
+  - `[ ]` feat: [MAJOR] Pause the core circuit state machine for @typepurify/retry to enhance performance and developer experience.
 
-### `@typepurify/dedupe`
+## 4. @typepurify/dedupe
 
-**Status:** 🟢 Completed (Active Maintenance)
 **Description:** Request deduplicator to prevent duplicate API calls.
 
-- `[x]` feat: In-memory hash-based request caching.
-- `[x]` feat: Automatic request debouncing.
+- **v1.0.0** - Major Release: SHA-256 hash generator
+  - `[ ]` feat: [MAJOR] Hash the core SHA-256 hash generator for @typepurify/dedupe to enhance performance and developer experience.
+  - **v1.0.1** - Bugfix: hash collision false positive
+    - `[ ]` fix: [PATCH] Investigate and resolve hash collision false positive reported by users post-major release.
+  - **v1.0.2** - Bugfix: stale data read
+    - `[ ]` fix: [PATCH] Investigate and resolve stale data read reported by users post-major release.
+  - **v1.0.3** - Bugfix: tab crash deadlock
+    - `[ ]` fix: [PATCH] Investigate and resolve tab crash deadlock reported by users post-major release.
+  - **v1.0.4** - Bugfix: fuzzy match error
+    - `[ ]` fix: [PATCH] Investigate and resolve fuzzy match error reported by users post-major release.
+  - **v1.0.5** - Bugfix: memory leak in accumulator array
+    - `[ ]` fix: [PATCH] Investigate and resolve memory leak in accumulator array reported by users post-major release.
+  - **v1.1.0** - Feature: AST parser for GraphQL
+    - `[ ]` feat: [MINOR] Merge new AST parser for GraphQL capabilities to expand the API surface of @typepurify/dedupe.
+    - **v1.1.1** - Bugfix: fuzzy match error
+      - `[ ]` fix: [PATCH] Debug and resolve fuzzy match error occurring under specific edge cases.
+    - **v1.1.2** - Bugfix: memory leak in accumulator array
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak in accumulator array occurring under specific edge cases.
+    - **v1.1.3** - Bugfix: cross-thread race condition
+      - `[ ]` fix: [PATCH] Debug and resolve cross-thread race condition occurring under specific edge cases.
+    - **v1.1.4** - Bugfix: OPTIONS request drop
+      - `[ ]` fix: [PATCH] Debug and resolve OPTIONS request drop occurring under specific edge cases.
+    - **v1.1.5** - Bugfix: out-of-order message processing
+      - `[ ]` fix: [PATCH] Debug and resolve out-of-order message processing occurring under specific edge cases.
+  - **v1.2.0** - Feature: BroadcastChannel sync
+    - `[ ]` feat: [MINOR] Serialize new BroadcastChannel sync capabilities to expand the API surface of @typepurify/dedupe.
+    - **v1.2.1** - Bugfix: memory leak in accumulator array
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak in accumulator array occurring under specific edge cases.
+    - **v1.2.2** - Bugfix: cross-thread race condition
+      - `[ ]` fix: [PATCH] Debug and resolve cross-thread race condition occurring under specific edge cases.
+    - **v1.2.3** - Bugfix: OPTIONS request drop
+      - `[ ]` fix: [PATCH] Debug and resolve OPTIONS request drop occurring under specific edge cases.
+    - **v1.2.4** - Bugfix: out-of-order message processing
+      - `[ ]` fix: [PATCH] Debug and resolve out-of-order message processing occurring under specific edge cases.
+    - **v1.2.5** - Bugfix: TTL overestimation
+      - `[ ]` fix: [PATCH] Debug and resolve TTL overestimation occurring under specific edge cases.
+  - **v1.3.0** - Feature: Prometheus metric exporter
+    - `[ ]` feat: [MINOR] Export new Prometheus metric exporter capabilities to expand the API surface of @typepurify/dedupe.
+    - **v1.3.1** - Bugfix: cross-thread race condition
+      - `[ ]` fix: [PATCH] Debug and resolve cross-thread race condition occurring under specific edge cases.
+    - **v1.3.2** - Bugfix: OPTIONS request drop
+      - `[ ]` fix: [PATCH] Debug and resolve OPTIONS request drop occurring under specific edge cases.
+    - **v1.3.3** - Bugfix: out-of-order message processing
+      - `[ ]` fix: [PATCH] Debug and resolve out-of-order message processing occurring under specific edge cases.
+    - **v1.3.4** - Bugfix: TTL overestimation
+      - `[ ]` fix: [PATCH] Debug and resolve TTL overestimation occurring under specific edge cases.
+    - **v1.3.5** - Bugfix: edge zone latency spike
+      - `[ ]` fix: [PATCH] Debug and resolve edge zone latency spike occurring under specific edge cases.
+  - **v1.4.0** - Feature: SharedArrayBuffer lock
+    - `[ ]` feat: [MINOR] Lock new SharedArrayBuffer lock capabilities to expand the API surface of @typepurify/dedupe.
+    - **v1.4.1** - Bugfix: OPTIONS request drop
+      - `[ ]` fix: [PATCH] Debug and resolve OPTIONS request drop occurring under specific edge cases.
+    - **v1.4.2** - Bugfix: out-of-order message processing
+      - `[ ]` fix: [PATCH] Debug and resolve out-of-order message processing occurring under specific edge cases.
+    - **v1.4.3** - Bugfix: TTL overestimation
+      - `[ ]` fix: [PATCH] Debug and resolve TTL overestimation occurring under specific edge cases.
+    - **v1.4.4** - Bugfix: edge zone latency spike
+      - `[ ]` fix: [PATCH] Debug and resolve edge zone latency spike occurring under specific edge cases.
+    - **v1.4.5** - Bugfix: hash collision false positive
+      - `[ ]` fix: [PATCH] Debug and resolve hash collision false positive occurring under specific edge cases.
+  - **v1.5.0** - Feature: proxy layer
+    - `[ ]` feat: [MINOR] Inject new proxy layer capabilities to expand the API surface of @typepurify/dedupe.
+    - **v1.5.1** - Bugfix: out-of-order message processing
+      - `[ ]` fix: [PATCH] Debug and resolve out-of-order message processing occurring under specific edge cases.
+    - **v1.5.2** - Bugfix: TTL overestimation
+      - `[ ]` fix: [PATCH] Debug and resolve TTL overestimation occurring under specific edge cases.
+    - **v1.5.3** - Bugfix: edge zone latency spike
+      - `[ ]` fix: [PATCH] Debug and resolve edge zone latency spike occurring under specific edge cases.
+    - **v1.5.4** - Bugfix: hash collision false positive
+      - `[ ]` fix: [PATCH] Debug and resolve hash collision false positive occurring under specific edge cases.
+    - **v1.5.5** - Bugfix: stale data read
+      - `[ ]` fix: [PATCH] Debug and resolve stale data read occurring under specific edge cases.
+- **v2.0.0** - Major Release: in-memory cache store
+  - `[ ]` feat: [MAJOR] Coalesce the core in-memory cache store for @typepurify/dedupe to enhance performance and developer experience.
+  - **v2.0.1** - Bugfix: hash collision false positive
+    - `[ ]` fix: [PATCH] Investigate and resolve hash collision false positive reported by users post-major release.
+  - **v2.0.2** - Bugfix: stale data read
+    - `[ ]` fix: [PATCH] Investigate and resolve stale data read reported by users post-major release.
+  - **v2.0.3** - Bugfix: tab crash deadlock
+    - `[ ]` fix: [PATCH] Investigate and resolve tab crash deadlock reported by users post-major release.
+  - **v2.0.4** - Bugfix: fuzzy match error
+    - `[ ]` fix: [PATCH] Investigate and resolve fuzzy match error reported by users post-major release.
+  - **v2.0.5** - Bugfix: memory leak in accumulator array
+    - `[ ]` fix: [PATCH] Investigate and resolve memory leak in accumulator array reported by users post-major release.
+  - **v2.1.0** - Feature: BroadcastChannel sync
+    - `[ ]` feat: [MINOR] Serialize new BroadcastChannel sync capabilities to expand the API surface of @typepurify/dedupe.
+    - **v2.1.1** - Bugfix: memory leak in accumulator array
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak in accumulator array occurring under specific edge cases.
+    - **v2.1.2** - Bugfix: cross-thread race condition
+      - `[ ]` fix: [PATCH] Debug and resolve cross-thread race condition occurring under specific edge cases.
+    - **v2.1.3** - Bugfix: OPTIONS request drop
+      - `[ ]` fix: [PATCH] Debug and resolve OPTIONS request drop occurring under specific edge cases.
+    - **v2.1.4** - Bugfix: out-of-order message processing
+      - `[ ]` fix: [PATCH] Debug and resolve out-of-order message processing occurring under specific edge cases.
+    - **v2.1.5** - Bugfix: TTL overestimation
+      - `[ ]` fix: [PATCH] Debug and resolve TTL overestimation occurring under specific edge cases.
+  - **v2.2.0** - Feature: Prometheus metric exporter
+    - `[ ]` feat: [MINOR] Export new Prometheus metric exporter capabilities to expand the API surface of @typepurify/dedupe.
+    - **v2.2.1** - Bugfix: cross-thread race condition
+      - `[ ]` fix: [PATCH] Debug and resolve cross-thread race condition occurring under specific edge cases.
+    - **v2.2.2** - Bugfix: OPTIONS request drop
+      - `[ ]` fix: [PATCH] Debug and resolve OPTIONS request drop occurring under specific edge cases.
+    - **v2.2.3** - Bugfix: out-of-order message processing
+      - `[ ]` fix: [PATCH] Debug and resolve out-of-order message processing occurring under specific edge cases.
+    - **v2.2.4** - Bugfix: TTL overestimation
+      - `[ ]` fix: [PATCH] Debug and resolve TTL overestimation occurring under specific edge cases.
+    - **v2.2.5** - Bugfix: edge zone latency spike
+      - `[ ]` fix: [PATCH] Debug and resolve edge zone latency spike occurring under specific edge cases.
+  - **v2.3.0** - Feature: SharedArrayBuffer lock
+    - `[ ]` feat: [MINOR] Lock new SharedArrayBuffer lock capabilities to expand the API surface of @typepurify/dedupe.
+    - **v2.3.1** - Bugfix: OPTIONS request drop
+      - `[ ]` fix: [PATCH] Debug and resolve OPTIONS request drop occurring under specific edge cases.
+    - **v2.3.2** - Bugfix: out-of-order message processing
+      - `[ ]` fix: [PATCH] Debug and resolve out-of-order message processing occurring under specific edge cases.
+    - **v2.3.3** - Bugfix: TTL overestimation
+      - `[ ]` fix: [PATCH] Debug and resolve TTL overestimation occurring under specific edge cases.
+    - **v2.3.4** - Bugfix: edge zone latency spike
+      - `[ ]` fix: [PATCH] Debug and resolve edge zone latency spike occurring under specific edge cases.
+    - **v2.3.5** - Bugfix: hash collision false positive
+      - `[ ]` fix: [PATCH] Debug and resolve hash collision false positive occurring under specific edge cases.
+  - **v2.4.0** - Feature: proxy layer
+    - `[ ]` feat: [MINOR] Inject new proxy layer capabilities to expand the API surface of @typepurify/dedupe.
+    - **v2.4.1** - Bugfix: out-of-order message processing
+      - `[ ]` fix: [PATCH] Debug and resolve out-of-order message processing occurring under specific edge cases.
+    - **v2.4.2** - Bugfix: TTL overestimation
+      - `[ ]` fix: [PATCH] Debug and resolve TTL overestimation occurring under specific edge cases.
+    - **v2.4.3** - Bugfix: edge zone latency spike
+      - `[ ]` fix: [PATCH] Debug and resolve edge zone latency spike occurring under specific edge cases.
+    - **v2.4.4** - Bugfix: hash collision false positive
+      - `[ ]` fix: [PATCH] Debug and resolve hash collision false positive occurring under specific edge cases.
+    - **v2.4.5** - Bugfix: stale data read
+      - `[ ]` fix: [PATCH] Debug and resolve stale data read occurring under specific edge cases.
+  - **v2.5.0** - Feature: sequence tracker
+    - `[ ]` feat: [MINOR] Track new sequence tracker capabilities to expand the API surface of @typepurify/dedupe.
+    - **v2.5.1** - Bugfix: TTL overestimation
+      - `[ ]` fix: [PATCH] Debug and resolve TTL overestimation occurring under specific edge cases.
+    - **v2.5.2** - Bugfix: edge zone latency spike
+      - `[ ]` fix: [PATCH] Debug and resolve edge zone latency spike occurring under specific edge cases.
+    - **v2.5.3** - Bugfix: hash collision false positive
+      - `[ ]` fix: [PATCH] Debug and resolve hash collision false positive occurring under specific edge cases.
+    - **v2.5.4** - Bugfix: stale data read
+      - `[ ]` fix: [PATCH] Debug and resolve stale data read occurring under specific edge cases.
+    - **v2.5.5** - Bugfix: tab crash deadlock
+      - `[ ]` fix: [PATCH] Debug and resolve tab crash deadlock occurring under specific edge cases.
+- **v3.0.0** - Major Release: AST parser for GraphQL
+  - `[ ]` feat: [MAJOR] Merge the core AST parser for GraphQL for @typepurify/dedupe to enhance performance and developer experience.
+  - **v3.0.1** - Bugfix: hash collision false positive
+    - `[ ]` fix: [PATCH] Investigate and resolve hash collision false positive reported by users post-major release.
+  - **v3.0.2** - Bugfix: stale data read
+    - `[ ]` fix: [PATCH] Investigate and resolve stale data read reported by users post-major release.
+  - **v3.0.3** - Bugfix: tab crash deadlock
+    - `[ ]` fix: [PATCH] Investigate and resolve tab crash deadlock reported by users post-major release.
+  - **v3.0.4** - Bugfix: fuzzy match error
+    - `[ ]` fix: [PATCH] Investigate and resolve fuzzy match error reported by users post-major release.
+  - **v3.0.5** - Bugfix: memory leak in accumulator array
+    - `[ ]` fix: [PATCH] Investigate and resolve memory leak in accumulator array reported by users post-major release.
+  - **v3.1.0** - Feature: Prometheus metric exporter
+    - `[ ]` feat: [MINOR] Export new Prometheus metric exporter capabilities to expand the API surface of @typepurify/dedupe.
+    - **v3.1.1** - Bugfix: cross-thread race condition
+      - `[ ]` fix: [PATCH] Debug and resolve cross-thread race condition occurring under specific edge cases.
+    - **v3.1.2** - Bugfix: OPTIONS request drop
+      - `[ ]` fix: [PATCH] Debug and resolve OPTIONS request drop occurring under specific edge cases.
+    - **v3.1.3** - Bugfix: out-of-order message processing
+      - `[ ]` fix: [PATCH] Debug and resolve out-of-order message processing occurring under specific edge cases.
+    - **v3.1.4** - Bugfix: TTL overestimation
+      - `[ ]` fix: [PATCH] Debug and resolve TTL overestimation occurring under specific edge cases.
+    - **v3.1.5** - Bugfix: edge zone latency spike
+      - `[ ]` fix: [PATCH] Debug and resolve edge zone latency spike occurring under specific edge cases.
+  - **v3.2.0** - Feature: SharedArrayBuffer lock
+    - `[ ]` feat: [MINOR] Lock new SharedArrayBuffer lock capabilities to expand the API surface of @typepurify/dedupe.
+    - **v3.2.1** - Bugfix: OPTIONS request drop
+      - `[ ]` fix: [PATCH] Debug and resolve OPTIONS request drop occurring under specific edge cases.
+    - **v3.2.2** - Bugfix: out-of-order message processing
+      - `[ ]` fix: [PATCH] Debug and resolve out-of-order message processing occurring under specific edge cases.
+    - **v3.2.3** - Bugfix: TTL overestimation
+      - `[ ]` fix: [PATCH] Debug and resolve TTL overestimation occurring under specific edge cases.
+    - **v3.2.4** - Bugfix: edge zone latency spike
+      - `[ ]` fix: [PATCH] Debug and resolve edge zone latency spike occurring under specific edge cases.
+    - **v3.2.5** - Bugfix: hash collision false positive
+      - `[ ]` fix: [PATCH] Debug and resolve hash collision false positive occurring under specific edge cases.
+  - **v3.3.0** - Feature: proxy layer
+    - `[ ]` feat: [MINOR] Inject new proxy layer capabilities to expand the API surface of @typepurify/dedupe.
+    - **v3.3.1** - Bugfix: out-of-order message processing
+      - `[ ]` fix: [PATCH] Debug and resolve out-of-order message processing occurring under specific edge cases.
+    - **v3.3.2** - Bugfix: TTL overestimation
+      - `[ ]` fix: [PATCH] Debug and resolve TTL overestimation occurring under specific edge cases.
+    - **v3.3.3** - Bugfix: edge zone latency spike
+      - `[ ]` fix: [PATCH] Debug and resolve edge zone latency spike occurring under specific edge cases.
+    - **v3.3.4** - Bugfix: hash collision false positive
+      - `[ ]` fix: [PATCH] Debug and resolve hash collision false positive occurring under specific edge cases.
+    - **v3.3.5** - Bugfix: stale data read
+      - `[ ]` fix: [PATCH] Debug and resolve stale data read occurring under specific edge cases.
+  - **v3.4.0** - Feature: sequence tracker
+    - `[ ]` feat: [MINOR] Track new sequence tracker capabilities to expand the API surface of @typepurify/dedupe.
+    - **v3.4.1** - Bugfix: TTL overestimation
+      - `[ ]` fix: [PATCH] Debug and resolve TTL overestimation occurring under specific edge cases.
+    - **v3.4.2** - Bugfix: edge zone latency spike
+      - `[ ]` fix: [PATCH] Debug and resolve edge zone latency spike occurring under specific edge cases.
+    - **v3.4.3** - Bugfix: hash collision false positive
+      - `[ ]` fix: [PATCH] Debug and resolve hash collision false positive occurring under specific edge cases.
+    - **v3.4.4** - Bugfix: stale data read
+      - `[ ]` fix: [PATCH] Debug and resolve stale data read occurring under specific edge cases.
+    - **v3.4.5** - Bugfix: tab crash deadlock
+      - `[ ]` fix: [PATCH] Debug and resolve tab crash deadlock occurring under specific edge cases.
+  - **v3.5.0** - Feature: TTL analyzer
+    - `[ ]` feat: [MINOR] Predict new TTL analyzer capabilities to expand the API surface of @typepurify/dedupe.
+    - **v3.5.1** - Bugfix: edge zone latency spike
+      - `[ ]` fix: [PATCH] Debug and resolve edge zone latency spike occurring under specific edge cases.
+    - **v3.5.2** - Bugfix: hash collision false positive
+      - `[ ]` fix: [PATCH] Debug and resolve hash collision false positive occurring under specific edge cases.
+    - **v3.5.3** - Bugfix: stale data read
+      - `[ ]` fix: [PATCH] Debug and resolve stale data read occurring under specific edge cases.
+    - **v3.5.4** - Bugfix: tab crash deadlock
+      - `[ ]` fix: [PATCH] Debug and resolve tab crash deadlock occurring under specific edge cases.
+    - **v3.5.5** - Bugfix: fuzzy match error
+      - `[ ]` fix: [PATCH] Debug and resolve fuzzy match error occurring under specific edge cases.
+- **v4.0.0** - Major Release: BroadcastChannel sync
+  - `[ ]` feat: [MAJOR] Serialize the core BroadcastChannel sync for @typepurify/dedupe to enhance performance and developer experience.
+  - **v4.0.1** - Bugfix: hash collision false positive
+    - `[ ]` fix: [PATCH] Investigate and resolve hash collision false positive reported by users post-major release.
+  - **v4.0.2** - Bugfix: stale data read
+    - `[ ]` fix: [PATCH] Investigate and resolve stale data read reported by users post-major release.
+  - **v4.0.3** - Bugfix: tab crash deadlock
+    - `[ ]` fix: [PATCH] Investigate and resolve tab crash deadlock reported by users post-major release.
+  - **v4.0.4** - Bugfix: fuzzy match error
+    - `[ ]` fix: [PATCH] Investigate and resolve fuzzy match error reported by users post-major release.
+  - **v4.0.5** - Bugfix: memory leak in accumulator array
+    - `[ ]` fix: [PATCH] Investigate and resolve memory leak in accumulator array reported by users post-major release.
+  - **v4.1.0** - Feature: SharedArrayBuffer lock
+    - `[ ]` feat: [MINOR] Lock new SharedArrayBuffer lock capabilities to expand the API surface of @typepurify/dedupe.
+    - **v4.1.1** - Bugfix: OPTIONS request drop
+      - `[ ]` fix: [PATCH] Debug and resolve OPTIONS request drop occurring under specific edge cases.
+    - **v4.1.2** - Bugfix: out-of-order message processing
+      - `[ ]` fix: [PATCH] Debug and resolve out-of-order message processing occurring under specific edge cases.
+    - **v4.1.3** - Bugfix: TTL overestimation
+      - `[ ]` fix: [PATCH] Debug and resolve TTL overestimation occurring under specific edge cases.
+    - **v4.1.4** - Bugfix: edge zone latency spike
+      - `[ ]` fix: [PATCH] Debug and resolve edge zone latency spike occurring under specific edge cases.
+    - **v4.1.5** - Bugfix: hash collision false positive
+      - `[ ]` fix: [PATCH] Debug and resolve hash collision false positive occurring under specific edge cases.
+  - **v4.2.0** - Feature: proxy layer
+    - `[ ]` feat: [MINOR] Inject new proxy layer capabilities to expand the API surface of @typepurify/dedupe.
+    - **v4.2.1** - Bugfix: out-of-order message processing
+      - `[ ]` fix: [PATCH] Debug and resolve out-of-order message processing occurring under specific edge cases.
+    - **v4.2.2** - Bugfix: TTL overestimation
+      - `[ ]` fix: [PATCH] Debug and resolve TTL overestimation occurring under specific edge cases.
+    - **v4.2.3** - Bugfix: edge zone latency spike
+      - `[ ]` fix: [PATCH] Debug and resolve edge zone latency spike occurring under specific edge cases.
+    - **v4.2.4** - Bugfix: hash collision false positive
+      - `[ ]` fix: [PATCH] Debug and resolve hash collision false positive occurring under specific edge cases.
+    - **v4.2.5** - Bugfix: stale data read
+      - `[ ]` fix: [PATCH] Debug and resolve stale data read occurring under specific edge cases.
+  - **v4.3.0** - Feature: sequence tracker
+    - `[ ]` feat: [MINOR] Track new sequence tracker capabilities to expand the API surface of @typepurify/dedupe.
+    - **v4.3.1** - Bugfix: TTL overestimation
+      - `[ ]` fix: [PATCH] Debug and resolve TTL overestimation occurring under specific edge cases.
+    - **v4.3.2** - Bugfix: edge zone latency spike
+      - `[ ]` fix: [PATCH] Debug and resolve edge zone latency spike occurring under specific edge cases.
+    - **v4.3.3** - Bugfix: hash collision false positive
+      - `[ ]` fix: [PATCH] Debug and resolve hash collision false positive occurring under specific edge cases.
+    - **v4.3.4** - Bugfix: stale data read
+      - `[ ]` fix: [PATCH] Debug and resolve stale data read occurring under specific edge cases.
+    - **v4.3.5** - Bugfix: tab crash deadlock
+      - `[ ]` fix: [PATCH] Debug and resolve tab crash deadlock occurring under specific edge cases.
+  - **v4.4.0** - Feature: TTL analyzer
+    - `[ ]` feat: [MINOR] Predict new TTL analyzer capabilities to expand the API surface of @typepurify/dedupe.
+    - **v4.4.1** - Bugfix: edge zone latency spike
+      - `[ ]` fix: [PATCH] Debug and resolve edge zone latency spike occurring under specific edge cases.
+    - **v4.4.2** - Bugfix: hash collision false positive
+      - `[ ]` fix: [PATCH] Debug and resolve hash collision false positive occurring under specific edge cases.
+    - **v4.4.3** - Bugfix: stale data read
+      - `[ ]` fix: [PATCH] Debug and resolve stale data read occurring under specific edge cases.
+    - **v4.4.4** - Bugfix: tab crash deadlock
+      - `[ ]` fix: [PATCH] Debug and resolve tab crash deadlock occurring under specific edge cases.
+    - **v4.4.5** - Bugfix: fuzzy match error
+      - `[ ]` fix: [PATCH] Debug and resolve fuzzy match error occurring under specific edge cases.
+  - **v4.5.0** - Feature: Edge network zone synchronizer
+    - `[ ]` feat: [MINOR] Sync new Edge network zone synchronizer capabilities to expand the API surface of @typepurify/dedupe.
+    - **v4.5.1** - Bugfix: hash collision false positive
+      - `[ ]` fix: [PATCH] Debug and resolve hash collision false positive occurring under specific edge cases.
+    - **v4.5.2** - Bugfix: stale data read
+      - `[ ]` fix: [PATCH] Debug and resolve stale data read occurring under specific edge cases.
+    - **v4.5.3** - Bugfix: tab crash deadlock
+      - `[ ]` fix: [PATCH] Debug and resolve tab crash deadlock occurring under specific edge cases.
+    - **v4.5.4** - Bugfix: fuzzy match error
+      - `[ ]` fix: [PATCH] Debug and resolve fuzzy match error occurring under specific edge cases.
+    - **v4.5.5** - Bugfix: memory leak in accumulator array
+      - `[ ]` fix: [PATCH] Debug and resolve memory leak in accumulator array occurring under specific edge cases.
+- **v5.0.0** - Major Release: Prometheus metric exporter
+  - `[ ]` feat: [MAJOR] Export the core Prometheus metric exporter for @typepurify/dedupe to enhance performance and developer experience.
 
-### `@typepurify/paginate`
+## 5. @typepurify/paginate
 
-**Status:** 🟢 Completed (Active Maintenance)
 **Description:** Smart pagination utilities.
 
-- `[x]` feat: Cursor-based pagination parser.
-- `[x]` feat: Offset-based pagination parser.
-- `[x]` feat: Infinite scroll state machine.
+- **v1.0.0** - Major Release: cursor parser
+  - `[ ]` feat: [MAJOR] Pre-fetch the core cursor parser for @typepurify/paginate to enhance performance and developer experience.
+  - **v1.0.1** - Bugfix: overlapping list items
+    - `[ ]` fix: [PATCH] Investigate and resolve overlapping list items reported by users post-major release.
+  - **v1.0.2** - Bugfix: stream unclosed memory leak
+    - `[ ]` fix: [PATCH] Investigate and resolve stream unclosed memory leak reported by users post-major release.
+  - **v1.0.3** - Bugfix: missing cursor exception
+    - `[ ]` fix: [PATCH] Investigate and resolve missing cursor exception reported by users post-major release.
+  - **v1.0.4** - Bugfix: layout shift bug
+    - `[ ]` fix: [PATCH] Investigate and resolve layout shift bug reported by users post-major release.
+  - **v1.0.5** - Bugfix: scroll position loss
+    - `[ ]` fix: [PATCH] Investigate and resolve scroll position loss reported by users post-major release.
+  - **v1.1.0** - Feature: Relay connection specification
+    - `[ ]` feat: [MINOR] Stream new Relay connection specification capabilities to expand the API surface of @typepurify/paginate.
+    - **v1.1.1** - Bugfix: layout shift bug
+      - `[ ]` fix: [PATCH] Debug and resolve layout shift bug occurring under specific edge cases.
+    - **v1.1.2** - Bugfix: scroll position loss
+      - `[ ]` fix: [PATCH] Debug and resolve scroll position loss occurring under specific edge cases.
+    - **v1.1.3** - Bugfix: partial source crash
+      - `[ ]` fix: [PATCH] Debug and resolve partial source crash occurring under specific edge cases.
+    - **v1.1.4** - Bugfix: cursor invalidation bug
+      - `[ ]` fix: [PATCH] Debug and resolve cursor invalidation bug occurring under specific edge cases.
+    - **v1.1.5** - Bugfix: nested array parse error
+      - `[ ]` fix: [PATCH] Debug and resolve nested array parse error occurring under specific edge cases.
+  - **v1.2.0** - Feature: virtualized list renderer
+    - `[ ]` feat: [MINOR] Aggregate new virtualized list renderer capabilities to expand the API surface of @typepurify/paginate.
+    - **v1.2.1** - Bugfix: scroll position loss
+      - `[ ]` fix: [PATCH] Debug and resolve scroll position loss occurring under specific edge cases.
+    - **v1.2.2** - Bugfix: partial source crash
+      - `[ ]` fix: [PATCH] Debug and resolve partial source crash occurring under specific edge cases.
+    - **v1.2.3** - Bugfix: cursor invalidation bug
+      - `[ ]` fix: [PATCH] Debug and resolve cursor invalidation bug occurring under specific edge cases.
+    - **v1.2.4** - Bugfix: nested array parse error
+      - `[ ]` fix: [PATCH] Debug and resolve nested array parse error occurring under specific edge cases.
+    - **v1.2.5** - Bugfix: cache bust failure
+      - `[ ]` fix: [PATCH] Debug and resolve cache bust failure occurring under specific edge cases.
+  - **v1.3.0** - Feature: chunk garbage collector
+    - `[ ]` feat: [MINOR] Interleave new chunk garbage collector capabilities to expand the API surface of @typepurify/paginate.
+    - **v1.3.1** - Bugfix: partial source crash
+      - `[ ]` fix: [PATCH] Debug and resolve partial source crash occurring under specific edge cases.
+    - **v1.3.2** - Bugfix: cursor invalidation bug
+      - `[ ]` fix: [PATCH] Debug and resolve cursor invalidation bug occurring under specific edge cases.
+    - **v1.3.3** - Bugfix: nested array parse error
+      - `[ ]` fix: [PATCH] Debug and resolve nested array parse error occurring under specific edge cases.
+    - **v1.3.4** - Bugfix: cache bust failure
+      - `[ ]` fix: [PATCH] Debug and resolve cache bust failure occurring under specific edge cases.
+    - **v1.3.5** - Bugfix: state sync latency
+      - `[ ]` fix: [PATCH] Debug and resolve state sync latency occurring under specific edge cases.
+  - **v1.4.0** - Feature: multi-source aggregator
+    - `[ ]` feat: [MINOR] Hydrate new multi-source aggregator capabilities to expand the API surface of @typepurify/paginate.
+    - **v1.4.1** - Bugfix: cursor invalidation bug
+      - `[ ]` fix: [PATCH] Debug and resolve cursor invalidation bug occurring under specific edge cases.
+    - **v1.4.2** - Bugfix: nested array parse error
+      - `[ ]` fix: [PATCH] Debug and resolve nested array parse error occurring under specific edge cases.
+    - **v1.4.3** - Bugfix: cache bust failure
+      - `[ ]` fix: [PATCH] Debug and resolve cache bust failure occurring under specific edge cases.
+    - **v1.4.4** - Bugfix: state sync latency
+      - `[ ]` fix: [PATCH] Debug and resolve state sync latency occurring under specific edge cases.
+    - **v1.4.5** - Bugfix: overlapping list items
+      - `[ ]` fix: [PATCH] Debug and resolve overlapping list items occurring under specific edge cases.
+  - **v1.5.0** - Feature: optimistic UI updater
+    - `[ ]` feat: [MINOR] Invalidate new optimistic UI updater capabilities to expand the API surface of @typepurify/paginate.
+    - **v1.5.1** - Bugfix: nested array parse error
+      - `[ ]` fix: [PATCH] Debug and resolve nested array parse error occurring under specific edge cases.
+    - **v1.5.2** - Bugfix: cache bust failure
+      - `[ ]` fix: [PATCH] Debug and resolve cache bust failure occurring under specific edge cases.
+    - **v1.5.3** - Bugfix: state sync latency
+      - `[ ]` fix: [PATCH] Debug and resolve state sync latency occurring under specific edge cases.
+    - **v1.5.4** - Bugfix: overlapping list items
+      - `[ ]` fix: [PATCH] Debug and resolve overlapping list items occurring under specific edge cases.
+    - **v1.5.5** - Bugfix: stream unclosed memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve stream unclosed memory leak occurring under specific edge cases.
+- **v2.0.0** - Major Release: offset state manager
+  - `[ ]` feat: [MAJOR] Stitch the core offset state manager for @typepurify/paginate to enhance performance and developer experience.
+  - **v2.0.1** - Bugfix: overlapping list items
+    - `[ ]` fix: [PATCH] Investigate and resolve overlapping list items reported by users post-major release.
+  - **v2.0.2** - Bugfix: stream unclosed memory leak
+    - `[ ]` fix: [PATCH] Investigate and resolve stream unclosed memory leak reported by users post-major release.
+  - **v2.0.3** - Bugfix: missing cursor exception
+    - `[ ]` fix: [PATCH] Investigate and resolve missing cursor exception reported by users post-major release.
+  - **v2.0.4** - Bugfix: layout shift bug
+    - `[ ]` fix: [PATCH] Investigate and resolve layout shift bug reported by users post-major release.
+  - **v2.0.5** - Bugfix: scroll position loss
+    - `[ ]` fix: [PATCH] Investigate and resolve scroll position loss reported by users post-major release.
+  - **v2.1.0** - Feature: virtualized list renderer
+    - `[ ]` feat: [MINOR] Aggregate new virtualized list renderer capabilities to expand the API surface of @typepurify/paginate.
+    - **v2.1.1** - Bugfix: scroll position loss
+      - `[ ]` fix: [PATCH] Debug and resolve scroll position loss occurring under specific edge cases.
+    - **v2.1.2** - Bugfix: partial source crash
+      - `[ ]` fix: [PATCH] Debug and resolve partial source crash occurring under specific edge cases.
+    - **v2.1.3** - Bugfix: cursor invalidation bug
+      - `[ ]` fix: [PATCH] Debug and resolve cursor invalidation bug occurring under specific edge cases.
+    - **v2.1.4** - Bugfix: nested array parse error
+      - `[ ]` fix: [PATCH] Debug and resolve nested array parse error occurring under specific edge cases.
+    - **v2.1.5** - Bugfix: cache bust failure
+      - `[ ]` fix: [PATCH] Debug and resolve cache bust failure occurring under specific edge cases.
+  - **v2.2.0** - Feature: chunk garbage collector
+    - `[ ]` feat: [MINOR] Interleave new chunk garbage collector capabilities to expand the API surface of @typepurify/paginate.
+    - **v2.2.1** - Bugfix: partial source crash
+      - `[ ]` fix: [PATCH] Debug and resolve partial source crash occurring under specific edge cases.
+    - **v2.2.2** - Bugfix: cursor invalidation bug
+      - `[ ]` fix: [PATCH] Debug and resolve cursor invalidation bug occurring under specific edge cases.
+    - **v2.2.3** - Bugfix: nested array parse error
+      - `[ ]` fix: [PATCH] Debug and resolve nested array parse error occurring under specific edge cases.
+    - **v2.2.4** - Bugfix: cache bust failure
+      - `[ ]` fix: [PATCH] Debug and resolve cache bust failure occurring under specific edge cases.
+    - **v2.2.5** - Bugfix: state sync latency
+      - `[ ]` fix: [PATCH] Debug and resolve state sync latency occurring under specific edge cases.
+  - **v2.3.0** - Feature: multi-source aggregator
+    - `[ ]` feat: [MINOR] Hydrate new multi-source aggregator capabilities to expand the API surface of @typepurify/paginate.
+    - **v2.3.1** - Bugfix: cursor invalidation bug
+      - `[ ]` fix: [PATCH] Debug and resolve cursor invalidation bug occurring under specific edge cases.
+    - **v2.3.2** - Bugfix: nested array parse error
+      - `[ ]` fix: [PATCH] Debug and resolve nested array parse error occurring under specific edge cases.
+    - **v2.3.3** - Bugfix: cache bust failure
+      - `[ ]` fix: [PATCH] Debug and resolve cache bust failure occurring under specific edge cases.
+    - **v2.3.4** - Bugfix: state sync latency
+      - `[ ]` fix: [PATCH] Debug and resolve state sync latency occurring under specific edge cases.
+    - **v2.3.5** - Bugfix: overlapping list items
+      - `[ ]` fix: [PATCH] Debug and resolve overlapping list items occurring under specific edge cases.
+  - **v2.4.0** - Feature: optimistic UI updater
+    - `[ ]` feat: [MINOR] Invalidate new optimistic UI updater capabilities to expand the API surface of @typepurify/paginate.
+    - **v2.4.1** - Bugfix: nested array parse error
+      - `[ ]` fix: [PATCH] Debug and resolve nested array parse error occurring under specific edge cases.
+    - **v2.4.2** - Bugfix: cache bust failure
+      - `[ ]` fix: [PATCH] Debug and resolve cache bust failure occurring under specific edge cases.
+    - **v2.4.3** - Bugfix: state sync latency
+      - `[ ]` fix: [PATCH] Debug and resolve state sync latency occurring under specific edge cases.
+    - **v2.4.4** - Bugfix: overlapping list items
+      - `[ ]` fix: [PATCH] Debug and resolve overlapping list items occurring under specific edge cases.
+    - **v2.4.5** - Bugfix: stream unclosed memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve stream unclosed memory leak occurring under specific edge cases.
+  - **v2.5.0** - Feature: structure inferencer
+    - `[ ]` feat: [MINOR] Infer new structure inferencer capabilities to expand the API surface of @typepurify/paginate.
+    - **v2.5.1** - Bugfix: cache bust failure
+      - `[ ]` fix: [PATCH] Debug and resolve cache bust failure occurring under specific edge cases.
+    - **v2.5.2** - Bugfix: state sync latency
+      - `[ ]` fix: [PATCH] Debug and resolve state sync latency occurring under specific edge cases.
+    - **v2.5.3** - Bugfix: overlapping list items
+      - `[ ]` fix: [PATCH] Debug and resolve overlapping list items occurring under specific edge cases.
+    - **v2.5.4** - Bugfix: stream unclosed memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve stream unclosed memory leak occurring under specific edge cases.
+    - **v2.5.5** - Bugfix: missing cursor exception
+      - `[ ]` fix: [PATCH] Debug and resolve missing cursor exception occurring under specific edge cases.
+- **v3.0.0** - Major Release: Relay connection specification
+  - `[ ]` feat: [MAJOR] Stream the core Relay connection specification for @typepurify/paginate to enhance performance and developer experience.
+  - **v3.0.1** - Bugfix: overlapping list items
+    - `[ ]` fix: [PATCH] Investigate and resolve overlapping list items reported by users post-major release.
+  - **v3.0.2** - Bugfix: stream unclosed memory leak
+    - `[ ]` fix: [PATCH] Investigate and resolve stream unclosed memory leak reported by users post-major release.
+  - **v3.0.3** - Bugfix: missing cursor exception
+    - `[ ]` fix: [PATCH] Investigate and resolve missing cursor exception reported by users post-major release.
+  - **v3.0.4** - Bugfix: layout shift bug
+    - `[ ]` fix: [PATCH] Investigate and resolve layout shift bug reported by users post-major release.
+  - **v3.0.5** - Bugfix: scroll position loss
+    - `[ ]` fix: [PATCH] Investigate and resolve scroll position loss reported by users post-major release.
+  - **v3.1.0** - Feature: chunk garbage collector
+    - `[ ]` feat: [MINOR] Interleave new chunk garbage collector capabilities to expand the API surface of @typepurify/paginate.
+    - **v3.1.1** - Bugfix: partial source crash
+      - `[ ]` fix: [PATCH] Debug and resolve partial source crash occurring under specific edge cases.
+    - **v3.1.2** - Bugfix: cursor invalidation bug
+      - `[ ]` fix: [PATCH] Debug and resolve cursor invalidation bug occurring under specific edge cases.
+    - **v3.1.3** - Bugfix: nested array parse error
+      - `[ ]` fix: [PATCH] Debug and resolve nested array parse error occurring under specific edge cases.
+    - **v3.1.4** - Bugfix: cache bust failure
+      - `[ ]` fix: [PATCH] Debug and resolve cache bust failure occurring under specific edge cases.
+    - **v3.1.5** - Bugfix: state sync latency
+      - `[ ]` fix: [PATCH] Debug and resolve state sync latency occurring under specific edge cases.
+  - **v3.2.0** - Feature: multi-source aggregator
+    - `[ ]` feat: [MINOR] Hydrate new multi-source aggregator capabilities to expand the API surface of @typepurify/paginate.
+    - **v3.2.1** - Bugfix: cursor invalidation bug
+      - `[ ]` fix: [PATCH] Debug and resolve cursor invalidation bug occurring under specific edge cases.
+    - **v3.2.2** - Bugfix: nested array parse error
+      - `[ ]` fix: [PATCH] Debug and resolve nested array parse error occurring under specific edge cases.
+    - **v3.2.3** - Bugfix: cache bust failure
+      - `[ ]` fix: [PATCH] Debug and resolve cache bust failure occurring under specific edge cases.
+    - **v3.2.4** - Bugfix: state sync latency
+      - `[ ]` fix: [PATCH] Debug and resolve state sync latency occurring under specific edge cases.
+    - **v3.2.5** - Bugfix: overlapping list items
+      - `[ ]` fix: [PATCH] Debug and resolve overlapping list items occurring under specific edge cases.
+  - **v3.3.0** - Feature: optimistic UI updater
+    - `[ ]` feat: [MINOR] Invalidate new optimistic UI updater capabilities to expand the API surface of @typepurify/paginate.
+    - **v3.3.1** - Bugfix: nested array parse error
+      - `[ ]` fix: [PATCH] Debug and resolve nested array parse error occurring under specific edge cases.
+    - **v3.3.2** - Bugfix: cache bust failure
+      - `[ ]` fix: [PATCH] Debug and resolve cache bust failure occurring under specific edge cases.
+    - **v3.3.3** - Bugfix: state sync latency
+      - `[ ]` fix: [PATCH] Debug and resolve state sync latency occurring under specific edge cases.
+    - **v3.3.4** - Bugfix: overlapping list items
+      - `[ ]` fix: [PATCH] Debug and resolve overlapping list items occurring under specific edge cases.
+    - **v3.3.5** - Bugfix: stream unclosed memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve stream unclosed memory leak occurring under specific edge cases.
+  - **v3.4.0** - Feature: structure inferencer
+    - `[ ]` feat: [MINOR] Infer new structure inferencer capabilities to expand the API surface of @typepurify/paginate.
+    - **v3.4.1** - Bugfix: cache bust failure
+      - `[ ]` fix: [PATCH] Debug and resolve cache bust failure occurring under specific edge cases.
+    - **v3.4.2** - Bugfix: state sync latency
+      - `[ ]` fix: [PATCH] Debug and resolve state sync latency occurring under specific edge cases.
+    - **v3.4.3** - Bugfix: overlapping list items
+      - `[ ]` fix: [PATCH] Debug and resolve overlapping list items occurring under specific edge cases.
+    - **v3.4.4** - Bugfix: stream unclosed memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve stream unclosed memory leak occurring under specific edge cases.
+    - **v3.4.5** - Bugfix: missing cursor exception
+      - `[ ]` fix: [PATCH] Debug and resolve missing cursor exception occurring under specific edge cases.
+  - **v3.5.0** - Feature: edge cache pre-warmer
+    - `[ ]` feat: [MINOR] Warm-up new edge cache pre-warmer capabilities to expand the API surface of @typepurify/paginate.
+    - **v3.5.1** - Bugfix: state sync latency
+      - `[ ]` fix: [PATCH] Debug and resolve state sync latency occurring under specific edge cases.
+    - **v3.5.2** - Bugfix: overlapping list items
+      - `[ ]` fix: [PATCH] Debug and resolve overlapping list items occurring under specific edge cases.
+    - **v3.5.3** - Bugfix: stream unclosed memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve stream unclosed memory leak occurring under specific edge cases.
+    - **v3.5.4** - Bugfix: missing cursor exception
+      - `[ ]` fix: [PATCH] Debug and resolve missing cursor exception occurring under specific edge cases.
+    - **v3.5.5** - Bugfix: layout shift bug
+      - `[ ]` fix: [PATCH] Debug and resolve layout shift bug occurring under specific edge cases.
+- **v4.0.0** - Major Release: virtualized list renderer
+  - `[ ]` feat: [MAJOR] Aggregate the core virtualized list renderer for @typepurify/paginate to enhance performance and developer experience.
+  - **v4.0.1** - Bugfix: overlapping list items
+    - `[ ]` fix: [PATCH] Investigate and resolve overlapping list items reported by users post-major release.
+  - **v4.0.2** - Bugfix: stream unclosed memory leak
+    - `[ ]` fix: [PATCH] Investigate and resolve stream unclosed memory leak reported by users post-major release.
+  - **v4.0.3** - Bugfix: missing cursor exception
+    - `[ ]` fix: [PATCH] Investigate and resolve missing cursor exception reported by users post-major release.
+  - **v4.0.4** - Bugfix: layout shift bug
+    - `[ ]` fix: [PATCH] Investigate and resolve layout shift bug reported by users post-major release.
+  - **v4.0.5** - Bugfix: scroll position loss
+    - `[ ]` fix: [PATCH] Investigate and resolve scroll position loss reported by users post-major release.
+  - **v4.1.0** - Feature: multi-source aggregator
+    - `[ ]` feat: [MINOR] Hydrate new multi-source aggregator capabilities to expand the API surface of @typepurify/paginate.
+    - **v4.1.1** - Bugfix: cursor invalidation bug
+      - `[ ]` fix: [PATCH] Debug and resolve cursor invalidation bug occurring under specific edge cases.
+    - **v4.1.2** - Bugfix: nested array parse error
+      - `[ ]` fix: [PATCH] Debug and resolve nested array parse error occurring under specific edge cases.
+    - **v4.1.3** - Bugfix: cache bust failure
+      - `[ ]` fix: [PATCH] Debug and resolve cache bust failure occurring under specific edge cases.
+    - **v4.1.4** - Bugfix: state sync latency
+      - `[ ]` fix: [PATCH] Debug and resolve state sync latency occurring under specific edge cases.
+    - **v4.1.5** - Bugfix: overlapping list items
+      - `[ ]` fix: [PATCH] Debug and resolve overlapping list items occurring under specific edge cases.
+  - **v4.2.0** - Feature: optimistic UI updater
+    - `[ ]` feat: [MINOR] Invalidate new optimistic UI updater capabilities to expand the API surface of @typepurify/paginate.
+    - **v4.2.1** - Bugfix: nested array parse error
+      - `[ ]` fix: [PATCH] Debug and resolve nested array parse error occurring under specific edge cases.
+    - **v4.2.2** - Bugfix: cache bust failure
+      - `[ ]` fix: [PATCH] Debug and resolve cache bust failure occurring under specific edge cases.
+    - **v4.2.3** - Bugfix: state sync latency
+      - `[ ]` fix: [PATCH] Debug and resolve state sync latency occurring under specific edge cases.
+    - **v4.2.4** - Bugfix: overlapping list items
+      - `[ ]` fix: [PATCH] Debug and resolve overlapping list items occurring under specific edge cases.
+    - **v4.2.5** - Bugfix: stream unclosed memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve stream unclosed memory leak occurring under specific edge cases.
+  - **v4.3.0** - Feature: structure inferencer
+    - `[ ]` feat: [MINOR] Infer new structure inferencer capabilities to expand the API surface of @typepurify/paginate.
+    - **v4.3.1** - Bugfix: cache bust failure
+      - `[ ]` fix: [PATCH] Debug and resolve cache bust failure occurring under specific edge cases.
+    - **v4.3.2** - Bugfix: state sync latency
+      - `[ ]` fix: [PATCH] Debug and resolve state sync latency occurring under specific edge cases.
+    - **v4.3.3** - Bugfix: overlapping list items
+      - `[ ]` fix: [PATCH] Debug and resolve overlapping list items occurring under specific edge cases.
+    - **v4.3.4** - Bugfix: stream unclosed memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve stream unclosed memory leak occurring under specific edge cases.
+    - **v4.3.5** - Bugfix: missing cursor exception
+      - `[ ]` fix: [PATCH] Debug and resolve missing cursor exception occurring under specific edge cases.
+  - **v4.4.0** - Feature: edge cache pre-warmer
+    - `[ ]` feat: [MINOR] Warm-up new edge cache pre-warmer capabilities to expand the API surface of @typepurify/paginate.
+    - **v4.4.1** - Bugfix: state sync latency
+      - `[ ]` fix: [PATCH] Debug and resolve state sync latency occurring under specific edge cases.
+    - **v4.4.2** - Bugfix: overlapping list items
+      - `[ ]` fix: [PATCH] Debug and resolve overlapping list items occurring under specific edge cases.
+    - **v4.4.3** - Bugfix: stream unclosed memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve stream unclosed memory leak occurring under specific edge cases.
+    - **v4.4.4** - Bugfix: missing cursor exception
+      - `[ ]` fix: [PATCH] Debug and resolve missing cursor exception occurring under specific edge cases.
+    - **v4.4.5** - Bugfix: layout shift bug
+      - `[ ]` fix: [PATCH] Debug and resolve layout shift bug occurring under specific edge cases.
+  - **v4.5.0** - Feature: Data-Lake table connector
+    - `[ ]` feat: [MINOR] Sync new Data-Lake table connector capabilities to expand the API surface of @typepurify/paginate.
+    - **v4.5.1** - Bugfix: overlapping list items
+      - `[ ]` fix: [PATCH] Debug and resolve overlapping list items occurring under specific edge cases.
+    - **v4.5.2** - Bugfix: stream unclosed memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve stream unclosed memory leak occurring under specific edge cases.
+    - **v4.5.3** - Bugfix: missing cursor exception
+      - `[ ]` fix: [PATCH] Debug and resolve missing cursor exception occurring under specific edge cases.
+    - **v4.5.4** - Bugfix: layout shift bug
+      - `[ ]` fix: [PATCH] Debug and resolve layout shift bug occurring under specific edge cases.
+    - **v4.5.5** - Bugfix: scroll position loss
+      - `[ ]` fix: [PATCH] Debug and resolve scroll position loss occurring under specific edge cases.
+- **v5.0.0** - Major Release: chunk garbage collector
+  - `[ ]` feat: [MAJOR] Interleave the core chunk garbage collector for @typepurify/paginate to enhance performance and developer experience.
 
-### `@typepurify/cache`
+## 6. @typepurify/cache
 
-**Status:** 🟢 Completed (Active Maintenance)
 **Description:** Simple in-memory REST API cache.
 
-- `[x]` feat: TTL-based in-memory caching.
-- `[x]` feat: LRU (Least Recently Used) eviction policy.
+- **v1.0.0** - Major Release: TTL engine
+  - `[ ]` feat: [MAJOR] Revalidate the core TTL engine for @typepurify/cache to enhance performance and developer experience.
+  - **v1.0.1** - Bugfix: cache pollution vulnerability
+    - `[ ]` fix: [PATCH] Investigate and resolve cache pollution vulnerability reported by users post-major release.
+  - **v1.0.2** - Bugfix: file corruption on write
+    - `[ ]` fix: [PATCH] Investigate and resolve file corruption on write reported by users post-major release.
+  - **v1.0.3** - Bugfix: tier sync delay
+    - `[ ]` fix: [PATCH] Investigate and resolve tier sync delay reported by users post-major release.
+  - **v1.0.4** - Bugfix: promise rejection silence
+    - `[ ]` fix: [PATCH] Investigate and resolve promise rejection silence reported by users post-major release.
+  - **v1.0.5** - Bugfix: filter resize bug
+    - `[ ]` fix: [PATCH] Investigate and resolve filter resize bug reported by users post-major release.
+  - **v1.1.0** - Feature: file-system storage adapter
+    - `[ ]` feat: [MINOR] Fallback new file-system storage adapter capabilities to expand the API surface of @typepurify/cache.
+    - **v1.1.1** - Bugfix: promise rejection silence
+      - `[ ]` fix: [PATCH] Debug and resolve promise rejection silence occurring under specific edge cases.
+    - **v1.1.2** - Bugfix: filter resize bug
+      - `[ ]` fix: [PATCH] Debug and resolve filter resize bug occurring under specific edge cases.
+    - **v1.1.3** - Bugfix: reconnect miss
+      - `[ ]` fix: [PATCH] Debug and resolve reconnect miss occurring under specific edge cases.
+    - **v1.1.4** - Bugfix: nested object invalidate miss
+      - `[ ]` fix: [PATCH] Debug and resolve nested object invalidate miss occurring under specific edge cases.
+    - **v1.1.5** - Bugfix: memory exhaustion on large cache
+      - `[ ]` fix: [PATCH] Debug and resolve memory exhaustion on large cache occurring under specific edge cases.
+  - **v1.2.0** - Feature: SQLite persistent store
+    - `[ ]` feat: [MINOR] Coalesce new SQLite persistent store capabilities to expand the API surface of @typepurify/cache.
+    - **v1.2.1** - Bugfix: filter resize bug
+      - `[ ]` fix: [PATCH] Debug and resolve filter resize bug occurring under specific edge cases.
+    - **v1.2.2** - Bugfix: reconnect miss
+      - `[ ]` fix: [PATCH] Debug and resolve reconnect miss occurring under specific edge cases.
+    - **v1.2.3** - Bugfix: nested object invalidate miss
+      - `[ ]` fix: [PATCH] Debug and resolve nested object invalidate miss occurring under specific edge cases.
+    - **v1.2.4** - Bugfix: memory exhaustion on large cache
+      - `[ ]` fix: [PATCH] Debug and resolve memory exhaustion on large cache occurring under specific edge cases.
+    - **v1.2.5** - Bugfix: eventual consistency drift
+      - `[ ]` fix: [PATCH] Debug and resolve eventual consistency drift occurring under specific edge cases.
+  - **v1.3.0** - Feature: Bloom filter
+    - `[ ]` feat: [MINOR] Verify new Bloom filter capabilities to expand the API surface of @typepurify/cache.
+    - **v1.3.1** - Bugfix: reconnect miss
+      - `[ ]` fix: [PATCH] Debug and resolve reconnect miss occurring under specific edge cases.
+    - **v1.3.2** - Bugfix: nested object invalidate miss
+      - `[ ]` fix: [PATCH] Debug and resolve nested object invalidate miss occurring under specific edge cases.
+    - **v1.3.3** - Bugfix: memory exhaustion on large cache
+      - `[ ]` fix: [PATCH] Debug and resolve memory exhaustion on large cache occurring under specific edge cases.
+    - **v1.3.4** - Bugfix: eventual consistency drift
+      - `[ ]` fix: [PATCH] Debug and resolve eventual consistency drift occurring under specific edge cases.
+    - **v1.3.5** - Bugfix: infinite rollback loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite rollback loop occurring under specific edge cases.
+  - **v1.4.0** - Feature: pub/sub invalidator
+    - `[ ]` feat: [MINOR] Broadcast new pub/sub invalidator capabilities to expand the API surface of @typepurify/cache.
+    - **v1.4.1** - Bugfix: nested object invalidate miss
+      - `[ ]` fix: [PATCH] Debug and resolve nested object invalidate miss occurring under specific edge cases.
+    - **v1.4.2** - Bugfix: memory exhaustion on large cache
+      - `[ ]` fix: [PATCH] Debug and resolve memory exhaustion on large cache occurring under specific edge cases.
+    - **v1.4.3** - Bugfix: eventual consistency drift
+      - `[ ]` fix: [PATCH] Debug and resolve eventual consistency drift occurring under specific edge cases.
+    - **v1.4.4** - Bugfix: infinite rollback loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite rollback loop occurring under specific edge cases.
+    - **v1.4.5** - Bugfix: cache pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve cache pollution vulnerability occurring under specific edge cases.
+  - **v1.5.0** - Feature: GraphQL graph tracker
+    - `[ ]` feat: [MINOR] Track new GraphQL graph tracker capabilities to expand the API surface of @typepurify/cache.
+    - **v1.5.1** - Bugfix: memory exhaustion on large cache
+      - `[ ]` fix: [PATCH] Debug and resolve memory exhaustion on large cache occurring under specific edge cases.
+    - **v1.5.2** - Bugfix: eventual consistency drift
+      - `[ ]` fix: [PATCH] Debug and resolve eventual consistency drift occurring under specific edge cases.
+    - **v1.5.3** - Bugfix: infinite rollback loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite rollback loop occurring under specific edge cases.
+    - **v1.5.4** - Bugfix: cache pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve cache pollution vulnerability occurring under specific edge cases.
+    - **v1.5.5** - Bugfix: file corruption on write
+      - `[ ]` fix: [PATCH] Debug and resolve file corruption on write occurring under specific edge cases.
+- **v2.0.0** - Major Release: LRU eviction queue
+  - `[ ]` feat: [MAJOR] Cleanup the core LRU eviction queue for @typepurify/cache to enhance performance and developer experience.
+  - **v2.0.1** - Bugfix: cache pollution vulnerability
+    - `[ ]` fix: [PATCH] Investigate and resolve cache pollution vulnerability reported by users post-major release.
+  - **v2.0.2** - Bugfix: file corruption on write
+    - `[ ]` fix: [PATCH] Investigate and resolve file corruption on write reported by users post-major release.
+  - **v2.0.3** - Bugfix: tier sync delay
+    - `[ ]` fix: [PATCH] Investigate and resolve tier sync delay reported by users post-major release.
+  - **v2.0.4** - Bugfix: promise rejection silence
+    - `[ ]` fix: [PATCH] Investigate and resolve promise rejection silence reported by users post-major release.
+  - **v2.0.5** - Bugfix: filter resize bug
+    - `[ ]` fix: [PATCH] Investigate and resolve filter resize bug reported by users post-major release.
+  - **v2.1.0** - Feature: SQLite persistent store
+    - `[ ]` feat: [MINOR] Coalesce new SQLite persistent store capabilities to expand the API surface of @typepurify/cache.
+    - **v2.1.1** - Bugfix: filter resize bug
+      - `[ ]` fix: [PATCH] Debug and resolve filter resize bug occurring under specific edge cases.
+    - **v2.1.2** - Bugfix: reconnect miss
+      - `[ ]` fix: [PATCH] Debug and resolve reconnect miss occurring under specific edge cases.
+    - **v2.1.3** - Bugfix: nested object invalidate miss
+      - `[ ]` fix: [PATCH] Debug and resolve nested object invalidate miss occurring under specific edge cases.
+    - **v2.1.4** - Bugfix: memory exhaustion on large cache
+      - `[ ]` fix: [PATCH] Debug and resolve memory exhaustion on large cache occurring under specific edge cases.
+    - **v2.1.5** - Bugfix: eventual consistency drift
+      - `[ ]` fix: [PATCH] Debug and resolve eventual consistency drift occurring under specific edge cases.
+  - **v2.2.0** - Feature: Bloom filter
+    - `[ ]` feat: [MINOR] Verify new Bloom filter capabilities to expand the API surface of @typepurify/cache.
+    - **v2.2.1** - Bugfix: reconnect miss
+      - `[ ]` fix: [PATCH] Debug and resolve reconnect miss occurring under specific edge cases.
+    - **v2.2.2** - Bugfix: nested object invalidate miss
+      - `[ ]` fix: [PATCH] Debug and resolve nested object invalidate miss occurring under specific edge cases.
+    - **v2.2.3** - Bugfix: memory exhaustion on large cache
+      - `[ ]` fix: [PATCH] Debug and resolve memory exhaustion on large cache occurring under specific edge cases.
+    - **v2.2.4** - Bugfix: eventual consistency drift
+      - `[ ]` fix: [PATCH] Debug and resolve eventual consistency drift occurring under specific edge cases.
+    - **v2.2.5** - Bugfix: infinite rollback loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite rollback loop occurring under specific edge cases.
+  - **v2.3.0** - Feature: pub/sub invalidator
+    - `[ ]` feat: [MINOR] Broadcast new pub/sub invalidator capabilities to expand the API surface of @typepurify/cache.
+    - **v2.3.1** - Bugfix: nested object invalidate miss
+      - `[ ]` fix: [PATCH] Debug and resolve nested object invalidate miss occurring under specific edge cases.
+    - **v2.3.2** - Bugfix: memory exhaustion on large cache
+      - `[ ]` fix: [PATCH] Debug and resolve memory exhaustion on large cache occurring under specific edge cases.
+    - **v2.3.3** - Bugfix: eventual consistency drift
+      - `[ ]` fix: [PATCH] Debug and resolve eventual consistency drift occurring under specific edge cases.
+    - **v2.3.4** - Bugfix: infinite rollback loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite rollback loop occurring under specific edge cases.
+    - **v2.3.5** - Bugfix: cache pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve cache pollution vulnerability occurring under specific edge cases.
+  - **v2.4.0** - Feature: GraphQL graph tracker
+    - `[ ]` feat: [MINOR] Track new GraphQL graph tracker capabilities to expand the API surface of @typepurify/cache.
+    - **v2.4.1** - Bugfix: memory exhaustion on large cache
+      - `[ ]` fix: [PATCH] Debug and resolve memory exhaustion on large cache occurring under specific edge cases.
+    - **v2.4.2** - Bugfix: eventual consistency drift
+      - `[ ]` fix: [PATCH] Debug and resolve eventual consistency drift occurring under specific edge cases.
+    - **v2.4.3** - Bugfix: infinite rollback loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite rollback loop occurring under specific edge cases.
+    - **v2.4.4** - Bugfix: cache pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve cache pollution vulnerability occurring under specific edge cases.
+    - **v2.4.5** - Bugfix: file corruption on write
+      - `[ ]` fix: [PATCH] Debug and resolve file corruption on write occurring under specific edge cases.
+  - **v2.5.0** - Feature: ML forecaster
+    - `[ ]` feat: [MINOR] Warm new ML forecaster capabilities to expand the API surface of @typepurify/cache.
+    - **v2.5.1** - Bugfix: eventual consistency drift
+      - `[ ]` fix: [PATCH] Debug and resolve eventual consistency drift occurring under specific edge cases.
+    - **v2.5.2** - Bugfix: infinite rollback loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite rollback loop occurring under specific edge cases.
+    - **v2.5.3** - Bugfix: cache pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve cache pollution vulnerability occurring under specific edge cases.
+    - **v2.5.4** - Bugfix: file corruption on write
+      - `[ ]` fix: [PATCH] Debug and resolve file corruption on write occurring under specific edge cases.
+    - **v2.5.5** - Bugfix: tier sync delay
+      - `[ ]` fix: [PATCH] Debug and resolve tier sync delay occurring under specific edge cases.
+- **v3.0.0** - Major Release: file-system storage adapter
+  - `[ ]` feat: [MAJOR] Fallback the core file-system storage adapter for @typepurify/cache to enhance performance and developer experience.
+  - **v3.0.1** - Bugfix: cache pollution vulnerability
+    - `[ ]` fix: [PATCH] Investigate and resolve cache pollution vulnerability reported by users post-major release.
+  - **v3.0.2** - Bugfix: file corruption on write
+    - `[ ]` fix: [PATCH] Investigate and resolve file corruption on write reported by users post-major release.
+  - **v3.0.3** - Bugfix: tier sync delay
+    - `[ ]` fix: [PATCH] Investigate and resolve tier sync delay reported by users post-major release.
+  - **v3.0.4** - Bugfix: promise rejection silence
+    - `[ ]` fix: [PATCH] Investigate and resolve promise rejection silence reported by users post-major release.
+  - **v3.0.5** - Bugfix: filter resize bug
+    - `[ ]` fix: [PATCH] Investigate and resolve filter resize bug reported by users post-major release.
+  - **v3.1.0** - Feature: Bloom filter
+    - `[ ]` feat: [MINOR] Verify new Bloom filter capabilities to expand the API surface of @typepurify/cache.
+    - **v3.1.1** - Bugfix: reconnect miss
+      - `[ ]` fix: [PATCH] Debug and resolve reconnect miss occurring under specific edge cases.
+    - **v3.1.2** - Bugfix: nested object invalidate miss
+      - `[ ]` fix: [PATCH] Debug and resolve nested object invalidate miss occurring under specific edge cases.
+    - **v3.1.3** - Bugfix: memory exhaustion on large cache
+      - `[ ]` fix: [PATCH] Debug and resolve memory exhaustion on large cache occurring under specific edge cases.
+    - **v3.1.4** - Bugfix: eventual consistency drift
+      - `[ ]` fix: [PATCH] Debug and resolve eventual consistency drift occurring under specific edge cases.
+    - **v3.1.5** - Bugfix: infinite rollback loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite rollback loop occurring under specific edge cases.
+  - **v3.2.0** - Feature: pub/sub invalidator
+    - `[ ]` feat: [MINOR] Broadcast new pub/sub invalidator capabilities to expand the API surface of @typepurify/cache.
+    - **v3.2.1** - Bugfix: nested object invalidate miss
+      - `[ ]` fix: [PATCH] Debug and resolve nested object invalidate miss occurring under specific edge cases.
+    - **v3.2.2** - Bugfix: memory exhaustion on large cache
+      - `[ ]` fix: [PATCH] Debug and resolve memory exhaustion on large cache occurring under specific edge cases.
+    - **v3.2.3** - Bugfix: eventual consistency drift
+      - `[ ]` fix: [PATCH] Debug and resolve eventual consistency drift occurring under specific edge cases.
+    - **v3.2.4** - Bugfix: infinite rollback loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite rollback loop occurring under specific edge cases.
+    - **v3.2.5** - Bugfix: cache pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve cache pollution vulnerability occurring under specific edge cases.
+  - **v3.3.0** - Feature: GraphQL graph tracker
+    - `[ ]` feat: [MINOR] Track new GraphQL graph tracker capabilities to expand the API surface of @typepurify/cache.
+    - **v3.3.1** - Bugfix: memory exhaustion on large cache
+      - `[ ]` fix: [PATCH] Debug and resolve memory exhaustion on large cache occurring under specific edge cases.
+    - **v3.3.2** - Bugfix: eventual consistency drift
+      - `[ ]` fix: [PATCH] Debug and resolve eventual consistency drift occurring under specific edge cases.
+    - **v3.3.3** - Bugfix: infinite rollback loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite rollback loop occurring under specific edge cases.
+    - **v3.3.4** - Bugfix: cache pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve cache pollution vulnerability occurring under specific edge cases.
+    - **v3.3.5** - Bugfix: file corruption on write
+      - `[ ]` fix: [PATCH] Debug and resolve file corruption on write occurring under specific edge cases.
+  - **v3.4.0** - Feature: ML forecaster
+    - `[ ]` feat: [MINOR] Warm new ML forecaster capabilities to expand the API surface of @typepurify/cache.
+    - **v3.4.1** - Bugfix: eventual consistency drift
+      - `[ ]` fix: [PATCH] Debug and resolve eventual consistency drift occurring under specific edge cases.
+    - **v3.4.2** - Bugfix: infinite rollback loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite rollback loop occurring under specific edge cases.
+    - **v3.4.3** - Bugfix: cache pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve cache pollution vulnerability occurring under specific edge cases.
+    - **v3.4.4** - Bugfix: file corruption on write
+      - `[ ]` fix: [PATCH] Debug and resolve file corruption on write occurring under specific edge cases.
+    - **v3.4.5** - Bugfix: tier sync delay
+      - `[ ]` fix: [PATCH] Debug and resolve tier sync delay occurring under specific edge cases.
+  - **v3.5.0** - Feature: CRDT synchronizer
+    - `[ ]` feat: [MINOR] Resolve new CRDT synchronizer capabilities to expand the API surface of @typepurify/cache.
+    - **v3.5.1** - Bugfix: infinite rollback loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite rollback loop occurring under specific edge cases.
+    - **v3.5.2** - Bugfix: cache pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve cache pollution vulnerability occurring under specific edge cases.
+    - **v3.5.3** - Bugfix: file corruption on write
+      - `[ ]` fix: [PATCH] Debug and resolve file corruption on write occurring under specific edge cases.
+    - **v3.5.4** - Bugfix: tier sync delay
+      - `[ ]` fix: [PATCH] Debug and resolve tier sync delay occurring under specific edge cases.
+    - **v3.5.5** - Bugfix: promise rejection silence
+      - `[ ]` fix: [PATCH] Debug and resolve promise rejection silence occurring under specific edge cases.
+- **v4.0.0** - Major Release: SQLite persistent store
+  - `[ ]` feat: [MAJOR] Coalesce the core SQLite persistent store for @typepurify/cache to enhance performance and developer experience.
+  - **v4.0.1** - Bugfix: cache pollution vulnerability
+    - `[ ]` fix: [PATCH] Investigate and resolve cache pollution vulnerability reported by users post-major release.
+  - **v4.0.2** - Bugfix: file corruption on write
+    - `[ ]` fix: [PATCH] Investigate and resolve file corruption on write reported by users post-major release.
+  - **v4.0.3** - Bugfix: tier sync delay
+    - `[ ]` fix: [PATCH] Investigate and resolve tier sync delay reported by users post-major release.
+  - **v4.0.4** - Bugfix: promise rejection silence
+    - `[ ]` fix: [PATCH] Investigate and resolve promise rejection silence reported by users post-major release.
+  - **v4.0.5** - Bugfix: filter resize bug
+    - `[ ]` fix: [PATCH] Investigate and resolve filter resize bug reported by users post-major release.
+  - **v4.1.0** - Feature: pub/sub invalidator
+    - `[ ]` feat: [MINOR] Broadcast new pub/sub invalidator capabilities to expand the API surface of @typepurify/cache.
+    - **v4.1.1** - Bugfix: nested object invalidate miss
+      - `[ ]` fix: [PATCH] Debug and resolve nested object invalidate miss occurring under specific edge cases.
+    - **v4.1.2** - Bugfix: memory exhaustion on large cache
+      - `[ ]` fix: [PATCH] Debug and resolve memory exhaustion on large cache occurring under specific edge cases.
+    - **v4.1.3** - Bugfix: eventual consistency drift
+      - `[ ]` fix: [PATCH] Debug and resolve eventual consistency drift occurring under specific edge cases.
+    - **v4.1.4** - Bugfix: infinite rollback loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite rollback loop occurring under specific edge cases.
+    - **v4.1.5** - Bugfix: cache pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve cache pollution vulnerability occurring under specific edge cases.
+  - **v4.2.0** - Feature: GraphQL graph tracker
+    - `[ ]` feat: [MINOR] Track new GraphQL graph tracker capabilities to expand the API surface of @typepurify/cache.
+    - **v4.2.1** - Bugfix: memory exhaustion on large cache
+      - `[ ]` fix: [PATCH] Debug and resolve memory exhaustion on large cache occurring under specific edge cases.
+    - **v4.2.2** - Bugfix: eventual consistency drift
+      - `[ ]` fix: [PATCH] Debug and resolve eventual consistency drift occurring under specific edge cases.
+    - **v4.2.3** - Bugfix: infinite rollback loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite rollback loop occurring under specific edge cases.
+    - **v4.2.4** - Bugfix: cache pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve cache pollution vulnerability occurring under specific edge cases.
+    - **v4.2.5** - Bugfix: file corruption on write
+      - `[ ]` fix: [PATCH] Debug and resolve file corruption on write occurring under specific edge cases.
+  - **v4.3.0** - Feature: ML forecaster
+    - `[ ]` feat: [MINOR] Warm new ML forecaster capabilities to expand the API surface of @typepurify/cache.
+    - **v4.3.1** - Bugfix: eventual consistency drift
+      - `[ ]` fix: [PATCH] Debug and resolve eventual consistency drift occurring under specific edge cases.
+    - **v4.3.2** - Bugfix: infinite rollback loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite rollback loop occurring under specific edge cases.
+    - **v4.3.3** - Bugfix: cache pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve cache pollution vulnerability occurring under specific edge cases.
+    - **v4.3.4** - Bugfix: file corruption on write
+      - `[ ]` fix: [PATCH] Debug and resolve file corruption on write occurring under specific edge cases.
+    - **v4.3.5** - Bugfix: tier sync delay
+      - `[ ]` fix: [PATCH] Debug and resolve tier sync delay occurring under specific edge cases.
+  - **v4.4.0** - Feature: CRDT synchronizer
+    - `[ ]` feat: [MINOR] Resolve new CRDT synchronizer capabilities to expand the API surface of @typepurify/cache.
+    - **v4.4.1** - Bugfix: infinite rollback loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite rollback loop occurring under specific edge cases.
+    - **v4.4.2** - Bugfix: cache pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve cache pollution vulnerability occurring under specific edge cases.
+    - **v4.4.3** - Bugfix: file corruption on write
+      - `[ ]` fix: [PATCH] Debug and resolve file corruption on write occurring under specific edge cases.
+    - **v4.4.4** - Bugfix: tier sync delay
+      - `[ ]` fix: [PATCH] Debug and resolve tier sync delay occurring under specific edge cases.
+    - **v4.4.5** - Bugfix: promise rejection silence
+      - `[ ]` fix: [PATCH] Debug and resolve promise rejection silence occurring under specific edge cases.
+  - **v4.5.0** - Feature: speculative executor
+    - `[ ]` feat: [MINOR] Rollback new speculative executor capabilities to expand the API surface of @typepurify/cache.
+    - **v4.5.1** - Bugfix: cache pollution vulnerability
+      - `[ ]` fix: [PATCH] Debug and resolve cache pollution vulnerability occurring under specific edge cases.
+    - **v4.5.2** - Bugfix: file corruption on write
+      - `[ ]` fix: [PATCH] Debug and resolve file corruption on write occurring under specific edge cases.
+    - **v4.5.3** - Bugfix: tier sync delay
+      - `[ ]` fix: [PATCH] Debug and resolve tier sync delay occurring under specific edge cases.
+    - **v4.5.4** - Bugfix: promise rejection silence
+      - `[ ]` fix: [PATCH] Debug and resolve promise rejection silence occurring under specific edge cases.
+    - **v4.5.5** - Bugfix: filter resize bug
+      - `[ ]` fix: [PATCH] Debug and resolve filter resize bug occurring under specific edge cases.
+- **v5.0.0** - Major Release: Bloom filter
+  - `[ ]` feat: [MAJOR] Verify the core Bloom filter for @typepurify/cache to enhance performance and developer experience.
 
----
+## 7. @typepurify/types
 
-## 2. TypeScript Utilities
-
-### `@typepurify/types`
-
-**Status:** 🟢 Completed (Active Maintenance)
 **Description:** Advanced TypeScript utility types and helpers.
 
-- `[x]` feat: Deep Type Merge utility type.
-- `[x]` feat: JSON to TS Type Generator logic.
-- `[x]` feat: Deep Immutable Helper (`DeepReadonly`).
-- `[x]` feat: Safe Object Path extractor (`get(obj, "path")`).
+- **v1.0.0** - Major Release: template literal parser
+  - `[ ]` feat: [MAJOR] Transform the core template literal parser for @typepurify/types to enhance performance and developer experience.
+  - **v1.0.1** - Bugfix: slow compilation times
+    - `[ ]` fix: [PATCH] Investigate and resolve slow compilation times reported by users post-major release.
+  - **v1.0.2** - Bugfix: inference mismatch
+    - `[ ]` fix: [PATCH] Investigate and resolve inference mismatch reported by users post-major release.
+  - **v1.0.3** - Bugfix: recursion depth limit hit
+    - `[ ]` fix: [PATCH] Investigate and resolve recursion depth limit hit reported by users post-major release.
+  - **v1.0.4** - Bugfix: circular tree TS error
+    - `[ ]` fix: [PATCH] Investigate and resolve circular tree TS error reported by users post-major release.
+  - **v1.0.5** - Bugfix: negative math error
+    - `[ ]` fix: [PATCH] Investigate and resolve negative math error reported by users post-major release.
+  - **v1.1.0** - Feature: regex parser type
+    - `[ ]` feat: [MINOR] Flatten new regex parser type capabilities to expand the API surface of @typepurify/types.
+    - **v1.1.1** - Bugfix: circular tree TS error
+      - `[ ]` fix: [PATCH] Debug and resolve circular tree TS error occurring under specific edge cases.
+    - **v1.1.2** - Bugfix: negative math error
+      - `[ ]` fix: [PATCH] Debug and resolve negative math error occurring under specific edge cases.
+    - **v1.1.3** - Bugfix: nullable column mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve nullable column mismatch occurring under specific edge cases.
+    - **v1.1.4** - Bugfix: invalid char strip
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip occurring under specific edge cases.
+    - **v1.1.5** - Bugfix: memory limit breach during TS check
+      - `[ ]` fix: [PATCH] Debug and resolve memory limit breach during TS check occurring under specific edge cases.
+  - **v1.2.0** - Feature: tuple converter
+    - `[ ]` feat: [MINOR] Calculate new tuple converter capabilities to expand the API surface of @typepurify/types.
+    - **v1.2.1** - Bugfix: negative math error
+      - `[ ]` fix: [PATCH] Debug and resolve negative math error occurring under specific edge cases.
+    - **v1.2.2** - Bugfix: nullable column mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve nullable column mismatch occurring under specific edge cases.
+    - **v1.2.3** - Bugfix: invalid char strip
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip occurring under specific edge cases.
+    - **v1.2.4** - Bugfix: memory limit breach during TS check
+      - `[ ]` fix: [PATCH] Debug and resolve memory limit breach during TS check occurring under specific edge cases.
+    - **v1.2.5** - Bugfix: non-deterministic generation
+      - `[ ]` fix: [PATCH] Debug and resolve non-deterministic generation occurring under specific edge cases.
+  - **v1.3.0** - Feature: math operator type
+    - `[ ]` feat: [MINOR] Infer new math operator type capabilities to expand the API surface of @typepurify/types.
+    - **v1.3.1** - Bugfix: nullable column mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve nullable column mismatch occurring under specific edge cases.
+    - **v1.3.2** - Bugfix: invalid char strip
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip occurring under specific edge cases.
+    - **v1.3.3** - Bugfix: memory limit breach during TS check
+      - `[ ]` fix: [PATCH] Debug and resolve memory limit breach during TS check occurring under specific edge cases.
+    - **v1.3.4** - Bugfix: non-deterministic generation
+      - `[ ]` fix: [PATCH] Debug and resolve non-deterministic generation occurring under specific edge cases.
+    - **v1.3.5** - Bugfix: IDE hang on complex type
+      - `[ ]` fix: [PATCH] Debug and resolve IDE hang on complex type occurring under specific edge cases.
+  - **v1.4.0** - Feature: SQL inferencer type
+    - `[ ]` feat: [MINOR] Extract new SQL inferencer type capabilities to expand the API surface of @typepurify/types.
+    - **v1.4.1** - Bugfix: invalid char strip
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip occurring under specific edge cases.
+    - **v1.4.2** - Bugfix: memory limit breach during TS check
+      - `[ ]` fix: [PATCH] Debug and resolve memory limit breach during TS check occurring under specific edge cases.
+    - **v1.4.3** - Bugfix: non-deterministic generation
+      - `[ ]` fix: [PATCH] Debug and resolve non-deterministic generation occurring under specific edge cases.
+    - **v1.4.4** - Bugfix: IDE hang on complex type
+      - `[ ]` fix: [PATCH] Debug and resolve IDE hang on complex type occurring under specific edge cases.
+    - **v1.4.5** - Bugfix: slow compilation times
+      - `[ ]` fix: [PATCH] Debug and resolve slow compilation times occurring under specific edge cases.
+  - **v1.5.0** - Feature: OpenAPI compiler type
+    - `[ ]` feat: [MINOR] Compile new OpenAPI compiler type capabilities to expand the API surface of @typepurify/types.
+    - **v1.5.1** - Bugfix: memory limit breach during TS check
+      - `[ ]` fix: [PATCH] Debug and resolve memory limit breach during TS check occurring under specific edge cases.
+    - **v1.5.2** - Bugfix: non-deterministic generation
+      - `[ ]` fix: [PATCH] Debug and resolve non-deterministic generation occurring under specific edge cases.
+    - **v1.5.3** - Bugfix: IDE hang on complex type
+      - `[ ]` fix: [PATCH] Debug and resolve IDE hang on complex type occurring under specific edge cases.
+    - **v1.5.4** - Bugfix: slow compilation times
+      - `[ ]` fix: [PATCH] Debug and resolve slow compilation times occurring under specific edge cases.
+    - **v1.5.5** - Bugfix: inference mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve inference mismatch occurring under specific edge cases.
+- **v2.0.0** - Major Release: branded type definition
+  - `[ ]` feat: [MAJOR] Validate the core branded type definition for @typepurify/types to enhance performance and developer experience.
+  - **v2.0.1** - Bugfix: slow compilation times
+    - `[ ]` fix: [PATCH] Investigate and resolve slow compilation times reported by users post-major release.
+  - **v2.0.2** - Bugfix: inference mismatch
+    - `[ ]` fix: [PATCH] Investigate and resolve inference mismatch reported by users post-major release.
+  - **v2.0.3** - Bugfix: recursion depth limit hit
+    - `[ ]` fix: [PATCH] Investigate and resolve recursion depth limit hit reported by users post-major release.
+  - **v2.0.4** - Bugfix: circular tree TS error
+    - `[ ]` fix: [PATCH] Investigate and resolve circular tree TS error reported by users post-major release.
+  - **v2.0.5** - Bugfix: negative math error
+    - `[ ]` fix: [PATCH] Investigate and resolve negative math error reported by users post-major release.
+  - **v2.1.0** - Feature: tuple converter
+    - `[ ]` feat: [MINOR] Calculate new tuple converter capabilities to expand the API surface of @typepurify/types.
+    - **v2.1.1** - Bugfix: negative math error
+      - `[ ]` fix: [PATCH] Debug and resolve negative math error occurring under specific edge cases.
+    - **v2.1.2** - Bugfix: nullable column mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve nullable column mismatch occurring under specific edge cases.
+    - **v2.1.3** - Bugfix: invalid char strip
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip occurring under specific edge cases.
+    - **v2.1.4** - Bugfix: memory limit breach during TS check
+      - `[ ]` fix: [PATCH] Debug and resolve memory limit breach during TS check occurring under specific edge cases.
+    - **v2.1.5** - Bugfix: non-deterministic generation
+      - `[ ]` fix: [PATCH] Debug and resolve non-deterministic generation occurring under specific edge cases.
+  - **v2.2.0** - Feature: math operator type
+    - `[ ]` feat: [MINOR] Infer new math operator type capabilities to expand the API surface of @typepurify/types.
+    - **v2.2.1** - Bugfix: nullable column mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve nullable column mismatch occurring under specific edge cases.
+    - **v2.2.2** - Bugfix: invalid char strip
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip occurring under specific edge cases.
+    - **v2.2.3** - Bugfix: memory limit breach during TS check
+      - `[ ]` fix: [PATCH] Debug and resolve memory limit breach during TS check occurring under specific edge cases.
+    - **v2.2.4** - Bugfix: non-deterministic generation
+      - `[ ]` fix: [PATCH] Debug and resolve non-deterministic generation occurring under specific edge cases.
+    - **v2.2.5** - Bugfix: IDE hang on complex type
+      - `[ ]` fix: [PATCH] Debug and resolve IDE hang on complex type occurring under specific edge cases.
+  - **v2.3.0** - Feature: SQL inferencer type
+    - `[ ]` feat: [MINOR] Extract new SQL inferencer type capabilities to expand the API surface of @typepurify/types.
+    - **v2.3.1** - Bugfix: invalid char strip
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip occurring under specific edge cases.
+    - **v2.3.2** - Bugfix: memory limit breach during TS check
+      - `[ ]` fix: [PATCH] Debug and resolve memory limit breach during TS check occurring under specific edge cases.
+    - **v2.3.3** - Bugfix: non-deterministic generation
+      - `[ ]` fix: [PATCH] Debug and resolve non-deterministic generation occurring under specific edge cases.
+    - **v2.3.4** - Bugfix: IDE hang on complex type
+      - `[ ]` fix: [PATCH] Debug and resolve IDE hang on complex type occurring under specific edge cases.
+    - **v2.3.5** - Bugfix: slow compilation times
+      - `[ ]` fix: [PATCH] Debug and resolve slow compilation times occurring under specific edge cases.
+  - **v2.4.0** - Feature: OpenAPI compiler type
+    - `[ ]` feat: [MINOR] Compile new OpenAPI compiler type capabilities to expand the API surface of @typepurify/types.
+    - **v2.4.1** - Bugfix: memory limit breach during TS check
+      - `[ ]` fix: [PATCH] Debug and resolve memory limit breach during TS check occurring under specific edge cases.
+    - **v2.4.2** - Bugfix: non-deterministic generation
+      - `[ ]` fix: [PATCH] Debug and resolve non-deterministic generation occurring under specific edge cases.
+    - **v2.4.3** - Bugfix: IDE hang on complex type
+      - `[ ]` fix: [PATCH] Debug and resolve IDE hang on complex type occurring under specific edge cases.
+    - **v2.4.4** - Bugfix: slow compilation times
+      - `[ ]` fix: [PATCH] Debug and resolve slow compilation times occurring under specific edge cases.
+    - **v2.4.5** - Bugfix: inference mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve inference mismatch occurring under specific edge cases.
+  - **v2.5.0** - Feature: AST extractor type
+    - `[ ]` feat: [MINOR] Parse new AST extractor type capabilities to expand the API surface of @typepurify/types.
+    - **v2.5.1** - Bugfix: non-deterministic generation
+      - `[ ]` fix: [PATCH] Debug and resolve non-deterministic generation occurring under specific edge cases.
+    - **v2.5.2** - Bugfix: IDE hang on complex type
+      - `[ ]` fix: [PATCH] Debug and resolve IDE hang on complex type occurring under specific edge cases.
+    - **v2.5.3** - Bugfix: slow compilation times
+      - `[ ]` fix: [PATCH] Debug and resolve slow compilation times occurring under specific edge cases.
+    - **v2.5.4** - Bugfix: inference mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve inference mismatch occurring under specific edge cases.
+    - **v2.5.5** - Bugfix: recursion depth limit hit
+      - `[ ]` fix: [PATCH] Debug and resolve recursion depth limit hit occurring under specific edge cases.
+- **v3.0.0** - Major Release: regex parser type
+  - `[ ]` feat: [MAJOR] Flatten the core regex parser type for @typepurify/types to enhance performance and developer experience.
+  - **v3.0.1** - Bugfix: slow compilation times
+    - `[ ]` fix: [PATCH] Investigate and resolve slow compilation times reported by users post-major release.
+  - **v3.0.2** - Bugfix: inference mismatch
+    - `[ ]` fix: [PATCH] Investigate and resolve inference mismatch reported by users post-major release.
+  - **v3.0.3** - Bugfix: recursion depth limit hit
+    - `[ ]` fix: [PATCH] Investigate and resolve recursion depth limit hit reported by users post-major release.
+  - **v3.0.4** - Bugfix: circular tree TS error
+    - `[ ]` fix: [PATCH] Investigate and resolve circular tree TS error reported by users post-major release.
+  - **v3.0.5** - Bugfix: negative math error
+    - `[ ]` fix: [PATCH] Investigate and resolve negative math error reported by users post-major release.
+  - **v3.1.0** - Feature: math operator type
+    - `[ ]` feat: [MINOR] Infer new math operator type capabilities to expand the API surface of @typepurify/types.
+    - **v3.1.1** - Bugfix: nullable column mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve nullable column mismatch occurring under specific edge cases.
+    - **v3.1.2** - Bugfix: invalid char strip
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip occurring under specific edge cases.
+    - **v3.1.3** - Bugfix: memory limit breach during TS check
+      - `[ ]` fix: [PATCH] Debug and resolve memory limit breach during TS check occurring under specific edge cases.
+    - **v3.1.4** - Bugfix: non-deterministic generation
+      - `[ ]` fix: [PATCH] Debug and resolve non-deterministic generation occurring under specific edge cases.
+    - **v3.1.5** - Bugfix: IDE hang on complex type
+      - `[ ]` fix: [PATCH] Debug and resolve IDE hang on complex type occurring under specific edge cases.
+  - **v3.2.0** - Feature: SQL inferencer type
+    - `[ ]` feat: [MINOR] Extract new SQL inferencer type capabilities to expand the API surface of @typepurify/types.
+    - **v3.2.1** - Bugfix: invalid char strip
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip occurring under specific edge cases.
+    - **v3.2.2** - Bugfix: memory limit breach during TS check
+      - `[ ]` fix: [PATCH] Debug and resolve memory limit breach during TS check occurring under specific edge cases.
+    - **v3.2.3** - Bugfix: non-deterministic generation
+      - `[ ]` fix: [PATCH] Debug and resolve non-deterministic generation occurring under specific edge cases.
+    - **v3.2.4** - Bugfix: IDE hang on complex type
+      - `[ ]` fix: [PATCH] Debug and resolve IDE hang on complex type occurring under specific edge cases.
+    - **v3.2.5** - Bugfix: slow compilation times
+      - `[ ]` fix: [PATCH] Debug and resolve slow compilation times occurring under specific edge cases.
+  - **v3.3.0** - Feature: OpenAPI compiler type
+    - `[ ]` feat: [MINOR] Compile new OpenAPI compiler type capabilities to expand the API surface of @typepurify/types.
+    - **v3.3.1** - Bugfix: memory limit breach during TS check
+      - `[ ]` fix: [PATCH] Debug and resolve memory limit breach during TS check occurring under specific edge cases.
+    - **v3.3.2** - Bugfix: non-deterministic generation
+      - `[ ]` fix: [PATCH] Debug and resolve non-deterministic generation occurring under specific edge cases.
+    - **v3.3.3** - Bugfix: IDE hang on complex type
+      - `[ ]` fix: [PATCH] Debug and resolve IDE hang on complex type occurring under specific edge cases.
+    - **v3.3.4** - Bugfix: slow compilation times
+      - `[ ]` fix: [PATCH] Debug and resolve slow compilation times occurring under specific edge cases.
+    - **v3.3.5** - Bugfix: inference mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve inference mismatch occurring under specific edge cases.
+  - **v3.4.0** - Feature: AST extractor type
+    - `[ ]` feat: [MINOR] Parse new AST extractor type capabilities to expand the API surface of @typepurify/types.
+    - **v3.4.1** - Bugfix: non-deterministic generation
+      - `[ ]` fix: [PATCH] Debug and resolve non-deterministic generation occurring under specific edge cases.
+    - **v3.4.2** - Bugfix: IDE hang on complex type
+      - `[ ]` fix: [PATCH] Debug and resolve IDE hang on complex type occurring under specific edge cases.
+    - **v3.4.3** - Bugfix: slow compilation times
+      - `[ ]` fix: [PATCH] Debug and resolve slow compilation times occurring under specific edge cases.
+    - **v3.4.4** - Bugfix: inference mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve inference mismatch occurring under specific edge cases.
+    - **v3.4.5** - Bugfix: recursion depth limit hit
+      - `[ ]` fix: [PATCH] Debug and resolve recursion depth limit hit occurring under specific edge cases.
+  - **v3.5.0** - Feature: AI generator type
+    - `[ ]` feat: [MINOR] Execute new AI generator type capabilities to expand the API surface of @typepurify/types.
+    - **v3.5.1** - Bugfix: IDE hang on complex type
+      - `[ ]` fix: [PATCH] Debug and resolve IDE hang on complex type occurring under specific edge cases.
+    - **v3.5.2** - Bugfix: slow compilation times
+      - `[ ]` fix: [PATCH] Debug and resolve slow compilation times occurring under specific edge cases.
+    - **v3.5.3** - Bugfix: inference mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve inference mismatch occurring under specific edge cases.
+    - **v3.5.4** - Bugfix: recursion depth limit hit
+      - `[ ]` fix: [PATCH] Debug and resolve recursion depth limit hit occurring under specific edge cases.
+    - **v3.5.5** - Bugfix: circular tree TS error
+      - `[ ]` fix: [PATCH] Debug and resolve circular tree TS error occurring under specific edge cases.
+- **v4.0.0** - Major Release: tuple converter
+  - `[ ]` feat: [MAJOR] Calculate the core tuple converter for @typepurify/types to enhance performance and developer experience.
+  - **v4.0.1** - Bugfix: slow compilation times
+    - `[ ]` fix: [PATCH] Investigate and resolve slow compilation times reported by users post-major release.
+  - **v4.0.2** - Bugfix: inference mismatch
+    - `[ ]` fix: [PATCH] Investigate and resolve inference mismatch reported by users post-major release.
+  - **v4.0.3** - Bugfix: recursion depth limit hit
+    - `[ ]` fix: [PATCH] Investigate and resolve recursion depth limit hit reported by users post-major release.
+  - **v4.0.4** - Bugfix: circular tree TS error
+    - `[ ]` fix: [PATCH] Investigate and resolve circular tree TS error reported by users post-major release.
+  - **v4.0.5** - Bugfix: negative math error
+    - `[ ]` fix: [PATCH] Investigate and resolve negative math error reported by users post-major release.
+  - **v4.1.0** - Feature: SQL inferencer type
+    - `[ ]` feat: [MINOR] Extract new SQL inferencer type capabilities to expand the API surface of @typepurify/types.
+    - **v4.1.1** - Bugfix: invalid char strip
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip occurring under specific edge cases.
+    - **v4.1.2** - Bugfix: memory limit breach during TS check
+      - `[ ]` fix: [PATCH] Debug and resolve memory limit breach during TS check occurring under specific edge cases.
+    - **v4.1.3** - Bugfix: non-deterministic generation
+      - `[ ]` fix: [PATCH] Debug and resolve non-deterministic generation occurring under specific edge cases.
+    - **v4.1.4** - Bugfix: IDE hang on complex type
+      - `[ ]` fix: [PATCH] Debug and resolve IDE hang on complex type occurring under specific edge cases.
+    - **v4.1.5** - Bugfix: slow compilation times
+      - `[ ]` fix: [PATCH] Debug and resolve slow compilation times occurring under specific edge cases.
+  - **v4.2.0** - Feature: OpenAPI compiler type
+    - `[ ]` feat: [MINOR] Compile new OpenAPI compiler type capabilities to expand the API surface of @typepurify/types.
+    - **v4.2.1** - Bugfix: memory limit breach during TS check
+      - `[ ]` fix: [PATCH] Debug and resolve memory limit breach during TS check occurring under specific edge cases.
+    - **v4.2.2** - Bugfix: non-deterministic generation
+      - `[ ]` fix: [PATCH] Debug and resolve non-deterministic generation occurring under specific edge cases.
+    - **v4.2.3** - Bugfix: IDE hang on complex type
+      - `[ ]` fix: [PATCH] Debug and resolve IDE hang on complex type occurring under specific edge cases.
+    - **v4.2.4** - Bugfix: slow compilation times
+      - `[ ]` fix: [PATCH] Debug and resolve slow compilation times occurring under specific edge cases.
+    - **v4.2.5** - Bugfix: inference mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve inference mismatch occurring under specific edge cases.
+  - **v4.3.0** - Feature: AST extractor type
+    - `[ ]` feat: [MINOR] Parse new AST extractor type capabilities to expand the API surface of @typepurify/types.
+    - **v4.3.1** - Bugfix: non-deterministic generation
+      - `[ ]` fix: [PATCH] Debug and resolve non-deterministic generation occurring under specific edge cases.
+    - **v4.3.2** - Bugfix: IDE hang on complex type
+      - `[ ]` fix: [PATCH] Debug and resolve IDE hang on complex type occurring under specific edge cases.
+    - **v4.3.3** - Bugfix: slow compilation times
+      - `[ ]` fix: [PATCH] Debug and resolve slow compilation times occurring under specific edge cases.
+    - **v4.3.4** - Bugfix: inference mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve inference mismatch occurring under specific edge cases.
+    - **v4.3.5** - Bugfix: recursion depth limit hit
+      - `[ ]` fix: [PATCH] Debug and resolve recursion depth limit hit occurring under specific edge cases.
+  - **v4.4.0** - Feature: AI generator type
+    - `[ ]` feat: [MINOR] Execute new AI generator type capabilities to expand the API surface of @typepurify/types.
+    - **v4.4.1** - Bugfix: IDE hang on complex type
+      - `[ ]` fix: [PATCH] Debug and resolve IDE hang on complex type occurring under specific edge cases.
+    - **v4.4.2** - Bugfix: slow compilation times
+      - `[ ]` fix: [PATCH] Debug and resolve slow compilation times occurring under specific edge cases.
+    - **v4.4.3** - Bugfix: inference mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve inference mismatch occurring under specific edge cases.
+    - **v4.4.4** - Bugfix: recursion depth limit hit
+      - `[ ]` fix: [PATCH] Debug and resolve recursion depth limit hit occurring under specific edge cases.
+    - **v4.4.5** - Bugfix: circular tree TS error
+      - `[ ]` fix: [PATCH] Debug and resolve circular tree TS error occurring under specific edge cases.
+  - **v4.5.0** - Feature: Lisp interpreter type
+    - `[ ]` feat: [MINOR] Resolve new Lisp interpreter type capabilities to expand the API surface of @typepurify/types.
+    - **v4.5.1** - Bugfix: slow compilation times
+      - `[ ]` fix: [PATCH] Debug and resolve slow compilation times occurring under specific edge cases.
+    - **v4.5.2** - Bugfix: inference mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve inference mismatch occurring under specific edge cases.
+    - **v4.5.3** - Bugfix: recursion depth limit hit
+      - `[ ]` fix: [PATCH] Debug and resolve recursion depth limit hit occurring under specific edge cases.
+    - **v4.5.4** - Bugfix: circular tree TS error
+      - `[ ]` fix: [PATCH] Debug and resolve circular tree TS error occurring under specific edge cases.
+    - **v4.5.5** - Bugfix: negative math error
+      - `[ ]` fix: [PATCH] Debug and resolve negative math error occurring under specific edge cases.
+- **v5.0.0** - Major Release: math operator type
+  - `[ ]` feat: [MAJOR] Infer the core math operator type for @typepurify/types to enhance performance and developer experience.
 
----
+## 8. @typepurify/react-table
 
-## 3. React Ecosystem
-
-### `@typepurify/react-table`
-
-**Status:** 🟢 Completed (Active Maintenance)
 **Description:** Universal, zero-dependency Data Table.
 
-- `[x]` feat: Sorting and Filtering engines.
-- `[x]` feat: Pagination state management.
-- `[x]` feat: Search and Export to CSV.
+- **v1.0.0** - Major Release: virtualizer module
+  - `[ ]` feat: [MAJOR] Measure the core virtualizer module for @typepurify/react-table to enhance performance and developer experience.
+  - **v1.0.1** - Bugfix: scrollbar jump on load
+    - `[ ]` fix: [PATCH] Investigate and resolve scrollbar jump on load reported by users post-major release.
+  - **v1.0.2** - Bugfix: minWidth CSS bypass
+    - `[ ]` fix: [PATCH] Investigate and resolve minWidth CSS bypass reported by users post-major release.
+  - **v1.0.3** - Bugfix: ARIA mapping bug
+    - `[ ]` fix: [PATCH] Investigate and resolve ARIA mapping bug reported by users post-major release.
+  - **v1.0.4** - Bugfix: floating point math error
+    - `[ ]` fix: [PATCH] Investigate and resolve floating point math error reported by users post-major release.
+  - **v1.0.5** - Bugfix: clipboard parse error
+    - `[ ]` fix: [PATCH] Investigate and resolve clipboard parse error reported by users post-major release.
+  - **v1.1.0** - Feature: headless UI core
+    - `[ ]` feat: [MINOR] Aggregate new headless UI core capabilities to expand the API surface of @typepurify/react-table.
+    - **v1.1.1** - Bugfix: floating point math error
+      - `[ ]` fix: [PATCH] Debug and resolve floating point math error occurring under specific edge cases.
+    - **v1.1.2** - Bugfix: clipboard parse error
+      - `[ ]` fix: [PATCH] Debug and resolve clipboard parse error occurring under specific edge cases.
+    - **v1.1.3** - Bugfix: blurry canvas rendering
+      - `[ ]` fix: [PATCH] Debug and resolve blurry canvas rendering occurring under specific edge cases.
+    - **v1.1.4** - Bugfix: cell conflict in multiplayer
+      - `[ ]` fix: [PATCH] Debug and resolve cell conflict in multiplayer occurring under specific edge cases.
+    - **v1.1.5** - Bugfix: deep traversal lag
+      - `[ ]` fix: [PATCH] Debug and resolve deep traversal lag occurring under specific edge cases.
+  - **v1.2.0** - Feature: pivot engine
+    - `[ ]` feat: [MINOR] Copy new pivot engine capabilities to expand the API surface of @typepurify/react-table.
+    - **v1.2.1** - Bugfix: clipboard parse error
+      - `[ ]` fix: [PATCH] Debug and resolve clipboard parse error occurring under specific edge cases.
+    - **v1.2.2** - Bugfix: blurry canvas rendering
+      - `[ ]` fix: [PATCH] Debug and resolve blurry canvas rendering occurring under specific edge cases.
+    - **v1.2.3** - Bugfix: cell conflict in multiplayer
+      - `[ ]` fix: [PATCH] Debug and resolve cell conflict in multiplayer occurring under specific edge cases.
+    - **v1.2.4** - Bugfix: deep traversal lag
+      - `[ ]` fix: [PATCH] Debug and resolve deep traversal lag occurring under specific edge cases.
+    - **v1.2.5** - Bugfix: ambiguous NLP query
+      - `[ ]` fix: [PATCH] Debug and resolve ambiguous NLP query occurring under specific edge cases.
+  - **v1.3.0** - Feature: inline editor state
+    - `[ ]` feat: [MINOR] Highlight new inline editor state capabilities to expand the API surface of @typepurify/react-table.
+    - **v1.3.1** - Bugfix: blurry canvas rendering
+      - `[ ]` fix: [PATCH] Debug and resolve blurry canvas rendering occurring under specific edge cases.
+    - **v1.3.2** - Bugfix: cell conflict in multiplayer
+      - `[ ]` fix: [PATCH] Debug and resolve cell conflict in multiplayer occurring under specific edge cases.
+    - **v1.3.3** - Bugfix: deep traversal lag
+      - `[ ]` fix: [PATCH] Debug and resolve deep traversal lag occurring under specific edge cases.
+    - **v1.3.4** - Bugfix: ambiguous NLP query
+      - `[ ]` fix: [PATCH] Debug and resolve ambiguous NLP query occurring under specific edge cases.
+    - **v1.3.5** - Bugfix: irrelevant insight generation
+      - `[ ]` fix: [PATCH] Debug and resolve irrelevant insight generation occurring under specific edge cases.
+  - **v1.4.0** - Feature: WebGL renderer backend
+    - `[ ]` feat: [MINOR] Sync new WebGL renderer backend capabilities to expand the API surface of @typepurify/react-table.
+    - **v1.4.1** - Bugfix: cell conflict in multiplayer
+      - `[ ]` fix: [PATCH] Debug and resolve cell conflict in multiplayer occurring under specific edge cases.
+    - **v1.4.2** - Bugfix: deep traversal lag
+      - `[ ]` fix: [PATCH] Debug and resolve deep traversal lag occurring under specific edge cases.
+    - **v1.4.3** - Bugfix: ambiguous NLP query
+      - `[ ]` fix: [PATCH] Debug and resolve ambiguous NLP query occurring under specific edge cases.
+    - **v1.4.4** - Bugfix: irrelevant insight generation
+      - `[ ]` fix: [PATCH] Debug and resolve irrelevant insight generation occurring under specific edge cases.
+    - **v1.4.5** - Bugfix: scrollbar jump on load
+      - `[ ]` fix: [PATCH] Debug and resolve scrollbar jump on load occurring under specific edge cases.
+  - **v1.5.0** - Feature: CRDT multiplayer hook
+    - `[ ]` feat: [MINOR] Traverse new CRDT multiplayer hook capabilities to expand the API surface of @typepurify/react-table.
+    - **v1.5.1** - Bugfix: deep traversal lag
+      - `[ ]` fix: [PATCH] Debug and resolve deep traversal lag occurring under specific edge cases.
+    - **v1.5.2** - Bugfix: ambiguous NLP query
+      - `[ ]` fix: [PATCH] Debug and resolve ambiguous NLP query occurring under specific edge cases.
+    - **v1.5.3** - Bugfix: irrelevant insight generation
+      - `[ ]` fix: [PATCH] Debug and resolve irrelevant insight generation occurring under specific edge cases.
+    - **v1.5.4** - Bugfix: scrollbar jump on load
+      - `[ ]` fix: [PATCH] Debug and resolve scrollbar jump on load occurring under specific edge cases.
+    - **v1.5.5** - Bugfix: minWidth CSS bypass
+      - `[ ]` fix: [PATCH] Debug and resolve minWidth CSS bypass occurring under specific edge cases.
+- **v2.0.0** - Major Release: column resizer hook
+  - `[ ]` feat: [MAJOR] Persist the core column resizer hook for @typepurify/react-table to enhance performance and developer experience.
+  - **v2.0.1** - Bugfix: scrollbar jump on load
+    - `[ ]` fix: [PATCH] Investigate and resolve scrollbar jump on load reported by users post-major release.
+  - **v2.0.2** - Bugfix: minWidth CSS bypass
+    - `[ ]` fix: [PATCH] Investigate and resolve minWidth CSS bypass reported by users post-major release.
+  - **v2.0.3** - Bugfix: ARIA mapping bug
+    - `[ ]` fix: [PATCH] Investigate and resolve ARIA mapping bug reported by users post-major release.
+  - **v2.0.4** - Bugfix: floating point math error
+    - `[ ]` fix: [PATCH] Investigate and resolve floating point math error reported by users post-major release.
+  - **v2.0.5** - Bugfix: clipboard parse error
+    - `[ ]` fix: [PATCH] Investigate and resolve clipboard parse error reported by users post-major release.
+  - **v2.1.0** - Feature: pivot engine
+    - `[ ]` feat: [MINOR] Copy new pivot engine capabilities to expand the API surface of @typepurify/react-table.
+    - **v2.1.1** - Bugfix: clipboard parse error
+      - `[ ]` fix: [PATCH] Debug and resolve clipboard parse error occurring under specific edge cases.
+    - **v2.1.2** - Bugfix: blurry canvas rendering
+      - `[ ]` fix: [PATCH] Debug and resolve blurry canvas rendering occurring under specific edge cases.
+    - **v2.1.3** - Bugfix: cell conflict in multiplayer
+      - `[ ]` fix: [PATCH] Debug and resolve cell conflict in multiplayer occurring under specific edge cases.
+    - **v2.1.4** - Bugfix: deep traversal lag
+      - `[ ]` fix: [PATCH] Debug and resolve deep traversal lag occurring under specific edge cases.
+    - **v2.1.5** - Bugfix: ambiguous NLP query
+      - `[ ]` fix: [PATCH] Debug and resolve ambiguous NLP query occurring under specific edge cases.
+  - **v2.2.0** - Feature: inline editor state
+    - `[ ]` feat: [MINOR] Highlight new inline editor state capabilities to expand the API surface of @typepurify/react-table.
+    - **v2.2.1** - Bugfix: blurry canvas rendering
+      - `[ ]` fix: [PATCH] Debug and resolve blurry canvas rendering occurring under specific edge cases.
+    - **v2.2.2** - Bugfix: cell conflict in multiplayer
+      - `[ ]` fix: [PATCH] Debug and resolve cell conflict in multiplayer occurring under specific edge cases.
+    - **v2.2.3** - Bugfix: deep traversal lag
+      - `[ ]` fix: [PATCH] Debug and resolve deep traversal lag occurring under specific edge cases.
+    - **v2.2.4** - Bugfix: ambiguous NLP query
+      - `[ ]` fix: [PATCH] Debug and resolve ambiguous NLP query occurring under specific edge cases.
+    - **v2.2.5** - Bugfix: irrelevant insight generation
+      - `[ ]` fix: [PATCH] Debug and resolve irrelevant insight generation occurring under specific edge cases.
+  - **v2.3.0** - Feature: WebGL renderer backend
+    - `[ ]` feat: [MINOR] Sync new WebGL renderer backend capabilities to expand the API surface of @typepurify/react-table.
+    - **v2.3.1** - Bugfix: cell conflict in multiplayer
+      - `[ ]` fix: [PATCH] Debug and resolve cell conflict in multiplayer occurring under specific edge cases.
+    - **v2.3.2** - Bugfix: deep traversal lag
+      - `[ ]` fix: [PATCH] Debug and resolve deep traversal lag occurring under specific edge cases.
+    - **v2.3.3** - Bugfix: ambiguous NLP query
+      - `[ ]` fix: [PATCH] Debug and resolve ambiguous NLP query occurring under specific edge cases.
+    - **v2.3.4** - Bugfix: irrelevant insight generation
+      - `[ ]` fix: [PATCH] Debug and resolve irrelevant insight generation occurring under specific edge cases.
+    - **v2.3.5** - Bugfix: scrollbar jump on load
+      - `[ ]` fix: [PATCH] Debug and resolve scrollbar jump on load occurring under specific edge cases.
+  - **v2.4.0** - Feature: CRDT multiplayer hook
+    - `[ ]` feat: [MINOR] Traverse new CRDT multiplayer hook capabilities to expand the API surface of @typepurify/react-table.
+    - **v2.4.1** - Bugfix: deep traversal lag
+      - `[ ]` fix: [PATCH] Debug and resolve deep traversal lag occurring under specific edge cases.
+    - **v2.4.2** - Bugfix: ambiguous NLP query
+      - `[ ]` fix: [PATCH] Debug and resolve ambiguous NLP query occurring under specific edge cases.
+    - **v2.4.3** - Bugfix: irrelevant insight generation
+      - `[ ]` fix: [PATCH] Debug and resolve irrelevant insight generation occurring under specific edge cases.
+    - **v2.4.4** - Bugfix: scrollbar jump on load
+      - `[ ]` fix: [PATCH] Debug and resolve scrollbar jump on load occurring under specific edge cases.
+    - **v2.4.5** - Bugfix: minWidth CSS bypass
+      - `[ ]` fix: [PATCH] Debug and resolve minWidth CSS bypass occurring under specific edge cases.
+  - **v2.5.0** - Feature: OLAP cube connector
+    - `[ ]` feat: [MINOR] Filter new OLAP cube connector capabilities to expand the API surface of @typepurify/react-table.
+    - **v2.5.1** - Bugfix: ambiguous NLP query
+      - `[ ]` fix: [PATCH] Debug and resolve ambiguous NLP query occurring under specific edge cases.
+    - **v2.5.2** - Bugfix: irrelevant insight generation
+      - `[ ]` fix: [PATCH] Debug and resolve irrelevant insight generation occurring under specific edge cases.
+    - **v2.5.3** - Bugfix: scrollbar jump on load
+      - `[ ]` fix: [PATCH] Debug and resolve scrollbar jump on load occurring under specific edge cases.
+    - **v2.5.4** - Bugfix: minWidth CSS bypass
+      - `[ ]` fix: [PATCH] Debug and resolve minWidth CSS bypass occurring under specific edge cases.
+    - **v2.5.5** - Bugfix: ARIA mapping bug
+      - `[ ]` fix: [PATCH] Debug and resolve ARIA mapping bug occurring under specific edge cases.
+- **v3.0.0** - Major Release: headless UI core
+  - `[ ]` feat: [MAJOR] Aggregate the core headless UI core for @typepurify/react-table to enhance performance and developer experience.
+  - **v3.0.1** - Bugfix: scrollbar jump on load
+    - `[ ]` fix: [PATCH] Investigate and resolve scrollbar jump on load reported by users post-major release.
+  - **v3.0.2** - Bugfix: minWidth CSS bypass
+    - `[ ]` fix: [PATCH] Investigate and resolve minWidth CSS bypass reported by users post-major release.
+  - **v3.0.3** - Bugfix: ARIA mapping bug
+    - `[ ]` fix: [PATCH] Investigate and resolve ARIA mapping bug reported by users post-major release.
+  - **v3.0.4** - Bugfix: floating point math error
+    - `[ ]` fix: [PATCH] Investigate and resolve floating point math error reported by users post-major release.
+  - **v3.0.5** - Bugfix: clipboard parse error
+    - `[ ]` fix: [PATCH] Investigate and resolve clipboard parse error reported by users post-major release.
+  - **v3.1.0** - Feature: inline editor state
+    - `[ ]` feat: [MINOR] Highlight new inline editor state capabilities to expand the API surface of @typepurify/react-table.
+    - **v3.1.1** - Bugfix: blurry canvas rendering
+      - `[ ]` fix: [PATCH] Debug and resolve blurry canvas rendering occurring under specific edge cases.
+    - **v3.1.2** - Bugfix: cell conflict in multiplayer
+      - `[ ]` fix: [PATCH] Debug and resolve cell conflict in multiplayer occurring under specific edge cases.
+    - **v3.1.3** - Bugfix: deep traversal lag
+      - `[ ]` fix: [PATCH] Debug and resolve deep traversal lag occurring under specific edge cases.
+    - **v3.1.4** - Bugfix: ambiguous NLP query
+      - `[ ]` fix: [PATCH] Debug and resolve ambiguous NLP query occurring under specific edge cases.
+    - **v3.1.5** - Bugfix: irrelevant insight generation
+      - `[ ]` fix: [PATCH] Debug and resolve irrelevant insight generation occurring under specific edge cases.
+  - **v3.2.0** - Feature: WebGL renderer backend
+    - `[ ]` feat: [MINOR] Sync new WebGL renderer backend capabilities to expand the API surface of @typepurify/react-table.
+    - **v3.2.1** - Bugfix: cell conflict in multiplayer
+      - `[ ]` fix: [PATCH] Debug and resolve cell conflict in multiplayer occurring under specific edge cases.
+    - **v3.2.2** - Bugfix: deep traversal lag
+      - `[ ]` fix: [PATCH] Debug and resolve deep traversal lag occurring under specific edge cases.
+    - **v3.2.3** - Bugfix: ambiguous NLP query
+      - `[ ]` fix: [PATCH] Debug and resolve ambiguous NLP query occurring under specific edge cases.
+    - **v3.2.4** - Bugfix: irrelevant insight generation
+      - `[ ]` fix: [PATCH] Debug and resolve irrelevant insight generation occurring under specific edge cases.
+    - **v3.2.5** - Bugfix: scrollbar jump on load
+      - `[ ]` fix: [PATCH] Debug and resolve scrollbar jump on load occurring under specific edge cases.
+  - **v3.3.0** - Feature: CRDT multiplayer hook
+    - `[ ]` feat: [MINOR] Traverse new CRDT multiplayer hook capabilities to expand the API surface of @typepurify/react-table.
+    - **v3.3.1** - Bugfix: deep traversal lag
+      - `[ ]` fix: [PATCH] Debug and resolve deep traversal lag occurring under specific edge cases.
+    - **v3.3.2** - Bugfix: ambiguous NLP query
+      - `[ ]` fix: [PATCH] Debug and resolve ambiguous NLP query occurring under specific edge cases.
+    - **v3.3.3** - Bugfix: irrelevant insight generation
+      - `[ ]` fix: [PATCH] Debug and resolve irrelevant insight generation occurring under specific edge cases.
+    - **v3.3.4** - Bugfix: scrollbar jump on load
+      - `[ ]` fix: [PATCH] Debug and resolve scrollbar jump on load occurring under specific edge cases.
+    - **v3.3.5** - Bugfix: minWidth CSS bypass
+      - `[ ]` fix: [PATCH] Debug and resolve minWidth CSS bypass occurring under specific edge cases.
+  - **v3.4.0** - Feature: OLAP cube connector
+    - `[ ]` feat: [MINOR] Filter new OLAP cube connector capabilities to expand the API surface of @typepurify/react-table.
+    - **v3.4.1** - Bugfix: ambiguous NLP query
+      - `[ ]` fix: [PATCH] Debug and resolve ambiguous NLP query occurring under specific edge cases.
+    - **v3.4.2** - Bugfix: irrelevant insight generation
+      - `[ ]` fix: [PATCH] Debug and resolve irrelevant insight generation occurring under specific edge cases.
+    - **v3.4.3** - Bugfix: scrollbar jump on load
+      - `[ ]` fix: [PATCH] Debug and resolve scrollbar jump on load occurring under specific edge cases.
+    - **v3.4.4** - Bugfix: minWidth CSS bypass
+      - `[ ]` fix: [PATCH] Debug and resolve minWidth CSS bypass occurring under specific edge cases.
+    - **v3.4.5** - Bugfix: ARIA mapping bug
+      - `[ ]` fix: [PATCH] Debug and resolve ARIA mapping bug occurring under specific edge cases.
+  - **v3.5.0** - Feature: NLP query interface
+    - `[ ]` feat: [MINOR] Generate new NLP query interface capabilities to expand the API surface of @typepurify/react-table.
+    - **v3.5.1** - Bugfix: irrelevant insight generation
+      - `[ ]` fix: [PATCH] Debug and resolve irrelevant insight generation occurring under specific edge cases.
+    - **v3.5.2** - Bugfix: scrollbar jump on load
+      - `[ ]` fix: [PATCH] Debug and resolve scrollbar jump on load occurring under specific edge cases.
+    - **v3.5.3** - Bugfix: minWidth CSS bypass
+      - `[ ]` fix: [PATCH] Debug and resolve minWidth CSS bypass occurring under specific edge cases.
+    - **v3.5.4** - Bugfix: ARIA mapping bug
+      - `[ ]` fix: [PATCH] Debug and resolve ARIA mapping bug occurring under specific edge cases.
+    - **v3.5.5** - Bugfix: floating point math error
+      - `[ ]` fix: [PATCH] Debug and resolve floating point math error occurring under specific edge cases.
+- **v4.0.0** - Major Release: pivot engine
+  - `[ ]` feat: [MAJOR] Copy the core pivot engine for @typepurify/react-table to enhance performance and developer experience.
+  - **v4.0.1** - Bugfix: scrollbar jump on load
+    - `[ ]` fix: [PATCH] Investigate and resolve scrollbar jump on load reported by users post-major release.
+  - **v4.0.2** - Bugfix: minWidth CSS bypass
+    - `[ ]` fix: [PATCH] Investigate and resolve minWidth CSS bypass reported by users post-major release.
+  - **v4.0.3** - Bugfix: ARIA mapping bug
+    - `[ ]` fix: [PATCH] Investigate and resolve ARIA mapping bug reported by users post-major release.
+  - **v4.0.4** - Bugfix: floating point math error
+    - `[ ]` fix: [PATCH] Investigate and resolve floating point math error reported by users post-major release.
+  - **v4.0.5** - Bugfix: clipboard parse error
+    - `[ ]` fix: [PATCH] Investigate and resolve clipboard parse error reported by users post-major release.
+  - **v4.1.0** - Feature: WebGL renderer backend
+    - `[ ]` feat: [MINOR] Sync new WebGL renderer backend capabilities to expand the API surface of @typepurify/react-table.
+    - **v4.1.1** - Bugfix: cell conflict in multiplayer
+      - `[ ]` fix: [PATCH] Debug and resolve cell conflict in multiplayer occurring under specific edge cases.
+    - **v4.1.2** - Bugfix: deep traversal lag
+      - `[ ]` fix: [PATCH] Debug and resolve deep traversal lag occurring under specific edge cases.
+    - **v4.1.3** - Bugfix: ambiguous NLP query
+      - `[ ]` fix: [PATCH] Debug and resolve ambiguous NLP query occurring under specific edge cases.
+    - **v4.1.4** - Bugfix: irrelevant insight generation
+      - `[ ]` fix: [PATCH] Debug and resolve irrelevant insight generation occurring under specific edge cases.
+    - **v4.1.5** - Bugfix: scrollbar jump on load
+      - `[ ]` fix: [PATCH] Debug and resolve scrollbar jump on load occurring under specific edge cases.
+  - **v4.2.0** - Feature: CRDT multiplayer hook
+    - `[ ]` feat: [MINOR] Traverse new CRDT multiplayer hook capabilities to expand the API surface of @typepurify/react-table.
+    - **v4.2.1** - Bugfix: deep traversal lag
+      - `[ ]` fix: [PATCH] Debug and resolve deep traversal lag occurring under specific edge cases.
+    - **v4.2.2** - Bugfix: ambiguous NLP query
+      - `[ ]` fix: [PATCH] Debug and resolve ambiguous NLP query occurring under specific edge cases.
+    - **v4.2.3** - Bugfix: irrelevant insight generation
+      - `[ ]` fix: [PATCH] Debug and resolve irrelevant insight generation occurring under specific edge cases.
+    - **v4.2.4** - Bugfix: scrollbar jump on load
+      - `[ ]` fix: [PATCH] Debug and resolve scrollbar jump on load occurring under specific edge cases.
+    - **v4.2.5** - Bugfix: minWidth CSS bypass
+      - `[ ]` fix: [PATCH] Debug and resolve minWidth CSS bypass occurring under specific edge cases.
+  - **v4.3.0** - Feature: OLAP cube connector
+    - `[ ]` feat: [MINOR] Filter new OLAP cube connector capabilities to expand the API surface of @typepurify/react-table.
+    - **v4.3.1** - Bugfix: ambiguous NLP query
+      - `[ ]` fix: [PATCH] Debug and resolve ambiguous NLP query occurring under specific edge cases.
+    - **v4.3.2** - Bugfix: irrelevant insight generation
+      - `[ ]` fix: [PATCH] Debug and resolve irrelevant insight generation occurring under specific edge cases.
+    - **v4.3.3** - Bugfix: scrollbar jump on load
+      - `[ ]` fix: [PATCH] Debug and resolve scrollbar jump on load occurring under specific edge cases.
+    - **v4.3.4** - Bugfix: minWidth CSS bypass
+      - `[ ]` fix: [PATCH] Debug and resolve minWidth CSS bypass occurring under specific edge cases.
+    - **v4.3.5** - Bugfix: ARIA mapping bug
+      - `[ ]` fix: [PATCH] Debug and resolve ARIA mapping bug occurring under specific edge cases.
+  - **v4.4.0** - Feature: NLP query interface
+    - `[ ]` feat: [MINOR] Generate new NLP query interface capabilities to expand the API surface of @typepurify/react-table.
+    - **v4.4.1** - Bugfix: irrelevant insight generation
+      - `[ ]` fix: [PATCH] Debug and resolve irrelevant insight generation occurring under specific edge cases.
+    - **v4.4.2** - Bugfix: scrollbar jump on load
+      - `[ ]` fix: [PATCH] Debug and resolve scrollbar jump on load occurring under specific edge cases.
+    - **v4.4.3** - Bugfix: minWidth CSS bypass
+      - `[ ]` fix: [PATCH] Debug and resolve minWidth CSS bypass occurring under specific edge cases.
+    - **v4.4.4** - Bugfix: ARIA mapping bug
+      - `[ ]` fix: [PATCH] Debug and resolve ARIA mapping bug occurring under specific edge cases.
+    - **v4.4.5** - Bugfix: floating point math error
+      - `[ ]` fix: [PATCH] Debug and resolve floating point math error occurring under specific edge cases.
+  - **v4.5.0** - Feature: Insight generator
+    - `[ ]` feat: [MINOR] Prune new Insight generator capabilities to expand the API surface of @typepurify/react-table.
+    - **v4.5.1** - Bugfix: scrollbar jump on load
+      - `[ ]` fix: [PATCH] Debug and resolve scrollbar jump on load occurring under specific edge cases.
+    - **v4.5.2** - Bugfix: minWidth CSS bypass
+      - `[ ]` fix: [PATCH] Debug and resolve minWidth CSS bypass occurring under specific edge cases.
+    - **v4.5.3** - Bugfix: ARIA mapping bug
+      - `[ ]` fix: [PATCH] Debug and resolve ARIA mapping bug occurring under specific edge cases.
+    - **v4.5.4** - Bugfix: floating point math error
+      - `[ ]` fix: [PATCH] Debug and resolve floating point math error occurring under specific edge cases.
+    - **v4.5.5** - Bugfix: clipboard parse error
+      - `[ ]` fix: [PATCH] Debug and resolve clipboard parse error occurring under specific edge cases.
+- **v5.0.0** - Major Release: inline editor state
+  - `[ ]` feat: [MAJOR] Highlight the core inline editor state for @typepurify/react-table to enhance performance and developer experience.
 
-### `@typepurify/react-state`
+## 9. @typepurify/react-state
 
-**Status:** 🟢 Completed (Active Maintenance)
 **Description:** Tiny alternatives for form, loading, and query state.
 
-- `[x]` feat: `useLoading()` - Universal loading state manager.
-- `[x]` feat: `useSmartForm()` - Tiny alternative to React Hook Form.
-- `[x]` feat: `useApiQuery()` - Tiny alternative to TanStack Query.
+- **v1.0.0** - Major Release: signal store hook
+  - `[ ]` feat: [MAJOR] Track the core signal store hook for @typepurify/react-state to enhance performance and developer experience.
+  - **v1.0.1** - Bugfix: untracked read error
+    - `[ ]` fix: [PATCH] Investigate and resolve untracked read error reported by users post-major release.
+  - **v1.0.2** - Bugfix: disabled storage crash
+    - `[ ]` fix: [PATCH] Investigate and resolve disabled storage crash reported by users post-major release.
+  - **v1.0.3** - Bugfix: tab closing deadlock
+    - `[ ]` fix: [PATCH] Investigate and resolve tab closing deadlock reported by users post-major release.
+  - **v1.0.4** - Bugfix: mutation tracking error
+    - `[ ]` fix: [PATCH] Investigate and resolve mutation tracking error reported by users post-major release.
+  - **v1.0.5** - Bugfix: deep freeze fail
+    - `[ ]` fix: [PATCH] Investigate and resolve deep freeze fail reported by users post-major release.
+  - **v1.1.0** - Feature: leader election node
+    - `[ ]` feat: [MINOR] Sync new leader election node capabilities to expand the API surface of @typepurify/react-state.
+    - **v1.1.1** - Bugfix: mutation tracking error
+      - `[ ]` fix: [PATCH] Debug and resolve mutation tracking error occurring under specific edge cases.
+    - **v1.1.2** - Bugfix: deep freeze fail
+      - `[ ]` fix: [PATCH] Debug and resolve deep freeze fail occurring under specific edge cases.
+    - **v1.1.3** - Bugfix: offline validation error
+      - `[ ]` fix: [PATCH] Debug and resolve offline validation error occurring under specific edge cases.
+    - **v1.1.4** - Bugfix: binder memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve binder memory leak occurring under specific edge cases.
+    - **v1.1.5** - Bugfix: reactivity mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve reactivity mismatch occurring under specific edge cases.
+  - **v1.2.0** - Feature: Redux devtools bridge
+    - `[ ]` feat: [MINOR] Mutate new Redux devtools bridge capabilities to expand the API surface of @typepurify/react-state.
+    - **v1.2.1** - Bugfix: deep freeze fail
+      - `[ ]` fix: [PATCH] Debug and resolve deep freeze fail occurring under specific edge cases.
+    - **v1.2.2** - Bugfix: offline validation error
+      - `[ ]` fix: [PATCH] Debug and resolve offline validation error occurring under specific edge cases.
+    - **v1.2.3** - Bugfix: binder memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve binder memory leak occurring under specific edge cases.
+    - **v1.2.4** - Bugfix: reactivity mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve reactivity mismatch occurring under specific edge cases.
+    - **v1.2.5** - Bugfix: stale hydration warning
+      - `[ ]` fix: [PATCH] Debug and resolve stale hydration warning occurring under specific edge cases.
+  - **v1.3.0** - Feature: Immer draft state
+    - `[ ]` feat: [MINOR] Freeze new Immer draft state capabilities to expand the API surface of @typepurify/react-state.
+    - **v1.3.1** - Bugfix: offline validation error
+      - `[ ]` fix: [PATCH] Debug and resolve offline validation error occurring under specific edge cases.
+    - **v1.3.2** - Bugfix: binder memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve binder memory leak occurring under specific edge cases.
+    - **v1.3.3** - Bugfix: reactivity mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve reactivity mismatch occurring under specific edge cases.
+    - **v1.3.4** - Bugfix: stale hydration warning
+      - `[ ]` fix: [PATCH] Debug and resolve stale hydration warning occurring under specific edge cases.
+    - **v1.3.5** - Bugfix: infinite state rollback
+      - `[ ]` fix: [PATCH] Debug and resolve infinite state rollback occurring under specific edge cases.
+  - **v1.4.0** - Feature: IndexDB queue
+    - `[ ]` feat: [MINOR] Validate new IndexDB queue capabilities to expand the API surface of @typepurify/react-state.
+    - **v1.4.1** - Bugfix: binder memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve binder memory leak occurring under specific edge cases.
+    - **v1.4.2** - Bugfix: reactivity mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve reactivity mismatch occurring under specific edge cases.
+    - **v1.4.3** - Bugfix: stale hydration warning
+      - `[ ]` fix: [PATCH] Debug and resolve stale hydration warning occurring under specific edge cases.
+    - **v1.4.4** - Bugfix: infinite state rollback
+      - `[ ]` fix: [PATCH] Debug and resolve infinite state rollback occurring under specific edge cases.
+    - **v1.4.5** - Bugfix: untracked read error
+      - `[ ]` fix: [PATCH] Debug and resolve untracked read error occurring under specific edge cases.
+  - **v1.5.0** - Feature: DOM binder
+    - `[ ]` feat: [MINOR] Bypass new DOM binder capabilities to expand the API surface of @typepurify/react-state.
+    - **v1.5.1** - Bugfix: reactivity mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve reactivity mismatch occurring under specific edge cases.
+    - **v1.5.2** - Bugfix: stale hydration warning
+      - `[ ]` fix: [PATCH] Debug and resolve stale hydration warning occurring under specific edge cases.
+    - **v1.5.3** - Bugfix: infinite state rollback
+      - `[ ]` fix: [PATCH] Debug and resolve infinite state rollback occurring under specific edge cases.
+    - **v1.5.4** - Bugfix: untracked read error
+      - `[ ]` fix: [PATCH] Debug and resolve untracked read error occurring under specific edge cases.
+    - **v1.5.5** - Bugfix: disabled storage crash
+      - `[ ]` fix: [PATCH] Debug and resolve disabled storage crash occurring under specific edge cases.
+- **v2.0.0** - Major Release: encryption adapter
+  - `[ ]` feat: [MAJOR] Encrypt the core encryption adapter for @typepurify/react-state to enhance performance and developer experience.
+  - **v2.0.1** - Bugfix: untracked read error
+    - `[ ]` fix: [PATCH] Investigate and resolve untracked read error reported by users post-major release.
+  - **v2.0.2** - Bugfix: disabled storage crash
+    - `[ ]` fix: [PATCH] Investigate and resolve disabled storage crash reported by users post-major release.
+  - **v2.0.3** - Bugfix: tab closing deadlock
+    - `[ ]` fix: [PATCH] Investigate and resolve tab closing deadlock reported by users post-major release.
+  - **v2.0.4** - Bugfix: mutation tracking error
+    - `[ ]` fix: [PATCH] Investigate and resolve mutation tracking error reported by users post-major release.
+  - **v2.0.5** - Bugfix: deep freeze fail
+    - `[ ]` fix: [PATCH] Investigate and resolve deep freeze fail reported by users post-major release.
+  - **v2.1.0** - Feature: Redux devtools bridge
+    - `[ ]` feat: [MINOR] Mutate new Redux devtools bridge capabilities to expand the API surface of @typepurify/react-state.
+    - **v2.1.1** - Bugfix: deep freeze fail
+      - `[ ]` fix: [PATCH] Debug and resolve deep freeze fail occurring under specific edge cases.
+    - **v2.1.2** - Bugfix: offline validation error
+      - `[ ]` fix: [PATCH] Debug and resolve offline validation error occurring under specific edge cases.
+    - **v2.1.3** - Bugfix: binder memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve binder memory leak occurring under specific edge cases.
+    - **v2.1.4** - Bugfix: reactivity mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve reactivity mismatch occurring under specific edge cases.
+    - **v2.1.5** - Bugfix: stale hydration warning
+      - `[ ]` fix: [PATCH] Debug and resolve stale hydration warning occurring under specific edge cases.
+  - **v2.2.0** - Feature: Immer draft state
+    - `[ ]` feat: [MINOR] Freeze new Immer draft state capabilities to expand the API surface of @typepurify/react-state.
+    - **v2.2.1** - Bugfix: offline validation error
+      - `[ ]` fix: [PATCH] Debug and resolve offline validation error occurring under specific edge cases.
+    - **v2.2.2** - Bugfix: binder memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve binder memory leak occurring under specific edge cases.
+    - **v2.2.3** - Bugfix: reactivity mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve reactivity mismatch occurring under specific edge cases.
+    - **v2.2.4** - Bugfix: stale hydration warning
+      - `[ ]` fix: [PATCH] Debug and resolve stale hydration warning occurring under specific edge cases.
+    - **v2.2.5** - Bugfix: infinite state rollback
+      - `[ ]` fix: [PATCH] Debug and resolve infinite state rollback occurring under specific edge cases.
+  - **v2.3.0** - Feature: IndexDB queue
+    - `[ ]` feat: [MINOR] Validate new IndexDB queue capabilities to expand the API surface of @typepurify/react-state.
+    - **v2.3.1** - Bugfix: binder memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve binder memory leak occurring under specific edge cases.
+    - **v2.3.2** - Bugfix: reactivity mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve reactivity mismatch occurring under specific edge cases.
+    - **v2.3.3** - Bugfix: stale hydration warning
+      - `[ ]` fix: [PATCH] Debug and resolve stale hydration warning occurring under specific edge cases.
+    - **v2.3.4** - Bugfix: infinite state rollback
+      - `[ ]` fix: [PATCH] Debug and resolve infinite state rollback occurring under specific edge cases.
+    - **v2.3.5** - Bugfix: untracked read error
+      - `[ ]` fix: [PATCH] Debug and resolve untracked read error occurring under specific edge cases.
+  - **v2.4.0** - Feature: DOM binder
+    - `[ ]` feat: [MINOR] Bypass new DOM binder capabilities to expand the API surface of @typepurify/react-state.
+    - **v2.4.1** - Bugfix: reactivity mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve reactivity mismatch occurring under specific edge cases.
+    - **v2.4.2** - Bugfix: stale hydration warning
+      - `[ ]` fix: [PATCH] Debug and resolve stale hydration warning occurring under specific edge cases.
+    - **v2.4.3** - Bugfix: infinite state rollback
+      - `[ ]` fix: [PATCH] Debug and resolve infinite state rollback occurring under specific edge cases.
+    - **v2.4.4** - Bugfix: untracked read error
+      - `[ ]` fix: [PATCH] Debug and resolve untracked read error occurring under specific edge cases.
+    - **v2.4.5** - Bugfix: disabled storage crash
+      - `[ ]` fix: [PATCH] Debug and resolve disabled storage crash occurring under specific edge cases.
+  - **v2.5.0** - Feature: state machine core
+    - `[ ]` feat: [MINOR] Port new state machine core capabilities to expand the API surface of @typepurify/react-state.
+    - **v2.5.1** - Bugfix: stale hydration warning
+      - `[ ]` fix: [PATCH] Debug and resolve stale hydration warning occurring under specific edge cases.
+    - **v2.5.2** - Bugfix: infinite state rollback
+      - `[ ]` fix: [PATCH] Debug and resolve infinite state rollback occurring under specific edge cases.
+    - **v2.5.3** - Bugfix: untracked read error
+      - `[ ]` fix: [PATCH] Debug and resolve untracked read error occurring under specific edge cases.
+    - **v2.5.4** - Bugfix: disabled storage crash
+      - `[ ]` fix: [PATCH] Debug and resolve disabled storage crash occurring under specific edge cases.
+    - **v2.5.5** - Bugfix: tab closing deadlock
+      - `[ ]` fix: [PATCH] Debug and resolve tab closing deadlock occurring under specific edge cases.
+- **v3.0.0** - Major Release: leader election node
+  - `[ ]` feat: [MAJOR] Sync the core leader election node for @typepurify/react-state to enhance performance and developer experience.
+  - **v3.0.1** - Bugfix: untracked read error
+    - `[ ]` fix: [PATCH] Investigate and resolve untracked read error reported by users post-major release.
+  - **v3.0.2** - Bugfix: disabled storage crash
+    - `[ ]` fix: [PATCH] Investigate and resolve disabled storage crash reported by users post-major release.
+  - **v3.0.3** - Bugfix: tab closing deadlock
+    - `[ ]` fix: [PATCH] Investigate and resolve tab closing deadlock reported by users post-major release.
+  - **v3.0.4** - Bugfix: mutation tracking error
+    - `[ ]` fix: [PATCH] Investigate and resolve mutation tracking error reported by users post-major release.
+  - **v3.0.5** - Bugfix: deep freeze fail
+    - `[ ]` fix: [PATCH] Investigate and resolve deep freeze fail reported by users post-major release.
+  - **v3.1.0** - Feature: Immer draft state
+    - `[ ]` feat: [MINOR] Freeze new Immer draft state capabilities to expand the API surface of @typepurify/react-state.
+    - **v3.1.1** - Bugfix: offline validation error
+      - `[ ]` fix: [PATCH] Debug and resolve offline validation error occurring under specific edge cases.
+    - **v3.1.2** - Bugfix: binder memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve binder memory leak occurring under specific edge cases.
+    - **v3.1.3** - Bugfix: reactivity mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve reactivity mismatch occurring under specific edge cases.
+    - **v3.1.4** - Bugfix: stale hydration warning
+      - `[ ]` fix: [PATCH] Debug and resolve stale hydration warning occurring under specific edge cases.
+    - **v3.1.5** - Bugfix: infinite state rollback
+      - `[ ]` fix: [PATCH] Debug and resolve infinite state rollback occurring under specific edge cases.
+  - **v3.2.0** - Feature: IndexDB queue
+    - `[ ]` feat: [MINOR] Validate new IndexDB queue capabilities to expand the API surface of @typepurify/react-state.
+    - **v3.2.1** - Bugfix: binder memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve binder memory leak occurring under specific edge cases.
+    - **v3.2.2** - Bugfix: reactivity mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve reactivity mismatch occurring under specific edge cases.
+    - **v3.2.3** - Bugfix: stale hydration warning
+      - `[ ]` fix: [PATCH] Debug and resolve stale hydration warning occurring under specific edge cases.
+    - **v3.2.4** - Bugfix: infinite state rollback
+      - `[ ]` fix: [PATCH] Debug and resolve infinite state rollback occurring under specific edge cases.
+    - **v3.2.5** - Bugfix: untracked read error
+      - `[ ]` fix: [PATCH] Debug and resolve untracked read error occurring under specific edge cases.
+  - **v3.3.0** - Feature: DOM binder
+    - `[ ]` feat: [MINOR] Bypass new DOM binder capabilities to expand the API surface of @typepurify/react-state.
+    - **v3.3.1** - Bugfix: reactivity mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve reactivity mismatch occurring under specific edge cases.
+    - **v3.3.2** - Bugfix: stale hydration warning
+      - `[ ]` fix: [PATCH] Debug and resolve stale hydration warning occurring under specific edge cases.
+    - **v3.3.3** - Bugfix: infinite state rollback
+      - `[ ]` fix: [PATCH] Debug and resolve infinite state rollback occurring under specific edge cases.
+    - **v3.3.4** - Bugfix: untracked read error
+      - `[ ]` fix: [PATCH] Debug and resolve untracked read error occurring under specific edge cases.
+    - **v3.3.5** - Bugfix: disabled storage crash
+      - `[ ]` fix: [PATCH] Debug and resolve disabled storage crash occurring under specific edge cases.
+  - **v3.4.0** - Feature: state machine core
+    - `[ ]` feat: [MINOR] Port new state machine core capabilities to expand the API surface of @typepurify/react-state.
+    - **v3.4.1** - Bugfix: stale hydration warning
+      - `[ ]` fix: [PATCH] Debug and resolve stale hydration warning occurring under specific edge cases.
+    - **v3.4.2** - Bugfix: infinite state rollback
+      - `[ ]` fix: [PATCH] Debug and resolve infinite state rollback occurring under specific edge cases.
+    - **v3.4.3** - Bugfix: untracked read error
+      - `[ ]` fix: [PATCH] Debug and resolve untracked read error occurring under specific edge cases.
+    - **v3.4.4** - Bugfix: disabled storage crash
+      - `[ ]` fix: [PATCH] Debug and resolve disabled storage crash occurring under specific edge cases.
+    - **v3.4.5** - Bugfix: tab closing deadlock
+      - `[ ]` fix: [PATCH] Debug and resolve tab closing deadlock occurring under specific edge cases.
+  - **v3.5.0** - Feature: Next.js router sync
+    - `[ ]` feat: [MINOR] Prefetch new Next.js router sync capabilities to expand the API surface of @typepurify/react-state.
+    - **v3.5.1** - Bugfix: infinite state rollback
+      - `[ ]` fix: [PATCH] Debug and resolve infinite state rollback occurring under specific edge cases.
+    - **v3.5.2** - Bugfix: untracked read error
+      - `[ ]` fix: [PATCH] Debug and resolve untracked read error occurring under specific edge cases.
+    - **v3.5.3** - Bugfix: disabled storage crash
+      - `[ ]` fix: [PATCH] Debug and resolve disabled storage crash occurring under specific edge cases.
+    - **v3.5.4** - Bugfix: tab closing deadlock
+      - `[ ]` fix: [PATCH] Debug and resolve tab closing deadlock occurring under specific edge cases.
+    - **v3.5.5** - Bugfix: mutation tracking error
+      - `[ ]` fix: [PATCH] Debug and resolve mutation tracking error occurring under specific edge cases.
+- **v4.0.0** - Major Release: Redux devtools bridge
+  - `[ ]` feat: [MAJOR] Mutate the core Redux devtools bridge for @typepurify/react-state to enhance performance and developer experience.
+  - **v4.0.1** - Bugfix: untracked read error
+    - `[ ]` fix: [PATCH] Investigate and resolve untracked read error reported by users post-major release.
+  - **v4.0.2** - Bugfix: disabled storage crash
+    - `[ ]` fix: [PATCH] Investigate and resolve disabled storage crash reported by users post-major release.
+  - **v4.0.3** - Bugfix: tab closing deadlock
+    - `[ ]` fix: [PATCH] Investigate and resolve tab closing deadlock reported by users post-major release.
+  - **v4.0.4** - Bugfix: mutation tracking error
+    - `[ ]` fix: [PATCH] Investigate and resolve mutation tracking error reported by users post-major release.
+  - **v4.0.5** - Bugfix: deep freeze fail
+    - `[ ]` fix: [PATCH] Investigate and resolve deep freeze fail reported by users post-major release.
+  - **v4.1.0** - Feature: IndexDB queue
+    - `[ ]` feat: [MINOR] Validate new IndexDB queue capabilities to expand the API surface of @typepurify/react-state.
+    - **v4.1.1** - Bugfix: binder memory leak
+      - `[ ]` fix: [PATCH] Debug and resolve binder memory leak occurring under specific edge cases.
+    - **v4.1.2** - Bugfix: reactivity mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve reactivity mismatch occurring under specific edge cases.
+    - **v4.1.3** - Bugfix: stale hydration warning
+      - `[ ]` fix: [PATCH] Debug and resolve stale hydration warning occurring under specific edge cases.
+    - **v4.1.4** - Bugfix: infinite state rollback
+      - `[ ]` fix: [PATCH] Debug and resolve infinite state rollback occurring under specific edge cases.
+    - **v4.1.5** - Bugfix: untracked read error
+      - `[ ]` fix: [PATCH] Debug and resolve untracked read error occurring under specific edge cases.
+  - **v4.2.0** - Feature: DOM binder
+    - `[ ]` feat: [MINOR] Bypass new DOM binder capabilities to expand the API surface of @typepurify/react-state.
+    - **v4.2.1** - Bugfix: reactivity mismatch
+      - `[ ]` fix: [PATCH] Debug and resolve reactivity mismatch occurring under specific edge cases.
+    - **v4.2.2** - Bugfix: stale hydration warning
+      - `[ ]` fix: [PATCH] Debug and resolve stale hydration warning occurring under specific edge cases.
+    - **v4.2.3** - Bugfix: infinite state rollback
+      - `[ ]` fix: [PATCH] Debug and resolve infinite state rollback occurring under specific edge cases.
+    - **v4.2.4** - Bugfix: untracked read error
+      - `[ ]` fix: [PATCH] Debug and resolve untracked read error occurring under specific edge cases.
+    - **v4.2.5** - Bugfix: disabled storage crash
+      - `[ ]` fix: [PATCH] Debug and resolve disabled storage crash occurring under specific edge cases.
+  - **v4.3.0** - Feature: state machine core
+    - `[ ]` feat: [MINOR] Port new state machine core capabilities to expand the API surface of @typepurify/react-state.
+    - **v4.3.1** - Bugfix: stale hydration warning
+      - `[ ]` fix: [PATCH] Debug and resolve stale hydration warning occurring under specific edge cases.
+    - **v4.3.2** - Bugfix: infinite state rollback
+      - `[ ]` fix: [PATCH] Debug and resolve infinite state rollback occurring under specific edge cases.
+    - **v4.3.3** - Bugfix: untracked read error
+      - `[ ]` fix: [PATCH] Debug and resolve untracked read error occurring under specific edge cases.
+    - **v4.3.4** - Bugfix: disabled storage crash
+      - `[ ]` fix: [PATCH] Debug and resolve disabled storage crash occurring under specific edge cases.
+    - **v4.3.5** - Bugfix: tab closing deadlock
+      - `[ ]` fix: [PATCH] Debug and resolve tab closing deadlock occurring under specific edge cases.
+  - **v4.4.0** - Feature: Next.js router sync
+    - `[ ]` feat: [MINOR] Prefetch new Next.js router sync capabilities to expand the API surface of @typepurify/react-state.
+    - **v4.4.1** - Bugfix: infinite state rollback
+      - `[ ]` fix: [PATCH] Debug and resolve infinite state rollback occurring under specific edge cases.
+    - **v4.4.2** - Bugfix: untracked read error
+      - `[ ]` fix: [PATCH] Debug and resolve untracked read error occurring under specific edge cases.
+    - **v4.4.3** - Bugfix: disabled storage crash
+      - `[ ]` fix: [PATCH] Debug and resolve disabled storage crash occurring under specific edge cases.
+    - **v4.4.4** - Bugfix: tab closing deadlock
+      - `[ ]` fix: [PATCH] Debug and resolve tab closing deadlock occurring under specific edge cases.
+    - **v4.4.5** - Bugfix: mutation tracking error
+      - `[ ]` fix: [PATCH] Debug and resolve mutation tracking error occurring under specific edge cases.
+  - **v4.5.0** - Feature: rollback container
+    - `[ ]` feat: [MINOR] Heal new rollback container capabilities to expand the API surface of @typepurify/react-state.
+    - **v4.5.1** - Bugfix: untracked read error
+      - `[ ]` fix: [PATCH] Debug and resolve untracked read error occurring under specific edge cases.
+    - **v4.5.2** - Bugfix: disabled storage crash
+      - `[ ]` fix: [PATCH] Debug and resolve disabled storage crash occurring under specific edge cases.
+    - **v4.5.3** - Bugfix: tab closing deadlock
+      - `[ ]` fix: [PATCH] Debug and resolve tab closing deadlock occurring under specific edge cases.
+    - **v4.5.4** - Bugfix: mutation tracking error
+      - `[ ]` fix: [PATCH] Debug and resolve mutation tracking error occurring under specific edge cases.
+    - **v4.5.5** - Bugfix: deep freeze fail
+      - `[ ]` fix: [PATCH] Debug and resolve deep freeze fail occurring under specific edge cases.
+- **v5.0.0** - Major Release: Immer draft state
+  - `[ ]` feat: [MAJOR] Freeze the core Immer draft state for @typepurify/react-state to enhance performance and developer experience.
 
----
+## 10. @typepurify/llm
 
-## 4. AI & LLMs
-
-### `@typepurify/llm`
-
-**Status:** 🟢 Completed (Active Maintenance)
 **Description:** AI response utilities.
 
-- `[x]` feat: LLM Response Cleaner (Fixes malformed JSON).
-- `[x]` feat: Prompt Template Manager.
-- `[x]` feat: Token Counter (OpenAI, Gemini, Claude).
-- `[x]` feat: AI Streaming Parser wrapper.
+- **v1.0.0** - Major Release: schema validator agent
+  - `[ ]` feat: [MAJOR] Convert the core schema validator agent for @typepurify/llm to enhance performance and developer experience.
+  - **v1.0.1** - Bugfix: nested optional field drop
+    - `[ ]` fix: [PATCH] Investigate and resolve nested optional field drop reported by users post-major release.
+  - **v1.0.2** - Bugfix: markdown code block split error
+    - `[ ]` fix: [PATCH] Investigate and resolve markdown code block split error reported by users post-major release.
+  - **v1.0.3** - Bugfix: context loss over limit
+    - `[ ]` fix: [PATCH] Investigate and resolve context loss over limit reported by users post-major release.
+  - **v1.0.4** - Bugfix: connection pool leak
+    - `[ ]` fix: [PATCH] Investigate and resolve connection pool leak reported by users post-major release.
+  - **v1.0.5** - Bugfix: agent conversational deadlock
+    - `[ ]` fix: [PATCH] Investigate and resolve agent conversational deadlock reported by users post-major release.
+  - **v1.1.0** - Feature: RAG pipeline
+    - `[ ]` feat: [MINOR] Summarize new RAG pipeline capabilities to expand the API surface of @typepurify/llm.
+    - **v1.1.1** - Bugfix: connection pool leak
+      - `[ ]` fix: [PATCH] Debug and resolve connection pool leak occurring under specific edge cases.
+    - **v1.1.2** - Bugfix: agent conversational deadlock
+      - `[ ]` fix: [PATCH] Debug and resolve agent conversational deadlock occurring under specific edge cases.
+    - **v1.1.3** - Bugfix: prompt format injection error
+      - `[ ]` fix: [PATCH] Debug and resolve prompt format injection error occurring under specific edge cases.
+    - **v1.1.4** - Bugfix: payload size limit breach
+      - `[ ]` fix: [PATCH] Debug and resolve payload size limit breach occurring under specific edge cases.
+    - **v1.1.5** - Bugfix: invalid char strip in prompt
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip in prompt occurring under specific edge cases.
+  - **v1.2.0** - Feature: Vector DB adapter
+    - `[ ]` feat: [MINOR] Pool new Vector DB adapter capabilities to expand the API surface of @typepurify/llm.
+    - **v1.2.1** - Bugfix: agent conversational deadlock
+      - `[ ]` fix: [PATCH] Debug and resolve agent conversational deadlock occurring under specific edge cases.
+    - **v1.2.2** - Bugfix: prompt format injection error
+      - `[ ]` fix: [PATCH] Debug and resolve prompt format injection error occurring under specific edge cases.
+    - **v1.2.3** - Bugfix: payload size limit breach
+      - `[ ]` fix: [PATCH] Debug and resolve payload size limit breach occurring under specific edge cases.
+    - **v1.2.4** - Bugfix: invalid char strip in prompt
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip in prompt occurring under specific edge cases.
+    - **v1.2.5** - Bugfix: false positive hallucination flag
+      - `[ ]` fix: [PATCH] Debug and resolve false positive hallucination flag occurring under specific edge cases.
+  - **v1.3.0** - Feature: agent state machine
+    - `[ ]` feat: [MINOR] Route new agent state machine capabilities to expand the API surface of @typepurify/llm.
+    - **v1.3.1** - Bugfix: prompt format injection error
+      - `[ ]` fix: [PATCH] Debug and resolve prompt format injection error occurring under specific edge cases.
+    - **v1.3.2** - Bugfix: payload size limit breach
+      - `[ ]` fix: [PATCH] Debug and resolve payload size limit breach occurring under specific edge cases.
+    - **v1.3.3** - Bugfix: invalid char strip in prompt
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip in prompt occurring under specific edge cases.
+    - **v1.3.4** - Bugfix: false positive hallucination flag
+      - `[ ]` fix: [PATCH] Debug and resolve false positive hallucination flag occurring under specific edge cases.
+    - **v1.3.5** - Bugfix: task explosion during loop
+      - `[ ]` fix: [PATCH] Debug and resolve task explosion during loop occurring under specific edge cases.
+  - **v1.4.0** - Feature: Ollama local binding
+    - `[ ]` feat: [MINOR] Failover new Ollama local binding capabilities to expand the API surface of @typepurify/llm.
+    - **v1.4.1** - Bugfix: payload size limit breach
+      - `[ ]` fix: [PATCH] Debug and resolve payload size limit breach occurring under specific edge cases.
+    - **v1.4.2** - Bugfix: invalid char strip in prompt
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip in prompt occurring under specific edge cases.
+    - **v1.4.3** - Bugfix: false positive hallucination flag
+      - `[ ]` fix: [PATCH] Debug and resolve false positive hallucination flag occurring under specific edge cases.
+    - **v1.4.4** - Bugfix: task explosion during loop
+      - `[ ]` fix: [PATCH] Debug and resolve task explosion during loop occurring under specific edge cases.
+    - **v1.4.5** - Bugfix: nested optional field drop
+      - `[ ]` fix: [PATCH] Debug and resolve nested optional field drop occurring under specific edge cases.
+  - **v1.5.0** - Feature: multi-modal parser
+    - `[ ]` feat: [MINOR] Chunk new multi-modal parser capabilities to expand the API surface of @typepurify/llm.
+    - **v1.5.1** - Bugfix: invalid char strip in prompt
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip in prompt occurring under specific edge cases.
+    - **v1.5.2** - Bugfix: false positive hallucination flag
+      - `[ ]` fix: [PATCH] Debug and resolve false positive hallucination flag occurring under specific edge cases.
+    - **v1.5.3** - Bugfix: task explosion during loop
+      - `[ ]` fix: [PATCH] Debug and resolve task explosion during loop occurring under specific edge cases.
+    - **v1.5.4** - Bugfix: nested optional field drop
+      - `[ ]` fix: [PATCH] Debug and resolve nested optional field drop occurring under specific edge cases.
+    - **v1.5.5** - Bugfix: markdown code block split error
+      - `[ ]` fix: [PATCH] Debug and resolve markdown code block split error occurring under specific edge cases.
+- **v2.0.0** - Major Release: token chunker
+  - `[ ]` feat: [MAJOR] Split the core token chunker for @typepurify/llm to enhance performance and developer experience.
+  - **v2.0.1** - Bugfix: nested optional field drop
+    - `[ ]` fix: [PATCH] Investigate and resolve nested optional field drop reported by users post-major release.
+  - **v2.0.2** - Bugfix: markdown code block split error
+    - `[ ]` fix: [PATCH] Investigate and resolve markdown code block split error reported by users post-major release.
+  - **v2.0.3** - Bugfix: context loss over limit
+    - `[ ]` fix: [PATCH] Investigate and resolve context loss over limit reported by users post-major release.
+  - **v2.0.4** - Bugfix: connection pool leak
+    - `[ ]` fix: [PATCH] Investigate and resolve connection pool leak reported by users post-major release.
+  - **v2.0.5** - Bugfix: agent conversational deadlock
+    - `[ ]` fix: [PATCH] Investigate and resolve agent conversational deadlock reported by users post-major release.
+  - **v2.1.0** - Feature: Vector DB adapter
+    - `[ ]` feat: [MINOR] Pool new Vector DB adapter capabilities to expand the API surface of @typepurify/llm.
+    - **v2.1.1** - Bugfix: agent conversational deadlock
+      - `[ ]` fix: [PATCH] Debug and resolve agent conversational deadlock occurring under specific edge cases.
+    - **v2.1.2** - Bugfix: prompt format injection error
+      - `[ ]` fix: [PATCH] Debug and resolve prompt format injection error occurring under specific edge cases.
+    - **v2.1.3** - Bugfix: payload size limit breach
+      - `[ ]` fix: [PATCH] Debug and resolve payload size limit breach occurring under specific edge cases.
+    - **v2.1.4** - Bugfix: invalid char strip in prompt
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip in prompt occurring under specific edge cases.
+    - **v2.1.5** - Bugfix: false positive hallucination flag
+      - `[ ]` fix: [PATCH] Debug and resolve false positive hallucination flag occurring under specific edge cases.
+  - **v2.2.0** - Feature: agent state machine
+    - `[ ]` feat: [MINOR] Route new agent state machine capabilities to expand the API surface of @typepurify/llm.
+    - **v2.2.1** - Bugfix: prompt format injection error
+      - `[ ]` fix: [PATCH] Debug and resolve prompt format injection error occurring under specific edge cases.
+    - **v2.2.2** - Bugfix: payload size limit breach
+      - `[ ]` fix: [PATCH] Debug and resolve payload size limit breach occurring under specific edge cases.
+    - **v2.2.3** - Bugfix: invalid char strip in prompt
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip in prompt occurring under specific edge cases.
+    - **v2.2.4** - Bugfix: false positive hallucination flag
+      - `[ ]` fix: [PATCH] Debug and resolve false positive hallucination flag occurring under specific edge cases.
+    - **v2.2.5** - Bugfix: task explosion during loop
+      - `[ ]` fix: [PATCH] Debug and resolve task explosion during loop occurring under specific edge cases.
+  - **v2.3.0** - Feature: Ollama local binding
+    - `[ ]` feat: [MINOR] Failover new Ollama local binding capabilities to expand the API surface of @typepurify/llm.
+    - **v2.3.1** - Bugfix: payload size limit breach
+      - `[ ]` fix: [PATCH] Debug and resolve payload size limit breach occurring under specific edge cases.
+    - **v2.3.2** - Bugfix: invalid char strip in prompt
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip in prompt occurring under specific edge cases.
+    - **v2.3.3** - Bugfix: false positive hallucination flag
+      - `[ ]` fix: [PATCH] Debug and resolve false positive hallucination flag occurring under specific edge cases.
+    - **v2.3.4** - Bugfix: task explosion during loop
+      - `[ ]` fix: [PATCH] Debug and resolve task explosion during loop occurring under specific edge cases.
+    - **v2.3.5** - Bugfix: nested optional field drop
+      - `[ ]` fix: [PATCH] Debug and resolve nested optional field drop occurring under specific edge cases.
+  - **v2.4.0** - Feature: multi-modal parser
+    - `[ ]` feat: [MINOR] Chunk new multi-modal parser capabilities to expand the API surface of @typepurify/llm.
+    - **v2.4.1** - Bugfix: invalid char strip in prompt
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip in prompt occurring under specific edge cases.
+    - **v2.4.2** - Bugfix: false positive hallucination flag
+      - `[ ]` fix: [PATCH] Debug and resolve false positive hallucination flag occurring under specific edge cases.
+    - **v2.4.3** - Bugfix: task explosion during loop
+      - `[ ]` fix: [PATCH] Debug and resolve task explosion during loop occurring under specific edge cases.
+    - **v2.4.4** - Bugfix: nested optional field drop
+      - `[ ]` fix: [PATCH] Debug and resolve nested optional field drop occurring under specific edge cases.
+    - **v2.4.5** - Bugfix: markdown code block split error
+      - `[ ]` fix: [PATCH] Debug and resolve markdown code block split error occurring under specific edge cases.
+  - **v2.5.0** - Feature: fine-tune dataset generator
+    - `[ ]` feat: [MINOR] Export new fine-tune dataset generator capabilities to expand the API surface of @typepurify/llm.
+    - **v2.5.1** - Bugfix: false positive hallucination flag
+      - `[ ]` fix: [PATCH] Debug and resolve false positive hallucination flag occurring under specific edge cases.
+    - **v2.5.2** - Bugfix: task explosion during loop
+      - `[ ]` fix: [PATCH] Debug and resolve task explosion during loop occurring under specific edge cases.
+    - **v2.5.3** - Bugfix: nested optional field drop
+      - `[ ]` fix: [PATCH] Debug and resolve nested optional field drop occurring under specific edge cases.
+    - **v2.5.4** - Bugfix: markdown code block split error
+      - `[ ]` fix: [PATCH] Debug and resolve markdown code block split error occurring under specific edge cases.
+    - **v2.5.5** - Bugfix: context loss over limit
+      - `[ ]` fix: [PATCH] Debug and resolve context loss over limit occurring under specific edge cases.
+- **v3.0.0** - Major Release: RAG pipeline
+  - `[ ]` feat: [MAJOR] Summarize the core RAG pipeline for @typepurify/llm to enhance performance and developer experience.
+  - **v3.0.1** - Bugfix: nested optional field drop
+    - `[ ]` fix: [PATCH] Investigate and resolve nested optional field drop reported by users post-major release.
+  - **v3.0.2** - Bugfix: markdown code block split error
+    - `[ ]` fix: [PATCH] Investigate and resolve markdown code block split error reported by users post-major release.
+  - **v3.0.3** - Bugfix: context loss over limit
+    - `[ ]` fix: [PATCH] Investigate and resolve context loss over limit reported by users post-major release.
+  - **v3.0.4** - Bugfix: connection pool leak
+    - `[ ]` fix: [PATCH] Investigate and resolve connection pool leak reported by users post-major release.
+  - **v3.0.5** - Bugfix: agent conversational deadlock
+    - `[ ]` fix: [PATCH] Investigate and resolve agent conversational deadlock reported by users post-major release.
+  - **v3.1.0** - Feature: agent state machine
+    - `[ ]` feat: [MINOR] Route new agent state machine capabilities to expand the API surface of @typepurify/llm.
+    - **v3.1.1** - Bugfix: prompt format injection error
+      - `[ ]` fix: [PATCH] Debug and resolve prompt format injection error occurring under specific edge cases.
+    - **v3.1.2** - Bugfix: payload size limit breach
+      - `[ ]` fix: [PATCH] Debug and resolve payload size limit breach occurring under specific edge cases.
+    - **v3.1.3** - Bugfix: invalid char strip in prompt
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip in prompt occurring under specific edge cases.
+    - **v3.1.4** - Bugfix: false positive hallucination flag
+      - `[ ]` fix: [PATCH] Debug and resolve false positive hallucination flag occurring under specific edge cases.
+    - **v3.1.5** - Bugfix: task explosion during loop
+      - `[ ]` fix: [PATCH] Debug and resolve task explosion during loop occurring under specific edge cases.
+  - **v3.2.0** - Feature: Ollama local binding
+    - `[ ]` feat: [MINOR] Failover new Ollama local binding capabilities to expand the API surface of @typepurify/llm.
+    - **v3.2.1** - Bugfix: payload size limit breach
+      - `[ ]` fix: [PATCH] Debug and resolve payload size limit breach occurring under specific edge cases.
+    - **v3.2.2** - Bugfix: invalid char strip in prompt
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip in prompt occurring under specific edge cases.
+    - **v3.2.3** - Bugfix: false positive hallucination flag
+      - `[ ]` fix: [PATCH] Debug and resolve false positive hallucination flag occurring under specific edge cases.
+    - **v3.2.4** - Bugfix: task explosion during loop
+      - `[ ]` fix: [PATCH] Debug and resolve task explosion during loop occurring under specific edge cases.
+    - **v3.2.5** - Bugfix: nested optional field drop
+      - `[ ]` fix: [PATCH] Debug and resolve nested optional field drop occurring under specific edge cases.
+  - **v3.3.0** - Feature: multi-modal parser
+    - `[ ]` feat: [MINOR] Chunk new multi-modal parser capabilities to expand the API surface of @typepurify/llm.
+    - **v3.3.1** - Bugfix: invalid char strip in prompt
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip in prompt occurring under specific edge cases.
+    - **v3.3.2** - Bugfix: false positive hallucination flag
+      - `[ ]` fix: [PATCH] Debug and resolve false positive hallucination flag occurring under specific edge cases.
+    - **v3.3.3** - Bugfix: task explosion during loop
+      - `[ ]` fix: [PATCH] Debug and resolve task explosion during loop occurring under specific edge cases.
+    - **v3.3.4** - Bugfix: nested optional field drop
+      - `[ ]` fix: [PATCH] Debug and resolve nested optional field drop occurring under specific edge cases.
+    - **v3.3.5** - Bugfix: markdown code block split error
+      - `[ ]` fix: [PATCH] Debug and resolve markdown code block split error occurring under specific edge cases.
+  - **v3.4.0** - Feature: fine-tune dataset generator
+    - `[ ]` feat: [MINOR] Export new fine-tune dataset generator capabilities to expand the API surface of @typepurify/llm.
+    - **v3.4.1** - Bugfix: false positive hallucination flag
+      - `[ ]` fix: [PATCH] Debug and resolve false positive hallucination flag occurring under specific edge cases.
+    - **v3.4.2** - Bugfix: task explosion during loop
+      - `[ ]` fix: [PATCH] Debug and resolve task explosion during loop occurring under specific edge cases.
+    - **v3.4.3** - Bugfix: nested optional field drop
+      - `[ ]` fix: [PATCH] Debug and resolve nested optional field drop occurring under specific edge cases.
+    - **v3.4.4** - Bugfix: markdown code block split error
+      - `[ ]` fix: [PATCH] Debug and resolve markdown code block split error occurring under specific edge cases.
+    - **v3.4.5** - Bugfix: context loss over limit
+      - `[ ]` fix: [PATCH] Debug and resolve context loss over limit occurring under specific edge cases.
+  - **v3.5.0** - Feature: hallucination detector
+    - `[ ]` feat: [MINOR] Fact-check new hallucination detector capabilities to expand the API surface of @typepurify/llm.
+    - **v3.5.1** - Bugfix: task explosion during loop
+      - `[ ]` fix: [PATCH] Debug and resolve task explosion during loop occurring under specific edge cases.
+    - **v3.5.2** - Bugfix: nested optional field drop
+      - `[ ]` fix: [PATCH] Debug and resolve nested optional field drop occurring under specific edge cases.
+    - **v3.5.3** - Bugfix: markdown code block split error
+      - `[ ]` fix: [PATCH] Debug and resolve markdown code block split error occurring under specific edge cases.
+    - **v3.5.4** - Bugfix: context loss over limit
+      - `[ ]` fix: [PATCH] Debug and resolve context loss over limit occurring under specific edge cases.
+    - **v3.5.5** - Bugfix: connection pool leak
+      - `[ ]` fix: [PATCH] Debug and resolve connection pool leak occurring under specific edge cases.
+- **v4.0.0** - Major Release: Vector DB adapter
+  - `[ ]` feat: [MAJOR] Pool the core Vector DB adapter for @typepurify/llm to enhance performance and developer experience.
+  - **v4.0.1** - Bugfix: nested optional field drop
+    - `[ ]` fix: [PATCH] Investigate and resolve nested optional field drop reported by users post-major release.
+  - **v4.0.2** - Bugfix: markdown code block split error
+    - `[ ]` fix: [PATCH] Investigate and resolve markdown code block split error reported by users post-major release.
+  - **v4.0.3** - Bugfix: context loss over limit
+    - `[ ]` fix: [PATCH] Investigate and resolve context loss over limit reported by users post-major release.
+  - **v4.0.4** - Bugfix: connection pool leak
+    - `[ ]` fix: [PATCH] Investigate and resolve connection pool leak reported by users post-major release.
+  - **v4.0.5** - Bugfix: agent conversational deadlock
+    - `[ ]` fix: [PATCH] Investigate and resolve agent conversational deadlock reported by users post-major release.
+  - **v4.1.0** - Feature: Ollama local binding
+    - `[ ]` feat: [MINOR] Failover new Ollama local binding capabilities to expand the API surface of @typepurify/llm.
+    - **v4.1.1** - Bugfix: payload size limit breach
+      - `[ ]` fix: [PATCH] Debug and resolve payload size limit breach occurring under specific edge cases.
+    - **v4.1.2** - Bugfix: invalid char strip in prompt
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip in prompt occurring under specific edge cases.
+    - **v4.1.3** - Bugfix: false positive hallucination flag
+      - `[ ]` fix: [PATCH] Debug and resolve false positive hallucination flag occurring under specific edge cases.
+    - **v4.1.4** - Bugfix: task explosion during loop
+      - `[ ]` fix: [PATCH] Debug and resolve task explosion during loop occurring under specific edge cases.
+    - **v4.1.5** - Bugfix: nested optional field drop
+      - `[ ]` fix: [PATCH] Debug and resolve nested optional field drop occurring under specific edge cases.
+  - **v4.2.0** - Feature: multi-modal parser
+    - `[ ]` feat: [MINOR] Chunk new multi-modal parser capabilities to expand the API surface of @typepurify/llm.
+    - **v4.2.1** - Bugfix: invalid char strip in prompt
+      - `[ ]` fix: [PATCH] Debug and resolve invalid char strip in prompt occurring under specific edge cases.
+    - **v4.2.2** - Bugfix: false positive hallucination flag
+      - `[ ]` fix: [PATCH] Debug and resolve false positive hallucination flag occurring under specific edge cases.
+    - **v4.2.3** - Bugfix: task explosion during loop
+      - `[ ]` fix: [PATCH] Debug and resolve task explosion during loop occurring under specific edge cases.
+    - **v4.2.4** - Bugfix: nested optional field drop
+      - `[ ]` fix: [PATCH] Debug and resolve nested optional field drop occurring under specific edge cases.
+    - **v4.2.5** - Bugfix: markdown code block split error
+      - `[ ]` fix: [PATCH] Debug and resolve markdown code block split error occurring under specific edge cases.
+  - **v4.3.0** - Feature: fine-tune dataset generator
+    - `[ ]` feat: [MINOR] Export new fine-tune dataset generator capabilities to expand the API surface of @typepurify/llm.
+    - **v4.3.1** - Bugfix: false positive hallucination flag
+      - `[ ]` fix: [PATCH] Debug and resolve false positive hallucination flag occurring under specific edge cases.
+    - **v4.3.2** - Bugfix: task explosion during loop
+      - `[ ]` fix: [PATCH] Debug and resolve task explosion during loop occurring under specific edge cases.
+    - **v4.3.3** - Bugfix: nested optional field drop
+      - `[ ]` fix: [PATCH] Debug and resolve nested optional field drop occurring under specific edge cases.
+    - **v4.3.4** - Bugfix: markdown code block split error
+      - `[ ]` fix: [PATCH] Debug and resolve markdown code block split error occurring under specific edge cases.
+    - **v4.3.5** - Bugfix: context loss over limit
+      - `[ ]` fix: [PATCH] Debug and resolve context loss over limit occurring under specific edge cases.
+  - **v4.4.0** - Feature: hallucination detector
+    - `[ ]` feat: [MINOR] Fact-check new hallucination detector capabilities to expand the API surface of @typepurify/llm.
+    - **v4.4.1** - Bugfix: task explosion during loop
+      - `[ ]` fix: [PATCH] Debug and resolve task explosion during loop occurring under specific edge cases.
+    - **v4.4.2** - Bugfix: nested optional field drop
+      - `[ ]` fix: [PATCH] Debug and resolve nested optional field drop occurring under specific edge cases.
+    - **v4.4.3** - Bugfix: markdown code block split error
+      - `[ ]` fix: [PATCH] Debug and resolve markdown code block split error occurring under specific edge cases.
+    - **v4.4.4** - Bugfix: context loss over limit
+      - `[ ]` fix: [PATCH] Debug and resolve context loss over limit occurring under specific edge cases.
+    - **v4.4.5** - Bugfix: connection pool leak
+      - `[ ]` fix: [PATCH] Debug and resolve connection pool leak occurring under specific edge cases.
+  - **v4.5.0** - Feature: AGI router
+    - `[ ]` feat: [MINOR] Delegate new AGI router capabilities to expand the API surface of @typepurify/llm.
+    - **v4.5.1** - Bugfix: nested optional field drop
+      - `[ ]` fix: [PATCH] Debug and resolve nested optional field drop occurring under specific edge cases.
+    - **v4.5.2** - Bugfix: markdown code block split error
+      - `[ ]` fix: [PATCH] Debug and resolve markdown code block split error occurring under specific edge cases.
+    - **v4.5.3** - Bugfix: context loss over limit
+      - `[ ]` fix: [PATCH] Debug and resolve context loss over limit occurring under specific edge cases.
+    - **v4.5.4** - Bugfix: connection pool leak
+      - `[ ]` fix: [PATCH] Debug and resolve connection pool leak occurring under specific edge cases.
+    - **v4.5.5** - Bugfix: agent conversational deadlock
+      - `[ ]` fix: [PATCH] Debug and resolve agent conversational deadlock occurring under specific edge cases.
+- **v5.0.0** - Major Release: agent state machine
+  - `[ ]` feat: [MAJOR] Route the core agent state machine for @typepurify/llm to enhance performance and developer experience.
 
----
+## 11. @typepurify/logger
 
-## 5. Security & Logging
-
-### `@typepurify/logger`
-
-**Status:** 🟢 Completed (Active Maintenance)
 **Description:** Enterprise logging suite.
 
-- `[x]` feat: Enterprise Logger (JSON, Colors, File).
-- `[x]` feat: Request Logger middleware (Express, Fastify, NestJS).
-- `[x]` feat: Error Reporter with beautiful stack traces.
+- **v1.0.0** - Major Release: rate limiter for logs
+  - `[ ]` feat: [MAJOR] Sample the core rate limiter for logs for @typepurify/logger to enhance performance and developer experience.
+  - **v1.0.1** - Bugfix: network partition buffer overflow
+    - `[ ]` fix: [PATCH] Investigate and resolve network partition buffer overflow reported by users post-major release.
+  - **v1.0.2** - Bugfix: regex cache miss on PII
+    - `[ ]` fix: [PATCH] Investigate and resolve regex cache miss on PII reported by users post-major release.
+  - **v1.0.3** - Bugfix: trace ID drop across services
+    - `[ ]` fix: [PATCH] Investigate and resolve trace ID drop across services reported by users post-major release.
+  - **v1.0.4** - Bugfix: OOM burst during log spike
+    - `[ ]` fix: [PATCH] Investigate and resolve OOM burst during log spike reported by users post-major release.
+  - **v1.0.5** - Bugfix: binary encode error
+    - `[ ]` fix: [PATCH] Investigate and resolve binary encode error reported by users post-major release.
+  - **v1.1.0** - Feature: OpenTelemetry tracer
+    - `[ ]` feat: [MINOR] Inject new OpenTelemetry tracer capabilities to expand the API surface of @typepurify/logger.
+    - **v1.1.1** - Bugfix: OOM burst during log spike
+      - `[ ]` fix: [PATCH] Debug and resolve OOM burst during log spike occurring under specific edge cases.
+    - **v1.1.2** - Bugfix: binary encode error
+      - `[ ]` fix: [PATCH] Debug and resolve binary encode error occurring under specific edge cases.
+    - **v1.1.3** - Bugfix: alert fatigue logic bug
+      - `[ ]` fix: [PATCH] Debug and resolve alert fatigue logic bug occurring under specific edge cases.
+    - **v1.1.4** - Bugfix: stdout restriction crash
+      - `[ ]` fix: [PATCH] Debug and resolve stdout restriction crash occurring under specific edge cases.
+    - **v1.1.5** - Bugfix: hash chain break
+      - `[ ]` fix: [PATCH] Debug and resolve hash chain break occurring under specific edge cases.
+  - **v1.2.0** - Feature: Kafka stream worker
+    - `[ ]` feat: [MINOR] Stream new Kafka stream worker capabilities to expand the API surface of @typepurify/logger.
+    - **v1.2.1** - Bugfix: binary encode error
+      - `[ ]` fix: [PATCH] Debug and resolve binary encode error occurring under specific edge cases.
+    - **v1.2.2** - Bugfix: alert fatigue logic bug
+      - `[ ]` fix: [PATCH] Debug and resolve alert fatigue logic bug occurring under specific edge cases.
+    - **v1.2.3** - Bugfix: stdout restriction crash
+      - `[ ]` fix: [PATCH] Debug and resolve stdout restriction crash occurring under specific edge cases.
+    - **v1.2.4** - Bugfix: hash chain break
+      - `[ ]` fix: [PATCH] Debug and resolve hash chain break occurring under specific edge cases.
+    - **v1.2.5** - Bugfix: error obfuscation bug
+      - `[ ]` fix: [PATCH] Debug and resolve error obfuscation bug occurring under specific edge cases.
+  - **v1.3.0** - Feature: WASM log formatter
+    - `[ ]` feat: [MINOR] Serialize new WASM log formatter capabilities to expand the API surface of @typepurify/logger.
+    - **v1.3.1** - Bugfix: alert fatigue logic bug
+      - `[ ]` fix: [PATCH] Debug and resolve alert fatigue logic bug occurring under specific edge cases.
+    - **v1.3.2** - Bugfix: stdout restriction crash
+      - `[ ]` fix: [PATCH] Debug and resolve stdout restriction crash occurring under specific edge cases.
+    - **v1.3.3** - Bugfix: hash chain break
+      - `[ ]` fix: [PATCH] Debug and resolve hash chain break occurring under specific edge cases.
+    - **v1.3.4** - Bugfix: error obfuscation bug
+      - `[ ]` fix: [PATCH] Debug and resolve error obfuscation bug occurring under specific edge cases.
+    - **v1.3.5** - Bugfix: incorrect fix suggestion
+      - `[ ]` fix: [PATCH] Debug and resolve incorrect fix suggestion occurring under specific edge cases.
+  - **v1.4.0** - Feature: anomaly detector
+    - `[ ]` feat: [MINOR] Alert new anomaly detector capabilities to expand the API surface of @typepurify/logger.
+    - **v1.4.1** - Bugfix: stdout restriction crash
+      - `[ ]` fix: [PATCH] Debug and resolve stdout restriction crash occurring under specific edge cases.
+    - **v1.4.2** - Bugfix: hash chain break
+      - `[ ]` fix: [PATCH] Debug and resolve hash chain break occurring under specific edge cases.
+    - **v1.4.3** - Bugfix: error obfuscation bug
+      - `[ ]` fix: [PATCH] Debug and resolve error obfuscation bug occurring under specific edge cases.
+    - **v1.4.4** - Bugfix: incorrect fix suggestion
+      - `[ ]` fix: [PATCH] Debug and resolve incorrect fix suggestion occurring under specific edge cases.
+    - **v1.4.5** - Bugfix: network partition buffer overflow
+      - `[ ]` fix: [PATCH] Debug and resolve network partition buffer overflow occurring under specific edge cases.
+  - **v1.5.0** - Feature: Edge worker logger
+    - `[ ]` feat: [MINOR] Optimize new Edge worker logger capabilities to expand the API surface of @typepurify/logger.
+    - **v1.5.1** - Bugfix: hash chain break
+      - `[ ]` fix: [PATCH] Debug and resolve hash chain break occurring under specific edge cases.
+    - **v1.5.2** - Bugfix: error obfuscation bug
+      - `[ ]` fix: [PATCH] Debug and resolve error obfuscation bug occurring under specific edge cases.
+    - **v1.5.3** - Bugfix: incorrect fix suggestion
+      - `[ ]` fix: [PATCH] Debug and resolve incorrect fix suggestion occurring under specific edge cases.
+    - **v1.5.4** - Bugfix: network partition buffer overflow
+      - `[ ]` fix: [PATCH] Debug and resolve network partition buffer overflow occurring under specific edge cases.
+    - **v1.5.5** - Bugfix: regex cache miss on PII
+      - `[ ]` fix: [PATCH] Debug and resolve regex cache miss on PII occurring under specific edge cases.
+- **v2.0.0** - Major Release: regex redactor for PII
+  - `[ ]` feat: [MAJOR] Redact the core regex redactor for PII for @typepurify/logger to enhance performance and developer experience.
+  - **v2.0.1** - Bugfix: network partition buffer overflow
+    - `[ ]` fix: [PATCH] Investigate and resolve network partition buffer overflow reported by users post-major release.
+  - **v2.0.2** - Bugfix: regex cache miss on PII
+    - `[ ]` fix: [PATCH] Investigate and resolve regex cache miss on PII reported by users post-major release.
+  - **v2.0.3** - Bugfix: trace ID drop across services
+    - `[ ]` fix: [PATCH] Investigate and resolve trace ID drop across services reported by users post-major release.
+  - **v2.0.4** - Bugfix: OOM burst during log spike
+    - `[ ]` fix: [PATCH] Investigate and resolve OOM burst during log spike reported by users post-major release.
+  - **v2.0.5** - Bugfix: binary encode error
+    - `[ ]` fix: [PATCH] Investigate and resolve binary encode error reported by users post-major release.
+  - **v2.1.0** - Feature: Kafka stream worker
+    - `[ ]` feat: [MINOR] Stream new Kafka stream worker capabilities to expand the API surface of @typepurify/logger.
+    - **v2.1.1** - Bugfix: binary encode error
+      - `[ ]` fix: [PATCH] Debug and resolve binary encode error occurring under specific edge cases.
+    - **v2.1.2** - Bugfix: alert fatigue logic bug
+      - `[ ]` fix: [PATCH] Debug and resolve alert fatigue logic bug occurring under specific edge cases.
+    - **v2.1.3** - Bugfix: stdout restriction crash
+      - `[ ]` fix: [PATCH] Debug and resolve stdout restriction crash occurring under specific edge cases.
+    - **v2.1.4** - Bugfix: hash chain break
+      - `[ ]` fix: [PATCH] Debug and resolve hash chain break occurring under specific edge cases.
+    - **v2.1.5** - Bugfix: error obfuscation bug
+      - `[ ]` fix: [PATCH] Debug and resolve error obfuscation bug occurring under specific edge cases.
+  - **v2.2.0** - Feature: WASM log formatter
+    - `[ ]` feat: [MINOR] Serialize new WASM log formatter capabilities to expand the API surface of @typepurify/logger.
+    - **v2.2.1** - Bugfix: alert fatigue logic bug
+      - `[ ]` fix: [PATCH] Debug and resolve alert fatigue logic bug occurring under specific edge cases.
+    - **v2.2.2** - Bugfix: stdout restriction crash
+      - `[ ]` fix: [PATCH] Debug and resolve stdout restriction crash occurring under specific edge cases.
+    - **v2.2.3** - Bugfix: hash chain break
+      - `[ ]` fix: [PATCH] Debug and resolve hash chain break occurring under specific edge cases.
+    - **v2.2.4** - Bugfix: error obfuscation bug
+      - `[ ]` fix: [PATCH] Debug and resolve error obfuscation bug occurring under specific edge cases.
+    - **v2.2.5** - Bugfix: incorrect fix suggestion
+      - `[ ]` fix: [PATCH] Debug and resolve incorrect fix suggestion occurring under specific edge cases.
+  - **v2.3.0** - Feature: anomaly detector
+    - `[ ]` feat: [MINOR] Alert new anomaly detector capabilities to expand the API surface of @typepurify/logger.
+    - **v2.3.1** - Bugfix: stdout restriction crash
+      - `[ ]` fix: [PATCH] Debug and resolve stdout restriction crash occurring under specific edge cases.
+    - **v2.3.2** - Bugfix: hash chain break
+      - `[ ]` fix: [PATCH] Debug and resolve hash chain break occurring under specific edge cases.
+    - **v2.3.3** - Bugfix: error obfuscation bug
+      - `[ ]` fix: [PATCH] Debug and resolve error obfuscation bug occurring under specific edge cases.
+    - **v2.3.4** - Bugfix: incorrect fix suggestion
+      - `[ ]` fix: [PATCH] Debug and resolve incorrect fix suggestion occurring under specific edge cases.
+    - **v2.3.5** - Bugfix: network partition buffer overflow
+      - `[ ]` fix: [PATCH] Debug and resolve network partition buffer overflow occurring under specific edge cases.
+  - **v2.4.0** - Feature: Edge worker logger
+    - `[ ]` feat: [MINOR] Optimize new Edge worker logger capabilities to expand the API surface of @typepurify/logger.
+    - **v2.4.1** - Bugfix: hash chain break
+      - `[ ]` fix: [PATCH] Debug and resolve hash chain break occurring under specific edge cases.
+    - **v2.4.2** - Bugfix: error obfuscation bug
+      - `[ ]` fix: [PATCH] Debug and resolve error obfuscation bug occurring under specific edge cases.
+    - **v2.4.3** - Bugfix: incorrect fix suggestion
+      - `[ ]` fix: [PATCH] Debug and resolve incorrect fix suggestion occurring under specific edge cases.
+    - **v2.4.4** - Bugfix: network partition buffer overflow
+      - `[ ]` fix: [PATCH] Debug and resolve network partition buffer overflow occurring under specific edge cases.
+    - **v2.4.5** - Bugfix: regex cache miss on PII
+      - `[ ]` fix: [PATCH] Debug and resolve regex cache miss on PII occurring under specific edge cases.
+  - **v2.5.0** - Feature: Merkle tree hasher
+    - `[ ]` feat: [MINOR] Anchor new Merkle tree hasher capabilities to expand the API surface of @typepurify/logger.
+    - **v2.5.1** - Bugfix: error obfuscation bug
+      - `[ ]` fix: [PATCH] Debug and resolve error obfuscation bug occurring under specific edge cases.
+    - **v2.5.2** - Bugfix: incorrect fix suggestion
+      - `[ ]` fix: [PATCH] Debug and resolve incorrect fix suggestion occurring under specific edge cases.
+    - **v2.5.3** - Bugfix: network partition buffer overflow
+      - `[ ]` fix: [PATCH] Debug and resolve network partition buffer overflow occurring under specific edge cases.
+    - **v2.5.4** - Bugfix: regex cache miss on PII
+      - `[ ]` fix: [PATCH] Debug and resolve regex cache miss on PII occurring under specific edge cases.
+    - **v2.5.5** - Bugfix: trace ID drop across services
+      - `[ ]` fix: [PATCH] Debug and resolve trace ID drop across services occurring under specific edge cases.
+- **v3.0.0** - Major Release: OpenTelemetry tracer
+  - `[ ]` feat: [MAJOR] Inject the core OpenTelemetry tracer for @typepurify/logger to enhance performance and developer experience.
+  - **v3.0.1** - Bugfix: network partition buffer overflow
+    - `[ ]` fix: [PATCH] Investigate and resolve network partition buffer overflow reported by users post-major release.
+  - **v3.0.2** - Bugfix: regex cache miss on PII
+    - `[ ]` fix: [PATCH] Investigate and resolve regex cache miss on PII reported by users post-major release.
+  - **v3.0.3** - Bugfix: trace ID drop across services
+    - `[ ]` fix: [PATCH] Investigate and resolve trace ID drop across services reported by users post-major release.
+  - **v3.0.4** - Bugfix: OOM burst during log spike
+    - `[ ]` fix: [PATCH] Investigate and resolve OOM burst during log spike reported by users post-major release.
+  - **v3.0.5** - Bugfix: binary encode error
+    - `[ ]` fix: [PATCH] Investigate and resolve binary encode error reported by users post-major release.
+  - **v3.1.0** - Feature: WASM log formatter
+    - `[ ]` feat: [MINOR] Serialize new WASM log formatter capabilities to expand the API surface of @typepurify/logger.
+    - **v3.1.1** - Bugfix: alert fatigue logic bug
+      - `[ ]` fix: [PATCH] Debug and resolve alert fatigue logic bug occurring under specific edge cases.
+    - **v3.1.2** - Bugfix: stdout restriction crash
+      - `[ ]` fix: [PATCH] Debug and resolve stdout restriction crash occurring under specific edge cases.
+    - **v3.1.3** - Bugfix: hash chain break
+      - `[ ]` fix: [PATCH] Debug and resolve hash chain break occurring under specific edge cases.
+    - **v3.1.4** - Bugfix: error obfuscation bug
+      - `[ ]` fix: [PATCH] Debug and resolve error obfuscation bug occurring under specific edge cases.
+    - **v3.1.5** - Bugfix: incorrect fix suggestion
+      - `[ ]` fix: [PATCH] Debug and resolve incorrect fix suggestion occurring under specific edge cases.
+  - **v3.2.0** - Feature: anomaly detector
+    - `[ ]` feat: [MINOR] Alert new anomaly detector capabilities to expand the API surface of @typepurify/logger.
+    - **v3.2.1** - Bugfix: stdout restriction crash
+      - `[ ]` fix: [PATCH] Debug and resolve stdout restriction crash occurring under specific edge cases.
+    - **v3.2.2** - Bugfix: hash chain break
+      - `[ ]` fix: [PATCH] Debug and resolve hash chain break occurring under specific edge cases.
+    - **v3.2.3** - Bugfix: error obfuscation bug
+      - `[ ]` fix: [PATCH] Debug and resolve error obfuscation bug occurring under specific edge cases.
+    - **v3.2.4** - Bugfix: incorrect fix suggestion
+      - `[ ]` fix: [PATCH] Debug and resolve incorrect fix suggestion occurring under specific edge cases.
+    - **v3.2.5** - Bugfix: network partition buffer overflow
+      - `[ ]` fix: [PATCH] Debug and resolve network partition buffer overflow occurring under specific edge cases.
+  - **v3.3.0** - Feature: Edge worker logger
+    - `[ ]` feat: [MINOR] Optimize new Edge worker logger capabilities to expand the API surface of @typepurify/logger.
+    - **v3.3.1** - Bugfix: hash chain break
+      - `[ ]` fix: [PATCH] Debug and resolve hash chain break occurring under specific edge cases.
+    - **v3.3.2** - Bugfix: error obfuscation bug
+      - `[ ]` fix: [PATCH] Debug and resolve error obfuscation bug occurring under specific edge cases.
+    - **v3.3.3** - Bugfix: incorrect fix suggestion
+      - `[ ]` fix: [PATCH] Debug and resolve incorrect fix suggestion occurring under specific edge cases.
+    - **v3.3.4** - Bugfix: network partition buffer overflow
+      - `[ ]` fix: [PATCH] Debug and resolve network partition buffer overflow occurring under specific edge cases.
+    - **v3.3.5** - Bugfix: regex cache miss on PII
+      - `[ ]` fix: [PATCH] Debug and resolve regex cache miss on PII occurring under specific edge cases.
+  - **v3.4.0** - Feature: Merkle tree hasher
+    - `[ ]` feat: [MINOR] Anchor new Merkle tree hasher capabilities to expand the API surface of @typepurify/logger.
+    - **v3.4.1** - Bugfix: error obfuscation bug
+      - `[ ]` fix: [PATCH] Debug and resolve error obfuscation bug occurring under specific edge cases.
+    - **v3.4.2** - Bugfix: incorrect fix suggestion
+      - `[ ]` fix: [PATCH] Debug and resolve incorrect fix suggestion occurring under specific edge cases.
+    - **v3.4.3** - Bugfix: network partition buffer overflow
+      - `[ ]` fix: [PATCH] Debug and resolve network partition buffer overflow occurring under specific edge cases.
+    - **v3.4.4** - Bugfix: regex cache miss on PII
+      - `[ ]` fix: [PATCH] Debug and resolve regex cache miss on PII occurring under specific edge cases.
+    - **v3.4.5** - Bugfix: trace ID drop across services
+      - `[ ]` fix: [PATCH] Debug and resolve trace ID drop across services occurring under specific edge cases.
+  - **v3.5.0** - Feature: AI summarizer
+    - `[ ]` feat: [MINOR] Digest new AI summarizer capabilities to expand the API surface of @typepurify/logger.
+    - **v3.5.1** - Bugfix: incorrect fix suggestion
+      - `[ ]` fix: [PATCH] Debug and resolve incorrect fix suggestion occurring under specific edge cases.
+    - **v3.5.2** - Bugfix: network partition buffer overflow
+      - `[ ]` fix: [PATCH] Debug and resolve network partition buffer overflow occurring under specific edge cases.
+    - **v3.5.3** - Bugfix: regex cache miss on PII
+      - `[ ]` fix: [PATCH] Debug and resolve regex cache miss on PII occurring under specific edge cases.
+    - **v3.5.4** - Bugfix: trace ID drop across services
+      - `[ ]` fix: [PATCH] Debug and resolve trace ID drop across services occurring under specific edge cases.
+    - **v3.5.5** - Bugfix: OOM burst during log spike
+      - `[ ]` fix: [PATCH] Debug and resolve OOM burst during log spike occurring under specific edge cases.
+- **v4.0.0** - Major Release: Kafka stream worker
+  - `[ ]` feat: [MAJOR] Stream the core Kafka stream worker for @typepurify/logger to enhance performance and developer experience.
+  - **v4.0.1** - Bugfix: network partition buffer overflow
+    - `[ ]` fix: [PATCH] Investigate and resolve network partition buffer overflow reported by users post-major release.
+  - **v4.0.2** - Bugfix: regex cache miss on PII
+    - `[ ]` fix: [PATCH] Investigate and resolve regex cache miss on PII reported by users post-major release.
+  - **v4.0.3** - Bugfix: trace ID drop across services
+    - `[ ]` fix: [PATCH] Investigate and resolve trace ID drop across services reported by users post-major release.
+  - **v4.0.4** - Bugfix: OOM burst during log spike
+    - `[ ]` fix: [PATCH] Investigate and resolve OOM burst during log spike reported by users post-major release.
+  - **v4.0.5** - Bugfix: binary encode error
+    - `[ ]` fix: [PATCH] Investigate and resolve binary encode error reported by users post-major release.
+  - **v4.1.0** - Feature: anomaly detector
+    - `[ ]` feat: [MINOR] Alert new anomaly detector capabilities to expand the API surface of @typepurify/logger.
+    - **v4.1.1** - Bugfix: stdout restriction crash
+      - `[ ]` fix: [PATCH] Debug and resolve stdout restriction crash occurring under specific edge cases.
+    - **v4.1.2** - Bugfix: hash chain break
+      - `[ ]` fix: [PATCH] Debug and resolve hash chain break occurring under specific edge cases.
+    - **v4.1.3** - Bugfix: error obfuscation bug
+      - `[ ]` fix: [PATCH] Debug and resolve error obfuscation bug occurring under specific edge cases.
+    - **v4.1.4** - Bugfix: incorrect fix suggestion
+      - `[ ]` fix: [PATCH] Debug and resolve incorrect fix suggestion occurring under specific edge cases.
+    - **v4.1.5** - Bugfix: network partition buffer overflow
+      - `[ ]` fix: [PATCH] Debug and resolve network partition buffer overflow occurring under specific edge cases.
+  - **v4.2.0** - Feature: Edge worker logger
+    - `[ ]` feat: [MINOR] Optimize new Edge worker logger capabilities to expand the API surface of @typepurify/logger.
+    - **v4.2.1** - Bugfix: hash chain break
+      - `[ ]` fix: [PATCH] Debug and resolve hash chain break occurring under specific edge cases.
+    - **v4.2.2** - Bugfix: error obfuscation bug
+      - `[ ]` fix: [PATCH] Debug and resolve error obfuscation bug occurring under specific edge cases.
+    - **v4.2.3** - Bugfix: incorrect fix suggestion
+      - `[ ]` fix: [PATCH] Debug and resolve incorrect fix suggestion occurring under specific edge cases.
+    - **v4.2.4** - Bugfix: network partition buffer overflow
+      - `[ ]` fix: [PATCH] Debug and resolve network partition buffer overflow occurring under specific edge cases.
+    - **v4.2.5** - Bugfix: regex cache miss on PII
+      - `[ ]` fix: [PATCH] Debug and resolve regex cache miss on PII occurring under specific edge cases.
+  - **v4.3.0** - Feature: Merkle tree hasher
+    - `[ ]` feat: [MINOR] Anchor new Merkle tree hasher capabilities to expand the API surface of @typepurify/logger.
+    - **v4.3.1** - Bugfix: error obfuscation bug
+      - `[ ]` fix: [PATCH] Debug and resolve error obfuscation bug occurring under specific edge cases.
+    - **v4.3.2** - Bugfix: incorrect fix suggestion
+      - `[ ]` fix: [PATCH] Debug and resolve incorrect fix suggestion occurring under specific edge cases.
+    - **v4.3.3** - Bugfix: network partition buffer overflow
+      - `[ ]` fix: [PATCH] Debug and resolve network partition buffer overflow occurring under specific edge cases.
+    - **v4.3.4** - Bugfix: regex cache miss on PII
+      - `[ ]` fix: [PATCH] Debug and resolve regex cache miss on PII occurring under specific edge cases.
+    - **v4.3.5** - Bugfix: trace ID drop across services
+      - `[ ]` fix: [PATCH] Debug and resolve trace ID drop across services occurring under specific edge cases.
+  - **v4.4.0** - Feature: AI summarizer
+    - `[ ]` feat: [MINOR] Digest new AI summarizer capabilities to expand the API surface of @typepurify/logger.
+    - **v4.4.1** - Bugfix: incorrect fix suggestion
+      - `[ ]` fix: [PATCH] Debug and resolve incorrect fix suggestion occurring under specific edge cases.
+    - **v4.4.2** - Bugfix: network partition buffer overflow
+      - `[ ]` fix: [PATCH] Debug and resolve network partition buffer overflow occurring under specific edge cases.
+    - **v4.4.3** - Bugfix: regex cache miss on PII
+      - `[ ]` fix: [PATCH] Debug and resolve regex cache miss on PII occurring under specific edge cases.
+    - **v4.4.4** - Bugfix: trace ID drop across services
+      - `[ ]` fix: [PATCH] Debug and resolve trace ID drop across services occurring under specific edge cases.
+    - **v4.4.5** - Bugfix: OOM burst during log spike
+      - `[ ]` fix: [PATCH] Debug and resolve OOM burst during log spike occurring under specific edge cases.
+  - **v4.5.0** - Feature: DevOps assistant bot
+    - `[ ]` feat: [MINOR] Suggest new DevOps assistant bot capabilities to expand the API surface of @typepurify/logger.
+    - **v4.5.1** - Bugfix: network partition buffer overflow
+      - `[ ]` fix: [PATCH] Debug and resolve network partition buffer overflow occurring under specific edge cases.
+    - **v4.5.2** - Bugfix: regex cache miss on PII
+      - `[ ]` fix: [PATCH] Debug and resolve regex cache miss on PII occurring under specific edge cases.
+    - **v4.5.3** - Bugfix: trace ID drop across services
+      - `[ ]` fix: [PATCH] Debug and resolve trace ID drop across services occurring under specific edge cases.
+    - **v4.5.4** - Bugfix: OOM burst during log spike
+      - `[ ]` fix: [PATCH] Debug and resolve OOM burst during log spike occurring under specific edge cases.
+    - **v4.5.5** - Bugfix: binary encode error
+      - `[ ]` fix: [PATCH] Debug and resolve binary encode error occurring under specific edge cases.
+- **v5.0.0** - Major Release: WASM log formatter
+  - `[ ]` feat: [MAJOR] Serialize the core WASM log formatter for @typepurify/logger to enhance performance and developer experience.
 
-### `@typepurify/security`
+## 12. @typepurify/security
 
-**Status:** 🟢 Completed (Active Maintenance)
 **Description:** Security inspection tools.
 
-- `[x]` feat: Secret Detector (Find API keys in objects).
-- `[x]` feat: JWT Inspector and Validator.
-- `[x]` feat: Input/URL Sanitizers.
+- **v1.0.0** - Major Release: CSRF token validator
+  - `[ ]` feat: [MAJOR] Enforce the core CSRF token validator for @typepurify/security to enhance performance and developer experience.
+  - **v1.0.1** - Bugfix: SameSite cookie bypass
+    - `[ ]` fix: [PATCH] Investigate and resolve SameSite cookie bypass reported by users post-major release.
+  - **v1.0.2** - Bugfix: JSON parsing false positive
+    - `[ ]` fix: [PATCH] Investigate and resolve JSON parsing false positive reported by users post-major release.
+  - **v1.0.3** - Bugfix: IP spoofing bypass
+    - `[ ]` fix: [PATCH] Investigate and resolve IP spoofing bypass reported by users post-major release.
+  - **v1.0.4** - Bugfix: CVE sync delay
+    - `[ ]` fix: [PATCH] Investigate and resolve CVE sync delay reported by users post-major release.
+  - **v1.0.5** - Bugfix: CPU overhead spike during scan
+    - `[ ]` fix: [PATCH] Investigate and resolve CPU overhead spike during scan reported by users post-major release.
+  - **v1.1.0** - Feature: sliding window rate limiter
+    - `[ ]` feat: [MINOR] Spoof-check new sliding window rate limiter capabilities to expand the API surface of @typepurify/security.
+    - **v1.1.1** - Bugfix: CVE sync delay
+      - `[ ]` fix: [PATCH] Debug and resolve CVE sync delay occurring under specific edge cases.
+    - **v1.1.2** - Bugfix: CPU overhead spike during scan
+      - `[ ]` fix: [PATCH] Debug and resolve CPU overhead spike during scan occurring under specific edge cases.
+    - **v1.1.3** - Bugfix: cross-device sync error
+      - `[ ]` fix: [PATCH] Debug and resolve cross-device sync error occurring under specific edge cases.
+    - **v1.1.4** - Bugfix: policy propagation latency
+      - `[ ]` fix: [PATCH] Debug and resolve policy propagation latency occurring under specific edge cases.
+    - **v1.1.5** - Bugfix: ciphertext bloat
+      - `[ ]` fix: [PATCH] Debug and resolve ciphertext bloat occurring under specific edge cases.
+  - **v1.2.0** - Feature: vulnerability scanner
+    - `[ ]` feat: [MINOR] Sync new vulnerability scanner capabilities to expand the API surface of @typepurify/security.
+    - **v1.2.1** - Bugfix: CPU overhead spike during scan
+      - `[ ]` fix: [PATCH] Debug and resolve CPU overhead spike during scan occurring under specific edge cases.
+    - **v1.2.2** - Bugfix: cross-device sync error
+      - `[ ]` fix: [PATCH] Debug and resolve cross-device sync error occurring under specific edge cases.
+    - **v1.2.3** - Bugfix: policy propagation latency
+      - `[ ]` fix: [PATCH] Debug and resolve policy propagation latency occurring under specific edge cases.
+    - **v1.2.4** - Bugfix: ciphertext bloat
+      - `[ ]` fix: [PATCH] Debug and resolve ciphertext bloat occurring under specific edge cases.
+    - **v1.2.5** - Bugfix: key size bloat
+      - `[ ]` fix: [PATCH] Debug and resolve key size bloat occurring under specific edge cases.
+  - **v1.3.0** - Feature: RASP middleware
+    - `[ ]` feat: [MINOR] Detect new RASP middleware capabilities to expand the API surface of @typepurify/security.
+    - **v1.3.1** - Bugfix: cross-device sync error
+      - `[ ]` fix: [PATCH] Debug and resolve cross-device sync error occurring under specific edge cases.
+    - **v1.3.2** - Bugfix: policy propagation latency
+      - `[ ]` fix: [PATCH] Debug and resolve policy propagation latency occurring under specific edge cases.
+    - **v1.3.3** - Bugfix: ciphertext bloat
+      - `[ ]` fix: [PATCH] Debug and resolve ciphertext bloat occurring under specific edge cases.
+    - **v1.3.4** - Bugfix: key size bloat
+      - `[ ]` fix: [PATCH] Debug and resolve key size bloat occurring under specific edge cases.
+    - **v1.3.5** - Bugfix: friendly-fire IP ban
+      - `[ ]` fix: [PATCH] Debug and resolve friendly-fire IP ban occurring under specific edge cases.
+  - **v1.4.0** - Feature: WebAuthn passkey connector
+    - `[ ]` feat: [MINOR] Register new WebAuthn passkey connector capabilities to expand the API surface of @typepurify/security.
+    - **v1.4.1** - Bugfix: policy propagation latency
+      - `[ ]` fix: [PATCH] Debug and resolve policy propagation latency occurring under specific edge cases.
+    - **v1.4.2** - Bugfix: ciphertext bloat
+      - `[ ]` fix: [PATCH] Debug and resolve ciphertext bloat occurring under specific edge cases.
+    - **v1.4.3** - Bugfix: key size bloat
+      - `[ ]` fix: [PATCH] Debug and resolve key size bloat occurring under specific edge cases.
+    - **v1.4.4** - Bugfix: friendly-fire IP ban
+      - `[ ]` fix: [PATCH] Debug and resolve friendly-fire IP ban occurring under specific edge cases.
+    - **v1.4.5** - Bugfix: SameSite cookie bypass
+      - `[ ]` fix: [PATCH] Debug and resolve SameSite cookie bypass occurring under specific edge cases.
+  - **v1.5.0** - Feature: Zero-Trust compiler
+    - `[ ]` feat: [MINOR] Evaluate new Zero-Trust compiler capabilities to expand the API surface of @typepurify/security.
+    - **v1.5.1** - Bugfix: ciphertext bloat
+      - `[ ]` fix: [PATCH] Debug and resolve ciphertext bloat occurring under specific edge cases.
+    - **v1.5.2** - Bugfix: key size bloat
+      - `[ ]` fix: [PATCH] Debug and resolve key size bloat occurring under specific edge cases.
+    - **v1.5.3** - Bugfix: friendly-fire IP ban
+      - `[ ]` fix: [PATCH] Debug and resolve friendly-fire IP ban occurring under specific edge cases.
+    - **v1.5.4** - Bugfix: SameSite cookie bypass
+      - `[ ]` fix: [PATCH] Debug and resolve SameSite cookie bypass occurring under specific edge cases.
+    - **v1.5.5** - Bugfix: JSON parsing false positive
+      - `[ ]` fix: [PATCH] Debug and resolve JSON parsing false positive occurring under specific edge cases.
+- **v2.0.0** - Major Release: AST security analyzer
+  - `[ ]` feat: [MAJOR] Block the core AST security analyzer for @typepurify/security to enhance performance and developer experience.
+  - **v2.0.1** - Bugfix: SameSite cookie bypass
+    - `[ ]` fix: [PATCH] Investigate and resolve SameSite cookie bypass reported by users post-major release.
+  - **v2.0.2** - Bugfix: JSON parsing false positive
+    - `[ ]` fix: [PATCH] Investigate and resolve JSON parsing false positive reported by users post-major release.
+  - **v2.0.3** - Bugfix: IP spoofing bypass
+    - `[ ]` fix: [PATCH] Investigate and resolve IP spoofing bypass reported by users post-major release.
+  - **v2.0.4** - Bugfix: CVE sync delay
+    - `[ ]` fix: [PATCH] Investigate and resolve CVE sync delay reported by users post-major release.
+  - **v2.0.5** - Bugfix: CPU overhead spike during scan
+    - `[ ]` fix: [PATCH] Investigate and resolve CPU overhead spike during scan reported by users post-major release.
+  - **v2.1.0** - Feature: vulnerability scanner
+    - `[ ]` feat: [MINOR] Sync new vulnerability scanner capabilities to expand the API surface of @typepurify/security.
+    - **v2.1.1** - Bugfix: CPU overhead spike during scan
+      - `[ ]` fix: [PATCH] Debug and resolve CPU overhead spike during scan occurring under specific edge cases.
+    - **v2.1.2** - Bugfix: cross-device sync error
+      - `[ ]` fix: [PATCH] Debug and resolve cross-device sync error occurring under specific edge cases.
+    - **v2.1.3** - Bugfix: policy propagation latency
+      - `[ ]` fix: [PATCH] Debug and resolve policy propagation latency occurring under specific edge cases.
+    - **v2.1.4** - Bugfix: ciphertext bloat
+      - `[ ]` fix: [PATCH] Debug and resolve ciphertext bloat occurring under specific edge cases.
+    - **v2.1.5** - Bugfix: key size bloat
+      - `[ ]` fix: [PATCH] Debug and resolve key size bloat occurring under specific edge cases.
+  - **v2.2.0** - Feature: RASP middleware
+    - `[ ]` feat: [MINOR] Detect new RASP middleware capabilities to expand the API surface of @typepurify/security.
+    - **v2.2.1** - Bugfix: cross-device sync error
+      - `[ ]` fix: [PATCH] Debug and resolve cross-device sync error occurring under specific edge cases.
+    - **v2.2.2** - Bugfix: policy propagation latency
+      - `[ ]` fix: [PATCH] Debug and resolve policy propagation latency occurring under specific edge cases.
+    - **v2.2.3** - Bugfix: ciphertext bloat
+      - `[ ]` fix: [PATCH] Debug and resolve ciphertext bloat occurring under specific edge cases.
+    - **v2.2.4** - Bugfix: key size bloat
+      - `[ ]` fix: [PATCH] Debug and resolve key size bloat occurring under specific edge cases.
+    - **v2.2.5** - Bugfix: friendly-fire IP ban
+      - `[ ]` fix: [PATCH] Debug and resolve friendly-fire IP ban occurring under specific edge cases.
+  - **v2.3.0** - Feature: WebAuthn passkey connector
+    - `[ ]` feat: [MINOR] Register new WebAuthn passkey connector capabilities to expand the API surface of @typepurify/security.
+    - **v2.3.1** - Bugfix: policy propagation latency
+      - `[ ]` fix: [PATCH] Debug and resolve policy propagation latency occurring under specific edge cases.
+    - **v2.3.2** - Bugfix: ciphertext bloat
+      - `[ ]` fix: [PATCH] Debug and resolve ciphertext bloat occurring under specific edge cases.
+    - **v2.3.3** - Bugfix: key size bloat
+      - `[ ]` fix: [PATCH] Debug and resolve key size bloat occurring under specific edge cases.
+    - **v2.3.4** - Bugfix: friendly-fire IP ban
+      - `[ ]` fix: [PATCH] Debug and resolve friendly-fire IP ban occurring under specific edge cases.
+    - **v2.3.5** - Bugfix: SameSite cookie bypass
+      - `[ ]` fix: [PATCH] Debug and resolve SameSite cookie bypass occurring under specific edge cases.
+  - **v2.4.0** - Feature: Zero-Trust compiler
+    - `[ ]` feat: [MINOR] Evaluate new Zero-Trust compiler capabilities to expand the API surface of @typepurify/security.
+    - **v2.4.1** - Bugfix: ciphertext bloat
+      - `[ ]` fix: [PATCH] Debug and resolve ciphertext bloat occurring under specific edge cases.
+    - **v2.4.2** - Bugfix: key size bloat
+      - `[ ]` fix: [PATCH] Debug and resolve key size bloat occurring under specific edge cases.
+    - **v2.4.3** - Bugfix: friendly-fire IP ban
+      - `[ ]` fix: [PATCH] Debug and resolve friendly-fire IP ban occurring under specific edge cases.
+    - **v2.4.4** - Bugfix: SameSite cookie bypass
+      - `[ ]` fix: [PATCH] Debug and resolve SameSite cookie bypass occurring under specific edge cases.
+    - **v2.4.5** - Bugfix: JSON parsing false positive
+      - `[ ]` fix: [PATCH] Debug and resolve JSON parsing false positive occurring under specific edge cases.
+  - **v2.5.0** - Feature: homomorphic encryptor
+    - `[ ]` feat: [MINOR] Compute new homomorphic encryptor capabilities to expand the API surface of @typepurify/security.
+    - **v2.5.1** - Bugfix: key size bloat
+      - `[ ]` fix: [PATCH] Debug and resolve key size bloat occurring under specific edge cases.
+    - **v2.5.2** - Bugfix: friendly-fire IP ban
+      - `[ ]` fix: [PATCH] Debug and resolve friendly-fire IP ban occurring under specific edge cases.
+    - **v2.5.3** - Bugfix: SameSite cookie bypass
+      - `[ ]` fix: [PATCH] Debug and resolve SameSite cookie bypass occurring under specific edge cases.
+    - **v2.5.4** - Bugfix: JSON parsing false positive
+      - `[ ]` fix: [PATCH] Debug and resolve JSON parsing false positive occurring under specific edge cases.
+    - **v2.5.5** - Bugfix: IP spoofing bypass
+      - `[ ]` fix: [PATCH] Debug and resolve IP spoofing bypass occurring under specific edge cases.
+- **v3.0.0** - Major Release: sliding window rate limiter
+  - `[ ]` feat: [MAJOR] Spoof-check the core sliding window rate limiter for @typepurify/security to enhance performance and developer experience.
+  - **v3.0.1** - Bugfix: SameSite cookie bypass
+    - `[ ]` fix: [PATCH] Investigate and resolve SameSite cookie bypass reported by users post-major release.
+  - **v3.0.2** - Bugfix: JSON parsing false positive
+    - `[ ]` fix: [PATCH] Investigate and resolve JSON parsing false positive reported by users post-major release.
+  - **v3.0.3** - Bugfix: IP spoofing bypass
+    - `[ ]` fix: [PATCH] Investigate and resolve IP spoofing bypass reported by users post-major release.
+  - **v3.0.4** - Bugfix: CVE sync delay
+    - `[ ]` fix: [PATCH] Investigate and resolve CVE sync delay reported by users post-major release.
+  - **v3.0.5** - Bugfix: CPU overhead spike during scan
+    - `[ ]` fix: [PATCH] Investigate and resolve CPU overhead spike during scan reported by users post-major release.
+  - **v3.1.0** - Feature: RASP middleware
+    - `[ ]` feat: [MINOR] Detect new RASP middleware capabilities to expand the API surface of @typepurify/security.
+    - **v3.1.1** - Bugfix: cross-device sync error
+      - `[ ]` fix: [PATCH] Debug and resolve cross-device sync error occurring under specific edge cases.
+    - **v3.1.2** - Bugfix: policy propagation latency
+      - `[ ]` fix: [PATCH] Debug and resolve policy propagation latency occurring under specific edge cases.
+    - **v3.1.3** - Bugfix: ciphertext bloat
+      - `[ ]` fix: [PATCH] Debug and resolve ciphertext bloat occurring under specific edge cases.
+    - **v3.1.4** - Bugfix: key size bloat
+      - `[ ]` fix: [PATCH] Debug and resolve key size bloat occurring under specific edge cases.
+    - **v3.1.5** - Bugfix: friendly-fire IP ban
+      - `[ ]` fix: [PATCH] Debug and resolve friendly-fire IP ban occurring under specific edge cases.
+  - **v3.2.0** - Feature: WebAuthn passkey connector
+    - `[ ]` feat: [MINOR] Register new WebAuthn passkey connector capabilities to expand the API surface of @typepurify/security.
+    - **v3.2.1** - Bugfix: policy propagation latency
+      - `[ ]` fix: [PATCH] Debug and resolve policy propagation latency occurring under specific edge cases.
+    - **v3.2.2** - Bugfix: ciphertext bloat
+      - `[ ]` fix: [PATCH] Debug and resolve ciphertext bloat occurring under specific edge cases.
+    - **v3.2.3** - Bugfix: key size bloat
+      - `[ ]` fix: [PATCH] Debug and resolve key size bloat occurring under specific edge cases.
+    - **v3.2.4** - Bugfix: friendly-fire IP ban
+      - `[ ]` fix: [PATCH] Debug and resolve friendly-fire IP ban occurring under specific edge cases.
+    - **v3.2.5** - Bugfix: SameSite cookie bypass
+      - `[ ]` fix: [PATCH] Debug and resolve SameSite cookie bypass occurring under specific edge cases.
+  - **v3.3.0** - Feature: Zero-Trust compiler
+    - `[ ]` feat: [MINOR] Evaluate new Zero-Trust compiler capabilities to expand the API surface of @typepurify/security.
+    - **v3.3.1** - Bugfix: ciphertext bloat
+      - `[ ]` fix: [PATCH] Debug and resolve ciphertext bloat occurring under specific edge cases.
+    - **v3.3.2** - Bugfix: key size bloat
+      - `[ ]` fix: [PATCH] Debug and resolve key size bloat occurring under specific edge cases.
+    - **v3.3.3** - Bugfix: friendly-fire IP ban
+      - `[ ]` fix: [PATCH] Debug and resolve friendly-fire IP ban occurring under specific edge cases.
+    - **v3.3.4** - Bugfix: SameSite cookie bypass
+      - `[ ]` fix: [PATCH] Debug and resolve SameSite cookie bypass occurring under specific edge cases.
+    - **v3.3.5** - Bugfix: JSON parsing false positive
+      - `[ ]` fix: [PATCH] Debug and resolve JSON parsing false positive occurring under specific edge cases.
+  - **v3.4.0** - Feature: homomorphic encryptor
+    - `[ ]` feat: [MINOR] Compute new homomorphic encryptor capabilities to expand the API surface of @typepurify/security.
+    - **v3.4.1** - Bugfix: key size bloat
+      - `[ ]` fix: [PATCH] Debug and resolve key size bloat occurring under specific edge cases.
+    - **v3.4.2** - Bugfix: friendly-fire IP ban
+      - `[ ]` fix: [PATCH] Debug and resolve friendly-fire IP ban occurring under specific edge cases.
+    - **v3.4.3** - Bugfix: SameSite cookie bypass
+      - `[ ]` fix: [PATCH] Debug and resolve SameSite cookie bypass occurring under specific edge cases.
+    - **v3.4.4** - Bugfix: JSON parsing false positive
+      - `[ ]` fix: [PATCH] Debug and resolve JSON parsing false positive occurring under specific edge cases.
+    - **v3.4.5** - Bugfix: IP spoofing bypass
+      - `[ ]` fix: [PATCH] Debug and resolve IP spoofing bypass occurring under specific edge cases.
+  - **v3.5.0** - Feature: lattice crypto module
+    - `[ ]` feat: [MINOR] Fallback new lattice crypto module capabilities to expand the API surface of @typepurify/security.
+    - **v3.5.1** - Bugfix: friendly-fire IP ban
+      - `[ ]` fix: [PATCH] Debug and resolve friendly-fire IP ban occurring under specific edge cases.
+    - **v3.5.2** - Bugfix: SameSite cookie bypass
+      - `[ ]` fix: [PATCH] Debug and resolve SameSite cookie bypass occurring under specific edge cases.
+    - **v3.5.3** - Bugfix: JSON parsing false positive
+      - `[ ]` fix: [PATCH] Debug and resolve JSON parsing false positive occurring under specific edge cases.
+    - **v3.5.4** - Bugfix: IP spoofing bypass
+      - `[ ]` fix: [PATCH] Debug and resolve IP spoofing bypass occurring under specific edge cases.
+    - **v3.5.5** - Bugfix: CVE sync delay
+      - `[ ]` fix: [PATCH] Debug and resolve CVE sync delay occurring under specific edge cases.
+- **v4.0.0** - Major Release: vulnerability scanner
+  - `[ ]` feat: [MAJOR] Sync the core vulnerability scanner for @typepurify/security to enhance performance and developer experience.
+  - **v4.0.1** - Bugfix: SameSite cookie bypass
+    - `[ ]` fix: [PATCH] Investigate and resolve SameSite cookie bypass reported by users post-major release.
+  - **v4.0.2** - Bugfix: JSON parsing false positive
+    - `[ ]` fix: [PATCH] Investigate and resolve JSON parsing false positive reported by users post-major release.
+  - **v4.0.3** - Bugfix: IP spoofing bypass
+    - `[ ]` fix: [PATCH] Investigate and resolve IP spoofing bypass reported by users post-major release.
+  - **v4.0.4** - Bugfix: CVE sync delay
+    - `[ ]` fix: [PATCH] Investigate and resolve CVE sync delay reported by users post-major release.
+  - **v4.0.5** - Bugfix: CPU overhead spike during scan
+    - `[ ]` fix: [PATCH] Investigate and resolve CPU overhead spike during scan reported by users post-major release.
+  - **v4.1.0** - Feature: WebAuthn passkey connector
+    - `[ ]` feat: [MINOR] Register new WebAuthn passkey connector capabilities to expand the API surface of @typepurify/security.
+    - **v4.1.1** - Bugfix: policy propagation latency
+      - `[ ]` fix: [PATCH] Debug and resolve policy propagation latency occurring under specific edge cases.
+    - **v4.1.2** - Bugfix: ciphertext bloat
+      - `[ ]` fix: [PATCH] Debug and resolve ciphertext bloat occurring under specific edge cases.
+    - **v4.1.3** - Bugfix: key size bloat
+      - `[ ]` fix: [PATCH] Debug and resolve key size bloat occurring under specific edge cases.
+    - **v4.1.4** - Bugfix: friendly-fire IP ban
+      - `[ ]` fix: [PATCH] Debug and resolve friendly-fire IP ban occurring under specific edge cases.
+    - **v4.1.5** - Bugfix: SameSite cookie bypass
+      - `[ ]` fix: [PATCH] Debug and resolve SameSite cookie bypass occurring under specific edge cases.
+  - **v4.2.0** - Feature: Zero-Trust compiler
+    - `[ ]` feat: [MINOR] Evaluate new Zero-Trust compiler capabilities to expand the API surface of @typepurify/security.
+    - **v4.2.1** - Bugfix: ciphertext bloat
+      - `[ ]` fix: [PATCH] Debug and resolve ciphertext bloat occurring under specific edge cases.
+    - **v4.2.2** - Bugfix: key size bloat
+      - `[ ]` fix: [PATCH] Debug and resolve key size bloat occurring under specific edge cases.
+    - **v4.2.3** - Bugfix: friendly-fire IP ban
+      - `[ ]` fix: [PATCH] Debug and resolve friendly-fire IP ban occurring under specific edge cases.
+    - **v4.2.4** - Bugfix: SameSite cookie bypass
+      - `[ ]` fix: [PATCH] Debug and resolve SameSite cookie bypass occurring under specific edge cases.
+    - **v4.2.5** - Bugfix: JSON parsing false positive
+      - `[ ]` fix: [PATCH] Debug and resolve JSON parsing false positive occurring under specific edge cases.
+  - **v4.3.0** - Feature: homomorphic encryptor
+    - `[ ]` feat: [MINOR] Compute new homomorphic encryptor capabilities to expand the API surface of @typepurify/security.
+    - **v4.3.1** - Bugfix: key size bloat
+      - `[ ]` fix: [PATCH] Debug and resolve key size bloat occurring under specific edge cases.
+    - **v4.3.2** - Bugfix: friendly-fire IP ban
+      - `[ ]` fix: [PATCH] Debug and resolve friendly-fire IP ban occurring under specific edge cases.
+    - **v4.3.3** - Bugfix: SameSite cookie bypass
+      - `[ ]` fix: [PATCH] Debug and resolve SameSite cookie bypass occurring under specific edge cases.
+    - **v4.3.4** - Bugfix: JSON parsing false positive
+      - `[ ]` fix: [PATCH] Debug and resolve JSON parsing false positive occurring under specific edge cases.
+    - **v4.3.5** - Bugfix: IP spoofing bypass
+      - `[ ]` fix: [PATCH] Debug and resolve IP spoofing bypass occurring under specific edge cases.
+  - **v4.4.0** - Feature: lattice crypto module
+    - `[ ]` feat: [MINOR] Fallback new lattice crypto module capabilities to expand the API surface of @typepurify/security.
+    - **v4.4.1** - Bugfix: friendly-fire IP ban
+      - `[ ]` fix: [PATCH] Debug and resolve friendly-fire IP ban occurring under specific edge cases.
+    - **v4.4.2** - Bugfix: SameSite cookie bypass
+      - `[ ]` fix: [PATCH] Debug and resolve SameSite cookie bypass occurring under specific edge cases.
+    - **v4.4.3** - Bugfix: JSON parsing false positive
+      - `[ ]` fix: [PATCH] Debug and resolve JSON parsing false positive occurring under specific edge cases.
+    - **v4.4.4** - Bugfix: IP spoofing bypass
+      - `[ ]` fix: [PATCH] Debug and resolve IP spoofing bypass occurring under specific edge cases.
+    - **v4.4.5** - Bugfix: CVE sync delay
+      - `[ ]` fix: [PATCH] Debug and resolve CVE sync delay occurring under specific edge cases.
+  - **v4.5.0** - Feature: dynamic honeypot
+    - `[ ]` feat: [MINOR] Generate new dynamic honeypot capabilities to expand the API surface of @typepurify/security.
+    - **v4.5.1** - Bugfix: SameSite cookie bypass
+      - `[ ]` fix: [PATCH] Debug and resolve SameSite cookie bypass occurring under specific edge cases.
+    - **v4.5.2** - Bugfix: JSON parsing false positive
+      - `[ ]` fix: [PATCH] Debug and resolve JSON parsing false positive occurring under specific edge cases.
+    - **v4.5.3** - Bugfix: IP spoofing bypass
+      - `[ ]` fix: [PATCH] Debug and resolve IP spoofing bypass occurring under specific edge cases.
+    - **v4.5.4** - Bugfix: CVE sync delay
+      - `[ ]` fix: [PATCH] Debug and resolve CVE sync delay occurring under specific edge cases.
+    - **v4.5.5** - Bugfix: CPU overhead spike during scan
+      - `[ ]` fix: [PATCH] Debug and resolve CPU overhead spike during scan occurring under specific edge cases.
+- **v5.0.0** - Major Release: RASP middleware
+  - `[ ]` feat: [MAJOR] Detect the core RASP middleware for @typepurify/security to enhance performance and developer experience.
 
----
+## 13. @typepurify/cli
 
-## 6. CLI & Dev Productivity
-
-### `@typepurify/cli`
-
-**Status:** 🟢 Completed (Active Maintenance)
 **Description:** Scaffolding and analysis CLI.
 
-- `[x]` feat: Project Bootstrap CLI (`create-my-stack`).
-- `[x]` feat: Duplicate File / Dependency Analyzer.
-- `[x]` feat: `.env` Validator and Doc Generator.
+- **v1.0.0** - Major Release: health scorer command
+  - `[ ]` feat: [MAJOR] Export the core health scorer command for @typepurify/cli to enhance performance and developer experience.
+  - **v1.0.1** - Bugfix: symlink traverse crash
+    - `[ ]` fix: [PATCH] Investigate and resolve symlink traverse crash reported by users post-major release.
+  - **v1.0.2** - Bugfix: git history loss on hoist
+    - `[ ]` fix: [PATCH] Investigate and resolve git history loss on hoist reported by users post-major release.
+  - **v1.0.3** - Bugfix: formatting destruction during codemod
+    - `[ ]` fix: [PATCH] Investigate and resolve formatting destruction during codemod reported by users post-major release.
+  - **v1.0.4** - Bugfix: Windows pathing bug
+    - `[ ]` fix: [PATCH] Investigate and resolve Windows pathing bug reported by users post-major release.
+  - **v1.0.5** - Bugfix: YAML spacing error in CI generation
+    - `[ ]` fix: [PATCH] Investigate and resolve YAML spacing error in CI generation reported by users post-major release.
+  - **v1.1.0** - Feature: codemod engine
+    - `[ ]` feat: [MINOR] Rewrite new codemod engine capabilities to expand the API surface of @typepurify/cli.
+    - **v1.1.1** - Bugfix: Windows pathing bug
+      - `[ ]` fix: [PATCH] Debug and resolve Windows pathing bug occurring under specific edge cases.
+    - **v1.1.2** - Bugfix: YAML spacing error in CI generation
+      - `[ ]` fix: [PATCH] Debug and resolve YAML spacing error in CI generation occurring under specific edge cases.
+    - **v1.1.3** - Bugfix: stale cache rule
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache rule occurring under specific edge cases.
+    - **v1.1.4** - Bugfix: port conflict in Docker
+      - `[ ]` fix: [PATCH] Debug and resolve port conflict in Docker occurring under specific edge cases.
+    - **v1.1.5** - Bugfix: VSCode extension sync fail
+      - `[ ]` fix: [PATCH] Debug and resolve VSCode extension sync fail occurring under specific edge cases.
+  - **v1.2.0** - Feature: git hook injector
+    - `[ ]` feat: [MINOR] Inject new git hook injector capabilities to expand the API surface of @typepurify/cli.
+    - **v1.2.1** - Bugfix: YAML spacing error in CI generation
+      - `[ ]` fix: [PATCH] Debug and resolve YAML spacing error in CI generation occurring under specific edge cases.
+    - **v1.2.2** - Bugfix: stale cache rule
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache rule occurring under specific edge cases.
+    - **v1.2.3** - Bugfix: port conflict in Docker
+      - `[ ]` fix: [PATCH] Debug and resolve port conflict in Docker occurring under specific edge cases.
+    - **v1.2.4** - Bugfix: VSCode extension sync fail
+      - `[ ]` fix: [PATCH] Debug and resolve VSCode extension sync fail occurring under specific edge cases.
+    - **v1.2.5** - Bugfix: context limit breach in AI review
+      - `[ ]` fix: [PATCH] Debug and resolve context limit breach in AI review occurring under specific edge cases.
+  - **v1.3.0** - Feature: CI pipeline generator
+    - `[ ]` feat: [MINOR] Matrix-build new CI pipeline generator capabilities to expand the API surface of @typepurify/cli.
+    - **v1.3.1** - Bugfix: stale cache rule
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache rule occurring under specific edge cases.
+    - **v1.3.2** - Bugfix: port conflict in Docker
+      - `[ ]` fix: [PATCH] Debug and resolve port conflict in Docker occurring under specific edge cases.
+    - **v1.3.3** - Bugfix: VSCode extension sync fail
+      - `[ ]` fix: [PATCH] Debug and resolve VSCode extension sync fail occurring under specific edge cases.
+    - **v1.3.4** - Bugfix: context limit breach in AI review
+      - `[ ]` fix: [PATCH] Debug and resolve context limit breach in AI review occurring under specific edge cases.
+    - **v1.3.5** - Bugfix: logic destruction in codemod
+      - `[ ]` fix: [PATCH] Debug and resolve logic destruction in codemod occurring under specific edge cases.
+  - **v1.4.0** - Feature: Terraform scripter
+    - `[ ]` feat: [MINOR] Bridge new Terraform scripter capabilities to expand the API surface of @typepurify/cli.
+    - **v1.4.1** - Bugfix: port conflict in Docker
+      - `[ ]` fix: [PATCH] Debug and resolve port conflict in Docker occurring under specific edge cases.
+    - **v1.4.2** - Bugfix: VSCode extension sync fail
+      - `[ ]` fix: [PATCH] Debug and resolve VSCode extension sync fail occurring under specific edge cases.
+    - **v1.4.3** - Bugfix: context limit breach in AI review
+      - `[ ]` fix: [PATCH] Debug and resolve context limit breach in AI review occurring under specific edge cases.
+    - **v1.4.4** - Bugfix: logic destruction in codemod
+      - `[ ]` fix: [PATCH] Debug and resolve logic destruction in codemod occurring under specific edge cases.
+    - **v1.4.5** - Bugfix: symlink traverse crash
+      - `[ ]` fix: [PATCH] Debug and resolve symlink traverse crash occurring under specific edge cases.
+  - **v1.5.0** - Feature: Docker image wizard
+    - `[ ]` feat: [MINOR] Compose new Docker image wizard capabilities to expand the API surface of @typepurify/cli.
+    - **v1.5.1** - Bugfix: VSCode extension sync fail
+      - `[ ]` fix: [PATCH] Debug and resolve VSCode extension sync fail occurring under specific edge cases.
+    - **v1.5.2** - Bugfix: context limit breach in AI review
+      - `[ ]` fix: [PATCH] Debug and resolve context limit breach in AI review occurring under specific edge cases.
+    - **v1.5.3** - Bugfix: logic destruction in codemod
+      - `[ ]` fix: [PATCH] Debug and resolve logic destruction in codemod occurring under specific edge cases.
+    - **v1.5.4** - Bugfix: symlink traverse crash
+      - `[ ]` fix: [PATCH] Debug and resolve symlink traverse crash occurring under specific edge cases.
+    - **v1.5.5** - Bugfix: git history loss on hoist
+      - `[ ]` fix: [PATCH] Debug and resolve git history loss on hoist occurring under specific edge cases.
+- **v2.0.0** - Major Release: monorepo migrator
+  - `[ ]` feat: [MAJOR] Hoist the core monorepo migrator for @typepurify/cli to enhance performance and developer experience.
+  - **v2.0.1** - Bugfix: symlink traverse crash
+    - `[ ]` fix: [PATCH] Investigate and resolve symlink traverse crash reported by users post-major release.
+  - **v2.0.2** - Bugfix: git history loss on hoist
+    - `[ ]` fix: [PATCH] Investigate and resolve git history loss on hoist reported by users post-major release.
+  - **v2.0.3** - Bugfix: formatting destruction during codemod
+    - `[ ]` fix: [PATCH] Investigate and resolve formatting destruction during codemod reported by users post-major release.
+  - **v2.0.4** - Bugfix: Windows pathing bug
+    - `[ ]` fix: [PATCH] Investigate and resolve Windows pathing bug reported by users post-major release.
+  - **v2.0.5** - Bugfix: YAML spacing error in CI generation
+    - `[ ]` fix: [PATCH] Investigate and resolve YAML spacing error in CI generation reported by users post-major release.
+  - **v2.1.0** - Feature: git hook injector
+    - `[ ]` feat: [MINOR] Inject new git hook injector capabilities to expand the API surface of @typepurify/cli.
+    - **v2.1.1** - Bugfix: YAML spacing error in CI generation
+      - `[ ]` fix: [PATCH] Debug and resolve YAML spacing error in CI generation occurring under specific edge cases.
+    - **v2.1.2** - Bugfix: stale cache rule
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache rule occurring under specific edge cases.
+    - **v2.1.3** - Bugfix: port conflict in Docker
+      - `[ ]` fix: [PATCH] Debug and resolve port conflict in Docker occurring under specific edge cases.
+    - **v2.1.4** - Bugfix: VSCode extension sync fail
+      - `[ ]` fix: [PATCH] Debug and resolve VSCode extension sync fail occurring under specific edge cases.
+    - **v2.1.5** - Bugfix: context limit breach in AI review
+      - `[ ]` fix: [PATCH] Debug and resolve context limit breach in AI review occurring under specific edge cases.
+  - **v2.2.0** - Feature: CI pipeline generator
+    - `[ ]` feat: [MINOR] Matrix-build new CI pipeline generator capabilities to expand the API surface of @typepurify/cli.
+    - **v2.2.1** - Bugfix: stale cache rule
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache rule occurring under specific edge cases.
+    - **v2.2.2** - Bugfix: port conflict in Docker
+      - `[ ]` fix: [PATCH] Debug and resolve port conflict in Docker occurring under specific edge cases.
+    - **v2.2.3** - Bugfix: VSCode extension sync fail
+      - `[ ]` fix: [PATCH] Debug and resolve VSCode extension sync fail occurring under specific edge cases.
+    - **v2.2.4** - Bugfix: context limit breach in AI review
+      - `[ ]` fix: [PATCH] Debug and resolve context limit breach in AI review occurring under specific edge cases.
+    - **v2.2.5** - Bugfix: logic destruction in codemod
+      - `[ ]` fix: [PATCH] Debug and resolve logic destruction in codemod occurring under specific edge cases.
+  - **v2.3.0** - Feature: Terraform scripter
+    - `[ ]` feat: [MINOR] Bridge new Terraform scripter capabilities to expand the API surface of @typepurify/cli.
+    - **v2.3.1** - Bugfix: port conflict in Docker
+      - `[ ]` fix: [PATCH] Debug and resolve port conflict in Docker occurring under specific edge cases.
+    - **v2.3.2** - Bugfix: VSCode extension sync fail
+      - `[ ]` fix: [PATCH] Debug and resolve VSCode extension sync fail occurring under specific edge cases.
+    - **v2.3.3** - Bugfix: context limit breach in AI review
+      - `[ ]` fix: [PATCH] Debug and resolve context limit breach in AI review occurring under specific edge cases.
+    - **v2.3.4** - Bugfix: logic destruction in codemod
+      - `[ ]` fix: [PATCH] Debug and resolve logic destruction in codemod occurring under specific edge cases.
+    - **v2.3.5** - Bugfix: symlink traverse crash
+      - `[ ]` fix: [PATCH] Debug and resolve symlink traverse crash occurring under specific edge cases.
+  - **v2.4.0** - Feature: Docker image wizard
+    - `[ ]` feat: [MINOR] Compose new Docker image wizard capabilities to expand the API surface of @typepurify/cli.
+    - **v2.4.1** - Bugfix: VSCode extension sync fail
+      - `[ ]` fix: [PATCH] Debug and resolve VSCode extension sync fail occurring under specific edge cases.
+    - **v2.4.2** - Bugfix: context limit breach in AI review
+      - `[ ]` fix: [PATCH] Debug and resolve context limit breach in AI review occurring under specific edge cases.
+    - **v2.4.3** - Bugfix: logic destruction in codemod
+      - `[ ]` fix: [PATCH] Debug and resolve logic destruction in codemod occurring under specific edge cases.
+    - **v2.4.4** - Bugfix: symlink traverse crash
+      - `[ ]` fix: [PATCH] Debug and resolve symlink traverse crash occurring under specific edge cases.
+    - **v2.4.5** - Bugfix: git history loss on hoist
+      - `[ ]` fix: [PATCH] Debug and resolve git history loss on hoist occurring under specific edge cases.
+  - **v2.5.0** - Feature: DevContainer sync command
+    - `[ ]` feat: [MINOR] Synchronize new DevContainer sync command capabilities to expand the API surface of @typepurify/cli.
+    - **v2.5.1** - Bugfix: context limit breach in AI review
+      - `[ ]` fix: [PATCH] Debug and resolve context limit breach in AI review occurring under specific edge cases.
+    - **v2.5.2** - Bugfix: logic destruction in codemod
+      - `[ ]` fix: [PATCH] Debug and resolve logic destruction in codemod occurring under specific edge cases.
+    - **v2.5.3** - Bugfix: symlink traverse crash
+      - `[ ]` fix: [PATCH] Debug and resolve symlink traverse crash occurring under specific edge cases.
+    - **v2.5.4** - Bugfix: git history loss on hoist
+      - `[ ]` fix: [PATCH] Debug and resolve git history loss on hoist occurring under specific edge cases.
+    - **v2.5.5** - Bugfix: formatting destruction during codemod
+      - `[ ]` fix: [PATCH] Debug and resolve formatting destruction during codemod occurring under specific edge cases.
+- **v3.0.0** - Major Release: codemod engine
+  - `[ ]` feat: [MAJOR] Rewrite the core codemod engine for @typepurify/cli to enhance performance and developer experience.
+  - **v3.0.1** - Bugfix: symlink traverse crash
+    - `[ ]` fix: [PATCH] Investigate and resolve symlink traverse crash reported by users post-major release.
+  - **v3.0.2** - Bugfix: git history loss on hoist
+    - `[ ]` fix: [PATCH] Investigate and resolve git history loss on hoist reported by users post-major release.
+  - **v3.0.3** - Bugfix: formatting destruction during codemod
+    - `[ ]` fix: [PATCH] Investigate and resolve formatting destruction during codemod reported by users post-major release.
+  - **v3.0.4** - Bugfix: Windows pathing bug
+    - `[ ]` fix: [PATCH] Investigate and resolve Windows pathing bug reported by users post-major release.
+  - **v3.0.5** - Bugfix: YAML spacing error in CI generation
+    - `[ ]` fix: [PATCH] Investigate and resolve YAML spacing error in CI generation reported by users post-major release.
+  - **v3.1.0** - Feature: CI pipeline generator
+    - `[ ]` feat: [MINOR] Matrix-build new CI pipeline generator capabilities to expand the API surface of @typepurify/cli.
+    - **v3.1.1** - Bugfix: stale cache rule
+      - `[ ]` fix: [PATCH] Debug and resolve stale cache rule occurring under specific edge cases.
+    - **v3.1.2** - Bugfix: port conflict in Docker
+      - `[ ]` fix: [PATCH] Debug and resolve port conflict in Docker occurring under specific edge cases.
+    - **v3.1.3** - Bugfix: VSCode extension sync fail
+      - `[ ]` fix: [PATCH] Debug and resolve VSCode extension sync fail occurring under specific edge cases.
+    - **v3.1.4** - Bugfix: context limit breach in AI review
+      - `[ ]` fix: [PATCH] Debug and resolve context limit breach in AI review occurring under specific edge cases.
+    - **v3.1.5** - Bugfix: logic destruction in codemod
+      - `[ ]` fix: [PATCH] Debug and resolve logic destruction in codemod occurring under specific edge cases.
+  - **v3.2.0** - Feature: Terraform scripter
+    - `[ ]` feat: [MINOR] Bridge new Terraform scripter capabilities to expand the API surface of @typepurify/cli.
+    - **v3.2.1** - Bugfix: port conflict in Docker
+      - `[ ]` fix: [PATCH] Debug and resolve port conflict in Docker occurring under specific edge cases.
+    - **v3.2.2** - Bugfix: VSCode extension sync fail
+      - `[ ]` fix: [PATCH] Debug and resolve VSCode extension sync fail occurring under specific edge cases.
+    - **v3.2.3** - Bugfix: context limit breach in AI review
+      - `[ ]` fix: [PATCH] Debug and resolve context limit breach in AI review occurring under specific edge cases.
+    - **v3.2.4** - Bugfix: logic destruction in codemod
+      - `[ ]` fix: [PATCH] Debug and resolve logic destruction in codemod occurring under specific edge cases.
+    - **v3.2.5** - Bugfix: symlink traverse crash
+      - `[ ]` fix: [PATCH] Debug and resolve symlink traverse crash occurring under specific edge cases.
+  - **v3.3.0** - Feature: Docker image wizard
+    - `[ ]` feat: [MINOR] Compose new Docker image wizard capabilities to expand the API surface of @typepurify/cli.
+    - **v3.3.1** - Bugfix: VSCode extension sync fail
+      - `[ ]` fix: [PATCH] Debug and resolve VSCode extension sync fail occurring under specific edge cases.
+    - **v3.3.2** - Bugfix: context limit breach in AI review
+      - `[ ]` fix: [PATCH] Debug and resolve context limit breach in AI review occurring under specific edge cases.
+    - **v3.3.3** - Bugfix: logic destruction in codemod
+      - `[ ]` fix: [PATCH] Debug and resolve logic destruction in codemod occurring under specific edge cases.
+    - **v3.3.4** - Bugfix: symlink traverse crash
+      - `[ ]` fix: [PATCH] Debug and resolve symlink traverse crash occurring under specific edge cases.
+    - **v3.3.5** - Bugfix: git history loss on hoist
+      - `[ ]` fix: [PATCH] Debug and resolve git history loss on hoist occurring under specific edge cases.
+  - **v3.4.0** - Feature: DevContainer sync command
+    - `[ ]` feat: [MINOR] Synchronize new DevContainer sync command capabilities to expand the API surface of @typepurify/cli.
+    - **v3.4.1** - Bugfix: context limit breach in AI review
+      - `[ ]` fix: [PATCH] Debug and resolve context limit breach in AI review occurring under specific edge cases.
+    - **v3.4.2** - Bugfix: logic destruction in codemod
+      - `[ ]` fix: [PATCH] Debug and resolve logic destruction in codemod occurring under specific edge cases.
+    - **v3.4.3** - Bugfix: symlink traverse crash
+      - `[ ]` fix: [PATCH] Debug and resolve symlink traverse crash occurring under specific edge cases.
+    - **v3.4.4** - Bugfix: git history loss on hoist
+      - `[ ]` fix: [PATCH] Debug and resolve git history loss on hoist occurring under specific edge cases.
+    - **v3.4.5** - Bugfix: formatting destruction during codemod
+      - `[ ]` fix: [PATCH] Debug and resolve formatting destruction during codemod occurring under specific edge cases.
+  - **v3.5.0** - Feature: AI code reviewer
+    - `[ ]` feat: [MINOR] Resolve new AI code reviewer capabilities to expand the API surface of @typepurify/cli.
+    - **v3.5.1** - Bugfix: logic destruction in codemod
+      - `[ ]` fix: [PATCH] Debug and resolve logic destruction in codemod occurring under specific edge cases.
+    - **v3.5.2** - Bugfix: symlink traverse crash
+      - `[ ]` fix: [PATCH] Debug and resolve symlink traverse crash occurring under specific edge cases.
+    - **v3.5.3** - Bugfix: git history loss on hoist
+      - `[ ]` fix: [PATCH] Debug and resolve git history loss on hoist occurring under specific edge cases.
+    - **v3.5.4** - Bugfix: formatting destruction during codemod
+      - `[ ]` fix: [PATCH] Debug and resolve formatting destruction during codemod occurring under specific edge cases.
+    - **v3.5.5** - Bugfix: Windows pathing bug
+      - `[ ]` fix: [PATCH] Debug and resolve Windows pathing bug occurring under specific edge cases.
+- **v4.0.0** - Major Release: git hook injector
+  - `[ ]` feat: [MAJOR] Inject the core git hook injector for @typepurify/cli to enhance performance and developer experience.
+  - **v4.0.1** - Bugfix: symlink traverse crash
+    - `[ ]` fix: [PATCH] Investigate and resolve symlink traverse crash reported by users post-major release.
+  - **v4.0.2** - Bugfix: git history loss on hoist
+    - `[ ]` fix: [PATCH] Investigate and resolve git history loss on hoist reported by users post-major release.
+  - **v4.0.3** - Bugfix: formatting destruction during codemod
+    - `[ ]` fix: [PATCH] Investigate and resolve formatting destruction during codemod reported by users post-major release.
+  - **v4.0.4** - Bugfix: Windows pathing bug
+    - `[ ]` fix: [PATCH] Investigate and resolve Windows pathing bug reported by users post-major release.
+  - **v4.0.5** - Bugfix: YAML spacing error in CI generation
+    - `[ ]` fix: [PATCH] Investigate and resolve YAML spacing error in CI generation reported by users post-major release.
+  - **v4.1.0** - Feature: Terraform scripter
+    - `[ ]` feat: [MINOR] Bridge new Terraform scripter capabilities to expand the API surface of @typepurify/cli.
+    - **v4.1.1** - Bugfix: port conflict in Docker
+      - `[ ]` fix: [PATCH] Debug and resolve port conflict in Docker occurring under specific edge cases.
+    - **v4.1.2** - Bugfix: VSCode extension sync fail
+      - `[ ]` fix: [PATCH] Debug and resolve VSCode extension sync fail occurring under specific edge cases.
+    - **v4.1.3** - Bugfix: context limit breach in AI review
+      - `[ ]` fix: [PATCH] Debug and resolve context limit breach in AI review occurring under specific edge cases.
+    - **v4.1.4** - Bugfix: logic destruction in codemod
+      - `[ ]` fix: [PATCH] Debug and resolve logic destruction in codemod occurring under specific edge cases.
+    - **v4.1.5** - Bugfix: symlink traverse crash
+      - `[ ]` fix: [PATCH] Debug and resolve symlink traverse crash occurring under specific edge cases.
+  - **v4.2.0** - Feature: Docker image wizard
+    - `[ ]` feat: [MINOR] Compose new Docker image wizard capabilities to expand the API surface of @typepurify/cli.
+    - **v4.2.1** - Bugfix: VSCode extension sync fail
+      - `[ ]` fix: [PATCH] Debug and resolve VSCode extension sync fail occurring under specific edge cases.
+    - **v4.2.2** - Bugfix: context limit breach in AI review
+      - `[ ]` fix: [PATCH] Debug and resolve context limit breach in AI review occurring under specific edge cases.
+    - **v4.2.3** - Bugfix: logic destruction in codemod
+      - `[ ]` fix: [PATCH] Debug and resolve logic destruction in codemod occurring under specific edge cases.
+    - **v4.2.4** - Bugfix: symlink traverse crash
+      - `[ ]` fix: [PATCH] Debug and resolve symlink traverse crash occurring under specific edge cases.
+    - **v4.2.5** - Bugfix: git history loss on hoist
+      - `[ ]` fix: [PATCH] Debug and resolve git history loss on hoist occurring under specific edge cases.
+  - **v4.3.0** - Feature: DevContainer sync command
+    - `[ ]` feat: [MINOR] Synchronize new DevContainer sync command capabilities to expand the API surface of @typepurify/cli.
+    - **v4.3.1** - Bugfix: context limit breach in AI review
+      - `[ ]` fix: [PATCH] Debug and resolve context limit breach in AI review occurring under specific edge cases.
+    - **v4.3.2** - Bugfix: logic destruction in codemod
+      - `[ ]` fix: [PATCH] Debug and resolve logic destruction in codemod occurring under specific edge cases.
+    - **v4.3.3** - Bugfix: symlink traverse crash
+      - `[ ]` fix: [PATCH] Debug and resolve symlink traverse crash occurring under specific edge cases.
+    - **v4.3.4** - Bugfix: git history loss on hoist
+      - `[ ]` fix: [PATCH] Debug and resolve git history loss on hoist occurring under specific edge cases.
+    - **v4.3.5** - Bugfix: formatting destruction during codemod
+      - `[ ]` fix: [PATCH] Debug and resolve formatting destruction during codemod occurring under specific edge cases.
+  - **v4.4.0** - Feature: AI code reviewer
+    - `[ ]` feat: [MINOR] Resolve new AI code reviewer capabilities to expand the API surface of @typepurify/cli.
+    - **v4.4.1** - Bugfix: logic destruction in codemod
+      - `[ ]` fix: [PATCH] Debug and resolve logic destruction in codemod occurring under specific edge cases.
+    - **v4.4.2** - Bugfix: symlink traverse crash
+      - `[ ]` fix: [PATCH] Debug and resolve symlink traverse crash occurring under specific edge cases.
+    - **v4.4.3** - Bugfix: git history loss on hoist
+      - `[ ]` fix: [PATCH] Debug and resolve git history loss on hoist occurring under specific edge cases.
+    - **v4.4.4** - Bugfix: formatting destruction during codemod
+      - `[ ]` fix: [PATCH] Debug and resolve formatting destruction during codemod occurring under specific edge cases.
+    - **v4.4.5** - Bugfix: Windows pathing bug
+      - `[ ]` fix: [PATCH] Debug and resolve Windows pathing bug occurring under specific edge cases.
+  - **v4.5.0** - Feature: spec test generator
+    - `[ ]` feat: [MINOR] Refactor new spec test generator capabilities to expand the API surface of @typepurify/cli.
+    - **v4.5.1** - Bugfix: symlink traverse crash
+      - `[ ]` fix: [PATCH] Debug and resolve symlink traverse crash occurring under specific edge cases.
+    - **v4.5.2** - Bugfix: git history loss on hoist
+      - `[ ]` fix: [PATCH] Debug and resolve git history loss on hoist occurring under specific edge cases.
+    - **v4.5.3** - Bugfix: formatting destruction during codemod
+      - `[ ]` fix: [PATCH] Debug and resolve formatting destruction during codemod occurring under specific edge cases.
+    - **v4.5.4** - Bugfix: Windows pathing bug
+      - `[ ]` fix: [PATCH] Debug and resolve Windows pathing bug occurring under specific edge cases.
+    - **v4.5.5** - Bugfix: YAML spacing error in CI generation
+      - `[ ]` fix: [PATCH] Debug and resolve YAML spacing error in CI generation occurring under specific edge cases.
+- **v5.0.0** - Major Release: CI pipeline generator
+  - `[ ]` feat: [MAJOR] Matrix-build the core CI pipeline generator for @typepurify/cli to enhance performance and developer experience.
 
----
+## 14. @typepurify/json
 
-## 7. JSON Utilities
-
-### `@typepurify/json`
-
-**Status:** 🟢 Completed (Active Maintenance)
 **Description:** Advanced JSON manipulation.
 
-- `[x]` feat: Deep JSON Diff engine.
-- `[x]` feat: JSON Repair (Fixes invalid strings).
-- `[x]` feat: Circular Object Cleaner.
-- `[x]` feat: Object Comparison Engine (Ignore specific keys/types).
+- **v1.0.0** - Major Release: CSV to JSON converter
+  - `[ ]` feat: [MAJOR] Flatten the core CSV to JSON converter for @typepurify/json to enhance performance and developer experience.
+  - **v1.0.1** - Bugfix: comma escape error in CSV
+    - `[ ]` fix: [PATCH] Investigate and resolve comma escape error in CSV reported by users post-major release.
+  - **v1.0.2** - Bugfix: regex filter error in JSONPath
+    - `[ ]` fix: [PATCH] Investigate and resolve regex filter error in JSONPath reported by users post-major release.
+  - **v1.0.3** - Bugfix: slow consumer leak in stream
+    - `[ ]` fix: [PATCH] Investigate and resolve slow consumer leak in stream reported by users post-major release.
+  - **v1.0.4** - Bugfix: precision loss for large numbers
+    - `[ ]` fix: [PATCH] Investigate and resolve precision loss for large numbers reported by users post-major release.
+  - **v1.0.5** - Bugfix: index shift during patch
+    - `[ ]` fix: [PATCH] Investigate and resolve index shift during patch reported by users post-major release.
+  - **v1.1.0** - Feature: large stream parser
+    - `[ ]` feat: [MINOR] Pipe new large stream parser capabilities to expand the API surface of @typepurify/json.
+    - **v1.1.1** - Bugfix: precision loss for large numbers
+      - `[ ]` fix: [PATCH] Debug and resolve precision loss for large numbers occurring under specific edge cases.
+    - **v1.1.2** - Bugfix: index shift during patch
+      - `[ ]` fix: [PATCH] Debug and resolve index shift during patch occurring under specific edge cases.
+    - **v1.1.3** - Bugfix: infinite fuzz generation loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite fuzz generation loop occurring under specific edge cases.
+    - **v1.1.4** - Bugfix: optional field map error
+      - `[ ]` fix: [PATCH] Debug and resolve optional field map error occurring under specific edge cases.
+    - **v1.1.5** - Bugfix: decompression speed penalty
+      - `[ ]` fix: [PATCH] Debug and resolve decompression speed penalty occurring under specific edge cases.
+  - **v1.2.0** - Feature: BSON parser adapter
+    - `[ ]` feat: [MINOR] Parse new BSON parser adapter capabilities to expand the API surface of @typepurify/json.
+    - **v1.2.1** - Bugfix: index shift during patch
+      - `[ ]` fix: [PATCH] Debug and resolve index shift during patch occurring under specific edge cases.
+    - **v1.2.2** - Bugfix: infinite fuzz generation loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite fuzz generation loop occurring under specific edge cases.
+    - **v1.2.3** - Bugfix: optional field map error
+      - `[ ]` fix: [PATCH] Debug and resolve optional field map error occurring under specific edge cases.
+    - **v1.2.4** - Bugfix: decompression speed penalty
+      - `[ ]` fix: [PATCH] Debug and resolve decompression speed penalty occurring under specific edge cases.
+    - **v1.2.5** - Bugfix: small payload overhead
+      - `[ ]` fix: [PATCH] Debug and resolve small payload overhead occurring under specific edge cases.
+  - **v1.3.0** - Feature: CRDT synchronizer
+    - `[ ]` feat: [MINOR] Patch new CRDT synchronizer capabilities to expand the API surface of @typepurify/json.
+    - **v1.3.1** - Bugfix: infinite fuzz generation loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite fuzz generation loop occurring under specific edge cases.
+    - **v1.3.2** - Bugfix: optional field map error
+      - `[ ]` fix: [PATCH] Debug and resolve optional field map error occurring under specific edge cases.
+    - **v1.3.3** - Bugfix: decompression speed penalty
+      - `[ ]` fix: [PATCH] Debug and resolve decompression speed penalty occurring under specific edge cases.
+    - **v1.3.4** - Bugfix: small payload overhead
+      - `[ ]` fix: [PATCH] Debug and resolve small payload overhead occurring under specific edge cases.
+    - **v1.3.5** - Bugfix: syntactic ambiguity during NLP parse
+      - `[ ]` fix: [PATCH] Debug and resolve syntactic ambiguity during NLP parse occurring under specific edge cases.
+  - **v1.4.0** - Feature: fuzz testing module
+    - `[ ]` feat: [MINOR] Generate new fuzz testing module capabilities to expand the API surface of @typepurify/json.
+    - **v1.4.1** - Bugfix: optional field map error
+      - `[ ]` fix: [PATCH] Debug and resolve optional field map error occurring under specific edge cases.
+    - **v1.4.2** - Bugfix: decompression speed penalty
+      - `[ ]` fix: [PATCH] Debug and resolve decompression speed penalty occurring under specific edge cases.
+    - **v1.4.3** - Bugfix: small payload overhead
+      - `[ ]` fix: [PATCH] Debug and resolve small payload overhead occurring under specific edge cases.
+    - **v1.4.4** - Bugfix: syntactic ambiguity during NLP parse
+      - `[ ]` fix: [PATCH] Debug and resolve syntactic ambiguity during NLP parse occurring under specific edge cases.
+    - **v1.4.5** - Bugfix: comma escape error in CSV
+      - `[ ]` fix: [PATCH] Debug and resolve comma escape error in CSV occurring under specific edge cases.
+  - **v1.5.0** - Feature: Protobuf exporter
+    - `[ ]` feat: [MINOR] Translate new Protobuf exporter capabilities to expand the API surface of @typepurify/json.
+    - **v1.5.1** - Bugfix: decompression speed penalty
+      - `[ ]` fix: [PATCH] Debug and resolve decompression speed penalty occurring under specific edge cases.
+    - **v1.5.2** - Bugfix: small payload overhead
+      - `[ ]` fix: [PATCH] Debug and resolve small payload overhead occurring under specific edge cases.
+    - **v1.5.3** - Bugfix: syntactic ambiguity during NLP parse
+      - `[ ]` fix: [PATCH] Debug and resolve syntactic ambiguity during NLP parse occurring under specific edge cases.
+    - **v1.5.4** - Bugfix: comma escape error in CSV
+      - `[ ]` fix: [PATCH] Debug and resolve comma escape error in CSV occurring under specific edge cases.
+    - **v1.5.5** - Bugfix: regex filter error in JSONPath
+      - `[ ]` fix: [PATCH] Debug and resolve regex filter error in JSONPath occurring under specific edge cases.
+- **v2.0.0** - Major Release: JSONPath execution engine
+  - `[ ]` feat: [MAJOR] Compile the core JSONPath execution engine for @typepurify/json to enhance performance and developer experience.
+  - **v2.0.1** - Bugfix: comma escape error in CSV
+    - `[ ]` fix: [PATCH] Investigate and resolve comma escape error in CSV reported by users post-major release.
+  - **v2.0.2** - Bugfix: regex filter error in JSONPath
+    - `[ ]` fix: [PATCH] Investigate and resolve regex filter error in JSONPath reported by users post-major release.
+  - **v2.0.3** - Bugfix: slow consumer leak in stream
+    - `[ ]` fix: [PATCH] Investigate and resolve slow consumer leak in stream reported by users post-major release.
+  - **v2.0.4** - Bugfix: precision loss for large numbers
+    - `[ ]` fix: [PATCH] Investigate and resolve precision loss for large numbers reported by users post-major release.
+  - **v2.0.5** - Bugfix: index shift during patch
+    - `[ ]` fix: [PATCH] Investigate and resolve index shift during patch reported by users post-major release.
+  - **v2.1.0** - Feature: BSON parser adapter
+    - `[ ]` feat: [MINOR] Parse new BSON parser adapter capabilities to expand the API surface of @typepurify/json.
+    - **v2.1.1** - Bugfix: index shift during patch
+      - `[ ]` fix: [PATCH] Debug and resolve index shift during patch occurring under specific edge cases.
+    - **v2.1.2** - Bugfix: infinite fuzz generation loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite fuzz generation loop occurring under specific edge cases.
+    - **v2.1.3** - Bugfix: optional field map error
+      - `[ ]` fix: [PATCH] Debug and resolve optional field map error occurring under specific edge cases.
+    - **v2.1.4** - Bugfix: decompression speed penalty
+      - `[ ]` fix: [PATCH] Debug and resolve decompression speed penalty occurring under specific edge cases.
+    - **v2.1.5** - Bugfix: small payload overhead
+      - `[ ]` fix: [PATCH] Debug and resolve small payload overhead occurring under specific edge cases.
+  - **v2.2.0** - Feature: CRDT synchronizer
+    - `[ ]` feat: [MINOR] Patch new CRDT synchronizer capabilities to expand the API surface of @typepurify/json.
+    - **v2.2.1** - Bugfix: infinite fuzz generation loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite fuzz generation loop occurring under specific edge cases.
+    - **v2.2.2** - Bugfix: optional field map error
+      - `[ ]` fix: [PATCH] Debug and resolve optional field map error occurring under specific edge cases.
+    - **v2.2.3** - Bugfix: decompression speed penalty
+      - `[ ]` fix: [PATCH] Debug and resolve decompression speed penalty occurring under specific edge cases.
+    - **v2.2.4** - Bugfix: small payload overhead
+      - `[ ]` fix: [PATCH] Debug and resolve small payload overhead occurring under specific edge cases.
+    - **v2.2.5** - Bugfix: syntactic ambiguity during NLP parse
+      - `[ ]` fix: [PATCH] Debug and resolve syntactic ambiguity during NLP parse occurring under specific edge cases.
+  - **v2.3.0** - Feature: fuzz testing module
+    - `[ ]` feat: [MINOR] Generate new fuzz testing module capabilities to expand the API surface of @typepurify/json.
+    - **v2.3.1** - Bugfix: optional field map error
+      - `[ ]` fix: [PATCH] Debug and resolve optional field map error occurring under specific edge cases.
+    - **v2.3.2** - Bugfix: decompression speed penalty
+      - `[ ]` fix: [PATCH] Debug and resolve decompression speed penalty occurring under specific edge cases.
+    - **v2.3.3** - Bugfix: small payload overhead
+      - `[ ]` fix: [PATCH] Debug and resolve small payload overhead occurring under specific edge cases.
+    - **v2.3.4** - Bugfix: syntactic ambiguity during NLP parse
+      - `[ ]` fix: [PATCH] Debug and resolve syntactic ambiguity during NLP parse occurring under specific edge cases.
+    - **v2.3.5** - Bugfix: comma escape error in CSV
+      - `[ ]` fix: [PATCH] Debug and resolve comma escape error in CSV occurring under specific edge cases.
+  - **v2.4.0** - Feature: Protobuf exporter
+    - `[ ]` feat: [MINOR] Translate new Protobuf exporter capabilities to expand the API surface of @typepurify/json.
+    - **v2.4.1** - Bugfix: decompression speed penalty
+      - `[ ]` fix: [PATCH] Debug and resolve decompression speed penalty occurring under specific edge cases.
+    - **v2.4.2** - Bugfix: small payload overhead
+      - `[ ]` fix: [PATCH] Debug and resolve small payload overhead occurring under specific edge cases.
+    - **v2.4.3** - Bugfix: syntactic ambiguity during NLP parse
+      - `[ ]` fix: [PATCH] Debug and resolve syntactic ambiguity during NLP parse occurring under specific edge cases.
+    - **v2.4.4** - Bugfix: comma escape error in CSV
+      - `[ ]` fix: [PATCH] Debug and resolve comma escape error in CSV occurring under specific edge cases.
+    - **v2.4.5** - Bugfix: regex filter error in JSONPath
+      - `[ ]` fix: [PATCH] Debug and resolve regex filter error in JSONPath occurring under specific edge cases.
+  - **v2.5.0** - Feature: dictionary compressor
+    - `[ ]` feat: [MINOR] Compress new dictionary compressor capabilities to expand the API surface of @typepurify/json.
+    - **v2.5.1** - Bugfix: small payload overhead
+      - `[ ]` fix: [PATCH] Debug and resolve small payload overhead occurring under specific edge cases.
+    - **v2.5.2** - Bugfix: syntactic ambiguity during NLP parse
+      - `[ ]` fix: [PATCH] Debug and resolve syntactic ambiguity during NLP parse occurring under specific edge cases.
+    - **v2.5.3** - Bugfix: comma escape error in CSV
+      - `[ ]` fix: [PATCH] Debug and resolve comma escape error in CSV occurring under specific edge cases.
+    - **v2.5.4** - Bugfix: regex filter error in JSONPath
+      - `[ ]` fix: [PATCH] Debug and resolve regex filter error in JSONPath occurring under specific edge cases.
+    - **v2.5.5** - Bugfix: slow consumer leak in stream
+      - `[ ]` fix: [PATCH] Debug and resolve slow consumer leak in stream occurring under specific edge cases.
+- **v3.0.0** - Major Release: large stream parser
+  - `[ ]` feat: [MAJOR] Pipe the core large stream parser for @typepurify/json to enhance performance and developer experience.
+  - **v3.0.1** - Bugfix: comma escape error in CSV
+    - `[ ]` fix: [PATCH] Investigate and resolve comma escape error in CSV reported by users post-major release.
+  - **v3.0.2** - Bugfix: regex filter error in JSONPath
+    - `[ ]` fix: [PATCH] Investigate and resolve regex filter error in JSONPath reported by users post-major release.
+  - **v3.0.3** - Bugfix: slow consumer leak in stream
+    - `[ ]` fix: [PATCH] Investigate and resolve slow consumer leak in stream reported by users post-major release.
+  - **v3.0.4** - Bugfix: precision loss for large numbers
+    - `[ ]` fix: [PATCH] Investigate and resolve precision loss for large numbers reported by users post-major release.
+  - **v3.0.5** - Bugfix: index shift during patch
+    - `[ ]` fix: [PATCH] Investigate and resolve index shift during patch reported by users post-major release.
+  - **v3.1.0** - Feature: CRDT synchronizer
+    - `[ ]` feat: [MINOR] Patch new CRDT synchronizer capabilities to expand the API surface of @typepurify/json.
+    - **v3.1.1** - Bugfix: infinite fuzz generation loop
+      - `[ ]` fix: [PATCH] Debug and resolve infinite fuzz generation loop occurring under specific edge cases.
+    - **v3.1.2** - Bugfix: optional field map error
+      - `[ ]` fix: [PATCH] Debug and resolve optional field map error occurring under specific edge cases.
+    - **v3.1.3** - Bugfix: decompression speed penalty
+      - `[ ]` fix: [PATCH] Debug and resolve decompression speed penalty occurring under specific edge cases.
+    - **v3.1.4** - Bugfix: small payload overhead
+      - `[ ]` fix: [PATCH] Debug and resolve small payload overhead occurring under specific edge cases.
+    - **v3.1.5** - Bugfix: syntactic ambiguity during NLP parse
+      - `[ ]` fix: [PATCH] Debug and resolve syntactic ambiguity during NLP parse occurring under specific edge cases.
+  - **v3.2.0** - Feature: fuzz testing module
+    - `[ ]` feat: [MINOR] Generate new fuzz testing module capabilities to expand the API surface of @typepurify/json.
+    - **v3.2.1** - Bugfix: optional field map error
+      - `[ ]` fix: [PATCH] Debug and resolve optional field map error occurring under specific edge cases.
+    - **v3.2.2** - Bugfix: decompression speed penalty
+      - `[ ]` fix: [PATCH] Debug and resolve decompression speed penalty occurring under specific edge cases.
+    - **v3.2.3** - Bugfix: small payload overhead
+      - `[ ]` fix: [PATCH] Debug and resolve small payload overhead occurring under specific edge cases.
+    - **v3.2.4** - Bugfix: syntactic ambiguity during NLP parse
+      - `[ ]` fix: [PATCH] Debug and resolve syntactic ambiguity during NLP parse occurring under specific edge cases.
+    - **v3.2.5** - Bugfix: comma escape error in CSV
+      - `[ ]` fix: [PATCH] Debug and resolve comma escape error in CSV occurring under specific edge cases.
+  - **v3.3.0** - Feature: Protobuf exporter
+    - `[ ]` feat: [MINOR] Translate new Protobuf exporter capabilities to expand the API surface of @typepurify/json.
+    - **v3.3.1** - Bugfix: decompression speed penalty
+      - `[ ]` fix: [PATCH] Debug and resolve decompression speed penalty occurring under specific edge cases.
+    - **v3.3.2** - Bugfix: small payload overhead
+      - `[ ]` fix: [PATCH] Debug and resolve small payload overhead occurring under specific edge cases.
+    - **v3.3.3** - Bugfix: syntactic ambiguity during NLP parse
+      - `[ ]` fix: [PATCH] Debug and resolve syntactic ambiguity during NLP parse occurring under specific edge cases.
+    - **v3.3.4** - Bugfix: comma escape error in CSV
+      - `[ ]` fix: [PATCH] Debug and resolve comma escape error in CSV occurring under specific edge cases.
+    - **v3.3.5** - Bugfix: regex filter error in JSONPath
+      - `[ ]` fix: [PATCH] Debug and resolve regex filter error in JSONPath occurring under specific edge cases.
+  - **v3.4.0** - Feature: dictionary compressor
+    - `[ ]` feat: [MINOR] Compress new dictionary compressor capabilities to expand the API surface of @typepurify/json.
+    - **v3.4.1** - Bugfix: small payload overhead
+      - `[ ]` fix: [PATCH] Debug and resolve small payload overhead occurring under specific edge cases.
+    - **v3.4.2** - Bugfix: syntactic ambiguity during NLP parse
+      - `[ ]` fix: [PATCH] Debug and resolve syntactic ambiguity during NLP parse occurring under specific edge cases.
+    - **v3.4.3** - Bugfix: comma escape error in CSV
+      - `[ ]` fix: [PATCH] Debug and resolve comma escape error in CSV occurring under specific edge cases.
+    - **v3.4.4** - Bugfix: regex filter error in JSONPath
+      - `[ ]` fix: [PATCH] Debug and resolve regex filter error in JSONPath occurring under specific edge cases.
+    - **v3.4.5** - Bugfix: slow consumer leak in stream
+      - `[ ]` fix: [PATCH] Debug and resolve slow consumer leak in stream occurring under specific edge cases.
+  - **v3.5.0** - Feature: worker thread delegator
+    - `[ ]` feat: [MINOR] Delegate new worker thread delegator capabilities to expand the API surface of @typepurify/json.
+    - **v3.5.1** - Bugfix: syntactic ambiguity during NLP parse
+      - `[ ]` fix: [PATCH] Debug and resolve syntactic ambiguity during NLP parse occurring under specific edge cases.
+    - **v3.5.2** - Bugfix: comma escape error in CSV
+      - `[ ]` fix: [PATCH] Debug and resolve comma escape error in CSV occurring under specific edge cases.
+    - **v3.5.3** - Bugfix: regex filter error in JSONPath
+      - `[ ]` fix: [PATCH] Debug and resolve regex filter error in JSONPath occurring under specific edge cases.
+    - **v3.5.4** - Bugfix: slow consumer leak in stream
+      - `[ ]` fix: [PATCH] Debug and resolve slow consumer leak in stream occurring under specific edge cases.
+    - **v3.5.5** - Bugfix: precision loss for large numbers
+      - `[ ]` fix: [PATCH] Debug and resolve precision loss for large numbers occurring under specific edge cases.
+- **v4.0.0** - Major Release: BSON parser adapter
+  - `[ ]` feat: [MAJOR] Parse the core BSON parser adapter for @typepurify/json to enhance performance and developer experience.
+  - **v4.0.1** - Bugfix: comma escape error in CSV
+    - `[ ]` fix: [PATCH] Investigate and resolve comma escape error in CSV reported by users post-major release.
+  - **v4.0.2** - Bugfix: regex filter error in JSONPath
+    - `[ ]` fix: [PATCH] Investigate and resolve regex filter error in JSONPath reported by users post-major release.
+  - **v4.0.3** - Bugfix: slow consumer leak in stream
+    - `[ ]` fix: [PATCH] Investigate and resolve slow consumer leak in stream reported by users post-major release.
+  - **v4.0.4** - Bugfix: precision loss for large numbers
+    - `[ ]` fix: [PATCH] Investigate and resolve precision loss for large numbers reported by users post-major release.
+  - **v4.0.5** - Bugfix: index shift during patch
+    - `[ ]` fix: [PATCH] Investigate and resolve index shift during patch reported by users post-major release.
+  - **v4.1.0** - Feature: fuzz testing module
+    - `[ ]` feat: [MINOR] Generate new fuzz testing module capabilities to expand the API surface of @typepurify/json.
+    - **v4.1.1** - Bugfix: optional field map error
+      - `[ ]` fix: [PATCH] Debug and resolve optional field map error occurring under specific edge cases.
+    - **v4.1.2** - Bugfix: decompression speed penalty
+      - `[ ]` fix: [PATCH] Debug and resolve decompression speed penalty occurring under specific edge cases.
+    - **v4.1.3** - Bugfix: small payload overhead
+      - `[ ]` fix: [PATCH] Debug and resolve small payload overhead occurring under specific edge cases.
+    - **v4.1.4** - Bugfix: syntactic ambiguity during NLP parse
+      - `[ ]` fix: [PATCH] Debug and resolve syntactic ambiguity during NLP parse occurring under specific edge cases.
+    - **v4.1.5** - Bugfix: comma escape error in CSV
+      - `[ ]` fix: [PATCH] Debug and resolve comma escape error in CSV occurring under specific edge cases.
+  - **v4.2.0** - Feature: Protobuf exporter
+    - `[ ]` feat: [MINOR] Translate new Protobuf exporter capabilities to expand the API surface of @typepurify/json.
+    - **v4.2.1** - Bugfix: decompression speed penalty
+      - `[ ]` fix: [PATCH] Debug and resolve decompression speed penalty occurring under specific edge cases.
+    - **v4.2.2** - Bugfix: small payload overhead
+      - `[ ]` fix: [PATCH] Debug and resolve small payload overhead occurring under specific edge cases.
+    - **v4.2.3** - Bugfix: syntactic ambiguity during NLP parse
+      - `[ ]` fix: [PATCH] Debug and resolve syntactic ambiguity during NLP parse occurring under specific edge cases.
+    - **v4.2.4** - Bugfix: comma escape error in CSV
+      - `[ ]` fix: [PATCH] Debug and resolve comma escape error in CSV occurring under specific edge cases.
+    - **v4.2.5** - Bugfix: regex filter error in JSONPath
+      - `[ ]` fix: [PATCH] Debug and resolve regex filter error in JSONPath occurring under specific edge cases.
+  - **v4.3.0** - Feature: dictionary compressor
+    - `[ ]` feat: [MINOR] Compress new dictionary compressor capabilities to expand the API surface of @typepurify/json.
+    - **v4.3.1** - Bugfix: small payload overhead
+      - `[ ]` fix: [PATCH] Debug and resolve small payload overhead occurring under specific edge cases.
+    - **v4.3.2** - Bugfix: syntactic ambiguity during NLP parse
+      - `[ ]` fix: [PATCH] Debug and resolve syntactic ambiguity during NLP parse occurring under specific edge cases.
+    - **v4.3.3** - Bugfix: comma escape error in CSV
+      - `[ ]` fix: [PATCH] Debug and resolve comma escape error in CSV occurring under specific edge cases.
+    - **v4.3.4** - Bugfix: regex filter error in JSONPath
+      - `[ ]` fix: [PATCH] Debug and resolve regex filter error in JSONPath occurring under specific edge cases.
+    - **v4.3.5** - Bugfix: slow consumer leak in stream
+      - `[ ]` fix: [PATCH] Debug and resolve slow consumer leak in stream occurring under specific edge cases.
+  - **v4.4.0** - Feature: worker thread delegator
+    - `[ ]` feat: [MINOR] Delegate new worker thread delegator capabilities to expand the API surface of @typepurify/json.
+    - **v4.4.1** - Bugfix: syntactic ambiguity during NLP parse
+      - `[ ]` fix: [PATCH] Debug and resolve syntactic ambiguity during NLP parse occurring under specific edge cases.
+    - **v4.4.2** - Bugfix: comma escape error in CSV
+      - `[ ]` fix: [PATCH] Debug and resolve comma escape error in CSV occurring under specific edge cases.
+    - **v4.4.3** - Bugfix: regex filter error in JSONPath
+      - `[ ]` fix: [PATCH] Debug and resolve regex filter error in JSONPath occurring under specific edge cases.
+    - **v4.4.4** - Bugfix: slow consumer leak in stream
+      - `[ ]` fix: [PATCH] Debug and resolve slow consumer leak in stream occurring under specific edge cases.
+    - **v4.4.5** - Bugfix: precision loss for large numbers
+      - `[ ]` fix: [PATCH] Debug and resolve precision loss for large numbers occurring under specific edge cases.
+  - **v4.5.0** - Feature: NLP to JSON parser
+    - `[ ]` feat: [MINOR] Transform new NLP to JSON parser capabilities to expand the API surface of @typepurify/json.
+    - **v4.5.1** - Bugfix: comma escape error in CSV
+      - `[ ]` fix: [PATCH] Debug and resolve comma escape error in CSV occurring under specific edge cases.
+    - **v4.5.2** - Bugfix: regex filter error in JSONPath
+      - `[ ]` fix: [PATCH] Debug and resolve regex filter error in JSONPath occurring under specific edge cases.
+    - **v4.5.3** - Bugfix: slow consumer leak in stream
+      - `[ ]` fix: [PATCH] Debug and resolve slow consumer leak in stream occurring under specific edge cases.
+    - **v4.5.4** - Bugfix: precision loss for large numbers
+      - `[ ]` fix: [PATCH] Debug and resolve precision loss for large numbers occurring under specific edge cases.
+    - **v4.5.5** - Bugfix: index shift during patch
+      - `[ ]` fix: [PATCH] Debug and resolve index shift during patch occurring under specific edge cases.
+- **v5.0.0** - Major Release: CRDT synchronizer
+  - `[ ]` feat: [MAJOR] Patch the core CRDT synchronizer for @typepurify/json to enhance performance and developer experience.
