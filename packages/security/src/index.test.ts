@@ -8,6 +8,7 @@ import {
   maskIPAddress,
   maskEmail,
   enforceCsrfToken,
+  sanitizeFilename,
 } from './index';
 
 describe('@typepurify/security', () => {
@@ -112,6 +113,16 @@ describe('@typepurify/security', () => {
       expect(enforceCsrfToken(validToken, validToken)).toBe(true);
       expect(enforceCsrfToken('short', 'short')).toBe(false);
       expect(enforceCsrfToken(validToken, 'b'.repeat(33))).toBe(false);
+    });
+  });
+
+  describe('sanitizeFilename', () => {
+    it('should strip path traversal relative paths and invalid OS characters', () => {
+      const dirty = '../../../etc/passwd<illegal>';
+      const cleanName = sanitizeFilename(dirty);
+      expect(cleanName).not.toContain('../');
+      expect(cleanName).not.toContain('<');
+      expect(cleanName).toBe('etc_passwd_illegal_');
     });
   });
 });

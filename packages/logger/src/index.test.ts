@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { Logger, requestLogger, formatError, LogRateLimiter } from './index';
+import { Logger, requestLogger, formatError, LogRateLimiter, createScopedLogger } from './index';
 
 describe('@typepurify/logger', () => {
   describe('Logger', () => {
@@ -137,6 +137,18 @@ describe('@typepurify/logger', () => {
       expect(limiter.canLog()).toBe(true);
       expect(limiter.canLog()).toBe(false);
       limiter.destroy();
+    });
+  });
+
+  describe('createScopedLogger', () => {
+    it('should inject scope tag into log metadata', () => {
+      const logger = new Logger({ level: 'info' });
+      const spy = vi.spyOn(logger, 'info').mockImplementation(() => {});
+
+      const scoped = createScopedLogger(logger, 'AuthModule');
+      scoped.info('User logged in', { userId: 42 });
+
+      expect(spy).toHaveBeenCalledWith('User logged in', { scope: 'AuthModule', userId: 42 });
     });
   });
 });

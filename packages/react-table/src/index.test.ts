@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import { useTable, useRowSelection, measureVirtualizer } from './index';
+import { useTable, useRowSelection, measureVirtualizer, serializeTableState } from './index';
 
 // Polyfill URL.createObjectURL for the CSV export test
 if (typeof URL.createObjectURL === 'undefined') {
@@ -157,6 +157,24 @@ describe('@typepurify/react-table', () => {
     it('should measure virtualizer totalHeight and visibleNodes', () => {
       const result = measureVirtualizer(100, 40);
       expect(result).toEqual({ totalHeight: 4000, visibleNodes: 25 });
+    });
+  });
+
+  describe('serializeTableState', () => {
+    it('should format state into query parameters representation', () => {
+      const res = serializeTableState({
+        currentPage: 2,
+        pageSize: 20,
+        sortKey: 'name',
+        sortDirection: 'desc',
+        searchQuery: 'john',
+      });
+      expect(res).toEqual({
+        page: 2,
+        limit: 20,
+        sort: 'name:desc',
+        q: 'john',
+      });
     });
   });
 });

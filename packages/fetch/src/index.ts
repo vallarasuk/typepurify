@@ -214,3 +214,30 @@ export class RequestQueue {
     this.processing = false;
   }
 }
+
+/**
+ * Creates a fetch wrapper with automatic retries and exponential backoff.
+ */
+export function createAutoRetryFetch(options: { retries?: number; delayMs?: number } = {}) {
+  const maxRetries = options.retries ?? 3;
+  const delayMs = options.delayMs ?? 50;
+
+  return async function autoRetryFetch<T = any>(
+    input: RequestInfo | URL,
+    init?: RequestInit,
+    purifyOptions?: PurifyFetchOptions,
+  ): Promise<T> {
+    let lastError: any;
+    for (let attempt = 0; attempt < maxRetries; attempt++) {
+      try {
+        return await tFetch<T>(input, init, purifyOptions);
+      } catch (err) {
+        lastError = err;
+        if (attempt < maxRetries - 1) {
+          await new Promise((res) => setTimeout(res, delayMs * Math.pow(2, attempt)));
+        }
+      }
+    }
+    throw lastError;
+  };
+}

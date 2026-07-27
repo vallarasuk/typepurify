@@ -1,6 +1,6 @@
 # @typepurify/llm
 
-Utilities for working with Large Language Models. Part of the TypePurify ecosystem.
+AI response utilities, ReDoS-safe JSON extraction from LLM outputs, stream parsing, and prompt management.
 
 ## Installation
 
@@ -36,4 +36,18 @@ console.log(p);
 //   - User says: "Explain quantum physics"
 //
 // Be concise.
+```
+
+### `countTokens` and `truncateToTokenLimit`
+
+Roughly approximate token counts without installing heavy tokenizers, and truncate your text to fit within context limits safely.
+
+```typescript
+import { countTokens, truncateToTokenLimit } from '@typepurify/llm';
+
+// Approximate token counts for string constraints
+const tokens = countTokens('A very long prompt text...', 'gpt-4o');
+
+// Safely truncate strings that exceed token limits
+const safePrompt = truncateToTokenLimit('Massive user input payload...', 8000, 'claude');
 ```

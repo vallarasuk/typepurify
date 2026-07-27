@@ -1,6 +1,6 @@
 # @typepurify/json
 
-Advanced JSON manipulation utilities that seamlessly integrate with `typepurify` for prototype sanitization and safe serialization.
+Advanced JSON manipulation.
 
 ## Installation
 

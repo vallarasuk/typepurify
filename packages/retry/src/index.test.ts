@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { withRetry, retry, TimeoutError, withExponentialBackoff } from './index';
+import { withRetry, retry, TimeoutError, withExponentialBackoff, withLinearBackoff } from './index';
 
 describe('@typepurify/retry', () => {
   it('should export retry as an alias to withRetry', () => {
@@ -54,22 +54,22 @@ describe('@typepurify/retry', () => {
     const fn = vi.fn().mockRejectedValue(new Error('fail'));
 
     const startTime = Date.now();
-    await expect(withRetry(fn, { retries: 2, delay: 100, backoff: 'exponential' })).rejects.toThrow(
+    await expect(withRetry(fn, { retries: 2, delay: 10, backoff: 'exponential' })).rejects.toThrow(
       'fail',
     );
     const endTime = Date.now();
 
-    // Delays should be 100ms, 200ms -> total ~300ms
+    // Delays should be 10ms, 20ms -> total ~30ms
     const duration = endTime - startTime;
-    expect(duration).toBeGreaterThanOrEqual(250);
-    expect(duration).toBeLessThan(500);
+    expect(duration).toBeGreaterThanOrEqual(25);
+    expect(duration).toBeLessThan(150);
   });
 
   it('should support jitter', async () => {
     const fn = vi.fn().mockRejectedValue(new Error('fail'));
 
     const startTime = Date.now();
-    await expect(withRetry(fn, { retries: 2, delay: 100, jitter: true })).rejects.toThrow('fail');
+    await expect(withRetry(fn, { retries: 2, delay: 10, jitter: true })).rejects.toThrow('fail');
     const endTime = Date.now();
 
     const duration = endTime - startTime;
@@ -88,9 +88,9 @@ describe('@typepurify/retry', () => {
       }
     };
 
-    const fn = vi.fn().mockImplementation(() => new Promise((resolve) => setTimeout(resolve, 200)));
+    const fn = vi.fn().mockImplementation(() => new Promise((resolve) => setTimeout(resolve, 20)));
 
-    await expect(withRetry(fn, { timeout: 100 })).rejects.toThrow(TimeoutError);
+    await expect(withRetry(fn, { timeout: 10 })).rejects.toThrow(TimeoutError);
     expect(fn).toHaveBeenCalledTimes(1);
     expect(abortCalled).toBe(true);
 
@@ -99,7 +99,7 @@ describe('@typepurify/retry', () => {
 
   it('should throw TimeoutError during retry delay', async () => {
     const fn = vi.fn().mockRejectedValue(new Error('fail'));
-    await expect(withRetry(fn, { retries: 2, delay: 1000, timeout: 500 })).rejects.toThrow(
+    await expect(withRetry(fn, { retries: 2, delay: 100, timeout: 50 })).rejects.toThrow(
       TimeoutError,
     );
   });
@@ -160,6 +160,19 @@ describe('@typepurify/retry', () => {
 
       const result = await withExponentialBackoff(fn, 2, 10);
       expect(result).toBe('success');
+      expect(fn).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe('withLinearBackoff', () => {
+    it('should retry with linear step delays and resolve on success', async () => {
+      const fn = vi
+        .fn()
+        .mockRejectedValueOnce(new Error('fail 1'))
+        .mockResolvedValueOnce('resolved');
+
+      const res = await withLinearBackoff(fn, 3, 10);
+      expect(res).toBe('resolved');
       expect(fn).toHaveBeenCalledTimes(2);
     });
   });

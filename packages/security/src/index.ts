@@ -1,14 +1,16 @@
+/* eslint-disable no-control-regex */
 /**
  * Regular expressions for common secrets.
  */
+
 const SECRET_PATTERNS = [
-  /AIza[0-9A-Za-z\\-_]{35}/, // Google API Key
-  /sk-(?:[a-zA-Z0-9]{48}|proj-[a-zA-Z0-9]+)/, // OpenAI API Key
-  /xox[baprs]-[0-9]{12}-[0-9]{12}-[0-9a-zA-Z]{24}/, // Slack Token
-  /gh[pousr]_[A-Za-z0-9_]{36}/, // GitHub Token
-  /(?:A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}/, // AWS Access Key
-  /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/, // Generic UUID/Token
-  /ya29\.[0-9A-Za-z_-]+/, // GCP OAuth Token
+  /AIza[0-9A-Za-z\\-_]{35}/g, // Google API Key
+  /sk-(?:[a-zA-Z0-9]{48}|proj-[a-zA-Z0-9]+)/g, // OpenAI API Key
+  /xox[baprs]-[0-9]{12}-[0-9]{12}-[0-9a-zA-Z]{24}/g, // Slack Token
+  /gh[pousr]_[A-Za-z0-9_]{36}/g, // GitHub Token
+  /(?:A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}/g, // AWS Access Key
+  /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/g, // Generic UUID/Token
+  /ya29\.[0-9A-Za-z_-]+/g, // GCP OAuth Token
 ];
 
 /**
@@ -22,7 +24,7 @@ export function detectSecrets(input: any): string[] {
 
   const checkString = (str: string) => {
     for (const pattern of SECRET_PATTERNS) {
-      const matches = str.match(new RegExp(pattern, 'g'));
+      const matches = str.match(pattern);
       if (matches) {
         for (const match of matches) {
           const masked = match.substring(0, 4) + '...' + match.substring(match.length - 4);
@@ -145,4 +147,17 @@ export function isEmail(email: string): boolean {
 export function enforceCsrfToken(reqToken: string, sessionToken: string): boolean {
   // Using timing-safe equality in a real scenario
   return reqToken === sessionToken && reqToken.length > 32;
+}
+
+/**
+ * Sanitizes input filenames against directory traversal attacks and invalid system characters.
+ */
+export function sanitizeFilename(filename: string): string {
+  if (!filename) return '';
+  return filename
+    .replace(/\\/g, '/')
+    .replace(/\.\.\//g, '')
+    .replace(/[<>:"/\\|?*]/g, '_')
+    .replace(/[\u0000-\u001F]/g, '_')
+    .trim();
 }

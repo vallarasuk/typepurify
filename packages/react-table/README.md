@@ -1,6 +1,6 @@
 # @typepurify/react-state
 
-Universal, zero-dependency Data Table logic. Part of the TypePurify ecosystem.
+Universal, zero-dependency Data Table.
 
 ## Installation
 

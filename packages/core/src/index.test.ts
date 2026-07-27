@@ -1,5 +1,12 @@
 import { describe, it, expect, expectTypeOf } from 'vitest';
-import { clean, cleanInPlace, cleanAsync, cleanInPlaceAsync, advancedJsonParser } from './index';
+import {
+  clean,
+  cleanInPlace,
+  cleanAsync,
+  cleanInPlaceAsync,
+  advancedJsonParser,
+  safeDeepClone,
+} from './index';
 
 describe('typepurify core engine', () => {
   it('should deeply remove null and undefined values from messy data maps', () => {
@@ -338,6 +345,36 @@ describe('typepurify core engine', () => {
 
     it('should throw Error with detailed message on invalid JSON', () => {
       expect(() => advancedJsonParser('invalid json')).toThrow('Advanced parsing failed:');
+    });
+  });
+
+  describe('safeDeepClone', () => {
+    it('should deeply clone objects, arrays, Dates, Map, and Set without reference sharing', () => {
+      const original = {
+        date: new Date('2026-01-01'),
+        regex: /test/gi,
+        map: new Map([['a', { x: 1 }]]),
+        set: new Set([1, 2, 3]),
+        list: [{ b: 2 }],
+      };
+
+      const cloned = safeDeepClone(original);
+
+      expect(cloned).toEqual(original);
+      expect(cloned).not.toBe(original);
+      expect(cloned.date).not.toBe(original.date);
+      expect(cloned.map).not.toBe(original.map);
+      expect(cloned.set).not.toBe(original.set);
+      expect(cloned.list[0]).not.toBe(original.list[0]);
+    });
+
+    it('should handle circular references safely', () => {
+      const circ: any = { a: 1 };
+      circ.self = circ;
+
+      const cloned = safeDeepClone(circ);
+      expect(cloned.a).toBe(1);
+      expect(cloned.self).toBe(cloned);
     });
   });
 });

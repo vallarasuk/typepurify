@@ -1,5 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { deepDiff, repairJson, removeCircular, compareIgnoreKeys, flattenCsvToJson } from './index';
+import {
+  deepDiff,
+  repairJson,
+  removeCircular,
+  compareIgnoreKeys,
+  flattenCsvToJson,
+  jsonToXml,
+} from './index';
 
 describe('@typepurify/json', () => {
   describe('deepDiff', () => {
@@ -121,6 +128,14 @@ describe('@typepurify/json', () => {
 
     it('should return empty array for empty string', () => {
       expect(flattenCsvToJson('')).toEqual([]);
+    });
+  });
+
+  describe('jsonToXml', () => {
+    it('should convert JSON object structure to XML string', () => {
+      const input = { user: { name: 'Alice', age: 30 } };
+      const xml = jsonToXml(input, 'data');
+      expect(xml).toBe('<data><user><name>Alice</name><age>30</age></user></data>');
     });
   });
 });

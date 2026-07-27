@@ -1,6 +1,6 @@
 {
   "name": "@typepurify/json",
-  "version": "0.4.4",
+  "version": "0.4.5",
   "description": "Advanced JSON manipulation.",
   "publishConfig": {
     "access": "public"

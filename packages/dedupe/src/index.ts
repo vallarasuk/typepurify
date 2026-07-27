@@ -193,3 +193,52 @@ export function generateRequestHash(endpoint: string, body?: any): string {
   }
   return hash.digest('hex');
 }
+
+/**
+ * Batched request deduplicator that collects individual item requests within a window
+ * and dispatches them in a single batch call.
+ */
+export function createBatchDeduper<K, V>(
+  batchFn: (keys: K[]) => Promise<Map<K, V> | Record<string, V>>,
+  delayMs = 10,
+) {
+  let pendingKeys: K[] = [];
+  let pendingCallbacks: Map<
+    K,
+    Array<{ resolve: (v: V) => void; reject: (e: any) => void }>
+  > = new Map();
+  let timer: any = null;
+
+  const flush = async () => {
+    const keys = pendingKeys;
+    const callbacks = pendingCallbacks;
+    pendingKeys = [];
+    pendingCallbacks = new Map();
+    timer = null;
+
+    try {
+      const results = await batchFn(keys);
+      keys.forEach((key) => {
+        const value = results instanceof Map ? results.get(key) : (results as any)[String(key)];
+        const cbs = callbacks.get(key) || [];
+        cbs.forEach((cb) => cb.resolve(value as V));
+      });
+    } catch (err) {
+      callbacks.forEach((cbs) => cbs.forEach((cb) => cb.reject(err)));
+    }
+  };
+
+  return function load(key: K): Promise<V> {
+    return new Promise((resolve, reject) => {
+      if (!pendingCallbacks.has(key)) {
+        pendingCallbacks.set(key, []);
+        pendingKeys.push(key);
+      }
+      pendingCallbacks.get(key)!.push({ resolve, reject });
+
+      if (!timer) {
+        timer = setTimeout(flush, delayMs);
+      }
+    });
+  };
+}

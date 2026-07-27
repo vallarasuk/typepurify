@@ -6,6 +6,7 @@ import {
   bootstrapProject,
   generateEnvExample,
   runHealthScorer,
+  analyzeBundleSize,
 } from './index';
 
 vi.mock('fs');
@@ -93,6 +94,18 @@ describe('@typepurify/cli', () => {
     it('should return health score for specified project path', () => {
       expect(runHealthScorer('/project/path')).toBe(95);
       expect(runHealthScorer('')).toBe(0);
+    });
+  });
+
+  describe('analyzeBundleSize', () => {
+    it('should return file count and byte size for directory', () => {
+      (fs.existsSync as any).mockReturnValue(true);
+      (fs.readdirSync as any).mockReturnValue(['index.js', 'index.mjs']);
+      (fs.statSync as any).mockReturnValue({ isFile: () => true, size: 500 });
+
+      const res = analyzeBundleSize('/dist');
+      expect(res.totalFiles).toBe(2);
+      expect(res.totalSizeBytes).toBe(1000);
     });
   });
 });

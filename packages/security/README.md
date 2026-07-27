@@ -1,6 +1,6 @@
 # @typepurify/security
 
-Lightweight utility functions for basic web security tasks (XSS prevention, HTML escaping, URL sanitization). Part of the TypePurify ecosystem.
+Security inspection tools, including memory-efficient secret detection and JWT inspection.
 
 ## Installation
 
@@ -18,29 +18,43 @@ Converts characters like `<`, `>`, `&`, `"`, and `'` to their HTML entities to s
 import { escapeHtml } from '@typepurify/security';
 
 const userInput = '<script>alert("XSS")</script>';
-const safeString = escapeHtml(userInput);
-// &lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;
+const safeHtml = escapeHtml(userInput);
+// Output: &lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;
 ```
 
-### `stripHtml`
+### `sanitizeFilename`
 
-Removes all HTML tags from a string, leaving only the text content.
+Strips invalid OS characters and directory traversal patterns (like `../`) from filenames to securely process user uploads.
 
 ```typescript
-import { stripHtml } from '@typepurify/security';
+import { sanitizeFilename } from '@typepurify/security';
 
-const input = 'Hello <b>World</b>!';
-const textOnly = stripHtml(input);
-// Hello World!
+const safeFile = sanitizeFilename('../../../etc/passwd<illegal>.txt');
+// Output: etc_passwd_illegal_.txt
 ```
 
-### `sanitizeUrl`
+### `detectSecrets`
 
-Ensures a URL is safe for `href` attributes, blocking dangerous protocols like `javascript:`, `vbscript:`, and `data:`.
+Memory-efficient, zero-allocation tree-walking utility to discover and mask exposed secrets (AWS keys, GCP tokens, etc.) inside plain strings or deep object hierarchies.
 
 ```typescript
-import { sanitizeUrl } from '@typepurify/security';
+import { detectSecrets } from '@typepurify/security';
 
-const safeLink = sanitizeUrl('https://example.com'); // 'https://example.com'
-const maliciousLink = sanitizeUrl('javascript:alert("XSS")'); // '#'
+const configPayload = {
+  apiKey: 'AKIAIOSFODNN7EXAMPLE',
+  user: 'admin',
+};
+
+const masked = detectSecrets(configPayload);
+// Output: { apiKey: 'AKIA***************E', user: 'admin' }
+```
+
+### `enforceCsrfToken`
+
+Strict timing-safe equality check for validating CSRF tokens above a secure length threshold.
+
+```typescript
+import { enforceCsrfToken } from '@typepurify/security';
+
+const isValid = enforceCsrfToken(req.header('X-CSRF-Token'), session.csrfToken);
 ```

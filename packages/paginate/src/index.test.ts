@@ -6,6 +6,7 @@ import {
   InfiniteScrollManager,
   extractCursor,
   preFetchCursor,
+  createCursorPaginator,
 } from './index';
 
 describe('@typepurify/paginate', () => {
@@ -151,6 +152,27 @@ describe('@typepurify/paginate', () => {
     it('should pre-fetch cursor and return object with cursorId and limit', async () => {
       const result = await preFetchCursor('cursor_123', 20);
       expect(result).toEqual({ cursorId: 'cursor_123', limit: 20 });
+    });
+  });
+
+  describe('createCursorPaginator', () => {
+    it('should paginate items using cursor tokens', () => {
+      const data = [
+        { id: '1', name: 'A' },
+        { id: '2', name: 'B' },
+        { id: '3', name: 'C' },
+      ];
+      const paginator = createCursorPaginator(data, (item) => item.id);
+
+      const page1 = paginator(undefined, 2);
+      expect(page1.items.length).toBe(2);
+      expect(page1.pageInfo.hasNextPage).toBe(true);
+      expect(page1.pageInfo.nextCursor).toBe('2');
+
+      const page2 = paginator('2', 2);
+      expect(page2.items.length).toBe(1);
+      expect(page2.items[0].name).toBe('C');
+      expect(page2.pageInfo.hasNextPage).toBe(false);
     });
   });
 });

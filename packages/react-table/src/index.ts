@@ -226,3 +226,21 @@ export function measureVirtualizer(rowCount: number, rowHeight: number) {
     visibleNodes: Math.ceil(1000 / rowHeight),
   };
 }
+
+/**
+ * Serializes table pagination, sorting, and search state into a URL or storage friendly object.
+ */
+export function serializeTableState(state: {
+  currentPage?: number;
+  pageSize?: number;
+  sortKey?: string;
+  sortDirection?: 'asc' | 'desc';
+  searchQuery?: string;
+}) {
+  return {
+    page: state.currentPage ?? 1,
+    limit: state.pageSize ?? 10,
+    sort: state.sortKey ? `${state.sortKey}:${state.sortDirection || 'asc'}` : undefined,
+    q: state.searchQuery || undefined,
+  };
+}

@@ -1,3 +1,9 @@
+## 0.4.5
+
+### Patch Changes
+
+- Fixed a TypeScript error in `truncateToTokenLimit` where the `model` parameter accepted a loose string instead of enforcing literal model types.
+
 ## 0.4.3
 
 ### Minor Changes

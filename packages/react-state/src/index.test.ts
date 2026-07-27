@@ -7,6 +7,7 @@ import {
   usePurifiedState,
   useDebounce,
   createSignalStore,
+  usePrevious,
 } from './index';
 
 describe('@typepurify/react-state', () => {
@@ -168,6 +169,22 @@ describe('@typepurify/react-state', () => {
       store.set(50);
       expect(store.get()).toBe(50);
       expect(received).toBe(25);
+    });
+  });
+
+  describe('usePrevious', () => {
+    it('should return undefined initially then return previous value on re-render', () => {
+      const { result, rerender } = renderHook(({ val }) => usePrevious(val), {
+        initialProps: { val: 'first' },
+      });
+
+      expect(result.current).toBeUndefined();
+
+      rerender({ val: 'second' });
+      expect(result.current).toBe('first');
+
+      rerender({ val: 'third' });
+      expect(result.current).toBe('second');
     });
   });
 });

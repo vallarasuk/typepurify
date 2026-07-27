@@ -1,6 +1,6 @@
 # @typepurify/dedupe
 
-A small utility that prevents identical ongoing asynchronous operations from executing multiple times concurrently. Part of the TypePurify ecosystem.
+Request deduplicator to prevent duplicate API calls.
 
 ## Installation
 

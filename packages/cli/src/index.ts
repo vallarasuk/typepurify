@@ -148,3 +148,21 @@ export function runHealthScorer(dirPath: string): number {
   // return health score out of 100
   return 95;
 }
+
+/**
+ * Analyzes directory bundle build outputs and returns size summary.
+ */
+export function analyzeBundleSize(dirPath: string): { totalFiles: number; totalSizeBytes: number } {
+  if (!dirPath || !fs.existsSync(dirPath)) {
+    return { totalFiles: 0, totalSizeBytes: 0 };
+  }
+  const files = fs.readdirSync(dirPath);
+  let totalSizeBytes = 0;
+  files.forEach((file) => {
+    const fullPath = path.join(dirPath, file);
+    if (fs.statSync(fullPath).isFile()) {
+      totalSizeBytes += fs.statSync(fullPath).size;
+    }
+  });
+  return { totalFiles: files.length, totalSizeBytes };
+}

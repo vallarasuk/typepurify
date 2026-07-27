@@ -229,3 +229,31 @@ export function preFetchCursor(
   }
   return Promise.resolve({ cursorId, limit });
 }
+
+/**
+ * Creates a paginated page slice from an array of items using a cursor and limit.
+ */
+export function createCursorPaginator<T>(items: T[], cursorExtractor: (item: T) => string) {
+  return function paginateSlice(afterCursor?: string, limit = 10) {
+    let startIndex = 0;
+    if (afterCursor) {
+      const idx = items.findIndex((item) => cursorExtractor(item) === afterCursor);
+      if (idx !== -1) {
+        startIndex = idx + 1;
+      }
+    }
+    const sliced = items.slice(startIndex, startIndex + limit);
+    const hasNextPage = startIndex + limit < items.length;
+    const hasPreviousPage = startIndex > 0;
+    const nextCursor = sliced.length > 0 ? cursorExtractor(sliced[sliced.length - 1]) : undefined;
+
+    return {
+      items: sliced,
+      pageInfo: {
+        hasNextPage,
+        hasPreviousPage,
+        nextCursor,
+      },
+    };
+  };
+}

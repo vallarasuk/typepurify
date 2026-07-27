@@ -1,4 +1,10 @@
-## 0.4.3
+## 1.5.5
+
+### Patch Changes
+
+- Fixed missing `vitest` imports (`describe`, `it`, `expect`, `expectTypeOf`) in the test suite that were preventing tests from running correctly.
+
+## 1.5.2
 
 ### Minor Changes
 

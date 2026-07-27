@@ -31,12 +31,9 @@ export class PromptTemplate {
   constructor(private template: string) {}
 
   render(variables: Record<string, string | number>): string {
-    let result = this.template;
-    for (const [key, value] of Object.entries(variables)) {
-      // Replace all instances of {{key}}
-      result = result.replace(new RegExp(`\\{\\{${key}\\}\\}`, 'g'), String(value));
-    }
-    return result;
+    return this.template.replace(/\{\{([^}]+)\}\}/g, (match, key) => {
+      return key in variables ? String(variables[key]) : match;
+    });
   }
 }
 
@@ -93,15 +90,15 @@ export interface ChatMessage {
 }
 
 export function buildChatPrompt(messages: ChatMessage[], systemPrompt?: string): string {
-  let prompt = '';
+  const parts: string[] = [];
   if (systemPrompt) {
-    prompt += `System: ${systemPrompt}\n\n`;
+    parts.push(`System: ${systemPrompt}`);
   }
   for (const msg of messages) {
     const role = msg.role.charAt(0).toUpperCase() + msg.role.slice(1);
-    prompt += `${role}: ${msg.content}\n\n`;
+    parts.push(`${role}: ${msg.content}`);
   }
-  return prompt.trim();
+  return parts.join('\n\n');
 }
 
 export function parseMarkdownBlocks(text: string): Record<string, string[]> {
@@ -131,4 +128,21 @@ export function validateLlmSchema(payload: any, schema: Record<string, any>): bo
     if (!(key in payload)) return false;
   }
   return true;
+}
+
+/**
+ * Truncates text to stay within estimated token budget for specified model.
+ */
+export function truncateToTokenLimit(
+  text: string,
+  maxTokens: number,
+  model: 'openai' | 'claude' | 'gemini' | 'gpt-4' | 'gpt-4o' | 'gemini-1.5-pro' = 'openai',
+): string {
+  const currentTokens = countTokens(text, model);
+  if (currentTokens <= maxTokens) {
+    return text;
+  }
+  const ratio = maxTokens / currentTokens;
+  const targetLength = Math.floor(text.length * ratio);
+  return text.slice(0, targetLength);
 }

@@ -6,6 +6,7 @@ import {
   DeepReadonly,
   DeepPartial,
   TransformTemplate,
+  SnakeToCamelCase,
 } from './index';
 
 describe('@typepurify/types', () => {
@@ -84,6 +85,14 @@ describe('@typepurify/types', () => {
       type Converted = TransformTemplate<'foo_bar'>;
       const val: Converted = 'foo-bar';
       expect(val).toBe('foo-bar');
+    });
+  });
+
+  describe('SnakeToCamelCase', () => {
+    it('should convert snake_case literal types to camelCase literal types', () => {
+      type Converted = SnakeToCamelCase<'user_first_name'>;
+      const val: Converted = 'userFirstName';
+      expect(val).toBe('userFirstName');
     });
   });
 });

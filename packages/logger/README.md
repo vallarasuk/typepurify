@@ -1,6 +1,6 @@
 # @typepurify/logger
 
-A lightweight, isomorphic logger for the TypePurify ecosystem, built to provide simple leveling, prefixes, and timestamp formatting for Node.js and the browser.
+Enterprise logging suite.
 
 ## Installation
 
