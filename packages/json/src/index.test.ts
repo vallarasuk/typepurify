@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { deepDiff, repairJson, removeCircular, compareIgnoreKeys } from './index';
+import { deepDiff, repairJson, removeCircular, compareIgnoreKeys, flattenCsvToJson } from './index';
 
 describe('@typepurify/json', () => {
   describe('deepDiff', () => {
@@ -106,6 +106,21 @@ describe('@typepurify/json', () => {
       expect(jsonSize('test')).toBe(6); // "test" is 6 chars including quotes
       expect(jsonSize(123)).toBe(3);
       expect(jsonSize({ a: 1 })).toBe(7); // {"a":1}
+    });
+  });
+
+  describe('flattenCsvToJson', () => {
+    it('should parse CSV lines into array of objects', () => {
+      const csv = 'name,age\nAlice,30\nBob,25';
+      const result = flattenCsvToJson(csv);
+      expect(result).toEqual([
+        { name: 'Alice', age: '30' },
+        { name: 'Bob', age: '25' },
+      ]);
+    });
+
+    it('should return empty array for empty string', () => {
+      expect(flattenCsvToJson('')).toEqual([]);
     });
   });
 });

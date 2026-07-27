@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { withRetry, retry, TimeoutError } from './index';
+import { withRetry, retry, TimeoutError, withExponentialBackoff } from './index';
 
 describe('@typepurify/retry', () => {
   it('should export retry as an alias to withRetry', () => {
@@ -141,6 +141,26 @@ describe('@typepurify/retry', () => {
 
       await expect(cb.execute(fn)).resolves.toBe('success');
       expect(cb.getState()).toBe('CLOSED');
+    });
+  });
+
+  describe('withExponentialBackoff', () => {
+    it('should resolve if function succeeds on initial attempt', async () => {
+      const fn = vi.fn().mockResolvedValue('ok');
+      const result = await withExponentialBackoff(fn, 3, 10);
+      expect(result).toBe('ok');
+      expect(fn).toHaveBeenCalledTimes(1);
+    });
+
+    it('should retry with exponential delay on failure', async () => {
+      const fn = vi
+        .fn()
+        .mockRejectedValueOnce(new Error('error 1'))
+        .mockResolvedValueOnce('success');
+
+      const result = await withExponentialBackoff(fn, 2, 10);
+      expect(result).toBe('success');
+      expect(fn).toHaveBeenCalledTimes(2);
     });
   });
 });

@@ -180,3 +180,16 @@ export function dedupe<T extends (...args: any[]) => Promise<any>>(
 
   return wrapped;
 }
+
+import { createHash } from 'crypto';
+/**
+ * High-performance SHA-256 hash generator for caching requests.
+ */
+export function generateRequestHash(endpoint: string, body?: any): string {
+  const hash = createHash('sha256');
+  hash.update(endpoint);
+  if (body) {
+    hash.update(JSON.stringify(body));
+  }
+  return hash.digest('hex');
+}

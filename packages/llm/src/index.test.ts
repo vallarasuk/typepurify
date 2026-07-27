@@ -1,5 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { cleanLlmJson, PromptTemplate, countTokens, parseAiStream, estimateCost } from './index';
+import {
+  cleanLlmJson,
+  PromptTemplate,
+  countTokens,
+  parseAiStream,
+  estimateCost,
+  validateLlmSchema,
+} from './index';
 
 describe('@typepurify/llm', () => {
   describe('cleanLlmJson', () => {
@@ -89,6 +96,19 @@ describe('@typepurify/llm', () => {
       const blocks = parseMarkdownBlocks(text);
       expect(blocks['javascript']).toEqual(['console.log("hello");']);
       expect(blocks['json']).toEqual(['{"a": 1}']);
+    });
+  });
+
+  describe('validateLlmSchema', () => {
+    it('should return true for valid schema match', () => {
+      const payload = { name: 'AI', status: 'ok' };
+      const schema = { name: 'string', status: 'string' };
+      expect(validateLlmSchema(payload, schema)).toBe(true);
+    });
+
+    it('should return false for missing keys or invalid payload', () => {
+      expect(validateLlmSchema({ name: 'AI' }, { name: 'string', missing: 'string' })).toBe(false);
+      expect(validateLlmSchema(null, { name: 'string' })).toBe(false);
     });
   });
 });

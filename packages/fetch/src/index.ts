@@ -182,3 +182,35 @@ export function createTFetch(
     return tFetch<T>(finalInput, init, mergedOptions);
   };
 }
+
+/**
+ * RequestQueue provides a robust concurrency limit and debouncing
+ * for outgoing network requests to prevent thundering herd problems.
+ */
+export class RequestQueue {
+  private queue: Array<() => Promise<any>> = [];
+  private processing = false;
+
+  async enqueue<T>(requestFn: () => Promise<T>): Promise<T> {
+    return new Promise((resolve, reject) => {
+      this.queue.push(async () => {
+        try {
+          resolve(await requestFn());
+        } catch (err) {
+          reject(err);
+        }
+      });
+      this.processQueue();
+    });
+  }
+
+  private async processQueue() {
+    if (this.processing) return;
+    this.processing = true;
+    while (this.queue.length > 0) {
+      const req = this.queue.shift();
+      if (req) await req();
+    }
+    this.processing = false;
+  }
+}

@@ -178,3 +178,23 @@ export class CircuitBreaker {
     return this.state;
   }
 }
+
+/**
+ * Advanced exponential backoff algorithm with jitter to prevent retry collisions.
+ */
+export async function withExponentialBackoff<T>(
+  fn: () => Promise<T>,
+  retries = 3,
+  delay = 1000,
+): Promise<T> {
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await fn();
+    } catch (err) {
+      if (i === retries - 1) throw err;
+      const jitter = Math.random() * 200;
+      await new Promise((res) => setTimeout(res, delay * Math.pow(2, i) + jitter));
+    }
+  }
+  throw new Error('Retry failed');
+}

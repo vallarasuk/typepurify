@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { dedupe } from './index';
+import { dedupe, generateRequestHash } from './index';
 
 describe('@typepurify/dedupe', () => {
   it('should only call the underlying function once for identical simultaneous calls', async () => {
@@ -181,6 +181,22 @@ describe('@typepurify/dedupe', () => {
       await Promise.all([d(1), d(2), d(3), d(4), d(5)]);
 
       expect(maxObserved).toBe(2); // Never exceeded 2 concurrent executions
+    });
+  });
+
+  describe('generateRequestHash', () => {
+    it('should generate consistent hash for endpoint', () => {
+      const hash1 = generateRequestHash('/api/users');
+      const hash2 = generateRequestHash('/api/users');
+      expect(hash1).toBe(hash2);
+      expect(typeof hash1).toBe('string');
+      expect(hash1).toHaveLength(64);
+    });
+
+    it('should generate different hashes for different body payloads', () => {
+      const hash1 = generateRequestHash('/api/users', { name: 'Alice' });
+      const hash2 = generateRequestHash('/api/users', { name: 'Bob' });
+      expect(hash1).not.toBe(hash2);
     });
   });
 });

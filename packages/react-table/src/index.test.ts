@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import { useTable, useRowSelection } from './index';
+import { useTable, useRowSelection, measureVirtualizer } from './index';
 
 // Polyfill URL.createObjectURL for the CSV export test
 if (typeof URL.createObjectURL === 'undefined') {
@@ -150,6 +150,13 @@ describe('@typepurify/react-table', () => {
       });
 
       expect(result.current.columnWidths['name']).toBe(200);
+    });
+  });
+
+  describe('measureVirtualizer', () => {
+    it('should measure virtualizer totalHeight and visibleNodes', () => {
+      const result = measureVirtualizer(100, 40);
+      expect(result).toEqual({ totalHeight: 4000, visibleNodes: 25 });
     });
   });
 });

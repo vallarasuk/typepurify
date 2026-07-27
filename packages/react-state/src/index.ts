@@ -199,3 +199,23 @@ export function useThrottledState<T>(
 
   return [state, setThrottledState];
 }
+
+/**
+ * Signal store hook for reactive granular state tracking.
+ */
+export function createSignalStore<T>(initial: T) {
+  let state = initial;
+  const listeners = new Set<(val: T) => void>();
+
+  return {
+    get: () => state,
+    set: (val: T) => {
+      state = val;
+      listeners.forEach((l) => l(val));
+    },
+    subscribe: (listener: (val: T) => void) => {
+      listeners.add(listener);
+      return () => listeners.delete(listener);
+    },
+  };
+}

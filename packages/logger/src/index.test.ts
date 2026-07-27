@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { Logger, requestLogger, formatError } from './index';
+import { Logger, requestLogger, formatError, LogRateLimiter } from './index';
 
 describe('@typepurify/logger', () => {
   describe('Logger', () => {
@@ -127,6 +127,16 @@ describe('@typepurify/logger', () => {
 
       expect(formatted).toContain('💥 Error: Test Error');
       expect(formatted).toContain('↳');
+    });
+  });
+
+  describe('LogRateLimiter', () => {
+    it('should rate limit logs when limit is exceeded', () => {
+      const limiter = new LogRateLimiter(2, 1000);
+      expect(limiter.canLog()).toBe(true);
+      expect(limiter.canLog()).toBe(true);
+      expect(limiter.canLog()).toBe(false);
+      limiter.destroy();
     });
   });
 });

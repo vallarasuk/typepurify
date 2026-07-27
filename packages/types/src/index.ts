@@ -101,3 +101,10 @@ export interface JsonObject {
   [key: string]: JsonValue;
 }
 export type JsonValue = JsonPrimitive | JsonObject | JsonArray;
+
+/**
+ * Transforms template literal strings into strict utility types.
+ */
+export type TransformTemplate<T extends string> = T extends `${infer Start}_${infer End}`
+  ? `${Start}-${End}`
+  : T;

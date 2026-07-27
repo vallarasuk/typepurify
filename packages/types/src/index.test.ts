@@ -1,5 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { jsonToTsType, get, DeepMerge, DeepReadonly, DeepPartial } from './index';
+import {
+  jsonToTsType,
+  get,
+  DeepMerge,
+  DeepReadonly,
+  DeepPartial,
+  TransformTemplate,
+} from './index';
 
 describe('@typepurify/types', () => {
   describe('jsonToTsType', () => {
@@ -69,6 +76,14 @@ describe('@typepurify/types', () => {
       // We can't really "test" types at runtime easily with Vitest unless we do tsc
       // We'll just verify the module exports or they don't break the build
       expect(true).toBe(true);
+    });
+  });
+
+  describe('TransformTemplate', () => {
+    it('should transform underscore string types to hyphen string types', () => {
+      type Converted = TransformTemplate<'foo_bar'>;
+      const val: Converted = 'foo-bar';
+      expect(val).toBe('foo-bar');
     });
   });
 });

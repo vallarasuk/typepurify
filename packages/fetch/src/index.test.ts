@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { tFetch } from './index';
+import { tFetch, RequestQueue } from './index';
 
 describe('tFetch wrapper', () => {
   let fetchMock: any;
@@ -301,6 +301,42 @@ describe('tFetch wrapper', () => {
       expect(fetchMock).toHaveBeenCalledWith('https://api.example.com/data', {
         headers: { global: 'yes', local: 'yes' },
       });
+    });
+  });
+
+  describe('RequestQueue', () => {
+    it('should process enqueued request functions in sequence', async () => {
+      const queue = new RequestQueue();
+      const results: number[] = [];
+
+      const p1 = queue.enqueue(async () => {
+        results.push(1);
+        return 'first';
+      });
+
+      const p2 = queue.enqueue(async () => {
+        results.push(2);
+        return 'second';
+      });
+
+      const [r1, r2] = await Promise.all([p1, p2]);
+
+      expect(r1).toBe('first');
+      expect(r2).toBe('second');
+      expect(results).toEqual([1, 2]);
+    });
+
+    it('should properly handle rejected requests without breaking queue', async () => {
+      const queue = new RequestQueue();
+
+      const p1 = queue.enqueue(async () => {
+        throw new Error('failed');
+      });
+
+      const p2 = queue.enqueue(async () => 'success');
+
+      await expect(p1).rejects.toThrow('failed');
+      await expect(p2).resolves.toBe('success');
     });
   });
 });

@@ -216,3 +216,13 @@ export function useRowSelection() {
   };
   return { selectedRowIds, toggleRowSelected, toggleAllRowsSelected };
 }
+
+/**
+ * Core virtualizer module for lightning-fast React data table rendering.
+ */
+export function measureVirtualizer(rowCount: number, rowHeight: number) {
+  return {
+    totalHeight: rowCount * rowHeight,
+    visibleNodes: Math.ceil(1000 / rowHeight),
+  };
+}

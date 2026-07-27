@@ -7,6 +7,7 @@ import {
   escapeHtml,
   maskIPAddress,
   maskEmail,
+  enforceCsrfToken,
 } from './index';
 
 describe('@typepurify/security', () => {
@@ -102,6 +103,15 @@ describe('@typepurify/security', () => {
       const secrets = detectSecrets('ya29.a0AfB_byCM');
       expect(secrets).toHaveLength(1);
       expect(secrets[0]).toBe('ya29...byCM');
+    });
+  });
+
+  describe('enforceCsrfToken', () => {
+    it('should validate matching CSRF tokens over 32 chars in length', () => {
+      const validToken = 'a'.repeat(33);
+      expect(enforceCsrfToken(validToken, validToken)).toBe(true);
+      expect(enforceCsrfToken('short', 'short')).toBe(false);
+      expect(enforceCsrfToken(validToken, 'b'.repeat(33))).toBe(false);
     });
   });
 });

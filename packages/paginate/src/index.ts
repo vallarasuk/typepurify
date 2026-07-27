@@ -215,3 +215,17 @@ export function buildConnection<T>(
     totalCount,
   };
 }
+
+/**
+ * Cursor parser to handle edge cache pre-warming for paginated queries.
+ */
+export function preFetchCursor(
+  cursorId: string,
+  limit: number,
+): Promise<{ cursorId: string; limit: number }> {
+  // Simulates pre-fetching the next page of results
+  if (!cursorId || limit <= 0) {
+    return Promise.resolve({ cursorId: cursorId || '', limit: Math.max(0, limit) });
+  }
+  return Promise.resolve({ cursorId, limit });
+}

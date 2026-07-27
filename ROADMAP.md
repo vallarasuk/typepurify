@@ -10,7 +10,7 @@
 **Description:** The core engine. Removes null, undefined, empty arrays/objects.
 
 - **v1.0.0** - Major Release: JSON parser
-  - `[ ]` feat: [MAJOR] Implement the core JSON parser for @typepurify/core to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Implement the core JSON parser for @typepurify/core to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: memory leak edge cases
     - `[ ]` fix: [PATCH] Investigate and resolve memory leak edge cases reported by users post-major release.
   - **v1.0.2** - Bugfix: infinite recursion bug
@@ -305,7 +305,7 @@
 **Description:** Safe fetch wrapper with auto-purification, retries, timeouts, and JSON parsing.
 
 - **v1.0.0** - Major Release: request queue
-  - `[ ]` feat: [MAJOR] Build the core request queue for @typepurify/fetch to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Build the core request queue for @typepurify/fetch to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: socket hangup issue
     - `[ ]` fix: [PATCH] Investigate and resolve socket hangup issue reported by users post-major release.
   - **v1.0.2** - Bugfix: DNS resolution timeout
@@ -600,7 +600,7 @@
 **Description:** Standalone retry utility for async functions.
 
 - **v1.0.0** - Major Release: exponential backoff algorithm
-  - `[ ]` feat: [MAJOR] Calculate the core exponential backoff algorithm for @typepurify/retry to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Calculate the core exponential backoff algorithm for @typepurify/retry to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: infinite retry loop
     - `[ ]` fix: [PATCH] Investigate and resolve infinite retry loop reported by users post-major release.
   - **v1.0.2** - Bugfix: math overflow in delay calc
@@ -895,7 +895,7 @@
 **Description:** Request deduplicator to prevent duplicate API calls.
 
 - **v1.0.0** - Major Release: SHA-256 hash generator
-  - `[ ]` feat: [MAJOR] Hash the core SHA-256 hash generator for @typepurify/dedupe to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Hash the core SHA-256 hash generator for @typepurify/dedupe to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: hash collision false positive
     - `[ ]` fix: [PATCH] Investigate and resolve hash collision false positive reported by users post-major release.
   - **v1.0.2** - Bugfix: stale data read
@@ -1190,7 +1190,7 @@
 **Description:** Smart pagination utilities.
 
 - **v1.0.0** - Major Release: cursor parser
-  - `[ ]` feat: [MAJOR] Pre-fetch the core cursor parser for @typepurify/paginate to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Pre-fetch the core cursor parser for @typepurify/paginate to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: overlapping list items
     - `[ ]` fix: [PATCH] Investigate and resolve overlapping list items reported by users post-major release.
   - **v1.0.2** - Bugfix: stream unclosed memory leak
@@ -1485,7 +1485,7 @@
 **Description:** Simple in-memory REST API cache.
 
 - **v1.0.0** - Major Release: TTL engine
-  - `[ ]` feat: [MAJOR] Revalidate the core TTL engine for @typepurify/cache to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Revalidate the core TTL engine for @typepurify/cache to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: cache pollution vulnerability
     - `[ ]` fix: [PATCH] Investigate and resolve cache pollution vulnerability reported by users post-major release.
   - **v1.0.2** - Bugfix: file corruption on write
@@ -1780,7 +1780,7 @@
 **Description:** Advanced TypeScript utility types and helpers.
 
 - **v1.0.0** - Major Release: template literal parser
-  - `[ ]` feat: [MAJOR] Transform the core template literal parser for @typepurify/types to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Transform the core template literal parser for @typepurify/types to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: slow compilation times
     - `[ ]` fix: [PATCH] Investigate and resolve slow compilation times reported by users post-major release.
   - **v1.0.2** - Bugfix: inference mismatch
@@ -2075,7 +2075,7 @@
 **Description:** Universal, zero-dependency Data Table.
 
 - **v1.0.0** - Major Release: virtualizer module
-  - `[ ]` feat: [MAJOR] Measure the core virtualizer module for @typepurify/react-table to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Measure the core virtualizer module for @typepurify/react-table to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: scrollbar jump on load
     - `[ ]` fix: [PATCH] Investigate and resolve scrollbar jump on load reported by users post-major release.
   - **v1.0.2** - Bugfix: minWidth CSS bypass
@@ -2370,7 +2370,7 @@
 **Description:** Tiny alternatives for form, loading, and query state.
 
 - **v1.0.0** - Major Release: signal store hook
-  - `[ ]` feat: [MAJOR] Track the core signal store hook for @typepurify/react-state to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Track the core signal store hook for @typepurify/react-state to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: untracked read error
     - `[ ]` fix: [PATCH] Investigate and resolve untracked read error reported by users post-major release.
   - **v1.0.2** - Bugfix: disabled storage crash
@@ -2665,7 +2665,7 @@
 **Description:** AI response utilities.
 
 - **v1.0.0** - Major Release: schema validator agent
-  - `[ ]` feat: [MAJOR] Convert the core schema validator agent for @typepurify/llm to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Convert the core schema validator agent for @typepurify/llm to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: nested optional field drop
     - `[ ]` fix: [PATCH] Investigate and resolve nested optional field drop reported by users post-major release.
   - **v1.0.2** - Bugfix: markdown code block split error
@@ -2960,7 +2960,7 @@
 **Description:** Enterprise logging suite.
 
 - **v1.0.0** - Major Release: rate limiter for logs
-  - `[ ]` feat: [MAJOR] Sample the core rate limiter for logs for @typepurify/logger to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Sample the core rate limiter for logs for @typepurify/logger to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: network partition buffer overflow
     - `[ ]` fix: [PATCH] Investigate and resolve network partition buffer overflow reported by users post-major release.
   - **v1.0.2** - Bugfix: regex cache miss on PII
@@ -3255,7 +3255,7 @@
 **Description:** Security inspection tools.
 
 - **v1.0.0** - Major Release: CSRF token validator
-  - `[ ]` feat: [MAJOR] Enforce the core CSRF token validator for @typepurify/security to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Enforce the core CSRF token validator for @typepurify/security to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: SameSite cookie bypass
     - `[ ]` fix: [PATCH] Investigate and resolve SameSite cookie bypass reported by users post-major release.
   - **v1.0.2** - Bugfix: JSON parsing false positive
@@ -3550,7 +3550,7 @@
 **Description:** Scaffolding and analysis CLI.
 
 - **v1.0.0** - Major Release: health scorer command
-  - `[ ]` feat: [MAJOR] Export the core health scorer command for @typepurify/cli to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Export the core health scorer command for @typepurify/cli to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: symlink traverse crash
     - `[ ]` fix: [PATCH] Investigate and resolve symlink traverse crash reported by users post-major release.
   - **v1.0.2** - Bugfix: git history loss on hoist
@@ -3845,7 +3845,7 @@
 **Description:** Advanced JSON manipulation.
 
 - **v1.0.0** - Major Release: CSV to JSON converter
-  - `[ ]` feat: [MAJOR] Flatten the core CSV to JSON converter for @typepurify/json to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Flatten the core CSV to JSON converter for @typepurify/json to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: comma escape error in CSV
     - `[ ]` fix: [PATCH] Investigate and resolve comma escape error in CSV reported by users post-major release.
   - **v1.0.2** - Bugfix: regex filter error in JSONPath

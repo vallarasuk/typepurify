@@ -1,6 +1,13 @@
 import { describe, it, expect } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
-import { useLoading, useSmartForm, useApiQuery, usePurifiedState, useDebounce } from './index';
+import {
+  useLoading,
+  useSmartForm,
+  useApiQuery,
+  usePurifiedState,
+  useDebounce,
+  createSignalStore,
+} from './index';
 
 describe('@typepurify/react-state', () => {
   describe('useLoading', () => {
@@ -140,6 +147,27 @@ describe('@typepurify/react-state', () => {
     it('should exist', async () => {
       const { useThrottledState } = await import('./index');
       expect(typeof useThrottledState).toBe('function');
+    });
+  });
+
+  describe('createSignalStore', () => {
+    it('should manage signal state and notify subscribers', () => {
+      const store = createSignalStore(10);
+      expect(store.get()).toBe(10);
+
+      let received = 0;
+      const unsubscribe = store.subscribe((val) => {
+        received = val;
+      });
+
+      store.set(25);
+      expect(store.get()).toBe(25);
+      expect(received).toBe(25);
+
+      unsubscribe();
+      store.set(50);
+      expect(store.get()).toBe(50);
+      expect(received).toBe(25);
     });
   });
 });
