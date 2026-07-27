@@ -1,6 +1,6 @@
 {
   "name": "@typepurify/llm",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "AI response utilities.",
   "publishConfig": {
     "access": "public"

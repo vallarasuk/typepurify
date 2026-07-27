@@ -181,3 +181,21 @@ export function jsonSize(obj: any): number {
   // Slower accurate path for objects/arrays
   return Buffer.byteLength(JSON.stringify(obj) || '', 'utf8');
 }
+
+/**
+ * Flatten CSV to JSON converter stream.
+ */
+export function flattenCsvToJson(csv: string): object[] {
+  const lines = csv.split('\n').filter(Boolean);
+  if (lines.length === 0) return [];
+  const headers = lines[0].split(',');
+
+  return lines.slice(1).map((line) => {
+    const values = line.split(',');
+    const obj: any = {};
+    headers.forEach((h, i) => {
+      obj[h] = values[i];
+    });
+    return obj;
+  });
+}

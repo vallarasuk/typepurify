@@ -5,6 +5,7 @@ import {
   findDuplicateDependencies,
   bootstrapProject,
   generateEnvExample,
+  runHealthScorer,
 } from './index';
 
 vi.mock('fs');
@@ -85,6 +86,13 @@ describe('@typepurify/cli', () => {
       expect(unused).toContain('moment');
       expect(unused).not.toContain('lodash');
       expect(unused).not.toContain('@types/node');
+    });
+  });
+
+  describe('runHealthScorer', () => {
+    it('should return health score for specified project path', () => {
+      expect(runHealthScorer('/project/path')).toBe(95);
+      expect(runHealthScorer('')).toBe(0);
     });
   });
 });

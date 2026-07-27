@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { Cache } from './index';
+import { Cache, TTLEngine } from './index';
 
 describe('@typepurify/cache', () => {
   it('should set and get values', () => {
@@ -148,6 +148,15 @@ describe('@typepurify/cache', () => {
       const r3 = await cachedFn(5);
       expect(r3).toBe(10);
       expect(calls).toBe(2); // Cache expired, called again
+    });
+  });
+
+  describe('TTLEngine', () => {
+    it('should set items and revalidate non-expired keys', () => {
+      const engine = new TTLEngine();
+      engine.set('item1', 'value1', 5000);
+      expect(engine.revalidate('item1')).toBe(true);
+      expect(engine.revalidate('missing')).toBe(false);
     });
   });
 });

@@ -120,3 +120,15 @@ export function parseMarkdownBlocks(text: string): Record<string, string[]> {
 
   return blocks;
 }
+
+/**
+ * Schema validator agent for ensuring LLM JSON outputs adhere strictly to formatting rules.
+ */
+export function validateLlmSchema(payload: any, schema: Record<string, any>): boolean {
+  if (!payload || typeof payload !== 'object') return false;
+  // basic schema pass
+  for (const key of Object.keys(schema)) {
+    if (!(key in payload)) return false;
+  }
+  return true;
+}

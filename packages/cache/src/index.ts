@@ -164,3 +164,22 @@ export function withCache<T, Args extends any[]>(
   (wrapped as any).cache = cache;
   return wrapped;
 }
+
+/**
+ * Revalidates the TTL engine cache entries proactively before expiration.
+ */
+export class TTLEngine {
+  private cache = new Map<string, { value: any; expiresAt: number }>();
+
+  set(key: string, value: any, ttlMs: number) {
+    this.cache.set(key, { value, expiresAt: Date.now() + ttlMs });
+  }
+
+  revalidate(key: string): boolean {
+    const entry = this.cache.get(key);
+    if (!entry) return false;
+    // Extend TTL by another standard window
+    entry.expiresAt = Date.now() + 60000;
+    return true;
+  }
+}

@@ -1,5 +1,5 @@
 import { describe, it, expect, expectTypeOf } from 'vitest';
-import { clean, cleanInPlace, cleanAsync, cleanInPlaceAsync } from './index';
+import { clean, cleanInPlace, cleanAsync, cleanInPlaceAsync, advancedJsonParser } from './index';
 
 describe('typepurify core engine', () => {
   it('should deeply remove null and undefined values from messy data maps', () => {
@@ -327,6 +327,17 @@ describe('typepurify core engine', () => {
       });
 
       expect(result).toEqual({ name: 'VALLARASU', age: 25 });
+    });
+  });
+
+  describe('advancedJsonParser', () => {
+    it('should parse valid JSON strings correctly', () => {
+      const json = JSON.stringify({ key: 'value', num: 42 });
+      expect(advancedJsonParser(json)).toEqual({ key: 'value', num: 42 });
+    });
+
+    it('should throw Error with detailed message on invalid JSON', () => {
+      expect(() => advancedJsonParser('invalid json')).toThrow('Advanced parsing failed:');
     });
   });
 });

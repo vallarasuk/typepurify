@@ -5,6 +5,7 @@ import {
   parseOffset,
   InfiniteScrollManager,
   extractCursor,
+  preFetchCursor,
 } from './index';
 
 describe('@typepurify/paginate', () => {
@@ -143,6 +144,13 @@ describe('@typepurify/paginate', () => {
       expect(connection.pageInfo.startCursor).toBe('1');
       expect(connection.pageInfo.endCursor).toBe('2');
       expect(connection.totalCount).toBe(100);
+    });
+  });
+
+  describe('preFetchCursor', () => {
+    it('should pre-fetch cursor and return object with cursorId and limit', async () => {
+      const result = await preFetchCursor('cursor_123', 20);
+      expect(result).toEqual({ cursorId: 'cursor_123', limit: 20 });
     });
   });
 });

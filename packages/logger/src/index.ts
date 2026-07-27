@@ -133,3 +133,37 @@ export function formatError(err: Error): string {
 
   return `${header}\n${stack}`;
 }
+
+/**
+ * Rate limiter for high-throughput logging streams.
+ */
+export class LogRateLimiter {
+  private count = 0;
+  private timer: ReturnType<typeof setInterval>;
+
+  constructor(
+    private limit: number,
+    windowMs: number,
+  ) {
+    this.timer = setInterval(() => {
+      this.count = 0;
+    }, windowMs);
+    if (this.timer && typeof this.timer === 'object' && 'unref' in this.timer) {
+      (this.timer as any).unref();
+    }
+  }
+
+  canLog(): boolean {
+    if (this.count < this.limit) {
+      this.count++;
+      return true;
+    }
+    return false;
+  }
+
+  destroy(): void {
+    if (this.timer) {
+      clearInterval(this.timer);
+    }
+  }
+}
