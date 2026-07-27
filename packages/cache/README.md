@@ -1,6 +1,6 @@
 # @typepurify/cache
 
-A fast, lightweight, in-memory TTL caching wrapper for promises. Part of the TypePurify ecosystem.
+Simple in-memory REST API cache.
 
 ## Installation
 

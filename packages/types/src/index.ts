@@ -108,3 +108,10 @@ export type JsonValue = JsonPrimitive | JsonObject | JsonArray;
 export type TransformTemplate<T extends string> = T extends `${infer Start}_${infer End}`
   ? `${Start}-${End}`
   : T;
+
+/**
+ * Converts a snake_case string type into camelCase.
+ */
+export type SnakeToCamelCase<S extends string> = S extends `${infer T}_${infer U}`
+  ? `${T}${Capitalize<SnakeToCamelCase<U>>}`
+  : S;

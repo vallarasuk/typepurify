@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { Cache, TTLEngine } from './index';
+import { Cache, TTLEngine, SlidingWindowCache } from './index';
 
 describe('@typepurify/cache', () => {
   it('should set and get values', () => {
@@ -157,6 +157,19 @@ describe('@typepurify/cache', () => {
       engine.set('item1', 'value1', 5000);
       expect(engine.revalidate('item1')).toBe(true);
       expect(engine.revalidate('missing')).toBe(false);
+    });
+  });
+
+  describe('SlidingWindowCache', () => {
+    it('should extend TTL when key is accessed before expiry', async () => {
+      const cache = new SlidingWindowCache<string, number>(100);
+      cache.set('a', 42);
+
+      await new Promise((r) => setTimeout(r, 60));
+      expect(cache.get('a')).toBe(42); // Access extends TTL by another 100ms
+
+      await new Promise((r) => setTimeout(r, 60));
+      expect(cache.get('a')).toBe(42); // Still valid due to sliding window extension
     });
   });
 });

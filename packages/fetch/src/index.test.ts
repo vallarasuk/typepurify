@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { tFetch, RequestQueue } from './index';
+import { tFetch, RequestQueue, createAutoRetryFetch } from './index';
 
 describe('tFetch wrapper', () => {
   let fetchMock: any;
@@ -337,6 +337,22 @@ describe('tFetch wrapper', () => {
 
       await expect(p1).rejects.toThrow('failed');
       await expect(p2).resolves.toBe('success');
+    });
+  });
+
+  describe('createAutoRetryFetch', () => {
+    it('should retry failed fetch attempts and return result on eventual success', async () => {
+      fetchMock.mockResolvedValueOnce({ ok: false, status: 500 }).mockResolvedValueOnce({
+        ok: true,
+        headers: new Headers({ 'content-type': 'application/json' }),
+        json: async () => ({ status: 'ok' }),
+      });
+
+      const retryFetch = createAutoRetryFetch({ retries: 2, delayMs: 10 });
+      const result = await retryFetch('https://api.example.com/retry');
+
+      expect(result).toEqual({ status: 'ok' });
+      expect(fetchMock).toHaveBeenCalledTimes(2);
     });
   });
 });

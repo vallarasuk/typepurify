@@ -1,6 +1,6 @@
 # @typepurify/react-state
 
-Tiny react hooks for robust state management. Part of the TypePurify ecosystem.
+Tiny alternatives for form, loading, and query state.
 
 ## Installation
 

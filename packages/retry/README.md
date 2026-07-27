@@ -1,6 +1,6 @@
 # @typepurify/retry
 
-A lightweight, robust promise retry wrapper. Part of the TypePurify ecosystem.
+Standalone retry utility for async functions.
 
 ## Installation
 

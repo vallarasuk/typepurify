@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { dedupe, generateRequestHash } from './index';
+import { dedupe, generateRequestHash, createBatchDeduper } from './index';
 
 describe('@typepurify/dedupe', () => {
   it('should only call the underlying function once for identical simultaneous calls', async () => {
@@ -197,6 +197,27 @@ describe('@typepurify/dedupe', () => {
       const hash1 = generateRequestHash('/api/users', { name: 'Alice' });
       const hash2 = generateRequestHash('/api/users', { name: 'Bob' });
       expect(hash1).not.toBe(hash2);
+    });
+  });
+
+  describe('createBatchDeduper', () => {
+    it('should batch multiple concurrent requests into a single batch call', async () => {
+      let batchCalls = 0;
+      const batchFn = vi.fn().mockImplementation(async (ids: number[]) => {
+        batchCalls++;
+        const map = new Map<number, string>();
+        ids.forEach((id) => map.set(id, `item-${id}`));
+        return map;
+      });
+
+      const load = createBatchDeduper<number, string>(batchFn, 15);
+
+      const [r1, r2, r3] = await Promise.all([load(1), load(2), load(1)]);
+
+      expect(r1).toBe('item-1');
+      expect(r2).toBe('item-2');
+      expect(r3).toBe('item-1');
+      expect(batchCalls).toBe(1);
     });
   });
 });

@@ -183,3 +183,31 @@ export class TTLEngine {
     return true;
   }
 }
+
+/**
+ * Sliding window cache that extends entry TTL on every successful read access.
+ */
+export class SlidingWindowCache<K, V> {
+  private store = new Map<K, { value: V; expiresAt: number }>();
+
+  constructor(private windowMs: number) {}
+
+  set(key: K, value: V): void {
+    this.store.set(key, { value, expiresAt: Date.now() + this.windowMs });
+  }
+
+  get(key: K): V | undefined {
+    const entry = this.store.get(key);
+    if (!entry) return undefined;
+    if (Date.now() > entry.expiresAt) {
+      this.store.delete(key);
+      return undefined;
+    }
+    entry.expiresAt = Date.now() + this.windowMs;
+    return entry.value;
+  }
+
+  has(key: K): boolean {
+    return this.get(key) !== undefined;
+  }
+}

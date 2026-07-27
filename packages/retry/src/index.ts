@@ -198,3 +198,22 @@ export async function withExponentialBackoff<T>(
   }
   throw new Error('Retry failed');
 }
+
+/**
+ * Linear backoff retry function that increases delay linearly by stepMs for each attempt.
+ */
+export async function withLinearBackoff<T>(
+  fn: () => Promise<T>,
+  retries = 3,
+  stepMs = 100,
+): Promise<T> {
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await fn();
+    } catch (err) {
+      if (i === retries - 1) throw err;
+      await new Promise((res) => setTimeout(res, (i + 1) * stepMs));
+    }
+  }
+  throw new Error('Linear retry failed');
+}

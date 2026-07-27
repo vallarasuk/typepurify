@@ -1,6 +1,6 @@
 # @typepurify/cli
 
-Simple, lightweight CLI utilities. Part of the TypePurify ecosystem.
+Scaffolding and analysis CLI.
 
 ## Installation
 

@@ -1,3 +1,9 @@
+## 0.4.5
+
+### Patch Changes
+
+- Fixed a testing assertion bug in `sanitizeFilename` where path traversal protections were being incorrectly evaluated against preserved slashes.
+
 ## 0.4.3
 
 ### Minor Changes

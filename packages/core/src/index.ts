@@ -639,3 +639,52 @@ export function advancedJsonParser(jsonStr: string): Record<string, any> {
     );
   }
 }
+
+/**
+ * Safely deep clones objects, arrays, Maps, Sets, and primitive values
+ * while handling circular references and preserving type integrity.
+ */
+export function safeDeepClone<T>(obj: T, cache = new WeakMap()): T {
+  if (obj === null || typeof obj !== 'object') {
+    return obj;
+  }
+  if (obj instanceof Date) {
+    return new Date(obj.getTime()) as any;
+  }
+  if (obj instanceof RegExp) {
+    return new RegExp(obj.source, obj.flags) as any;
+  }
+  if (cache.has(obj as object)) {
+    return cache.get(obj as object);
+  }
+
+  if (obj instanceof Map) {
+    const copy = new Map();
+    cache.set(obj, copy);
+    obj.forEach((v, k) => copy.set(safeDeepClone(k, cache), safeDeepClone(v, cache)));
+    return copy as any;
+  }
+
+  if (obj instanceof Set) {
+    const copy = new Set();
+    cache.set(obj, copy);
+    obj.forEach((v) => copy.add(safeDeepClone(v, cache)));
+    return copy as any;
+  }
+
+  if (Array.isArray(obj)) {
+    const copy: any[] = [];
+    cache.set(obj, copy);
+    obj.forEach((item, i) => {
+      copy[i] = safeDeepClone(item, cache);
+    });
+    return copy as any;
+  }
+
+  const copy = Object.create(Object.getPrototypeOf(obj));
+  cache.set(obj as object, copy);
+  Object.keys(obj as object).forEach((key) => {
+    (copy as any)[key] = safeDeepClone((obj as any)[key], cache);
+  });
+  return copy;
+}

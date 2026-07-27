@@ -6,6 +6,7 @@ import {
   parseAiStream,
   estimateCost,
   validateLlmSchema,
+  truncateToTokenLimit,
 } from './index';
 
 describe('@typepurify/llm', () => {
@@ -109,6 +110,14 @@ describe('@typepurify/llm', () => {
     it('should return false for missing keys or invalid payload', () => {
       expect(validateLlmSchema({ name: 'AI' }, { name: 'string', missing: 'string' })).toBe(false);
       expect(validateLlmSchema(null, { name: 'string' })).toBe(false);
+    });
+  });
+
+  describe('truncateToTokenLimit', () => {
+    it('should truncate text if token count exceeds limit', () => {
+      const longText = 'This is a long sentence meant for testing token truncation logic.';
+      const truncated = truncateToTokenLimit(longText, 5, 'openai');
+      expect(truncated.length).toBeLessThan(longText.length);
     });
   });
 });

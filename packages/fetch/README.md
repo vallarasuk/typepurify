@@ -1,6 +1,6 @@
 <div align="center">
   <h1>✨ @typepurify/fetch</h1>
-  <p>A powerful, type-safe wrapper around native fetch that automatically parses and deeply cleans JSON API responses.</p>
+  <p>A lightweight wrapper around native fetch that automatically purifies API responses.</p>
 </div>
 
 ---

@@ -1,6 +1,6 @@
 # @typepurify/paginate
 
-A utility to effortlessly fetch and combine all pages from a paginated API into a single array. Part of the TypePurify ecosystem.
+Smart pagination utilities.
 
 ## Installation
 

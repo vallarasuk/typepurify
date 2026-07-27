@@ -1,6 +1,6 @@
 # @typepurify/types
 
-A collection of essential utility types for TypeScript. Part of the TypePurify ecosystem.
+Advanced TypeScript utility types and helpers.
 
 ## Installation
 

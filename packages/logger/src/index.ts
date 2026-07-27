@@ -167,3 +167,19 @@ export class LogRateLimiter {
     }
   }
 }
+
+/**
+ * Creates a scoped logger that automatically binds scope context meta to all logs.
+ */
+export function createScopedLogger(parentLogger: Logger, scopeName: string) {
+  return {
+    debug: (message: string, meta: Record<string, any> = {}) =>
+      parentLogger.debug(message, { scope: scopeName, ...meta }),
+    info: (message: string, meta: Record<string, any> = {}) =>
+      parentLogger.info(message, { scope: scopeName, ...meta }),
+    warn: (message: string, meta: Record<string, any> = {}) =>
+      parentLogger.warn(message, { scope: scopeName, ...meta }),
+    error: (message: string, error?: Error | unknown, meta: Record<string, any> = {}) =>
+      parentLogger.error(message, { scope: scopeName, error, ...meta }),
+  };
+}

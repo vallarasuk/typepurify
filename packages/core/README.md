@@ -1,6 +1,6 @@
 <div align="center">
   <h1>✨ typepurify</h1>
-  <p>Deep-clean any API response while preserving precisely inferred recursive types—no schemas, no boilerplate.</p>
+  <p>The ultimate zero-schema JSON cleaner for TypeScript. Recursively remove null, undefined, and empty objects while preserving exact type inference. No Zod or Yup needed.</p>
 </div>
 
 ---

@@ -199,3 +199,26 @@ export function flattenCsvToJson(csv: string): object[] {
     return obj;
   });
 }
+
+/**
+ * Converts a JSON object or map into clean XML representation.
+ */
+export function jsonToXml(obj: Record<string, any>, rootTag = 'root'): string {
+  function toXml(val: any, tag: string): string {
+    if (val === null || val === undefined) {
+      return `<${tag}/>`;
+    }
+    if (typeof val !== 'object') {
+      return `<${tag}>${String(val)}</${tag}>`;
+    }
+    if (Array.isArray(val)) {
+      return val.map((item) => toXml(item, tag)).join('');
+    }
+    const children = Object.keys(val)
+      .map((key) => toXml(val[key], key))
+      .join('');
+    return `<${tag}>${children}</${tag}>`;
+  }
+
+  return toXml(obj, rootTag);
+}
