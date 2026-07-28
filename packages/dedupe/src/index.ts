@@ -242,3 +242,22 @@ export function createBatchDeduper<K, V>(
     });
   };
 }
+
+/**
+ * Synchronous deduplicator for expensive synchronous functions.
+ */
+export function dedupeSync<T extends (...args: any[]) => any>(
+  fn: T,
+  keyGenerator: (...args: any[]) => string = (...args) => JSON.stringify(args),
+): T {
+  const cache = new Map<string, any>();
+  return function (...args: any[]) {
+    const key = keyGenerator(...args);
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+    const result = fn(...args);
+    cache.set(key, result);
+    return result;
+  } as T;
+}

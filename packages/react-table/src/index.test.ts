@@ -177,4 +177,22 @@ describe('@typepurify/react-table', () => {
       });
     });
   });
+
+  describe('getSortDirection', () => {
+    it('should correctly infer sort direction', () => {
+      const { result } = renderHook(() => useTable({ data: mockData, columns }));
+
+      act(() => {
+        result.current.handleSort('name');
+      });
+
+      expect(result.current.getSortDirection('name')).toBe('asc');
+      expect(result.current.getSortDirection('age')).toBe(null);
+
+      act(() => {
+        result.current.handleSort('name');
+      });
+      expect(result.current.getSortDirection('name')).toBe('desc');
+    });
+  });
 });

@@ -377,4 +377,34 @@ describe('typepurify core engine', () => {
       expect(cloned.self).toBe(cloned);
     });
   });
+
+  describe('isPlainObject', () => {
+    it('should correctly identify plain objects', async () => {
+      const { isPlainObject } = await import('./index');
+      expect(isPlainObject({})).toBe(true);
+      expect(isPlainObject({ a: 1 })).toBe(true);
+      expect(isPlainObject(Object.create(null))).toBe(true);
+
+      expect(isPlainObject(null)).toBe(false);
+      expect(isPlainObject([])).toBe(false);
+      expect(isPlainObject(new Date())).toBe(false);
+      expect(isPlainObject(new Map())).toBe(false);
+    });
+  });
+
+  describe('deepMerge', () => {
+    it('should deeply merge two objects', async () => {
+      const { deepMerge } = await import('./index');
+      const obj1 = { a: 1, b: { c: 2 } };
+      const obj2 = { b: { d: 3 }, e: 4 };
+
+      const merged = deepMerge(obj1, obj2);
+      expect(merged).toEqual({ a: 1, b: { c: 2, d: 3 }, e: 4 });
+
+      // Should merge and deduplicate arrays (based on implementation)
+      const obj3 = { arr: [1, 2] };
+      const obj4 = { arr: [3] };
+      expect(deepMerge(obj3, obj4)).toEqual({ arr: [1, 2, 3] });
+    });
+  });
 });

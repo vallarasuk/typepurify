@@ -59,6 +59,19 @@ export class Cache<T = any> {
   }
 
   /**
+   * Retrieves a value from the cache. If it doesn't exist or is expired,
+   * it executes the provided factory function, caches the result, and returns it.
+   */
+  async getOrSet(key: string, factory: () => Promise<T> | T, customTtl?: number): Promise<T> {
+    const cached = this.get(key);
+    if (cached !== undefined) return cached;
+
+    const value = await factory();
+    this.set(key, value, customTtl);
+    return value;
+  }
+
+  /**
    * Sets a value in the cache.
    * If the cache exceeds maxSize, the least recently used item is evicted.
    */

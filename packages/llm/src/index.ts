@@ -146,3 +146,41 @@ export function truncateToTokenLimit(
   const targetLength = Math.floor(text.length * ratio);
   return text.slice(0, targetLength);
 }
+
+/**
+ * Helper to fetch and automatically stream an LLM response from an SSE endpoint.
+ */
+export async function* streamChat(
+  url: string,
+  payload: any,
+  headers?: Record<string, string>,
+): AsyncGenerator<string, void, unknown> {
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', ...headers },
+    body: JSON.stringify(payload),
+  });
+
+  if (!response.body) throw new Error('No response body');
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let buffer = '';
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+
+    buffer += decoder.decode(value, { stream: true });
+
+    // Process full chunks
+    const chunks = buffer.split('\n\n');
+    buffer = chunks.pop() || ''; // Keep the incomplete chunk in buffer
+
+    for (const chunk of chunks) {
+      for (const payload of parseAiStream(chunk)) {
+        yield payload;
+      }
+    }
+  }
+}

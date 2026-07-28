@@ -138,4 +138,21 @@ describe('@typepurify/json', () => {
       expect(xml).toBe('<data><user><name>Alice</name><age>30</age></user></data>');
     });
   });
+
+  describe('safeJsonStringify', () => {
+    it('should stringify standard objects', async () => {
+      const { safeJsonStringify } = await import('./index');
+      expect(safeJsonStringify({ a: 1 })).toContain('"a": 1');
+    });
+
+    it('should handle circular references safely', async () => {
+      const { safeJsonStringify } = await import('./index');
+      const circ: any = { a: 1 };
+      circ.self = circ;
+
+      const str = safeJsonStringify(circ);
+      expect(str).toContain('"a": 1');
+      expect(str).toContain('"[Circular]"');
+    });
+  });
 });

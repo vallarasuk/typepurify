@@ -1,3 +1,9 @@
+## 1.5.6
+
+### Patch Changes
+
+- Rollout v0.4.6 features across all packages.
+
 ## 1.5.5
 
 ### Patch Changes

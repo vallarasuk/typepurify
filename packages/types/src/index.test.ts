@@ -95,4 +95,20 @@ describe('@typepurify/types', () => {
       expect(val).toBe('userFirstName');
     });
   });
+
+  describe('RequireAtLeastOne', () => {
+    it('should compile correctly', async () => {
+      // Just import for side-effects or inline types to avoid unused var errors
+      await import('./index');
+      type MyType = { a?: number; b?: number; c?: number };
+
+      // We can't really test the failure case easily in runtime vitest,
+      // but we can ensure valid cases pass type check.
+      const valid1: import('./index').RequireAtLeastOne<MyType> = { a: 1 };
+      const valid2: import('./index').RequireAtLeastOne<MyType> = { a: 1, b: 2 };
+
+      expect(valid1).toBeDefined();
+      expect(valid2).toBeDefined();
+    });
+  });
 });

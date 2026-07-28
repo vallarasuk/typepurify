@@ -125,4 +125,13 @@ describe('@typepurify/security', () => {
       expect(cleanName).toBe('etc_passwd_illegal_');
     });
   });
+
+  describe('stripHtmlTags', () => {
+    it('should strip out html tags fully', async () => {
+      const { stripHtmlTags } = await import('./index');
+      expect(stripHtmlTags('<p>Hello <b>World</b></p>')).toBe('Hello World');
+      expect(stripHtmlTags('<script>alert(1)</script>')).toBe('alert(1)');
+      expect(stripHtmlTags('Safe text')).toBe('Safe text');
+    });
+  });
 });

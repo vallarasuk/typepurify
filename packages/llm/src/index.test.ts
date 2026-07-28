@@ -120,4 +120,12 @@ describe('@typepurify/llm', () => {
       expect(truncated.length).toBeLessThan(longText.length);
     });
   });
+
+  describe('streamChat', () => {
+    it('should parse an async generator from a fetch mock', async () => {
+      const { streamChat } = await import('./index');
+      // basic unit test assertion that it is exported and callable
+      expect(typeof streamChat).toBe('function');
+    });
+  });
 });

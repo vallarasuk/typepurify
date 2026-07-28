@@ -142,11 +142,16 @@ export function findUnusedDependencies(
 /**
  * Health scorer command for static repository analysis.
  */
-export function runHealthScorer(dirPath: string): number {
-  if (!dirPath) return 0;
-  console.log('Scanning ' + dirPath + '...');
+export function runHealthScorer(dirPath: string, jsonOutput = false): number | string {
+  if (!dirPath) return jsonOutput ? JSON.stringify({ score: 0 }) : 0;
+
+  if (!jsonOutput) {
+    console.log('Scanning ' + dirPath + '...');
+  }
+
   // return health score out of 100
-  return 95;
+  const score = 95;
+  return jsonOutput ? JSON.stringify({ dir: dirPath, score }) : score;
 }
 
 /**

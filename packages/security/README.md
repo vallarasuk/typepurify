@@ -58,3 +58,7 @@ import { enforceCsrfToken } from '@typepurify/security';
 
 const isValid = enforceCsrfToken(req.header('X-CSRF-Token'), session.csrfToken);
 ```
+
+### New in v0.4.6
+
+- Added `stripHtmlTags(input)` to sanitize inputs by removing HTML tags entirely.

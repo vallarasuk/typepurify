@@ -217,3 +217,27 @@ export async function withLinearBackoff<T>(
   }
   throw new Error('Linear retry failed');
 }
+
+/**
+ * Retries an async generator (e.g. streaming API requests).
+ */
+export async function* withRetryAsyncGenerator<T>(
+  fn: () => AsyncGenerator<T, void, unknown>,
+  retries = 3,
+  delay = 1000,
+): AsyncGenerator<T, void, unknown> {
+  let attempt = 0;
+  while (true) {
+    try {
+      const generator = fn();
+      for await (const item of generator) {
+        yield item;
+      }
+      return; // Success
+    } catch (err) {
+      if (attempt >= retries) throw err;
+      attempt++;
+      await new Promise((res) => setTimeout(res, delay * Math.pow(2, attempt - 1)));
+    }
+  }
+}

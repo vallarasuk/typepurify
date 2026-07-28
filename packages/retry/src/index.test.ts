@@ -176,4 +176,25 @@ describe('@typepurify/retry', () => {
       expect(fn).toHaveBeenCalledTimes(2);
     });
   });
+
+  describe('withRetryAsyncGenerator', () => {
+    it('should retry a failing async generator', async () => {
+      const { withRetryAsyncGenerator } = await import('./index');
+      let attempts = 0;
+      async function* gen() {
+        attempts++;
+        if (attempts === 1) throw new Error('fail');
+        yield 1;
+        yield 2;
+      }
+
+      const retryGen = withRetryAsyncGenerator(gen, 1, 10);
+      const results = [];
+      for await (const val of retryGen) {
+        results.push(val);
+      }
+      expect(results).toEqual([1, 2]);
+      expect(attempts).toBe(2);
+    });
+  });
 });

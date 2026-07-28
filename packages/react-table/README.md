@@ -78,3 +78,7 @@ export function UserTable() {
   );
 }
 ```
+
+### New in v0.4.6
+
+- Added `getSortDirection(key)` to the `useTable` hook to easily infer sort direction for a specific column.

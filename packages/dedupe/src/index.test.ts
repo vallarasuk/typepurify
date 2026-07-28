@@ -220,4 +220,23 @@ describe('@typepurify/dedupe', () => {
       expect(batchCalls).toBe(1);
     });
   });
+
+  describe('dedupeSync', () => {
+    it('should cache synchronous calls', async () => {
+      const { dedupeSync } = await import('./index');
+      let calls = 0;
+      const fn = (x: number) => {
+        calls++;
+        return x * 2;
+      };
+      const deduped = dedupeSync(fn);
+
+      expect(deduped(5)).toBe(10);
+      expect(deduped(5)).toBe(10); // Uses cache
+      expect(calls).toBe(1);
+
+      expect(deduped(6)).toBe(12);
+      expect(calls).toBe(2);
+    });
+  });
 });

@@ -187,4 +187,11 @@ describe('@typepurify/react-state', () => {
       expect(result.current).toBe('second');
     });
   });
+
+  describe('useSessionStorage', () => {
+    it('should exist', async () => {
+      const { useSessionStorage } = await import('./index');
+      expect(typeof useSessionStorage).toBe('function');
+    });
+  });
 });

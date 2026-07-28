@@ -29,3 +29,7 @@ console.log(args);
 //   name: 'Alice'
 // }
 ```
+
+### New in v0.4.6
+
+- Added `--json` flag support to `runHealthScorer` to return structured JSON payloads.
