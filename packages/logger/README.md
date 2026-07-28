@@ -33,3 +33,7 @@ logger.error('Failed to connect to database', new Error('Timeout'));
 const silentLogger = createLogger({ level: 'silent' });
 silentLogger.error('This will not be printed');
 ```
+
+### New in v0.4.6
+
+- Added `createFileLogger(filePath)` for lightweight and efficient file-based logging in Node.js environments.

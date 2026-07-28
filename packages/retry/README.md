@@ -38,3 +38,7 @@ const data = await withRetry(fetchUserData, {
   },
 });
 ```
+
+### New in v0.4.6
+
+- Added `withRetryAsyncGenerator(generatorFn, retries, delay)` to gracefully retry streaming data sources.

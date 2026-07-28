@@ -192,6 +192,11 @@ export function useTable<T>(options: UseTableOptions<T>) {
     setCurrentPage,
     setPageSize,
     handleSort,
+    getSortDirection: (key: string) => {
+      if (sortKey === key) return sortDirection;
+      const multi = multiSort.find((s) => s.key === key);
+      return multi ? multi.direction : null;
+    },
     handleColumnResize,
     exportToCsv,
     setData,

@@ -54,3 +54,7 @@ function ProfileEditor() {
   return <button onClick={() => setUser({ name: 'Bob', bio: undefined })}>Update User</button>;
 }
 ```
+
+### New in v0.4.6
+
+- Added `useSessionStorage(key, initialValue)` hook for persisting state in the session storage.

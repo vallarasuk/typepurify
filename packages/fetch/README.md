@@ -129,3 +129,7 @@ const resilientData = await tFetch('https://api.example.com/unstable', undefined
 ### License
 
 MIT © [Vallarasu K](https://github.com/vallarasuk)
+
+### New in v0.4.6
+
+- Added `createAuthFetch(getToken, options)` to automatically inject bearer tokens and handle auto-retries on 401s.

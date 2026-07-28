@@ -95,6 +95,11 @@ describe('@typepurify/cli', () => {
       expect(runHealthScorer('/project/path')).toBe(95);
       expect(runHealthScorer('')).toBe(0);
     });
+
+    it('should return health score via JSON if requested', () => {
+      const scoreJSON = runHealthScorer('/project/path', true);
+      expect(scoreJSON).toBe(JSON.stringify({ dir: '/project/path', score: 95 }));
+    });
   });
 
   describe('analyzeBundleSize', () => {

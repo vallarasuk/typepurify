@@ -44,3 +44,7 @@ console.log(str); // "{}"
 // With custom fallback
 const strWithFallback = safeStringify(obj, '{"error": "circular reference"}');
 ```
+
+### New in v0.4.6
+
+- Added `safeJsonStringify(obj)` to safely serialize objects with circular references without throwing errors.

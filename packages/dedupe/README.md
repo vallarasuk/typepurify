@@ -41,3 +41,7 @@ const dedupedFetch = dedupe(fetchUserData, {
   keyGenerator: (userId) => `user_${userId}`,
 });
 ```
+
+### New in v0.4.6
+
+- Added `dedupeSync(fn)` for deduplicating synchronous function calls efficiently.

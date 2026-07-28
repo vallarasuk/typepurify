@@ -355,4 +355,27 @@ describe('tFetch wrapper', () => {
       expect(fetchMock).toHaveBeenCalledTimes(2);
     });
   });
+
+  describe('createAuthFetch', () => {
+    it('should automatically inject Bearer token', async () => {
+      const { createAuthFetch } = await import('./index');
+
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        headers: new Headers({ 'content-type': 'application/json' }),
+        json: async () => ({ success: true }),
+      });
+
+      const authFetch = createAuthFetch(() => 'my-secret-token');
+      await authFetch('https://api.example.com/auth');
+
+      expect(fetchMock).toHaveBeenCalledWith('https://api.example.com/auth', {
+        headers: expect.any(Headers),
+      });
+
+      const args = fetchMock.mock.calls[0];
+      const reqHeaders = args[1].headers;
+      expect(reqHeaders.get('Authorization')).toBe('Bearer my-secret-token');
+    });
+  });
 });

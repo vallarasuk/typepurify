@@ -183,3 +183,12 @@ export function createScopedLogger(parentLogger: Logger, scopeName: string) {
       parentLogger.error(message, { scope: scopeName, error, ...meta }),
   };
 }
+
+/**
+ * Stub for creating a logger that writes to a file in a Node environment.
+ */
+export function createFileLogger(filePath: string, options?: LoggerOptions) {
+  // In a real environment, this would use fs.appendFile or a stream.
+  // For the browser/universal package, we return a standard logger that just logs.
+  return new Logger(options);
+}

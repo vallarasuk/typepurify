@@ -175,4 +175,14 @@ describe('@typepurify/paginate', () => {
       expect(page2.pageInfo.hasNextPage).toBe(false);
     });
   });
+
+  describe('calculateTotalPages', () => {
+    it('should correctly calculate total pages', async () => {
+      const { calculateTotalPages } = await import('./index');
+      expect(calculateTotalPages(10, 5)).toBe(2);
+      expect(calculateTotalPages(11, 5)).toBe(3);
+      expect(calculateTotalPages(0, 5)).toBe(0);
+      expect(calculateTotalPages(5, 0)).toBe(0);
+    });
+  });
 });

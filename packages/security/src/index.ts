@@ -161,3 +161,12 @@ export function sanitizeFilename(filename: string): string {
     .replace(/[\u0000-\u001F]/g, '_')
     .trim();
 }
+
+/**
+ * Completely strips all HTML tags from a string.
+ * Useful for preventing XSS when you only want raw text.
+ */
+export function stripHtmlTags(input: string): string {
+  if (!input) return '';
+  return input.replace(/<\/?[^>]+(>|$)/g, '');
+}

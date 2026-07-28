@@ -151,4 +151,12 @@ describe('@typepurify/logger', () => {
       expect(spy).toHaveBeenCalledWith('User logged in', { scope: 'AuthModule', userId: 42 });
     });
   });
+
+  describe('createFileLogger', () => {
+    it('should return a logger instance', async () => {
+      const { createFileLogger } = await import('./index');
+      const logger = createFileLogger('test.log');
+      expect(logger).toBeInstanceOf(Logger);
+    });
+  });
 });

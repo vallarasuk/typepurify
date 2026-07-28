@@ -79,3 +79,7 @@ const original = parseCursor(cursor); // => "item-id-123"
 
 const offset = parseOffset(2, 20); // Page 2 with 20 items per page => offset 20
 ```
+
+### New in v0.4.6
+
+- Added `calculateTotalPages(totalItems, pageSize)` utility for pagination calculation.

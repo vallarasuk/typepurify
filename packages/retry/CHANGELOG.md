@@ -1,3 +1,11 @@
+## 0.4.6
+
+### Patch Changes
+
+- Rollout v0.4.6 features across all packages.
+- Updated dependencies
+  - typepurify@1.5.6
+
 ## 0.4.5
 
 ### Minor Changes

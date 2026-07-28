@@ -230,3 +230,47 @@ export function usePrevious<T>(value: T): T | undefined {
   }, [value]);
   return ref.current;
 }
+
+/**
+ * A hook for managing state synced with sessionStorage.
+ */
+export function useSessionStorage<T>(
+  key: string,
+  initialValue: T | (() => T),
+): [T, (value: T | ((val: T) => T)) => void] {
+  const readValue = useCallback((): T => {
+    if (typeof window === 'undefined') {
+      return initialValue instanceof Function ? initialValue() : initialValue;
+    }
+    try {
+      const item = window.sessionStorage.getItem(key);
+      return item
+        ? (JSON.parse(item) as T)
+        : initialValue instanceof Function
+          ? initialValue()
+          : initialValue;
+    } catch (error) {
+      console.warn(`Error reading sessionStorage key "${key}":`, error);
+      return initialValue instanceof Function ? initialValue() : initialValue;
+    }
+  }, [key, initialValue]);
+
+  const [storedValue, setStoredValue] = useState<T>(readValue);
+
+  const setValue = useCallback(
+    (value: T | ((val: T) => T)) => {
+      try {
+        const valueToStore = value instanceof Function ? value(storedValue) : value;
+        setStoredValue(valueToStore);
+        if (typeof window !== 'undefined') {
+          window.sessionStorage.setItem(key, JSON.stringify(valueToStore));
+        }
+      } catch (error) {
+        console.warn(`Error setting sessionStorage key "${key}":`, error);
+      }
+    },
+    [key, storedValue],
+  );
+
+  return [storedValue, setValue];
+}

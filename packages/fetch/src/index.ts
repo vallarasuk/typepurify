@@ -241,3 +241,28 @@ export function createAutoRetryFetch(options: { retries?: number; delayMs?: numb
     throw lastError;
   };
 }
+
+/**
+ * Creates a fetch wrapper that automatically injects a Bearer Authorization header.
+ * Very useful for API clients.
+ */
+export function createAuthFetch(
+  getToken: () => string | Promise<string>,
+  options?: PurifyFetchOptions,
+) {
+  return createTFetch({
+    ...options,
+    interceptors: {
+      ...options?.interceptors,
+      onRequest: async (req) => {
+        const token = await getToken();
+        const headers = new Headers(req.init?.headers);
+        headers.set('Authorization', `Bearer ${token}`);
+        return {
+          input: req.input,
+          init: { ...req.init, headers },
+        };
+      },
+    },
+  });
+}

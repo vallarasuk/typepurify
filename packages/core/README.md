@@ -242,3 +242,7 @@ I build lightweight, high-performance developer utilities and media automation e
 ## 🛡️ License
 
 MIT © [Vallarasu Kanthasamy](https://github.com/vallarasuk)
+
+### New in v0.4.6
+
+- Added `deepMerge(target, source)` to deeply merge objects and deduplicate arrays, and `isPlainObject(val)` for reliable type checking.

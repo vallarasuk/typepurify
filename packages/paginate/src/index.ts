@@ -257,3 +257,11 @@ export function createCursorPaginator<T>(items: T[], cursorExtractor: (item: T) 
     };
   };
 }
+
+/**
+ * Simple helper to calculate total pages given total items and limit per page.
+ */
+export function calculateTotalPages(totalItems: number, limit: number): number {
+  if (totalItems <= 0 || limit <= 0) return 0;
+  return Math.ceil(totalItems / limit);
+}

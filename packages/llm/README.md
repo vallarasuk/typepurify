@@ -51,3 +51,7 @@ const tokens = countTokens('A very long prompt text...', 'gpt-4o');
 // Safely truncate strings that exceed token limits
 const safePrompt = truncateToTokenLimit('Massive user input payload...', 8000, 'claude');
 ```
+
+### New in v0.4.6
+
+- Added `streamChat(messages, model)` to handle stream-based generation natively with a unified async generator.

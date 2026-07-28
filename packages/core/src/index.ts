@@ -688,3 +688,42 @@ export function safeDeepClone<T>(obj: T, cache = new WeakMap()): T {
   });
   return copy;
 }
+
+/**
+ * Checks if a value is a plain JavaScript object.
+ */
+export function isPlainObject(val: any): val is Record<string, any> {
+  if (val === null || typeof val !== 'object') return false;
+  const proto = Object.getPrototypeOf(val);
+  return proto === null || proto === Object.prototype;
+}
+
+/**
+ * Deeply merges two objects, combining arrays and plain objects.
+ */
+export function deepMerge<T extends Record<string, any>, U extends Record<string, any>>(
+  target: T,
+  source: U,
+): T & U {
+  const output = Object.assign({}, target) as any;
+
+  if (isPlainObject(target) && isPlainObject(source)) {
+    Object.keys(source).forEach((key) => {
+      if (isPlainObject(source[key])) {
+        if (!(key in target)) {
+          output[key] = source[key];
+        } else {
+          output[key] = deepMerge(target[key], source[key]);
+        }
+      } else if (Array.isArray(source[key])) {
+        output[key] = Array.isArray(target[key])
+          ? Array.from(new Set([...target[key], ...source[key]]))
+          : source[key];
+      } else {
+        output[key] = source[key];
+      }
+    });
+  }
+
+  return output;
+}

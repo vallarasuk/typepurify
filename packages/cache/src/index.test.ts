@@ -172,4 +172,16 @@ describe('@typepurify/cache', () => {
       expect(cache.get('a')).toBe(42); // Still valid due to sliding window extension
     });
   });
+
+  describe('getOrSet', () => {
+    it('should fetch value if exists or set it via callback', async () => {
+      const cache = new Cache<string>();
+
+      const v1 = await cache.getOrSet('test-key', async () => 'hello');
+      expect(v1).toBe('hello');
+
+      const v2 = await cache.getOrSet('test-key', async () => 'world');
+      expect(v2).toBe('hello'); // uses cached value
+    });
+  });
 });
