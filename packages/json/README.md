@@ -1,50 +1,70 @@
-# @typepurify/json
+<div align="center">
+  <h1>✨ @typepurify/json</h1>
+  <p>Advanced JSON manipulation tools with safe parsing, diffing, and circular reference handling.</p>
+</div>
 
-Advanced JSON manipulation.
+---
 
-## Installation
+[![npm version](https://img.shields.io/npm/v/@typepurify/json.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/json)
+
+## 🚀 Overview
+
+`@typepurify/json` provides enterprise-grade JSON utilities. It features safe parsers that never throw errors, circular-reference-safe stringifiers, JSON repair tools, and deep-diffing engines.
+
+## 📦 Installation
 
 ```bash
 npm install @typepurify/json
 ```
 
-## Usage
+## 🛠 Features & Examples
 
-### `safeParse`
-
-Parses a JSON string and optionally applies `typepurify` cleaning logic. It can also accept a fallback value to avoid throwing errors on invalid JSON.
+### 1. Safe Parsing & Stringifying
 
 ```typescript
-import { safeParse } from '@typepurify/json';
+import { safeParse, safeJsonStringify } from '@typepurify/json';
 
-// Safely parse JSON with a fallback
-const data = safeParse('invalid json', { default: true });
-console.log(data); // { default: true }
+// Safe Parse: Never throws, falls back to a default value
+const data = safeParse('{ bad json }', { fallback: true });
 
-// Parse JSON and sanitize prototypes via typepurify core
-const secureData = safeParse('{"__proto__": {"admin": true}}', undefined, {
-  sanitizePrototypes: true,
-});
+// Safe Stringify: Automatically detects and removes circular references!
+const obj: any = { name: 'Alice' };
+obj.self = obj;
+
+const jsonStr = safeJsonStringify(obj); // Output: {"name":"Alice"}
 ```
 
-### `safeStringify`
+### 2. JSON Diffing
 
-Stringifies an object safely, avoiding thrown errors from circular references by returning a fallback string (default: `{}`).
+Deeply compare two JSON objects and get the exact differences.
 
 ```typescript
-import { safeStringify } from '@typepurify/json';
+import { deepDiff } from '@typepurify/json';
 
-const obj: any = {};
-obj.self = obj; // Circular reference
+const oldObj = { id: 1, name: 'Alice' };
+const newObj = { id: 1, name: 'Bob', age: 30 };
 
-// Normally JSON.stringify(obj) would throw an error
-const str = safeStringify(obj);
-console.log(str); // "{}"
-
-// With custom fallback
-const strWithFallback = safeStringify(obj, '{"error": "circular reference"}');
+const changes = deepDiff(oldObj, newObj);
+// => { name: { old: "Alice", new: "Bob" }, age: { added: 30 } }
 ```
 
-### New in v0.4.6
+### 3. Repair Broken JSON
 
-- Added `safeJsonStringify(obj)` to safely serialize objects with circular references without throwing errors.
+Tries to fix common JSON syntax errors (missing quotes, trailing commas, single quotes).
+
+```typescript
+import { repairJson } from '@typepurify/json';
+
+const fixed = repairJson("{ 'name': 'Alice', }"); // => '{"name": "Alice"}'
+```
+
+### 4. Utilities
+
+- `jsonSize(obj)`: Accurately estimates the byte size of an object if it were to be stringified.
+- `deepMerge(target, ...sources)`: Deeply merges multiple objects.
+- `flattenCsvToJson(csv)`: Converts CSV strings into flat JSON objects.
+- `jsonToXml(obj)`: Converts JSON maps into clean XML representations.
+
+## 🛡️ License
+
+MIT © Vallarasu Kanthasamy

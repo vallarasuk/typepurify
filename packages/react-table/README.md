@@ -1,84 +1,114 @@
-# @typepurify/react-state
+<div align="center">
+  <h1>✨ @typepurify/react-table</h1>
+  <p>Universal, zero-dependency Data Table utilities for sorting, filtering, and pagination.</p>
+</div>
 
-Universal, zero-dependency Data Table.
+---
 
-## Installation
+[![npm version](https://img.shields.io/npm/v/@typepurify/react-table.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/react-table)
+
+## 🚀 Overview
+
+`@typepurify/react-table` provides highly optimized hooks for rendering and managing massive data tables in React without relying on heavy DOM-bound libraries.
+
+## 📦 Installation
 
 ```bash
 npm install @typepurify/react-table
 ```
 
-## Usage
+## 🛠 Features & Usage
 
-### `useTable`
+### 1. `useTable`
 
-A headless React hook that handles sorting and pagination for arrays of data. You provide the raw data, and it gives you back the slice of data you should render, along with control functions.
+The core engine for your tables. Supports Multi-sorting, Search, Pagination, Column Visiblity, and native CSV Export.
 
 ```tsx
 import { useTable } from '@typepurify/react-table';
 
-interface User {
-  id: number;
-  name: string;
-  age: number;
-}
-
-const MOCK_DATA: User[] = [
-  { id: 1, name: 'Alice', age: 30 },
-  { id: 2, name: 'Bob', age: 25 },
-  { id: 3, name: 'Charlie', age: 35 },
+const data = [
+  { id: 1, name: 'Alice' },
+  { id: 2, name: 'Bob' },
 ];
 
-export function UserTable() {
-  const { data, handleSort, sortKey, sortDirection, currentPage, totalPages, setCurrentPage } =
-    useTable({
-      data: MOCK_DATA,
-      columns: [
-        { key: 'name', title: 'Name' },
-        { key: 'age', title: 'Age' },
-      ],
-      initialPageSize: 2,
-    });
+function MyTable() {
+  const {
+    paginatedData,
+    visibleColumns,
+    handleSort,
+    setSearchQuery,
+    exportToCsv,
+    currentPage,
+    totalPages,
+    setCurrentPage,
+  } = useTable({
+    data,
+    columns: [
+      { key: 'id', header: 'ID' },
+      { key: 'name', header: 'Name', accessor: (row) => row.name.toUpperCase() },
+    ],
+    initialPageSize: 10,
+  });
 
   return (
     <div>
+      <input placeholder="Search..." onChange={(e) => setSearchQuery(e.target.value)} />
+      <button onClick={() => exportToCsv('users.csv')}>Export</button>
+
       <table>
         <thead>
           <tr>
-            <th onClick={() => handleSort('name')}>
-              Name {sortKey === 'name' ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
-            </th>
-            <th onClick={() => handleSort('age')}>
-              Age {sortKey === 'age' ? (sortDirection === 'asc' ? '↑' : '↓') : ''}
-            </th>
+            {visibleColumns.map((col) => (
+              <th key={col.key} onClick={() => handleSort(col.key)}>
+                {col.header}
+              </th>
+            ))}
           </tr>
         </thead>
         <tbody>
-          {data.map((user) => (
-            <tr key={user.id}>
-              <td>{user.name}</td>
-              <td>{user.age}</td>
+          {paginatedData.map((row) => (
+            <tr key={row.id}>
+              <td>{row.id}</td>
+              <td>{row.name}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
       <div>
-        <button disabled={currentPage === 1} onClick={() => setCurrentPage((p) => p - 1)}>
-          Previous
-        </button>
-        <span>
-          Page {currentPage} of {totalPages}
-        </span>
-        <button disabled={currentPage === totalPages} onClick={() => setCurrentPage((p) => p + 1)}>
-          Next
-        </button>
+        Page {currentPage} of {totalPages}
       </div>
     </div>
   );
 }
 ```
 
-### New in v0.4.6
+### 2. `useRowSelection`
 
-- Added `getSortDirection(key)` to the `useTable` hook to easily infer sort direction for a specific column.
+Effortlessly manage selected rows for bulk actions.
+
+```tsx
+import { useRowSelection } from '@typepurify/react-table';
+
+const { selectedRowIds, toggleRowSelected, toggleAllRowsSelected } = useRowSelection();
+```
+
+### 3. URL State Serialization
+
+Synchronize your table state (page, limit, sort) directly to your URL query params.
+
+```typescript
+import { serializeTableState } from '@typepurify/react-table';
+
+const queryParams = serializeTableState({
+  currentPage: 2,
+  pageSize: 20,
+  sortKey: 'name',
+  sortDirection: 'asc',
+});
+// => { page: 2, limit: 20, sort: 'name:asc' }
+```
+
+## 🛡️ License
+
+MIT © Vallarasu Kanthasamy

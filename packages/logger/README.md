@@ -1,39 +1,71 @@
-# @typepurify/logger
+<div align="center">
+  <h1>✨ @typepurify/logger</h1>
+  <p>Enterprise logging suite with JSON transports, automatic error formatting, and rate limiting.</p>
+</div>
 
-Enterprise logging suite.
+---
 
-## Installation
+[![npm version](https://img.shields.io/npm/v/@typepurify/logger.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/logger)
+
+## 🚀 Overview
+
+`@typepurify/logger` is a blazing-fast logger designed for backend services. It natively supports JSON serialization (preventing circular reference crashes) and includes middleware for Express.js.
+
+## 📦 Installation
 
 ```bash
 npm install @typepurify/logger
 ```
 
-## Usage
+## 🛠 Features & Examples
+
+### 1. Base Logger
+
+Create a logger with JSON or colorized text formatting.
 
 ```typescript
-import { createLogger } from '@typepurify/logger';
+import { Logger } from '@typepurify/logger';
 
-// Create a logger instance
-const logger = createLogger({
-  level: 'debug', // 'debug' | 'info' | 'warn' | 'error' | 'silent' (default: 'info')
-  prefix: 'MyApp', // Optional prefix
-  timestamp: true, // Optional ISO timestamp
+const log = new Logger({
+  level: 'info',
+  format: 'json', // or 'text'
+  colorize: true,
 });
 
-logger.debug('This is a debug message');
-// Output: [2026-07-23T15:00:00.000Z] [MyApp] This is a debug message
-
-logger.info('User logged in', { userId: 123 });
-// Output: [2026-07-23T15:00:00.000Z] [MyApp] User logged in { userId: 123 }
-
-logger.warn('Rate limit approaching');
-logger.error('Failed to connect to database', new Error('Timeout'));
-
-// Completely silence logs
-const silentLogger = createLogger({ level: 'silent' });
-silentLogger.error('This will not be printed');
+log.info('Server started', { port: 3000 });
+log.error('Database connection failed', new Error('Timeout'));
 ```
 
-### New in v0.4.6
+### 2. Scoped Loggers
 
-- Added `createFileLogger(filePath)` for lightweight and efficient file-based logging in Node.js environments.
+Create child loggers that automatically inherit properties.
+
+```typescript
+import { createScopedLogger } from '@typepurify/logger';
+
+const dbLogger = createScopedLogger(log, 'Database');
+dbLogger.info('Query executed', { time: '10ms' });
+// Outputs JSON with { "scope": "Database", "time": "10ms" } attached
+```
+
+### 3. Express Middleware
+
+Automatically log incoming HTTP requests and response times.
+
+```typescript
+import express from 'express';
+import { requestLogger } from '@typepurify/logger';
+
+const app = express();
+app.use(requestLogger(log));
+```
+
+### 4. Utilities
+
+- **`formatError(err)`**: Beautifully formats stack traces.
+- **`LogRateLimiter`**: Prevent your logs from being flooded during high-throughput errors (e.g. while in a retry loop).
+- **`createFileLogger(path, options)`**: File-backed logger stub.
+
+## 🛡️ License
+
+MIT © Vallarasu Kanthasamy

@@ -1,35 +1,70 @@
-# @typepurify/cli
+<div align="center">
+  <h1>✨ @typepurify/cli</h1>
+  <p>Scaffolding and analysis CLI tool for generating TypePurify resources and maintaining repository health.</p>
+</div>
 
-Scaffolding and analysis CLI.
+---
 
-## Installation
+[![npm version](https://img.shields.io/npm/v/@typepurify/cli.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/cli)
+
+## 🚀 Overview
+
+`@typepurify/cli` contains scripts and programmatic APIs to manage monorepos, validate `.env` files, analyze bundles, and scaffold new projects.
+
+## 📦 Installation
 
 ```bash
-npm install @typepurify/cli
+npm install -g @typepurify/cli
 ```
 
-## Usage
+## 🛠 Features & Examples
 
-### `parseArgs`
+### 1. `.env` Validation & Generation
 
-A zero-dependency, tiny command line argument parser that converts `process.argv` into a key-value object.
+Programmatically parse, validate, and auto-generate `.env.example` files to keep your team's environments synced.
 
 ```typescript
-import { parseArgs } from '@typepurify/cli';
+import { EnvValidator, generateEnvExample } from '@typepurify/cli';
 
-// For example, if run with:
-// node script.js --verbose --port=8080 --name "Alice"
+// Ensure required keys exist
+const validator = new EnvValidator(envContent);
+const missing = validator.validate(['DATABASE_URL', 'API_KEY']);
 
-const args = parseArgs(process.argv.slice(2));
-
-console.log(args);
-// {
-//   verbose: true,
-//   port: '8080',
-//   name: 'Alice'
-// }
+// Scan source files for process.env.* usages and create a .env.example
+const example = generateEnvExample(['./src/index.ts', './src/app.ts']);
 ```
 
-### New in v0.4.6
+### 2. Monorepo Dependency Analysis
 
-- Added `--json` flag support to `runHealthScorer` to return structured JSON payloads.
+Find unused or duplicate dependencies across your `package.json` files to reduce bloat.
+
+```typescript
+import { findDuplicateDependencies, findUnusedDependencies } from '@typepurify/cli';
+
+const duplicates = findDuplicateDependencies([pkg1, pkg2]);
+const unused = findUnusedDependencies(pkg1, ['./src/index.ts']);
+```
+
+### 3. Project Scaffolding
+
+Bootstrap a minimal Node or React project instantly.
+
+```typescript
+import { bootstrapProject } from '@typepurify/cli';
+
+bootstrapProject('./my-app', 'react');
+```
+
+### 4. Health & Bundle Analytics
+
+```typescript
+import { runHealthScorer, analyzeBundleSize } from '@typepurify/cli';
+
+const score = runHealthScorer('./src', true);
+const bundle = analyzeBundleSize('./dist');
+console.log(`Bundle Size: ${bundle.totalSizeBytes} bytes`);
+```
+
+## 🛡️ License
+
+MIT © Vallarasu Kanthasamy

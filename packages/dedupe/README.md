@@ -1,47 +1,59 @@
-# @typepurify/dedupe
+<div align="center">
+  <h1>✨ @typepurify/dedupe</h1>
+  <p>Highly optimized async request deduplicator to prevent redundant API calls and state thrashing.</p>
+</div>
 
-Request deduplicator to prevent duplicate API calls.
+---
 
-## Installation
+[![npm version](https://img.shields.io/npm/v/@typepurify/dedupe.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/dedupe)
+
+## 🚀 Overview
+
+`@typepurify/dedupe` prevents duplicate inflight network requests or expensive asynchronous operations. If multiple components request the same data simultaneously, the deduplicator ensures only **one** backend call is made, sharing the resolved promise with all callers.
+
+## 📦 Installation
 
 ```bash
 npm install @typepurify/dedupe
 ```
 
-## Usage
+## 🛠 Features & Examples
 
-When you wrap an asynchronous function with `dedupe`, identical calls (based on their arguments) made at the same time will share the same promise rather than spawning multiple duplicate operations.
+### 1. Standalone Deduplication (`dedupeAsync`)
+
+Wrap any asynchronous function to ensure it cannot be executed concurrently with the same arguments.
 
 ```typescript
-import { dedupe } from '@typepurify/dedupe';
+import { dedupeAsync } from '@typepurify/dedupe';
 
-const fetchUserData = async (userId: number) => {
-  console.log('Fetching from API...');
-  const res = await fetch(`https://api.example.com/users/${userId}`);
+const fetchUserProfile = dedupeAsync(async (userId: string) => {
+  console.log(`Fetching user ${userId} from DB...`);
+  const res = await fetch(`/api/users/${userId}`);
   return res.json();
-};
+});
 
-const dedupedFetch = dedupe(fetchUserData);
-
-// Calling it 3 times simultaneously will only trigger ONE network request.
-// All 3 variables will receive the exact same resolved value.
-const [user1, user2, user3] = await Promise.all([
-  dedupedFetch(123),
-  dedupedFetch(123),
-  dedupedFetch(123),
-]);
+// Both of these will resolve at the same time, but only ONE network request is made!
+const [user1, user2] = await Promise.all([fetchUserProfile('u123'), fetchUserProfile('u123')]);
 ```
 
-### Custom Cache Keys
+### 2. Global Request Deduplicator Class
 
-By default, `dedupe` uses `JSON.stringify(args)` to determine if a call is identical. You can override this using a custom `keyGenerator`.
+If you need finer control over the deduplication cache, use the `RequestDeduplicator` class.
 
 ```typescript
-const dedupedFetch = dedupe(fetchUserData, {
-  keyGenerator: (userId) => `user_${userId}`,
-});
+import { RequestDeduplicator } from '@typepurify/dedupe';
+
+const deduper = new RequestDeduplicator();
+
+async function getData(query: string) {
+  return deduper.execute(query, () => fetch(`/api/search?q=${query}`).then((r) => r.json()));
+}
+
+// "search-1" only hits the backend once.
+getData('search-1');
+getData('search-1');
 ```
 
-### New in v0.4.6
+## 🛡️ License
 
-- Added `dedupeSync(fn)` for deduplicating synchronous function calls efficiently.
+MIT © Vallarasu Kanthasamy

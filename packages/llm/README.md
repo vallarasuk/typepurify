@@ -1,57 +1,93 @@
-# @typepurify/llm
+<div align="center">
+  <h1>✨ @typepurify/llm</h1>
+  <p>AI response utilities, ReDoS-safe JSON extraction, SSE stream parsing, and prompt management.</p>
+</div>
 
-AI response utilities, ReDoS-safe JSON extraction from LLM outputs, stream parsing, and prompt management.
+---
 
-## Installation
+[![npm version](https://img.shields.io/npm/v/@typepurify/llm.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/llm)
+
+## 🚀 Overview
+
+Working with Large Language Models (LLMs) often involves messy text outputs, broken JSON formats, and complicated streaming protocols. `@typepurify/llm` provides a zero-dependency toolkit to sanitize, extract, and stream LLM outputs securely.
+
+## 📦 Installation
 
 ```bash
 npm install @typepurify/llm
 ```
 
-## Usage
+## 🛠 Features & Examples
 
-### `prompt` template tag
+### 1. JSON Extraction & Cleaning
 
-Write clean, readable multi-line prompts in your code without messing up indentation when sent to the API. It strips the common leading whitespace.
-
-```typescript
-import { prompt } from '@typepurify/llm';
-
-const persona = 'pirate';
-const userMessage = 'Explain quantum physics';
-
-const p = prompt`
-  You are an expert who speaks like a ${persona}.
-  
-  Please answer the following request:
-    - User says: "${userMessage}"
-  
-  Be concise.
-`;
-
-console.log(p);
-// You are an expert who speaks like a pirate.
-//
-// Please answer the following request:
-//   - User says: "Explain quantum physics"
-//
-// Be concise.
-```
-
-### `countTokens` and `truncateToTokenLimit`
-
-Roughly approximate token counts without installing heavy tokenizers, and truncate your text to fit within context limits safely.
+Extracts JSON safely from markdown blocks (` ```json ... ``` `) and fixes common LLM output errors like trailing commas.
 
 ```typescript
-import { countTokens, truncateToTokenLimit } from '@typepurify/llm';
+import { cleanLlmJson, parseMarkdownBlocks } from '@typepurify/llm';
 
-// Approximate token counts for string constraints
-const tokens = countTokens('A very long prompt text...', 'gpt-4o');
+const llmOutput = `Here is your data:
+\`\`\`json
+{ "name": "Alice", }
+\`\`\``;
 
-// Safely truncate strings that exceed token limits
-const safePrompt = truncateToTokenLimit('Massive user input payload...', 8000, 'claude');
+const safeJsonStr = cleanLlmJson(llmOutput); // => '{ "name": "Alice" }'
+
+// You can also extract all markdown blocks:
+const blocks = parseMarkdownBlocks(llmOutput);
+console.log(blocks['json']); // Array of JSON blocks
 ```
 
-### New in v0.4.6
+### 2. Streaming Chat (SSE Parser)
 
-- Added `streamChat(messages, model)` to handle stream-based generation natively with a unified async generator.
+Effortlessly consume Server-Sent Events (SSE) from OpenAI, Anthropic, or custom endpoints.
+
+```typescript
+import { streamChat } from '@typepurify/llm';
+
+async function run() {
+  const stream = streamChat('https://api.openai.com/v1/chat/completions', payload, {
+    Authorization: 'Bearer sk-...',
+  });
+
+  for await (const chunk of stream) {
+    console.log(chunk); // Yields clean payload strings incrementally
+  }
+}
+```
+
+### 3. Prompt Templating & Chat Builders
+
+```typescript
+import { PromptTemplate, buildChatPrompt } from '@typepurify/llm';
+
+const template = new PromptTemplate('Translate {{text}} to {{lang}}');
+const prompt = template.render({ text: 'Hello', lang: 'French' });
+// => "Translate Hello to French"
+```
+
+### 4. Token Counting & Cost Estimation
+
+Provides fast, regex-free token estimation and cost calculation without importing massive tokenization libraries.
+
+```typescript
+import { countTokens, estimateCost, truncateToTokenLimit } from '@typepurify/llm';
+
+const tokens = countTokens('Massive payload...', 'gpt-4o');
+const cost = estimateCost(tokens, 'gpt-4o');
+
+// Ensure you never exceed context limits
+const safeText = truncateToTokenLimit(hugeText, 8000, 'openai');
+```
+
+### 5. Schema Validation
+
+```typescript
+import { validateLlmSchema } from '@typepurify/llm';
+
+const isValid = validateLlmSchema(parsedJson, { name: 'string', age: 'number' });
+```
+
+## 🛡️ License
+
+MIT © Vallarasu Kanthasamy
