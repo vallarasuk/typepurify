@@ -1,44 +1,60 @@
-# @typepurify/retry
+<div align="center">
+  <h1>✨ @typepurify/retry</h1>
+  <p>Standalone, zero-dependency retry utility for async functions with exponential backoff.</p>
+</div>
 
-Standalone retry utility for async functions.
+---
 
-## Installation
+[![npm version](https://img.shields.io/npm/v/@typepurify/retry.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/retry)
+
+## 🚀 Overview
+
+`@typepurify/retry` provides robust, production-ready retry logic for unstable network requests, database transactions, and file system operations. Features exponential backoff, jitter, and custom bail conditions.
+
+## 📦 Installation
 
 ```bash
 npm install @typepurify/retry
 ```
 
-## Usage
+## 🛠 Features & Examples
+
+### 1. `retryAsync`
+
+Execute an asynchronous function with built-in retry logic.
+
+```typescript
+import { retryAsync } from '@typepurify/retry';
+
+const data = await retryAsync(
+  async () => {
+    const res = await fetch('https://api.flaky.com/data');
+    if (!res.ok) throw new Error('Failed');
+    return res.json();
+  },
+  {
+    retries: 3, // Max attempts
+    delay: 1000, // Base delay in ms
+    factor: 2, // Exponential backoff factor (1000ms, 2000ms, 4000ms)
+    jitter: true, // Add randomness to prevent thundering herd
+    onRetry: (e, attempt) => console.warn(`Attempt ${attempt} failed: ${e.message}`),
+  },
+);
+```
+
+### 2. `withRetry` Wrapper
+
+Wrap an existing function to create a resilient version that automatically retries when invoked.
 
 ```typescript
 import { withRetry } from '@typepurify/retry';
 
-async function fetchUserData() {
-  const response = await fetch('https://api.example.com/user');
-  if (!response.ok) throw new Error('API Error');
-  return response.json();
-}
+const resilientFetch = withRetry(fetch, { retries: 5, delay: 500 });
 
-// Automatically retries up to 3 times (default) with a 1 second delay
-const data = await withRetry(fetchUserData);
+// Use just like normal fetch, but it auto-retries!
+const res = await resilientFetch('https://api.flaky.com/data');
 ```
 
-### Advanced Options
+## 🛡️ License
 
-```typescript
-const data = await withRetry(fetchUserData, {
-  retries: 5, // Retry up to 5 times
-  delay: 2000, // Wait 2 seconds between retries
-  onRetry: (err, attempt) => {
-    console.log(`Retry attempt ${attempt} due to error: ${err.message}`);
-  },
-  shouldRetry: (err) => {
-    // Only retry if it's a 500 server error, don't retry on 404
-    return err.message.includes('500');
-  },
-});
-```
-
-### New in v0.4.6
-
-- Added `withRetryAsyncGenerator(generatorFn, retries, delay)` to gracefully retry streaming data sources.
+MIT © Vallarasu Kanthasamy

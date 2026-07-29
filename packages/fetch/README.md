@@ -1,6 +1,6 @@
 <div align="center">
   <h1>✨ @typepurify/fetch</h1>
-  <p>A lightweight wrapper around native fetch that automatically purifies API responses.</p>
+  <p>A type-safe, auto-purifying wrapper around the native <code>fetch</code> API.</p>
 </div>
 
 ---
@@ -10,9 +10,7 @@
 
 ## 🚀 Overview
 
-`@typepurify/fetch` is part of the **TypePurify Ecosystem**. It provides a drop-in replacement for the native `fetch` API that automatically strips out `null` and `undefined` properties from JSON responses, ensuring that your frontend state stays clean and perfectly typed.
-
----
+`@typepurify/fetch` provides a robust, zero-dependency `tFetch` wrapper around the native `fetch` API. It natively integrates with `typepurify` to automatically deeply clean your API JSON responses while strictly retaining TypeScript types.
 
 ## 📦 Installation
 
@@ -20,116 +18,71 @@
 npm install @typepurify/fetch typepurify
 ```
 
-## 💻 Usage & Visual Examples
+## 🛠 Features & Usage
 
-### Standard Fetch vs `tFetch`
+### 1. Auto-Purifying Requests
 
-Instead of manually parsing JSON and manually cleaning it, `tFetch` handles it all under the hood.
+Automatically drops `null` and `undefined` properties from your API payloads.
 
 ```typescript
 import { tFetch } from '@typepurify/fetch';
 
-// ✨ Calling the API
-const pristineData = await tFetch('https://api.example.com/users/1');
+interface UserPayload {
+  id: number;
+  name: string;
+  age: number | null;
+}
 
-/*
-If the API returns:
-{ "id": 1, "name": "Jane", "bio": null, "address": null }
+// 1. Fetch data and automatically clean it
+const user = await tFetch<UserPayload>('https://api.example.com/user');
 
-tFetch automatically returns:
-{ "id": 1, "name": "Jane" }
-*/
+// => { id: 1, name: "Alice" }
+// 'age' is stripped because it was null!
 ```
 
-### High-Performance Parsing Mode
+### 2. Built-in Interceptors, Retries & Timeouts
 
-If you have massive JSON payloads (megabytes in size), you can enable `useCleanParse` to bypass the native `JSON.parse` entirely. This parses and cleans the JSON string in a single memory-efficient pass!
-
-```typescript
-const pristineData = await tFetch('https://api.example.com/massive-data', undefined, {
-  useCleanParse: true,
-  stripEmptyArrays: true,
-});
-```
-
-### `createTFetch` Factory
-
-Need global interceptors for auth tokens or default headers across your entire app? Use the `createTFetch` factory to generate a customized `tFetch` instance!
+`tFetch` ships with advanced networking features typically requiring bulky libraries like Axios.
 
 ```typescript
-import { createTFetch } from '@typepurify/fetch';
+import { tFetch } from '@typepurify/fetch';
 
-export const apiFetch = createTFetch({
-  baseUrl: 'https://api.myapp.com/v1',
-  interceptors: {
-    onRequest: (req) => {
-      // Automatically add auth token to EVERY request
-      req.init = {
-        ...req.init,
-        headers: {
-          ...req.init?.headers,
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      };
-      return req;
+const data = await tFetch(
+  'https://api.example.com/data',
+  {},
+  {
+    timeout: 5000, // Abort after 5s
+    retries: 3, // Auto-retry on failure
+    retryDelay: 1000, // Exponential backoff delay
+    interceptors: {
+      onRequest: (req) => {
+        req.init = { ...req.init, headers: { Authorization: 'Bearer Token' } };
+        return req;
+      },
+      onResponse: (res) => {
+        console.log(`Received status: ${res.status}`);
+        return res;
+      },
     },
   },
-});
-
-// Usage anywhere in your app:
-const user = await apiFetch('/me'); // Automatically hits baseUrl and injects token!
+);
 ```
 
-## ⚙️ Advanced Configuration (Timeouts, Retries, Interceptors)
+### 3. Ultra-Fast `cleanParse`
 
-`tFetch` supports powerful network resilience features natively, without relying on external dependencies!
+Set `useCleanParse: true` to bypass the intermediate object allocation of `JSON.parse` for up to 25% faster data fetching on massive payloads.
 
 ```typescript
-const resilientData = await tFetch('https://api.example.com/unstable', undefined, {
-  // Abort the request if it takes longer than 5000ms
-  timeout: 5000,
-
-  // If the request fails, retry it up to 3 times
-  retries: 3,
-
-  // Use exponential backoff starting at 1000ms (1s, 2s, 4s)
-  retryDelay: 1000,
-
-  // Intercept requests and responses
-  interceptors: {
-    onRequest: async (req) => {
-      // e.g. Add auth headers dynamically
-      req.init = {
-        ...req.init,
-        headers: { ...req.init?.headers, Authorization: 'Bearer token' },
-      };
-      return req;
-    },
-    onResponse: async (res) => {
-      // Inspect the raw response before it gets parsed
-      console.log('Response Status:', res.status);
-      return res;
-    },
-    onError: async (error) => {
-      // Handle or report the error
-      console.error('Fetch Failed:', error);
-      return error;
-    },
+const largeData = await tFetch(
+  'https://api.example.com/heavy',
+  {},
+  {
+    useCleanParse: true,
+    stripEmptyArrays: true,
   },
-});
+);
 ```
 
-### Fallbacks and Errors
+## 🛡️ License
 
-- Automatically throws an Error on non-ok HTTP responses (e.g., `404`).
-- If the response is not `application/json`, it elegantly falls back to returning plain text.
-
----
-
-### License
-
-MIT © [Vallarasu K](https://github.com/vallarasuk)
-
-### New in v0.4.6
-
-- Added `createAuthFetch(getToken, options)` to automatically inject bearer tokens and handle auto-retries on 401s.
+MIT © Vallarasu Kanthasamy

@@ -1,64 +1,78 @@
-# @typepurify/security
+<div align="center">
+  <h1>✨ @typepurify/security</h1>
+  <p>Lightweight security inspection tools, secret detection, and input sanitization.</p>
+</div>
 
-Security inspection tools, including memory-efficient secret detection and JWT inspection.
+---
 
-## Installation
+[![npm version](https://img.shields.io/npm/v/@typepurify/security.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/security)
+
+## 🚀 Overview
+
+`@typepurify/security` offers zero-dependency, memory-efficient tools for preventing sensitive data leaks, neutralizing XSS payloads, and validating high-security tokens directly in your application boundary.
+
+## 📦 Installation
 
 ```bash
 npm install @typepurify/security
 ```
 
-## Usage
+## 🛠 Features & Examples
 
-### `escapeHtml`
+### 1. In-Memory Secret Detection
 
-Converts characters like `<`, `>`, `&`, `"`, and `'` to their HTML entities to safely embed user input in HTML.
-
-```typescript
-import { escapeHtml } from '@typepurify/security';
-
-const userInput = '<script>alert("XSS")</script>';
-const safeHtml = escapeHtml(userInput);
-// Output: &lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;
-```
-
-### `sanitizeFilename`
-
-Strips invalid OS characters and directory traversal patterns (like `../`) from filenames to securely process user uploads.
-
-```typescript
-import { sanitizeFilename } from '@typepurify/security';
-
-const safeFile = sanitizeFilename('../../../etc/passwd<illegal>.txt');
-// Output: etc_passwd_illegal_.txt
-```
-
-### `detectSecrets`
-
-Memory-efficient, zero-allocation tree-walking utility to discover and mask exposed secrets (AWS keys, GCP tokens, etc.) inside plain strings or deep object hierarchies.
+Scans deeply nested JSON payloads or strings for leaked API keys, tokens, and credentials (e.g., Google, OpenAI, AWS, GitHub) before they leave your system.
 
 ```typescript
 import { detectSecrets } from '@typepurify/security';
 
-const configPayload = {
-  apiKey: 'AKIAIOSFODNN7EXAMPLE',
-  user: 'admin',
+const payload = {
+  user: 'Alice',
+  config: { apiKey: 'sk-proj-1234567890abcdef' },
 };
 
-const masked = detectSecrets(configPayload);
-// Output: { apiKey: 'AKIA***************E', user: 'admin' }
+const leaks = detectSecrets(payload);
+// Returns masked matches like ["sk-p...cdef"] to alert without logging the full secret!
 ```
 
-### `enforceCsrfToken`
-
-Strict timing-safe equality check for validating CSRF tokens above a secure length threshold.
+### 2. Input Sanitization
 
 ```typescript
-import { enforceCsrfToken } from '@typepurify/security';
+import { sanitizeUrl, sanitizeFilename, escapeHtml, stripHtmlTags } from '@typepurify/security';
 
-const isValid = enforceCsrfToken(req.header('X-CSRF-Token'), session.csrfToken);
+// Neutralizes javascript: or data: payloads
+const url = sanitizeUrl('javascript:alert(1)'); // => "about:blank"
+
+// Prevents directory traversal attacks
+const filename = sanitizeFilename('../../etc/passwd'); // => "etc_passwd"
+
+// Escapes or strips HTML
+escapeHtml('<div>'); // => "&lt;div&gt;"
+stripHtmlTags('<p>Hello</p>'); // => "Hello"
 ```
 
-### New in v0.4.6
+### 3. JWT Inspection
 
-- Added `stripHtmlTags(input)` to sanitize inputs by removing HTML tags entirely.
+Inspect payloads and expiration times securely on the client-side without full cryptographic verification.
+
+```typescript
+import { inspectJwt, isJwtExpired } from '@typepurify/security';
+
+const token = inspectJwt(myJwtString);
+console.log(token?.payload);
+
+if (isJwtExpired(myJwtString)) {
+  // Trigger re-authentication
+}
+```
+
+### 4. Data Masking & Validation
+
+- `maskIPAddress('192.168.1.10')` => `192.168.1.***`
+- `maskEmail('user@example.com')` => `us***@example.com`
+- `isStrongPassword('password123', { minLength: 8, requireSpecial: true })`
+- `enforceCsrfToken(reqToken, sessionToken)`
+
+## 🛡️ License
+
+MIT © Vallarasu Kanthasamy

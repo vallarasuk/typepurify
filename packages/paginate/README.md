@@ -1,85 +1,89 @@
-# @typepurify/paginate
+<div align="center">
+  <h1>✨ @typepurify/paginate</h1>
+  <p>Smart pagination utilities and offset/cursor-based calculation engines.</p>
+</div>
 
-Smart pagination utilities.
+---
 
-## Installation
+[![npm version](https://img.shields.io/npm/v/@typepurify/paginate.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/paginate)
+
+## 🚀 Overview
+
+`@typepurify/paginate` simplifies complex pagination logic. Whether you need standard offset calculations, Relay-compliant GraphQL connections, or infinite scroll state machines, this zero-dependency library has you covered.
+
+## 📦 Installation
 
 ```bash
 npm install @typepurify/paginate
 ```
 
-## Usage
+## 🛠 Features & Examples
 
-Define how to fetch a single page, and how to determine the parameters for the next page. `fetchAllPages` will automatically loop until all data is retrieved.
+### 1. Cursor Pagination & Relay Connections
+
+Build secure base64 cursors and standard Relay-compliant connections.
 
 ```typescript
-import { fetchAllPages } from '@typepurify/paginate';
+import { buildConnection, createCursor, parseCursor } from '@typepurify/paginate';
 
-interface User {
-  id: number;
-  name: string;
-}
+const items = [
+  { id: 'item1', name: 'A' },
+  { id: 'item2', name: 'B' },
+];
 
-// Example API that uses a 'page' query parameter
-const fetchUsersPage = async (page: number): Promise<User[]> => {
-  const res = await fetch(`https://api.example.com/users?page=${page}`);
-  return res.json();
-};
-
-const allUsers = await fetchAllPages({
-  initialParams: 1,
-  fetchPage: fetchUsersPage,
-  getNextPageParams: (lastPage, currentPage) => {
-    // If the API returned a full page of 20 items, assume there's another page
-    return lastPage.length === 20 ? currentPage + 1 : null;
-  },
-});
-
-console.log(`Fetched ${allUsers.length} users in total!`);
+// Creates a Relay-compliant connection object
+const connection = buildConnection(
+  items,
+  (item) => createCursor(item.id), // Base64 encodes the ID
+  true, // hasNextPage
+  false, // hasPreviousPage
+);
 ```
 
-### Safety Limits
+### 2. Auto-Paginator Generator (`paginateAll`)
 
-To prevent infinite loops with misconfigured APIs, you can optionally set a maximum number of pages to fetch using `maxPages`. `fetchAllPages` also stops immediately if `fetchPage` ever returns an empty array.
+Automatically loop through all paginated API responses seamlessly using an AsyncGenerator.
 
-## 🚀 Advanced Features
+```typescript
+import { paginateAll } from '@typepurify/paginate';
 
-### Infinite Scroll Manager
+const fetchUsers = async (cursor) => {
+  const res = await api.get(`/users?cursor=${cursor || ''}`);
+  return { items: res.data, nextCursor: res.next_cursor };
+};
 
-Easily handle infinite scrolling UI state in React or Vanilla JS natively without heavy UI libraries.
+// Automatically iterates until all pages are exhausted!
+for await (const users of paginateAll(fetchUsers)) {
+  console.log('Fetched batch of users:', users);
+}
+```
+
+### 3. Infinite Scroll Manager
+
+A UI-agnostic state machine to manage infinite scroll loaders.
 
 ```typescript
 import { InfiniteScrollManager } from '@typepurify/paginate';
 
-const manager = new InfiniteScrollManager();
-manager.subscribe((state) => {
-  console.log('Loading:', state.isLoading, 'Page:', state.page);
-});
+const scroll = new InfiniteScrollManager();
 
-// Start loading the next page
-if (manager.startLoad()) {
+if (scroll.startLoad()) {
   try {
-    const data = await fetchPage(manager.getState().page);
-    manager.completeLoad(data.length, 20); // 20 is the page limit
+    const data = await fetchMoreData();
+    scroll.completeLoad(data.length, 20); // Notifies subscribers and calculates `hasMore`
   } catch (err) {
-    manager.failLoad(err);
+    scroll.failLoad(err);
   }
 }
 ```
 
-### Cursor Management
+### 4. Utilities
 
-Native utilities for converting values to base64 cursors and back for cursor-based pagination.
+- `parseOffset(page, limit)`: Converts 1-indexed page/limit into 0-indexed SQL offsets.
+- `extractCursor(data)`: Intelligently tries to find a cursor in a dynamic API response object.
+- `calculateTotalPages(total, limit)`
+- `createCursorPaginator(items, cursorExtractor)`: Paginates static arrays using cursors.
 
-```typescript
-import { createCursor, parseCursor, parseOffset } from '@typepurify/paginate';
+## 🛡️ License
 
-const cursor = createCursor('item-id-123'); // => "aXRlbS1pZC0xMjM="
-const original = parseCursor(cursor); // => "item-id-123"
-
-const offset = parseOffset(2, 20); // Page 2 with 20 items per page => offset 20
-```
-
-### New in v0.4.6
-
-- Added `calculateTotalPages(totalItems, pageSize)` utility for pagination calculation.
+MIT © Vallarasu Kanthasamy

@@ -1,51 +1,62 @@
-# @typepurify/cache
+<div align="center">
+  <h1>✨ @typepurify/cache</h1>
+  <p>High-performance in-memory cache with TTL and LRU eviction policies.</p>
+</div>
 
-Simple in-memory REST API cache.
+---
 
-## Installation
+[![npm version](https://img.shields.io/npm/v/@typepurify/cache.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/cache)
+
+## 🚀 Overview
+
+`@typepurify/cache` is a lightweight, zero-dependency caching mechanism designed for REST APIs and expensive computational functions. It supports exact TTL (Time To Live), manual invalidation, and maximum capacity (LRU).
+
+## 📦 Installation
 
 ```bash
 npm install @typepurify/cache
 ```
 
-## Usage
+## 🛠 Features & Examples
 
-When you wrap an asynchronous function with `withCache`, its returned values are cached based on the arguments provided. If you call it again with the same arguments before the Time-To-Live (TTL) expires, it returns the cached result immediately.
-
-```typescript
-import { withCache } from '@typepurify/cache';
-
-const fetchUserData = async (userId: number) => {
-  console.log('Fetching from API...');
-  const res = await fetch(`https://api.example.com/users/${userId}`);
-  return res.json();
-};
-
-// Cache responses for 5 minutes (300,000 ms)
-const cachedFetch = withCache(fetchUserData, { ttl: 300000 });
-
-// First call: fetches from API
-const user = await cachedFetch(123);
-
-// Second call: returns instantly from cache
-const sameUser = await cachedFetch(123);
-```
-
-### Custom Cache Keys
-
-By default, `withCache` uses `JSON.stringify(args)` to determine if a call matches a cached entry. You can override this using a custom `keyGenerator`.
+### 1. `MemoryCache`
 
 ```typescript
-const cachedFetch = withCache(fetchUserData, {
+import { MemoryCache } from '@typepurify/cache';
+
+// Create a cache with a max size of 1000 items and a global TTL of 60 seconds
+const cache = new MemoryCache<string>({
+  maxSize: 1000,
   ttl: 60000,
-  keyGenerator: (userId) => `user_${userId}`,
 });
+
+// Set data
+cache.set('user:123', 'Alice');
+
+// Retrieve data
+const user = cache.get('user:123'); // "Alice"
+
+// Check if data exists
+if (cache.has('user:123')) {
+  // ...
+}
+
+// Delete specific key
+cache.delete('user:123');
+
+// Clear entire cache
+cache.clear();
 ```
 
-### 🚀 High-Performance $O(1)$ LRU Eviction
+### 2. Override TTL on `set`
 
-Unlike other cache libraries that run heavy arrays sorts to evict old items, `@typepurify/cache` is extremely optimized. It natively exploits `Map` object insertion-order preserving iterators (`this.store.keys().next().value`) to perform Least-Recently-Used (LRU) evictions in $O(1)$ constant time! This means you can cache tens of thousands of items without any CPU degradation.
+You can override the global TTL for specific, highly volatile items.
 
-### New in v0.4.6
+```typescript
+// Expires in 5 seconds instead of the global TTL
+cache.set('crypto:price', '$42,000', { ttl: 5000 });
+```
 
-- Added `getOrSet(key, factory, ttl?)` to fetch a value or compute/cache it automatically.
+## 🛡️ License
+
+MIT © Vallarasu Kanthasamy
