@@ -378,4 +378,32 @@ describe('tFetch wrapper', () => {
       expect(reqHeaders.get('Authorization')).toBe('Bearer my-secret-token');
     });
   });
+
+  describe('createTimeoutFetch', () => {
+    it('should create a fetch wrapper with a predefined timeout', async () => {
+      const { createTimeoutFetch } = await import('./index');
+
+      const timeoutFetch = createTimeoutFetch(10);
+
+      // We will mock fetch to take 50ms, the timeout should abort it
+      const originalFetch = global.fetch;
+      global.fetch = vi.fn().mockImplementation((_input, init) => {
+        return new Promise((resolve, reject) => {
+          const timer = setTimeout(resolve, 50);
+          if (init?.signal) {
+            init.signal.addEventListener('abort', () => {
+              clearTimeout(timer);
+              reject(init.signal.reason);
+            });
+          }
+        });
+      });
+
+      await expect(timeoutFetch('https://api.example.com/slow')).rejects.toThrow(
+        /Timeout of 10ms exceeded/,
+      );
+
+      global.fetch = originalFetch;
+    });
+  });
 });

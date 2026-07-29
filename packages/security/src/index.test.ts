@@ -134,4 +134,24 @@ describe('@typepurify/security', () => {
       expect(stripHtmlTags('Safe text')).toBe('Safe text');
     });
   });
+
+  describe('isStrongPassword', () => {
+    it('should validate strong passwords', async () => {
+      const { isStrongPassword } = await import('./index');
+      expect(isStrongPassword('StrongP@ss123!')).toBe(true);
+      expect(isStrongPassword('weak')).toBe(false);
+      expect(isStrongPassword('NoSpecial123')).toBe(false);
+      expect(isStrongPassword('NoNumbers@')).toBe(false);
+
+      // With custom options
+      expect(
+        isStrongPassword('weak', {
+          minLength: 4,
+          requireUppercase: false,
+          requireNumbers: false,
+          requireSpecial: false,
+        }),
+      ).toBe(true);
+    });
+  });
 });

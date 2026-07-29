@@ -690,6 +690,11 @@ export function safeDeepClone<T>(obj: T, cache = new WeakMap()): T {
 }
 
 /**
+ * Deep clones an object (alias for safeDeepClone)
+ */
+export const cloneDeep = safeDeepClone;
+
+/**
  * Checks if a value is a plain JavaScript object.
  */
 export function isPlainObject(val: any): val is Record<string, any> {

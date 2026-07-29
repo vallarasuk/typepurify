@@ -266,3 +266,10 @@ export function createAuthFetch(
     },
   });
 }
+
+/**
+ * Creates a fetch wrapper that automatically aborts requests if they exceed the specified timeout.
+ */
+export function createTimeoutFetch(timeoutMs: number, options?: PurifyFetchOptions) {
+  return createTFetch({ ...options, timeout: timeoutMs });
+}

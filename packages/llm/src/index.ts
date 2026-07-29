@@ -84,6 +84,11 @@ export function estimateCost(tokens: number, model: string): number {
   return 0;
 }
 
+/**
+ * Alias for estimateCost
+ */
+export const calculateCost = estimateCost;
+
 export interface ChatMessage {
   role: 'system' | 'user' | 'assistant';
   content: string;

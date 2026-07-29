@@ -194,5 +194,22 @@ describe('@typepurify/react-table', () => {
       });
       expect(result.current.getSortDirection('name')).toBe('desc');
     });
+
+    it('should manage column visibility', () => {
+      const { result } = renderHook(() => useTable({ data: mockData, columns }));
+
+      expect(result.current.visibleColumns.length).toBe(3);
+
+      act(() => {
+        result.current.toggleColumnVisibility('age', false);
+      });
+      expect(result.current.visibleColumns.length).toBe(2);
+      expect(result.current.visibleColumns.find((c) => c.key === 'age')).toBeUndefined();
+
+      act(() => {
+        result.current.toggleColumnVisibility('age');
+      });
+      expect(result.current.visibleColumns.length).toBe(3);
+    });
   });
 });

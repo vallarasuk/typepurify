@@ -136,6 +136,18 @@ export function safeParse<T = any>(str: string, fallback: T): T {
 }
 
 /**
+ * A wrapper around JSON.parse that returns an object containing the parsed data or the error.
+ * Eliminates the need for try/catch blocks.
+ */
+export function safeJsonParse<T = any>(str: string): { data: T | null; error: Error | null } {
+  try {
+    return { data: JSON.parse(str), error: null };
+  } catch (error) {
+    return { data: null, error: error instanceof Error ? error : new Error(String(error)) };
+  }
+}
+
+/**
  * Deep merges multiple JSON-serializable objects.
  * Arrays are overwritten by default unless custom logic is provided.
  */

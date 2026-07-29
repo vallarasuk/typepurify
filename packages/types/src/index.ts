@@ -83,6 +83,16 @@ export type DeepPartial<T> = T extends Function
       : T | undefined;
 interface _DeepPartialArray<T> extends Array<DeepPartial<T>> {}
 type _DeepPartialObject<T> = { [P in keyof T]?: DeepPartial<T[P]> };
+
+export type DeepRequired<T> = T extends Function
+  ? T
+  : T extends Array<infer U>
+    ? _DeepRequiredArray<U>
+    : T extends object
+      ? _DeepRequiredObject<T>
+      : NonNullable<T>;
+interface _DeepRequiredArray<T> extends Array<DeepRequired<NonNullable<T>>> {}
+type _DeepRequiredObject<T> = { [P in keyof T]-?: DeepRequired<NonNullable<T[P]>> };
 export type DeepOmit<T, K> = T extends object
   ? { [P in keyof T as Exclude<P, K>]: DeepOmit<T[P], K> }
   : T;
