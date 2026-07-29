@@ -274,3 +274,40 @@ export function useSessionStorage<T>(
 
   return [storedValue, setValue];
 }
+
+/**
+ * A React hook for managing Map state without mutating.
+ */
+export function useMap<K, V>(initialMap?: Map<K, V> | Iterable<readonly [K, V]>) {
+  const [map, setMap] = useState<Map<K, V>>(() => new Map(initialMap));
+
+  const set = useCallback((key: K, value: V) => {
+    setMap((prev) => {
+      const next = new Map(prev);
+      next.set(key, value);
+      return next;
+    });
+  }, []);
+
+  const remove = useCallback((key: K) => {
+    setMap((prev) => {
+      const next = new Map(prev);
+      next.delete(key);
+      return next;
+    });
+  }, []);
+
+  const clear = useCallback(() => {
+    setMap(new Map());
+  }, []);
+
+  return {
+    map,
+    set,
+    remove,
+    clear,
+    size: map.size,
+    has: useCallback((key: K) => map.has(key), [map]),
+    get: useCallback((key: K) => map.get(key), [map]),
+  };
+}

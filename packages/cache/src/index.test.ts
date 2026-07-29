@@ -94,6 +94,26 @@ describe('@typepurify/cache', () => {
       expect(cache.size).toBe(1);
       expect(cache.get('b')).toBe(2);
     });
+
+    it('should handle deletion of non-existent keys', () => {
+      const cache = new Cache();
+      expect(() => cache.delete('non-existent')).not.toThrow();
+    });
+  });
+
+  describe('deletePattern', () => {
+    it('should delete all keys matching the regex pattern', () => {
+      const cache = new Cache<string>();
+      cache.set('user:1', 'Alice');
+      cache.set('user:2', 'Bob');
+      cache.set('post:1', 'Hello');
+
+      cache.deletePattern(/^user:/);
+
+      expect(cache.get('user:1')).toBeUndefined();
+      expect(cache.get('user:2')).toBeUndefined();
+      expect(cache.get('post:1')).toBe('Hello');
+    });
   });
 
   describe('events', () => {

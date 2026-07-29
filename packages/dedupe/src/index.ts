@@ -261,3 +261,74 @@ export function dedupeSync<T extends (...args: any[]) => any>(
     return result;
   } as T;
 }
+
+/**
+ * Deduplicates an asynchronous generator function.
+ * If multiple callers invoke the generator with the same arguments simultaneously,
+ * it will only execute the underlying generator once and broadcast the yielded chunks to all callers.
+ */
+export function dedupeAsyncGenerator<T, Args extends any[]>(
+  genFn: (...args: Args) => AsyncGenerator<T, void, unknown>,
+  keyGenerator: (...args: Args) => string = (...args) => JSON.stringify(args),
+): (...args: Args) => AsyncGenerator<T, void, unknown> {
+  const ongoing = new Map<
+    string,
+    {
+      chunks: T[];
+      error: any;
+      done: boolean;
+      listeners: Array<{ resolve: () => void; reject: (err: any) => void }>;
+    }
+  >();
+
+  return async function* (...args: Args): AsyncGenerator<T, void, unknown> {
+    const key = keyGenerator(...args);
+    let state = ongoing.get(key);
+
+    if (!state) {
+      state = { chunks: [], error: null, done: false, listeners: [] };
+      ongoing.set(key, state);
+
+      const processStream = async () => {
+        try {
+          const gen = genFn(...args);
+          for await (const chunk of gen) {
+            state!.chunks.push(chunk);
+            const listeners = state!.listeners;
+            state!.listeners = [];
+            listeners.forEach((l) => l.resolve());
+          }
+          state!.done = true;
+          const listeners = state!.listeners;
+          state!.listeners = [];
+          listeners.forEach((l) => l.resolve());
+        } catch (err) {
+          state!.error = err;
+          state!.done = true;
+          const listeners = state!.listeners;
+          state!.listeners = [];
+          listeners.forEach((l) => l.reject(err));
+        } finally {
+          ongoing.delete(key);
+        }
+      };
+
+      processStream();
+    }
+
+    let index = 0;
+    while (true) {
+      if (index < state.chunks.length) {
+        yield state.chunks[index++];
+      } else if (state.error) {
+        throw state.error;
+      } else if (state.done) {
+        return;
+      } else {
+        await new Promise<void>((resolve, reject) => {
+          state!.listeners.push({ resolve, reject });
+        });
+      }
+    }
+  };
+}

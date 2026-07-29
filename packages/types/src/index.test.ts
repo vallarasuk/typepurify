@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, expectTypeOf } from 'vitest';
 import {
   jsonToTsType,
   get,
@@ -7,6 +7,7 @@ import {
   DeepPartial,
   TransformTemplate,
   SnakeToCamelCase,
+  DeepRequired,
 } from './index';
 
 describe('@typepurify/types', () => {
@@ -62,6 +63,16 @@ describe('@typepurify/types', () => {
       const obj: RO_A = { a: { b: ['str'] } };
 
       expect(obj.a.b[0]).toBe('str');
+    });
+  });
+
+  describe('DeepRequired', () => {
+    it('should correctly infer DeepRequired types', () => {
+      type OptionalObj = { a?: 1; b?: { c?: 2 } };
+      type RequiredObj = DeepRequired<OptionalObj>;
+
+      // This is a type test, so we just use expectTypeOf
+      expectTypeOf<RequiredObj>().toMatchTypeOf<{ a: 1; b: { c: 2 } }>();
     });
   });
 

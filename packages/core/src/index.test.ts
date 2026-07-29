@@ -407,4 +407,16 @@ describe('typepurify core engine', () => {
       expect(deepMerge(obj3, obj4)).toEqual({ arr: [1, 2, 3] });
     });
   });
+
+  describe('cloneDeep', () => {
+    it('should deeply clone objects and arrays', async () => {
+      const { cloneDeep } = await import('./index');
+      const obj = { a: 1, b: [2, { c: 3 }] };
+      const clone = cloneDeep(obj);
+      expect(clone).toEqual(obj);
+      expect(clone).not.toBe(obj);
+      expect(clone.b).not.toBe(obj.b);
+      expect((clone.b[1] as any).c).toBe(3);
+    });
+  });
 });

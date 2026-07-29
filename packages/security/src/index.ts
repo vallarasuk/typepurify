@@ -170,3 +170,28 @@ export function stripHtmlTags(input: string): string {
   if (!input) return '';
   return input.replace(/<\/?[^>]+(>|$)/g, '');
 }
+
+export interface PasswordOptions {
+  minLength?: number;
+  requireUppercase?: boolean;
+  requireLowercase?: boolean;
+  requireNumbers?: boolean;
+  requireSpecial?: boolean;
+}
+
+/**
+ * Validates a password against configurable strength criteria.
+ */
+export function isStrongPassword(password: string, options: PasswordOptions = {}): boolean {
+  if (!password) return false;
+
+  const minLength = options.minLength ?? 8;
+  if (password.length < minLength) return false;
+
+  if (options.requireUppercase !== false && !/[A-Z]/.test(password)) return false;
+  if (options.requireLowercase !== false && !/[a-z]/.test(password)) return false;
+  if (options.requireNumbers !== false && !/[0-9]/.test(password)) return false;
+  if (options.requireSpecial !== false && !/[!@#$%^&*(),.?":{}|<>]/.test(password)) return false;
+
+  return true;
+}

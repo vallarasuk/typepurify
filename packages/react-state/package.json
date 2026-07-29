@@ -1,6 +1,6 @@
 {
   "name": "@typepurify/react-state",
-  "version": "0.4.6",
+  "version": "0.5.0",
   "description": "Tiny alternatives for form, loading, and query state.",
   "publishConfig": {
     "access": "public"
@@ -41,7 +41,7 @@
   "author": "Vallarasu Kanthasamy",
   "license": "MIT",
   "dependencies": {
-    "typepurify": "^1.5.6"
+    "typepurify": "^1.6.0"
   },
   "peerDependencies": {
     "react": ">=18.0.0",

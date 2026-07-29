@@ -90,7 +90,25 @@ describe('@typepurify/json', () => {
 
     it('should return fallback on invalid json', async () => {
       const { safeParse } = await import('./index');
-      expect(safeParse('invalid', { fallback: true })).toEqual({ fallback: true });
+      expect(safeParse('{"a":1}', { b: 2 })).toEqual({ a: 1 });
+      expect(safeParse('invalid', { b: 2 })).toEqual({ b: 2 });
+    });
+  });
+
+  describe('safeJsonParse', () => {
+    it('should parse valid JSON without throwing', async () => {
+      const { safeJsonParse } = await import('./index');
+      const { data, error } = safeJsonParse('{"a":1}');
+      expect(data).toEqual({ a: 1 });
+      expect(error).toBeNull();
+    });
+
+    it('should return error object for invalid JSON', async () => {
+      const { safeJsonParse } = await import('./index');
+      const { data, error } = safeJsonParse('invalid');
+      expect(data).toBeNull();
+      expect(error).toBeInstanceOf(Error);
+      expect(error!.message).toMatch(/Unexpected token/);
     });
   });
 

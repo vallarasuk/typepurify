@@ -102,6 +102,17 @@ export class Cache<T = any> {
   }
 
   /**
+   * Deletes all keys matching a specific pattern.
+   */
+  deletePattern(pattern: RegExp): void {
+    for (const key of this.store.keys()) {
+      if (pattern.test(key)) {
+        this.store.delete(key);
+      }
+    }
+  }
+
+  /**
    * Clears the entire cache.
    */
   clear(): void {

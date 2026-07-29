@@ -31,6 +31,9 @@ export function useTable<T>(options: UseTableOptions<T>) {
   // Column Resizing State
   const [columnWidths, setColumnWidths] = useState<Record<string, number>>({});
 
+  // Column Visibility State
+  const [columnVisibility, setColumnVisibility] = useState<Record<string, boolean>>({});
+
   // Pagination State
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(options.initialPageSize ?? 10);
@@ -171,6 +174,17 @@ export function useTable<T>(options: UseTableOptions<T>) {
     return csvContent;
   };
 
+  const toggleColumnVisibility = (key: string, isVisible?: boolean) => {
+    setColumnVisibility((prev) => ({
+      ...prev,
+      [key]: isVisible !== undefined ? isVisible : !(prev[key] ?? true),
+    }));
+  };
+
+  const visibleColumns = useMemo(() => {
+    return options.columns.filter((c) => columnVisibility[c.key as string] !== false);
+  }, [options.columns, columnVisibility]);
+
   return {
     // State
     searchQuery,
@@ -182,6 +196,8 @@ export function useTable<T>(options: UseTableOptions<T>) {
     totalPages,
     totalItems: processedData.length,
     columnWidths,
+    columnVisibility,
+    visibleColumns,
 
     // Data
     paginatedData,
@@ -198,6 +214,7 @@ export function useTable<T>(options: UseTableOptions<T>) {
       return multi ? multi.direction : null;
     },
     handleColumnResize,
+    toggleColumnVisibility,
     exportToCsv,
     setData,
   };

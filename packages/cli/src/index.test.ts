@@ -96,9 +96,16 @@ describe('@typepurify/cli', () => {
       expect(runHealthScorer('')).toBe(0);
     });
 
-    it('should return health score via JSON if requested', () => {
-      const scoreJSON = runHealthScorer('/project/path', true);
-      expect(scoreJSON).toBe(JSON.stringify({ dir: '/project/path', score: 95 }));
+    it('should return health score as JSON', async () => {
+      const { runHealthScorer } = await import('./index');
+      expect(runHealthScorer('./src', true)).toBe('{"dir":"./src","score":95}');
+    });
+
+    it('should return verbose health score details', async () => {
+      const { runHealthScorer } = await import('./index');
+      const res = JSON.parse(runHealthScorer('./src', true, true) as string);
+      expect(res.score).toBe(95);
+      expect(res.details.length).toBeGreaterThan(0);
     });
   });
 

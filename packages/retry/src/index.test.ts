@@ -177,6 +177,17 @@ describe('@typepurify/retry', () => {
     });
   });
 
+  describe('withFibonacciBackoff', () => {
+    it('should retry with fibonacci delays', async () => {
+      const fn = vi.fn().mockRejectedValue(new Error('Fail'));
+      const { withFibonacciBackoff } = await import('./index');
+      const start = Date.now();
+      await expect(withFibonacciBackoff(fn, 3, 20)).rejects.toThrow('Fail');
+      // delays: 1*20 = 20, 1*20 = 20 (total ~40ms wait)
+      expect(Date.now() - start).toBeGreaterThanOrEqual(30);
+    });
+  });
+
   describe('withRetryAsyncGenerator', () => {
     it('should retry a failing async generator', async () => {
       const { withRetryAsyncGenerator } = await import('./index');

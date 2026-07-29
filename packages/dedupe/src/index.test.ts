@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { dedupe, generateRequestHash, createBatchDeduper } from './index';
+import { dedupe, dedupeSync, generateRequestHash, createBatchDeduper } from './index';
 
 describe('@typepurify/dedupe', () => {
   it('should only call the underlying function once for identical simultaneous calls', async () => {
@@ -223,7 +223,6 @@ describe('@typepurify/dedupe', () => {
 
   describe('dedupeSync', () => {
     it('should cache synchronous calls', async () => {
-      const { dedupeSync } = await import('./index');
       let calls = 0;
       const fn = (x: number) => {
         calls++;
@@ -237,6 +236,41 @@ describe('@typepurify/dedupe', () => {
 
       expect(deduped(6)).toBe(12);
       expect(calls).toBe(2);
+    });
+  });
+
+  describe('dedupeAsyncGenerator', () => {
+    it('should multiplex an async generator for concurrent callers', async () => {
+      let callCount = 0;
+      async function* generateData() {
+        callCount++;
+        yield 1;
+        await new Promise((r) => setTimeout(r, 10));
+        yield 2;
+        await new Promise((r) => setTimeout(r, 10));
+        yield 3;
+      }
+
+      const { dedupeAsyncGenerator } = await import('./index');
+      const deduped = dedupeAsyncGenerator(generateData);
+
+      const caller1 = async () => {
+        const res = [];
+        for await (const val of deduped()) res.push(val);
+        return res;
+      };
+
+      const caller2 = async () => {
+        const res = [];
+        for await (const val of deduped()) res.push(val);
+        return res;
+      };
+
+      const [res1, res2] = await Promise.all([caller1(), caller2()]);
+
+      expect(res1).toEqual([1, 2, 3]);
+      expect(res2).toEqual([1, 2, 3]);
+      expect(callCount).toBe(1); // Deduplicated!
     });
   });
 });

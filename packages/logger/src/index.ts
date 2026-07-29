@@ -33,6 +33,10 @@ export class Logger {
     this.currentLevel = this.levelValue[options.level || 'info'];
   }
 
+  setLevel(level: LogLevel): void {
+    this.currentLevel = this.levelValue[level];
+  }
+
   private safeStringify(obj: any): string {
     const cache = new Set();
     return JSON.stringify(obj, (key, value) => {

@@ -64,9 +64,18 @@ describe('@typepurify/llm', () => {
     it('should return cost', () => {
       expect(estimateCost(1000, 'gpt-4o')).toBe(0.005);
       expect(estimateCost(1000, 'gemini-1.5-pro')).toBe(0.0035);
-      expect(estimateCost(1000, 'unknown')).toBe(0);
+      expect(estimateCost(1000, 'unknown-model')).toBe(0);
     });
   });
+
+  describe('calculateCost', () => {
+    it('should act as an alias to estimateCost', async () => {
+      const { calculateCost, estimateCost } = await import('./index');
+      expect(calculateCost).toBe(estimateCost);
+      expect(calculateCost(2000, 'gpt-4o')).toBe(0.01);
+    });
+  });
+
   describe('countTokens', () => {
     it('should count correctly for new models', () => {
       expect(countTokens('hello world', 'gpt-4o')).toBe(3);

@@ -219,6 +219,31 @@ export async function withLinearBackoff<T>(
 }
 
 /**
+ * Fibonacci backoff retry function that increases delay based on the Fibonacci sequence.
+ */
+export async function withFibonacciBackoff<T>(
+  fn: () => Promise<T>,
+  retries = 3,
+  baseDelay = 100,
+): Promise<T> {
+  let a = 1;
+  let b = 1;
+  for (let i = 0; i < retries; i++) {
+    try {
+      return await fn();
+    } catch (err) {
+      if (i === retries - 1) throw err;
+      const delay = a * baseDelay;
+      const next = a + b;
+      a = b;
+      b = next;
+      await new Promise((res) => setTimeout(res, delay));
+    }
+  }
+  throw new Error('Fibonacci retry failed');
+}
+
+/**
  * Retries an async generator (e.g. streaming API requests).
  */
 export async function* withRetryAsyncGenerator<T>(

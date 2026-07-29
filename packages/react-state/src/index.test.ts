@@ -8,6 +8,7 @@ import {
   useDebounce,
   createSignalStore,
   usePrevious,
+  useMap,
 } from './index';
 
 describe('@typepurify/react-state', () => {
@@ -35,6 +36,35 @@ describe('@typepurify/react-state', () => {
       });
 
       expect(result.current[0]).toBe(false);
+    });
+  });
+
+  describe('useMap', () => {
+    it('should manage Map state', () => {
+      const { result } = renderHook(() => useMap<string, number>([['a', 1]]));
+
+      expect(result.current.size).toBe(1);
+      expect(result.current.get('a')).toBe(1);
+
+      act(() => {
+        result.current.set('b', 2);
+      });
+
+      expect(result.current.size).toBe(2);
+      expect(result.current.get('b')).toBe(2);
+
+      act(() => {
+        result.current.remove('a');
+      });
+
+      expect(result.current.size).toBe(1);
+      expect(result.current.has('a')).toBe(false);
+
+      act(() => {
+        result.current.clear();
+      });
+
+      expect(result.current.size).toBe(0);
     });
   });
 
