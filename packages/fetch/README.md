@@ -83,6 +83,17 @@ const largeData = await tFetch(
 );
 ```
 
+### 4. Query Parameter Construction
+
+Elegantly construct URL query strings from complex nested objects and arrays.
+
+```typescript
+import { buildQueryString } from '@typepurify/fetch';
+
+const query = buildQueryString({ filters: ['active', 'verified'], limit: 10 });
+// => "?filters=active,verified&limit=10"
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

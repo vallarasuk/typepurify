@@ -109,6 +109,17 @@ const queryParams = serializeTableState({
 // => { page: 2, limit: 20, sort: 'name:asc' }
 ```
 
+### 4. Bulk Column Visibility
+
+Easily toggle visibility for all columns at once.
+
+```tsx
+import { toggleAllColumnVisibility } from '@typepurify/react-table';
+
+// Hide all columns
+const nextVisibility = toggleAllColumnVisibility(currentVisibility, false);
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

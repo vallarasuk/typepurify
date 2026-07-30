@@ -173,4 +173,20 @@ describe('@typepurify/json', () => {
       expect(str).toContain('"[Circular]"');
     });
   });
+
+  describe('isJsonString', () => {
+    it('should return true for valid JSON', async () => {
+      const { isJsonString } = await import('./index');
+      expect(isJsonString('{"a":1}')).toBe(true);
+      expect(isJsonString('123')).toBe(true);
+      expect(isJsonString('"test"')).toBe(true);
+    });
+
+    it('should return false for invalid JSON', async () => {
+      const { isJsonString } = await import('./index');
+      expect(isJsonString('invalid')).toBe(false);
+      expect(isJsonString('{a:1}')).toBe(false);
+      expect(isJsonString(null as any)).toBe(false);
+    });
+  });
 });

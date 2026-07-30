@@ -4,6 +4,7 @@ export interface LoggerOptions {
   level?: LogLevel;
   format?: 'json' | 'text';
   colorize?: boolean;
+  silent?: boolean;
 }
 
 const LEVEL_COLORS: Record<LogLevel, string> = {
@@ -74,6 +75,7 @@ export class Logger {
   }
 
   private log(level: LogLevel, message: string, meta?: any) {
+    if (this.options.silent) return;
     if (this.levelValue[level] >= this.currentLevel) {
       const output = this.formatMessage(level, message, meta);
       if (level === 'error' || level === 'fatal') {

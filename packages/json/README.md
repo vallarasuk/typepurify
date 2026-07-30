@@ -65,6 +65,18 @@ const fixed = repairJson("{ 'name': 'Alice', }"); // => '{"name": "Alice"}'
 - `flattenCsvToJson(csv)`: Converts CSV strings into flat JSON objects.
 - `jsonToXml(obj)`: Converts JSON maps into clean XML representations.
 
+### 5. String Validation
+
+Safely check if a string is parseable JSON before attempting to parse it.
+
+```typescript
+import { isJsonString } from '@typepurify/json';
+
+if (isJsonString(input)) {
+  // Safe to parse
+}
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

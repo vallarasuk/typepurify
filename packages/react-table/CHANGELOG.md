@@ -1,3 +1,9 @@
+## 0.5.1
+
+### Minor Changes
+
+- Added `toggleAllColumnVisibility` for bulk column toggling capabilities.
+
 ## 0.5.0
 
 ### Minor Changes

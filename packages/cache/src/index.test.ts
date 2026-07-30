@@ -11,6 +11,7 @@ describe('@typepurify/cache', () => {
   it('should return undefined for missing keys', () => {
     const cache = new Cache();
     expect(cache.get('missing')).toBeUndefined();
+    expect(cache.has('missing')).toBe(false);
   });
 
   it('should respect TTL and expire items', async () => {
@@ -22,6 +23,7 @@ describe('@typepurify/cache', () => {
     // Wait for expiration
     await new Promise((resolve) => setTimeout(resolve, 60));
 
+    expect(cache.has('key1')).toBe(false);
     expect(cache.get('key1')).toBeUndefined();
     expect(cache.size).toBe(0);
   });

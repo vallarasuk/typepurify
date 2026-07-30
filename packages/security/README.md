@@ -73,6 +73,16 @@ if (isJwtExpired(myJwtString)) {
 - `isStrongPassword('password123', { minLength: 8, requireSpecial: true })`
 - `enforceCsrfToken(reqToken, sessionToken)`
 
+### 5. Secure Random String Generation
+
+Generate cryptographically secure strings for API keys, passwords, or session IDs.
+
+```typescript
+import { generateRandomString } from '@typepurify/security';
+
+const token = generateRandomString(32); // e.g. "a1b2c3d4..."
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

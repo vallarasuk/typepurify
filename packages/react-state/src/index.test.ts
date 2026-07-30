@@ -9,6 +9,7 @@ import {
   createSignalStore,
   usePrevious,
   useMap,
+  useToggle,
 } from './index';
 
 describe('@typepurify/react-state', () => {
@@ -222,6 +223,26 @@ describe('@typepurify/react-state', () => {
     it('should exist', async () => {
       const { useSessionStorage } = await import('./index');
       expect(typeof useSessionStorage).toBe('function');
+    });
+  });
+
+  describe('useToggle', () => {
+    it('should toggle boolean state', () => {
+      const { result } = renderHook(() => useToggle());
+
+      expect(result.current[0]).toBe(false);
+
+      act(() => {
+        result.current[1](); // toggle
+      });
+
+      expect(result.current[0]).toBe(true);
+
+      act(() => {
+        result.current[2](false); // explicit set
+      });
+
+      expect(result.current[0]).toBe(false);
     });
   });
 });

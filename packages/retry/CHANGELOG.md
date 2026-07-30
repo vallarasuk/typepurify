@@ -1,3 +1,9 @@
+## 0.5.1
+
+### Minor Changes
+
+- Introduced `RetryExhaustedError` for precise backoff error propagation.
+
 ## 0.5.0
 
 ### Minor Changes

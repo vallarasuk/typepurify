@@ -1,3 +1,9 @@
+## 0.5.1
+
+### Minor Changes
+
+- Added support for custom LRU cache injection in `dedupeAsync`.
+
 ## 0.5.0
 
 ### Minor Changes

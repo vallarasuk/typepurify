@@ -66,6 +66,16 @@ app.use(requestLogger(log));
 - **`LogRateLimiter`**: Prevent your logs from being flooded during high-throughput errors (e.g. while in a retry loop).
 - **`createFileLogger(path, options)`**: File-backed logger stub.
 
+### 5. Silent Mode
+
+Easily suppress logs during test environments or specific runs.
+
+```typescript
+const log = new Logger({
+  silent: true,
+});
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

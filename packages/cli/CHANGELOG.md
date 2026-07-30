@@ -1,3 +1,9 @@
+## 0.5.1
+
+### Minor Changes
+
+- Added `formatError` and `formatSuccess` terminal text formatters.
+
 ## 0.5.0
 
 ### Minor Changes

@@ -24,6 +24,16 @@ export class TimeoutError extends Error {
   }
 }
 
+export class RetryExhaustedError extends Error {
+  constructor(
+    message: string,
+    public readonly lastError?: Error,
+  ) {
+    super(message);
+    this.name = 'RetryExhaustedError';
+  }
+}
+
 /**
  * Wraps an asynchronous function with robust retry logic.
  *
@@ -191,12 +201,13 @@ export async function withExponentialBackoff<T>(
     try {
       return await fn();
     } catch (err) {
-      if (i === retries - 1) throw err;
+      if (i === retries - 1)
+        throw new RetryExhaustedError('Exponential retry failed', err as Error);
       const jitter = Math.random() * 200;
       await new Promise((res) => setTimeout(res, delay * Math.pow(2, i) + jitter));
     }
   }
-  throw new Error('Retry failed');
+  throw new RetryExhaustedError('Exponential retry failed');
 }
 
 /**
@@ -211,11 +222,11 @@ export async function withLinearBackoff<T>(
     try {
       return await fn();
     } catch (err) {
-      if (i === retries - 1) throw err;
+      if (i === retries - 1) throw new RetryExhaustedError('Linear retry failed', err as Error);
       await new Promise((res) => setTimeout(res, (i + 1) * stepMs));
     }
   }
-  throw new Error('Linear retry failed');
+  throw new RetryExhaustedError('Linear retry failed');
 }
 
 /**
@@ -232,7 +243,7 @@ export async function withFibonacciBackoff<T>(
     try {
       return await fn();
     } catch (err) {
-      if (i === retries - 1) throw err;
+      if (i === retries - 1) throw new RetryExhaustedError('Fibonacci retry failed', err as Error);
       const delay = a * baseDelay;
       const next = a + b;
       a = b;

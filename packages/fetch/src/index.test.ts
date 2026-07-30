@@ -406,4 +406,14 @@ describe('tFetch wrapper', () => {
       global.fetch = originalFetch;
     });
   });
+
+  describe('buildQueryString', () => {
+    it('should build a query string from parameters', async () => {
+      const { buildQueryString } = await import('./index');
+
+      expect(buildQueryString({})).toBe('');
+      expect(buildQueryString({ a: 1, b: 'test' })).toBe('?a=1&b=test');
+      expect(buildQueryString({ a: [1, 2], b: null, c: undefined })).toBe('?a=1&a=2');
+    });
+  });
 });

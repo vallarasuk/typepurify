@@ -122,4 +122,16 @@ describe('@typepurify/types', () => {
       expect(valid2).toBeDefined();
     });
   });
+
+  describe('MakeOptional and MakeRequired', () => {
+    it('should compile correctly', async () => {
+      type Original = { a: string; b: number; c?: boolean };
+
+      const opt: import('./index').MakeOptional<Original, 'b'> = { a: 'str' };
+      const req: import('./index').MakeRequired<Original, 'c'> = { a: 'str', b: 1, c: true };
+
+      expect(opt.a).toBe('str');
+      expect(req.c).toBe(true);
+    });
+  });
 });

@@ -124,6 +124,23 @@ export function parseMarkdownBlocks(text: string): Record<string, string[]> {
 }
 
 /**
+ * Extracts the content of the first markdown code block, optionally filtered by language.
+ */
+export function extractFirstMarkdownBlock(text: string, lang?: string): string | null {
+  const blocks = parseMarkdownBlocks(text);
+  if (lang) {
+    return blocks[lang]?.[0] || null;
+  }
+
+  // Return the very first block found across all languages
+  const firstLang = Object.keys(blocks)[0];
+  if (firstLang) {
+    return blocks[firstLang][0] || null;
+  }
+  return null;
+}
+
+/**
  * Schema validator agent for ensuring LLM JSON outputs adhere strictly to formatting rules.
  */
 export function validateLlmSchema(payload: any, schema: Record<string, any>): boolean {

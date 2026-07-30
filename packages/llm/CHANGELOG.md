@@ -1,3 +1,9 @@
+## 0.5.1
+
+### Minor Changes
+
+- Added `extractFirstMarkdownBlock` utility to clean up AI code responses.
+
 ## 0.5.0
 
 ### Minor Changes

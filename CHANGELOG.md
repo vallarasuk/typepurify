@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.5.1] (Core: 1.6.1) - 2026-07-30
+
+### Ecosystem Wide Feature Updates
+
+- **`@typepurify/react-state`**: Added `useToggle` hook for intuitive boolean state management.
+- **`@typepurify/react-table`**: Added `toggleAllColumnVisibility` for bulk column toggling capabilities.
+- **`@typepurify/paginate`**: Added `calculateHasPreviousPage` and `calculateHasNextPage` pagination utilities.
+- **`@typepurify/cli`**: Added `formatError` and `formatSuccess` terminal text formatters.
+- **`@typepurify/logger`**: Added `silent` mode configuration option to effortlessly disable logging.
+- **`@typepurify/json`**: Added `isJsonString` pre-parse validation utility.
+- **`@typepurify/fetch`**: Added `buildQueryString` for elegant and deep query parameter construction.
+- **`@typepurify/dedupe`**: Added support for custom LRU cache injection in `dedupeAsync`.
+- **`@typepurify/cache`**: Added `has()` method for non-mutating cache key checks.
+- **`@typepurify/llm`**: Added `extractFirstMarkdownBlock` utility to clean up AI code responses.
+- **`@typepurify/security`**: Added `generateRandomString` for cryptographically secure API tokens.
+- **`@typepurify/retry`**: Introduced `RetryExhaustedError` for precise backoff error propagation.
+
 ## [0.4.3] (Core: 1.5.3) - 2026-07-25
 
 ### Core Engine (`typepurify` @ 1.5.3)

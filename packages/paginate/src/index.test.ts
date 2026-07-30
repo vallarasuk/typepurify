@@ -185,4 +185,20 @@ describe('@typepurify/paginate', () => {
       expect(calculateTotalPages(5, 0)).toBe(0);
     });
   });
+
+  describe('calculateHasPreviousPage and calculateHasNextPage', () => {
+    it('should correctly determine previous page existence', async () => {
+      const { calculateHasPreviousPage } = await import('./index');
+      expect(calculateHasPreviousPage(1)).toBe(false);
+      expect(calculateHasPreviousPage(0)).toBe(false);
+      expect(calculateHasPreviousPage(2)).toBe(true);
+    });
+
+    it('should correctly determine next page existence', async () => {
+      const { calculateHasNextPage } = await import('./index');
+      expect(calculateHasNextPage(1, 2)).toBe(true);
+      expect(calculateHasNextPage(2, 2)).toBe(false);
+      expect(calculateHasNextPage(1, 0)).toBe(false);
+    });
+  });
 });

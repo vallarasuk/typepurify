@@ -63,6 +63,21 @@ describe('typepurify core engine', () => {
     expect(result).toEqual({ valid: true, nested: {} });
   });
 
+  it('should strip falsy values if stripFalsy is true', () => {
+    const payload = {
+      valid: true,
+      invalid: false,
+      count: 0,
+      text: '',
+      name: 'test',
+    };
+
+    expect(clean(payload, { stripFalsy: true })).toEqual({
+      valid: true,
+      name: 'test',
+    });
+  });
+
   it('should clean in place (mutate original object)', () => {
     const original = {
       a: 1,

@@ -249,3 +249,16 @@ export function safeJsonStringify(obj: any, space: number | string = 2): string 
     return '{}';
   }
 }
+
+/**
+ * Validates whether a string is a valid JSON string.
+ */
+export function isJsonString(str: string): boolean {
+  if (typeof str !== 'string') return false;
+  try {
+    JSON.parse(str);
+    return true;
+  } catch {
+    return false;
+  }
+}

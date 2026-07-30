@@ -1,3 +1,9 @@
+## 0.5.1
+
+### Minor Changes
+
+- Added `calculateHasPreviousPage` and `calculateHasNextPage` pagination utilities.
+
 ## 0.5.0
 
 ### Minor Changes

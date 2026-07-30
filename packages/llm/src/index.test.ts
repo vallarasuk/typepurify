@@ -109,6 +109,21 @@ describe('@typepurify/llm', () => {
     });
   });
 
+  describe('extractFirstMarkdownBlock', () => {
+    it('should extract first block regardless of language', async () => {
+      const { extractFirstMarkdownBlock } = await import('./index');
+      const text = 'Some text.\n```python\nprint("hi")\n```\nMore text.\n```json\n{"a":1}\n```';
+      expect(extractFirstMarkdownBlock(text)).toBe('print("hi")');
+    });
+
+    it('should extract first block of specific language', async () => {
+      const { extractFirstMarkdownBlock } = await import('./index');
+      const text = 'Some text.\n```python\nprint("hi")\n```\nMore text.\n```json\n{"a":1}\n```';
+      expect(extractFirstMarkdownBlock(text, 'json')).toBe('{"a":1}');
+      expect(extractFirstMarkdownBlock(text, 'javascript')).toBeNull();
+    });
+  });
+
   describe('validateLlmSchema', () => {
     it('should return true for valid schema match', () => {
       const payload = { name: 'AI', status: 'ok' };
