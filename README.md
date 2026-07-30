@@ -73,15 +73,38 @@ const myFetch = createTFetch({
   },
 });
 const user = await myFetch<{ name: string; age: number | null }>('/user');
+
 // Response automatically drops all the `null` and empty junk your backend sends!
 
 // 4. React State Purification
-import { usePurifiedState } from '@typepurify/react-state';
+import { usePurifiedState, useToggle } from '@typepurify/react-state';
 function MyComponent() {
   // State is automatically cleaned on mount and on every setState!
   const [state, setState] = usePurifiedState({ name: 'Bob', empty: null });
+
+  // Easily toggle boolean states
+  const [isOpen, toggleOpen] = useToggle();
 }
 ```
+
+---
+
+## ✨ Recent Feature Additions
+
+We are constantly expanding the ecosystem. Here are the latest capabilities added across our packages:
+
+- **`@typepurify/react-state`**: Added `useToggle` hook for simple boolean state management.
+- **`@typepurify/react-table`**: Added `toggleAllColumnVisibility` for bulk column toggling.
+- **`@typepurify/paginate`**: Added `calculateHasPreviousPage` and `calculateHasNextPage` utilities.
+- **`@typepurify/cli`**: Added rich text formatting with `formatError` and `formatSuccess`.
+- **`@typepurify/logger`**: Added `silent` mode configuration for quiet test environments.
+- **`@typepurify/json`**: Added `isJsonString` utility for safe, pre-parse string validation.
+- **`@typepurify/fetch`**: Added `buildQueryString` for elegant query parameter construction.
+- **`@typepurify/dedupe`**: Added support for custom LRU cache implementations via the `cache` option.
+- **`@typepurify/cache`**: Added `has(key)` method for non-mutating cache checks.
+- **`@typepurify/llm`**: Added `extractFirstMarkdownBlock` to easily pull code/JSON from AI responses.
+- **`@typepurify/security`**: Added `generateRandomString` for cryptographically secure tokens.
+- **`@typepurify/retry`**: Introduced `RetryExhaustedError` for cleaner backoff error handling.
 
 ---
 

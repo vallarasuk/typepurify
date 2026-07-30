@@ -181,6 +181,14 @@ export function useTable<T>(options: UseTableOptions<T>) {
     }));
   };
 
+  const toggleAllColumnVisibility = (isVisible: boolean) => {
+    const next: Record<string, boolean> = {};
+    options.columns.forEach((c) => {
+      next[c.key as string] = isVisible;
+    });
+    setColumnVisibility(next);
+  };
+
   const visibleColumns = useMemo(() => {
     return options.columns.filter((c) => columnVisibility[c.key as string] !== false);
   }, [options.columns, columnVisibility]);
@@ -215,6 +223,7 @@ export function useTable<T>(options: UseTableOptions<T>) {
     },
     handleColumnResize,
     toggleColumnVisibility,
+    toggleAllColumnVisibility,
     exportToCsv,
     setData,
   };

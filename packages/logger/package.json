@@ -1,6 +1,6 @@
 {
   "name": "@typepurify/logger",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Enterprise logging suite.",
   "publishConfig": {
     "access": "public"

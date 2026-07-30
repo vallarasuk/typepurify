@@ -1,3 +1,9 @@
+## 0.5.1
+
+### Minor Changes
+
+- Added `buildQueryString` for elegant and deep query parameter construction.
+
 ## 0.5.0
 
 ### Minor Changes

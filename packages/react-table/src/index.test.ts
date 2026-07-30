@@ -210,6 +210,16 @@ describe('@typepurify/react-table', () => {
         result.current.toggleColumnVisibility('age');
       });
       expect(result.current.visibleColumns.length).toBe(3);
+
+      act(() => {
+        result.current.toggleAllColumnVisibility(false);
+      });
+      expect(result.current.visibleColumns.length).toBe(0);
+
+      act(() => {
+        result.current.toggleAllColumnVisibility(true);
+      });
+      expect(result.current.visibleColumns.length).toBe(3);
     });
   });
 });

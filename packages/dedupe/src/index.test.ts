@@ -160,6 +160,21 @@ describe('@typepurify/dedupe', () => {
       await d(); // 2nd call
       expect(calls).toBe(2);
     });
+
+    it('should use custom cache if provided', async () => {
+      let calls = 0;
+      const fn = async () => {
+        calls++;
+        return 'cached';
+      };
+
+      const customCache = new Map<string, { value: any; expiresAt: number }>();
+      const d = dedupe(fn, { ttl: 50, cache: customCache });
+
+      await d();
+      expect(customCache.size).toBe(1);
+      expect(calls).toBe(1);
+    });
   });
 
   describe('maxConcurrent', () => {

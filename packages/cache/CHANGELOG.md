@@ -1,3 +1,9 @@
+## 0.5.1
+
+### Minor Changes
+
+- Added `has()` method for non-mutating cache key checks.
+
 ## 0.5.0
 
 ### Minor Changes

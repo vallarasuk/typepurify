@@ -65,6 +65,17 @@ const bundle = analyzeBundleSize('./dist');
 console.log(`Bundle Size: ${bundle.totalSizeBytes} bytes`);
 ```
 
+### 5. Terminal Formatting
+
+Format success and error messages elegantly for your CLI outputs.
+
+```typescript
+import { formatError, formatSuccess } from '@typepurify/cli';
+
+console.log(formatSuccess('Task completed successfully!'));
+console.error(formatError('Task failed', new Error('Timeout')));
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

@@ -195,3 +195,12 @@ export function isStrongPassword(password: string, options: PasswordOptions = {}
 
   return true;
 }
+
+import { randomBytes } from 'crypto';
+
+/**
+ * Generates a cryptographically secure random hex string of the specified byte length.
+ */
+export function generateRandomString(byteLength: number = 16): string {
+  return randomBytes(byteLength).toString('hex');
+}

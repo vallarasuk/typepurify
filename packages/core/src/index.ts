@@ -46,6 +46,8 @@ export interface CleanOptions {
   stripWhen?: (value: any) => boolean;
   /** Custom transform callback function to mutate or format values before cleaning. */
   transform?: (value: any, key?: any) => any;
+  /** Removes falsy values (0, false, "") in addition to null/undefined. */
+  stripFalsy?: boolean;
 }
 
 /**
@@ -72,6 +74,10 @@ export function clean<T, const O extends CleanOptions = {}>(
   }
 
   if (obj === null || obj === undefined) {
+    return undefined as any;
+  }
+
+  if (options.stripFalsy && !obj) {
     return undefined as any;
   }
 
@@ -216,6 +222,10 @@ export function cleanInPlace<T, const O extends CleanOptions = {}>(
   }
 
   if (obj === null || obj === undefined) {
+    return undefined as any;
+  }
+
+  if (options.stripFalsy && !obj) {
     return undefined as any;
   }
 
@@ -365,6 +375,10 @@ export async function cleanAsync<T, const O extends CleanOptions = {}>(
     return undefined as any;
   }
 
+  if (options.stripFalsy && !obj) {
+    return undefined as any;
+  }
+
   if (options.stripWhen && options.stripWhen(obj)) {
     return undefined as any;
   }
@@ -505,6 +519,10 @@ export async function cleanInPlaceAsync<T, const O extends CleanOptions = {}>(
   }
 
   if (obj === null || obj === undefined) {
+    return undefined as any;
+  }
+
+  if (options.stripFalsy && !obj) {
     return undefined as any;
   }
 

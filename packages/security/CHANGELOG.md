@@ -1,3 +1,9 @@
+## 0.5.1
+
+### Minor Changes
+
+- Added `generateRandomString` for cryptographically secure API tokens.
+
 ## 0.5.0
 
 ### Minor Changes

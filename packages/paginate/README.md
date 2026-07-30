@@ -84,6 +84,17 @@ if (scroll.startLoad()) {
 - `calculateTotalPages(total, limit)`
 - `createCursorPaginator(items, cursorExtractor)`: Paginates static arrays using cursors.
 
+### 5. Advanced Pagination State
+
+Calculate previous and next page availability dynamically based on current page and total pages.
+
+```typescript
+import { calculateHasNextPage, calculateHasPreviousPage } from '@typepurify/paginate';
+
+const hasNext = calculateHasNextPage(currentPage, totalPages);
+const hasPrev = calculateHasPreviousPage(currentPage);
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

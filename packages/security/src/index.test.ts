@@ -154,4 +154,15 @@ describe('@typepurify/security', () => {
       ).toBe(true);
     });
   });
+
+  describe('generateRandomString', () => {
+    it('should generate a secure random hex string', async () => {
+      const { generateRandomString } = await import('./index');
+      const randomStr = generateRandomString(16);
+      expect(randomStr).toHaveLength(32); // 16 bytes = 32 hex chars
+
+      const another = generateRandomString(16);
+      expect(randomStr).not.toBe(another);
+    });
+  });
 });

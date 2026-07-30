@@ -1,3 +1,9 @@
+## 0.5.1
+
+### Minor Changes
+
+- Added `silent` mode configuration option to effortlessly disable logging.
+
 ## 0.5.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
   "name": "@typepurify/paginate",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Smart pagination utilities.",
   "publishConfig": {
     "access": "public"

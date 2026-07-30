@@ -86,6 +86,17 @@ describe('@typepurify/logger', () => {
 
       consoleLogSpy.mockRestore();
     });
+
+    it('should not log anything if silent is true', () => {
+      const consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+      const logger = new Logger({ silent: true });
+
+      logger.info('Silent message');
+
+      expect(consoleLogSpy).not.toHaveBeenCalled();
+
+      consoleLogSpy.mockRestore();
+    });
   });
 
   describe('requestLogger', () => {

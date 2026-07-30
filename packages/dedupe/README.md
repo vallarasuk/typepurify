@@ -54,6 +54,18 @@ getData('search-1');
 getData('search-1');
 ```
 
+### 3. Custom LRU Caches
+
+Inject custom cache implementations (like LRU caches) for advanced request deduplication constraints.
+
+```typescript
+import { dedupeAsync } from '@typepurify/dedupe';
+import { MemoryCache } from '@typepurify/cache';
+
+const cache = new MemoryCache();
+const fetchUser = dedupeAsync(fetchFn, { cache });
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

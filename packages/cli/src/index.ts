@@ -189,3 +189,17 @@ export function analyzeBundleSize(dirPath: string): { totalFiles: number; totalS
   });
   return { totalFiles: files.length, totalSizeBytes };
 }
+
+/**
+ * Formats an error message with red ANSI colors.
+ */
+export function formatError(msg: string): string {
+  return `\x1b[31m[ERROR] ${msg}\x1b[0m`;
+}
+
+/**
+ * Formats a success message with green ANSI colors.
+ */
+export function formatSuccess(msg: string): string {
+  return `\x1b[32m[SUCCESS] ${msg}\x1b[0m`;
+}

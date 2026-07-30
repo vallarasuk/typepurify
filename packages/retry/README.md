@@ -55,6 +55,22 @@ const resilientFetch = withRetry(fetch, { retries: 5, delay: 500 });
 const res = await resilientFetch('https://api.flaky.com/data');
 ```
 
+### 3. Precise Error Handling
+
+Handle backoff failures elegantly using the specialized `RetryExhaustedError`.
+
+```typescript
+import { retryAsync, RetryExhaustedError } from '@typepurify/retry';
+
+try {
+  await retryAsync(fetchFn, { retries: 3 });
+} catch (error) {
+  if (error instanceof RetryExhaustedError) {
+    console.error('All retries failed:', error.lastError);
+  }
+}
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

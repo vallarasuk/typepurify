@@ -85,6 +85,25 @@ function Dashboard() {
 - **`useDebounce(value, delay)`**: Simple debounce for text inputs.
 - **`useLocalStorage(key, initialValue)`**: Persists your state in browser storage while maintaining perfect types.
 
+### 5. `useToggle`
+
+A simple hook to manage boolean state intuitively.
+
+```tsx
+import { useToggle } from '@typepurify/react-state';
+
+function Modal() {
+  const [isOpen, toggle, setOpen] = useToggle(false);
+
+  return (
+    <>
+      <button onClick={toggle}>Toggle Modal</button>
+      {isOpen && <div>Modal Content</div>}
+    </>
+  );
+}
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

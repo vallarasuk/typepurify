@@ -88,6 +88,16 @@ import { validateLlmSchema } from '@typepurify/llm';
 const isValid = validateLlmSchema(parsedJson, { name: 'string', age: 'number' });
 ```
 
+### 6. Single Markdown Block Extraction
+
+Extract the first markdown block (e.g., JSON or TypeScript) cleanly from LLM output.
+
+```typescript
+import { extractFirstMarkdownBlock } from '@typepurify/llm';
+
+const cleanCode = extractFirstMarkdownBlock(llmOutput, 'typescript');
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

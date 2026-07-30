@@ -265,3 +265,17 @@ export function calculateTotalPages(totalItems: number, limit: number): number {
   if (totalItems <= 0 || limit <= 0) return 0;
   return Math.ceil(totalItems / limit);
 }
+
+/**
+ * Helper to determine if there is a previous page.
+ */
+export function calculateHasPreviousPage(page: number): boolean {
+  return page > 1;
+}
+
+/**
+ * Helper to determine if there is a next page.
+ */
+export function calculateHasNextPage(page: number, totalPages: number): boolean {
+  return page < totalPages && totalPages > 0;
+}

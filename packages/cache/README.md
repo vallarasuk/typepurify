@@ -57,6 +57,16 @@ You can override the global TTL for specific, highly volatile items.
 cache.set('crypto:price', '$42,000', { ttl: 5000 });
 ```
 
+### 3. Check for Keys Without Mutating
+
+Use the `has` method to verify if a key exists without mutating the LRU access order.
+
+```typescript
+if (cache.has('my-key')) {
+  // Key exists and is valid
+}
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

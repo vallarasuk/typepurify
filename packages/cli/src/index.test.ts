@@ -120,4 +120,18 @@ describe('@typepurify/cli', () => {
       expect(res.totalSizeBytes).toBe(1000);
     });
   });
+
+  describe('Formatting Utilities', () => {
+    it('should format error messages correctly', async () => {
+      const { formatError } = await import('./index');
+      expect(formatError('Something went wrong')).toBe(
+        '\x1b[31m[ERROR] Something went wrong\x1b[0m',
+      );
+    });
+
+    it('should format success messages correctly', async () => {
+      const { formatSuccess } = await import('./index');
+      expect(formatSuccess('Done!')).toBe('\x1b[32m[SUCCESS] Done!\x1b[0m');
+    });
+  });
 });

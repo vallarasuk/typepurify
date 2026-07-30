@@ -22,6 +22,16 @@ export interface DedupeOptions {
    * If exceeded, calls will be queued.
    */
   maxConcurrent?: number;
+  /**
+   * Optional custom cache implementation for storing resolved results.
+   * Must implement get, set, delete, and clear.
+   */
+  cache?: {
+    get: (key: string) => { value: any; expiresAt: number } | undefined;
+    set: (key: string, data: { value: any; expiresAt: number }) => void;
+    delete: (key: string) => void;
+    clear: () => void;
+  };
 }
 
 export type DeduplicatedFunction<T extends (...args: any[]) => Promise<any>> = T & {
@@ -41,7 +51,7 @@ export function dedupe<T extends (...args: any[]) => Promise<any>>(
   options: DedupeOptions = {},
 ): DeduplicatedFunction<T> {
   const ongoingPromises = new Map<string, Promise<any>>();
-  const cachedResults = new Map<string, { value: any; expiresAt: number }>();
+  const cachedResults = options.cache || new Map<string, { value: any; expiresAt: number }>();
   const debounceTimers = new Map<string, any>();
   const pendingResolvers = new Map<
     string,

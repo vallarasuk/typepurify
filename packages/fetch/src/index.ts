@@ -273,3 +273,21 @@ export function createAuthFetch(
 export function createTimeoutFetch(timeoutMs: number, options?: PurifyFetchOptions) {
   return createTFetch({ ...options, timeout: timeoutMs });
 }
+
+/**
+ * Builds a query string from an object of parameters.
+ */
+export function buildQueryString(params: Record<string, any>): string {
+  const urlParams = new URLSearchParams();
+  for (const [key, value] of Object.entries(params)) {
+    if (value !== undefined && value !== null) {
+      if (Array.isArray(value)) {
+        value.forEach((val) => urlParams.append(key, String(val)));
+      } else {
+        urlParams.append(key, String(value));
+      }
+    }
+  }
+  const queryString = urlParams.toString();
+  return queryString ? `?${queryString}` : '';
+}

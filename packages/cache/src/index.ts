@@ -59,6 +59,19 @@ export class Cache<T = any> {
   }
 
   /**
+   * Checks if a key exists in the cache and is not expired.
+   */
+  has(key: string): boolean {
+    const item = this.store.get(key);
+    if (!item) return false;
+    if (Date.now() > item.expiresAt) {
+      this.store.delete(key);
+      return false;
+    }
+    return true;
+  }
+
+  /**
    * Retrieves a value from the cache. If it doesn't exist or is expired,
    * it executes the provided factory function, caches the result, and returns it.
    */

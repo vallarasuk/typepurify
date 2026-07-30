@@ -1,5 +1,5 @@
 import { describe, it, expect, vi } from 'vitest';
-import { withRetry, retry, TimeoutError, withExponentialBackoff, withLinearBackoff } from './index';
+import { withRetry, retry, TimeoutError, withExponentialBackoff } from './index';
 
 describe('@typepurify/retry', () => {
   it('should export retry as an alias to withRetry', () => {
@@ -162,6 +162,12 @@ describe('@typepurify/retry', () => {
       expect(result).toBe('success');
       expect(fn).toHaveBeenCalledTimes(2);
     });
+
+    it('should throw RetryExhaustedError when all retries fail', async () => {
+      const { RetryExhaustedError, withExponentialBackoff } = await import('./index');
+      const fn = vi.fn().mockRejectedValue(new Error('error'));
+      await expect(withExponentialBackoff(fn, 1, 1)).rejects.toThrow(RetryExhaustedError);
+    });
   });
 
   describe('withLinearBackoff', () => {
@@ -171,6 +177,7 @@ describe('@typepurify/retry', () => {
         .mockRejectedValueOnce(new Error('fail 1'))
         .mockResolvedValueOnce('resolved');
 
+      const { withLinearBackoff } = await import('./index');
       const res = await withLinearBackoff(fn, 3, 10);
       expect(res).toBe('resolved');
       expect(fn).toHaveBeenCalledTimes(2);
@@ -180,9 +187,9 @@ describe('@typepurify/retry', () => {
   describe('withFibonacciBackoff', () => {
     it('should retry with fibonacci delays', async () => {
       const fn = vi.fn().mockRejectedValue(new Error('Fail'));
-      const { withFibonacciBackoff } = await import('./index');
+      const { withFibonacciBackoff, RetryExhaustedError } = await import('./index');
       const start = Date.now();
-      await expect(withFibonacciBackoff(fn, 3, 20)).rejects.toThrow('Fail');
+      await expect(withFibonacciBackoff(fn, 3, 20)).rejects.toThrow(RetryExhaustedError);
       // delays: 1*20 = 20, 1*20 = 20 (total ~40ms wait)
       expect(Date.now() - start).toBeGreaterThanOrEqual(30);
     });
