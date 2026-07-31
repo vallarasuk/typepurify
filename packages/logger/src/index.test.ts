@@ -170,4 +170,18 @@ describe('@typepurify/logger', () => {
       expect(logger).toBeInstanceOf(Logger);
     });
   });
+
+  describe('sanitizeLogMeta', () => {
+    it('should redact sensitive metadata keys', async () => {
+      const { sanitizeLogMeta } = await import('./index');
+      const meta = { username: 'alice', password: 'my-secret-password', token: 'xyz123' };
+
+      const sanitized = sanitizeLogMeta(meta);
+      expect(sanitized).toEqual({
+        username: 'alice',
+        password: '[REDACTED]',
+        token: '[REDACTED]',
+      });
+    });
+  });
 });

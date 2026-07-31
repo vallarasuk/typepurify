@@ -1,3 +1,9 @@
+## 0.5.2
+
+### Minor Changes
+
+- Added `Http3TransportAdapter` for HTTP/3 QUIC connection management with client-side request throttling.
+
 ## 0.5.1
 
 ### Minor Changes

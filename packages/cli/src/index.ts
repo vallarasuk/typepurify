@@ -203,3 +203,19 @@ export function formatError(msg: string): string {
 export function formatSuccess(msg: string): string {
   return `\x1b[32m[SUCCESS] ${msg}\x1b[0m`;
 }
+
+/**
+ * Formats data as an ASCII table string.
+ */
+export function formatTable(data: Record<string, any>[]): string {
+  if (!data || data.length === 0) return '';
+  const headers = Object.keys(data[0]);
+  const rows = data.map((row) => headers.map((h) => String(row[h] ?? '')));
+  const colWidths = headers.map((h, i) => Math.max(h.length, ...rows.map((row) => row[i].length)));
+
+  const formatRow = (row: string[]) =>
+    '| ' + row.map((val, i) => val.padEnd(colWidths[i])).join(' | ') + ' |';
+  const separator = '+' + colWidths.map((w) => '-'.repeat(w + 2)).join('+') + '+';
+
+  return [separator, formatRow(headers), separator, ...rows.map(formatRow), separator].join('\n');
+}

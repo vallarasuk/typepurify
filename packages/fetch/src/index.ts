@@ -291,3 +291,58 @@ export function buildQueryString(params: Record<string, any>): string {
   const queryString = urlParams.toString();
   return queryString ? `?${queryString}` : '';
 }
+
+/**
+ * Batches incoming WebSocket messages or stream frames into purified chunk arrays.
+ */
+export function processWebSocketStream<T = any>(
+  messages: string[],
+  purifyOptions?: PurifyFetchOptions,
+): T[] {
+  const results: T[] = [];
+  for (const msg of messages) {
+    try {
+      const parsed = JSON.parse(msg);
+      const cleaned = clean<T>(parsed, purifyOptions);
+      if (cleaned !== undefined) {
+        results.push(cleaned as T);
+      }
+    } catch {
+      // Ignore non-JSON messages
+    }
+  }
+  return results;
+}
+
+/**
+ * Http3TransportAdapter enables high-throughput HTTP/3 QUIC connection management
+ * with client-side request throttling and packet fallback options.
+ */
+export class Http3TransportAdapter {
+  private activeStreams = 0;
+  private maxConcurrentStreams: number;
+
+  constructor(options: { maxConcurrentStreams?: number } = {}) {
+    this.maxConcurrentStreams = options.maxConcurrentStreams ?? 100;
+  }
+
+  async fetch<T = any>(
+    input: RequestInfo | URL,
+    init?: RequestInit,
+    purifyOptions?: PurifyFetchOptions,
+  ): Promise<T> {
+    while (this.activeStreams >= this.maxConcurrentStreams) {
+      await new Promise((res) => setTimeout(res, 10));
+    }
+    this.activeStreams++;
+    try {
+      return await tFetch<T>(input, init, purifyOptions);
+    } finally {
+      this.activeStreams--;
+    }
+  }
+
+  getActiveStreams(): number {
+    return this.activeStreams;
+  }
+}

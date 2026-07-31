@@ -215,4 +215,40 @@ describe('@typepurify/retry', () => {
       expect(attempts).toBe(2);
     });
   });
+
+  describe('RetryLock', () => {
+    it('should acquire and release lock sequentially across async tasks', async () => {
+      const { RetryLock } = await import('./index');
+      const lock = new RetryLock();
+
+      expect(lock.isLocked()).toBe(false);
+      await lock.acquire();
+      expect(lock.isLocked()).toBe(true);
+
+      let step = 0;
+      const worker = async () => {
+        await lock.acquire();
+        step = 1;
+        lock.release();
+      };
+
+      const p = worker();
+      expect(step).toBe(0); // Blocked on lock
+
+      lock.release();
+      await p;
+      expect(step).toBe(1);
+    });
+
+    it('should execute task exclusively using runExclusive', async () => {
+      const { RetryLock } = await import('./index');
+      const lock = new RetryLock();
+      const res = await lock.runExclusive(async () => {
+        expect(lock.isLocked()).toBe(true);
+        return 'exclusive';
+      });
+      expect(res).toBe('exclusive');
+      expect(lock.isLocked()).toBe(false);
+    });
+  });
 });

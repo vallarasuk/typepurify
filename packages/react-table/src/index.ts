@@ -275,3 +275,15 @@ export function serializeTableState(state: {
     q: state.searchQuery || undefined,
   };
 }
+
+/**
+ * Custom column predicate filter helper for complex queries.
+ */
+export function filterTableData<T>(data: T[], filters: Record<string, (val: any) => boolean>): T[] {
+  return data.filter((row: any) => {
+    for (const [key, predicate] of Object.entries(filters)) {
+      if (!predicate(row[key])) return false;
+    }
+    return true;
+  });
+}

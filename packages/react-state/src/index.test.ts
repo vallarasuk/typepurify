@@ -245,4 +245,23 @@ describe('@typepurify/react-state', () => {
       expect(result.current[0]).toBe(false);
     });
   });
+
+  describe('useBooleanState', () => {
+    it('should manage boolean state with helper methods', async () => {
+      const { useBooleanState } = await import('./index');
+      const { result } = renderHook(() => useBooleanState(false));
+
+      expect(result.current.value).toBe(false);
+
+      act(() => {
+        result.current.setTrue();
+      });
+      expect(result.current.value).toBe(true);
+
+      act(() => {
+        result.current.setFalse();
+      });
+      expect(result.current.value).toBe(false);
+    });
+  });
 });

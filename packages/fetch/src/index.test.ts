@@ -416,4 +416,43 @@ describe('tFetch wrapper', () => {
       expect(buildQueryString({ a: [1, 2], b: null, c: undefined })).toBe('?a=1&a=2');
     });
   });
+
+  describe('processWebSocketStream', () => {
+    it('should batch and purify array of JSON stream messages', async () => {
+      const { processWebSocketStream } = await import('./index');
+
+      const rawMessages = [
+        '{"id":1,"name":"Alice","nullVal":null}',
+        'invalid json frame',
+        '{"id":2,"name":"Bob","emptyStr":""}',
+      ];
+
+      const cleaned = processWebSocketStream(rawMessages, { stripEmptyStrings: true });
+      expect(cleaned).toEqual([
+        { id: 1, name: 'Alice' },
+        { id: 2, name: 'Bob' },
+      ]);
+    });
+  });
+
+  describe('Http3TransportAdapter', () => {
+    it('should throttle requests and track active streams', async () => {
+      const { Http3TransportAdapter } = await import('./index');
+      fetchMock.mockResolvedValue({
+        ok: true,
+        headers: new Headers({ 'content-type': 'application/json' }),
+        json: async () => ({ success: true }),
+      });
+
+      const adapter = new Http3TransportAdapter({ maxConcurrentStreams: 2 });
+      expect(adapter.getActiveStreams()).toBe(0);
+
+      const p1 = adapter.fetch('https://api.example.com/1');
+      const p2 = adapter.fetch('https://api.example.com/2');
+
+      const res = await Promise.all([p1, p2]);
+      expect(res).toEqual([{ success: true }, { success: true }]);
+      expect(adapter.getActiveStreams()).toBe(0);
+    });
+  });
 });

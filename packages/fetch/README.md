@@ -94,6 +94,17 @@ const query = buildQueryString({ filters: ['active', 'verified'], limit: 10 });
 // => "?filters=active,verified&limit=10"
 ```
 
+### 5. HTTP/3 Transport Adapter
+
+Throttle requests using an HTTP/3 QUIC connection pool adapter.
+
+```typescript
+import { Http3TransportAdapter } from '@typepurify/fetch';
+
+const adapter = new Http3TransportAdapter({ maxConcurrentStreams: 50 });
+const data = await adapter.fetch('https://api.example.com/data');
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

@@ -196,11 +196,18 @@ export function isStrongPassword(password: string, options: PasswordOptions = {}
   return true;
 }
 
-import { randomBytes } from 'crypto';
+import { createHash, randomBytes } from 'crypto';
 
 /**
  * Generates a cryptographically secure random hex string of the specified byte length.
  */
 export function generateRandomString(byteLength: number = 16): string {
   return randomBytes(byteLength).toString('hex');
+}
+
+/**
+ * Generates a SHA-256 hash of a string input for secure data checksums.
+ */
+export function hashString(input: string, algorithm = 'sha256'): string {
+  return createHash(algorithm).update(input).digest('hex');
 }

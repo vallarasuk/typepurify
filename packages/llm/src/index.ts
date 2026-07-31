@@ -206,3 +206,14 @@ export async function* streamChat(
     }
   }
 }
+
+/**
+ * Sanitizes LLM system prompts against prompt injection patterns.
+ */
+export function sanitizeSystemPrompt(prompt: string): string {
+  if (!prompt) return '';
+  return prompt
+    .replace(/<script[\s\S]*?>[\s\S]*?<\/script>/gi, '')
+    .replace(/\[system instruction\]/gi, '')
+    .trim();
+}

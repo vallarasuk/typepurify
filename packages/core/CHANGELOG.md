@@ -1,3 +1,15 @@
+## 1.6.2
+
+### Minor Changes
+
+- Ecosystem release 1.6.2 sync with updated helper utilities.
+
+## 1.6.1
+
+### Minor Changes
+
+- Ecosystem release 1.6.1 feature updates.
+
 ## 1.6.0
 
 ### Minor Changes

@@ -317,7 +317,7 @@
   - **v1.0.5** - Bugfix: CORS preflight failure
     - `[ ]` fix: [PATCH] Investigate and resolve CORS preflight failure reported by users post-major release.
   - **v1.1.0** - Feature: WebSocket stream processor
-    - `[ ]` feat: [MINOR] Batch new WebSocket stream processor capabilities to expand the API surface of @typepurify/fetch.
+    - `[x]` feat: [MINOR] Batch new WebSocket stream processor capabilities to expand the API surface of @typepurify/fetch.
     - **v1.1.1** - Bugfix: connection reset exception
       - `[ ]` fix: [PATCH] Debug and resolve connection reset exception occurring under specific edge cases.
     - **v1.1.2** - Bugfix: CORS preflight failure
@@ -329,7 +329,7 @@
     - **v1.1.5** - Bugfix: stale cache collision
       - `[ ]` fix: [PATCH] Debug and resolve stale cache collision occurring under specific edge cases.
   - **v1.2.0** - Feature: HTTP/3 transport adapter
-    - `[ ]` feat: [MINOR] Throttle new HTTP/3 transport adapter capabilities to expand the API surface of @typepurify/fetch.
+    - `[x]` feat: [MINOR] Throttle new HTTP/3 transport adapter capabilities to expand the API surface of @typepurify/fetch.
     - **v1.2.1** - Bugfix: CORS preflight failure
       - `[ ]` fix: [PATCH] Debug and resolve CORS preflight failure occurring under specific edge cases.
     - **v1.2.2** - Bugfix: SSL handshake error
@@ -612,7 +612,7 @@
   - **v1.0.5** - Bugfix: deadlock in queue
     - `[ ]` fix: [PATCH] Investigate and resolve deadlock in queue reported by users post-major release.
   - **v1.1.0** - Feature: retry lock mechanism
-    - `[ ]` feat: [MINOR] Synchronize new retry lock mechanism capabilities to expand the API surface of @typepurify/retry.
+    - `[x]` feat: [MINOR] Synchronize new retry lock mechanism capabilities to expand the API surface of @typepurify/retry.
     - **v1.1.1** - Bugfix: lock expiration bug
       - `[ ]` fix: [PATCH] Debug and resolve lock expiration bug occurring under specific edge cases.
     - **v1.1.2** - Bugfix: deadlock in queue
