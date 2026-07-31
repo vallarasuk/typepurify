@@ -32,6 +32,23 @@ export class Cache<T = any> {
     this.onCacheMiss = options.onCacheMiss;
   }
 
+  private hits = 0;
+  private misses = 0;
+
+  getStats(): { hits: number; misses: number; hitRatio: number } {
+    const total = this.hits + this.misses;
+    return {
+      hits: this.hits,
+      misses: this.misses,
+      hitRatio: total === 0 ? 0 : this.hits / total,
+    };
+  }
+
+  clearStats(): void {
+    this.hits = 0;
+    this.misses = 0;
+  }
+
   /**
    * Retrieves a value from the cache.
    * If the item is expired, it is removed and undefined is returned.
@@ -40,12 +57,14 @@ export class Cache<T = any> {
   get(key: string): T | undefined {
     const item = this.store.get(key);
     if (!item) {
+      this.misses++;
       this.onCacheMiss?.(key);
       return undefined;
     }
 
     if (Date.now() > item.expiresAt) {
       this.store.delete(key);
+      this.misses++;
       this.onCacheMiss?.(key);
       return undefined;
     }
@@ -54,6 +73,7 @@ export class Cache<T = any> {
     this.store.delete(key);
     this.store.set(key, item);
 
+    this.hits++;
     this.onCacheHit?.(key);
     return item.value;
   }

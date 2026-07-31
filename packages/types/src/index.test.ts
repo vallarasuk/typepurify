@@ -134,4 +134,12 @@ describe('@typepurify/types', () => {
       expect(req.c).toBe(true);
     });
   });
+
+  describe('DeepRequiredStrict', () => {
+    it('should infer strict required type recursively', async () => {
+      type OptionalDeep = { x?: { y?: string | null } };
+      type Strict = import('./index').DeepRequiredStrict<OptionalDeep>;
+      expectTypeOf<Strict>().toMatchTypeOf<{ x: { y: string } }>();
+    });
+  });
 });

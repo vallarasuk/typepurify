@@ -277,3 +277,40 @@ export async function* withRetryAsyncGenerator<T>(
     }
   }
 }
+
+/**
+ * Lock mechanism to synchronize retries across asynchronous worker tasks.
+ */
+export class RetryLock {
+  private locked = false;
+  private queue: Array<() => void> = [];
+
+  async acquire(): Promise<void> {
+    if (this.locked) {
+      await new Promise<void>((resolve) => this.queue.push(resolve));
+    }
+    this.locked = true;
+  }
+
+  release(): void {
+    if (this.queue.length > 0) {
+      const next = this.queue.shift();
+      next?.();
+    } else {
+      this.locked = false;
+    }
+  }
+
+  isLocked(): boolean {
+    return this.locked;
+  }
+
+  async runExclusive<T>(fn: () => Promise<T>): Promise<T> {
+    await this.acquire();
+    try {
+      return await fn();
+    } finally {
+      this.release();
+    }
+  }
+}

@@ -133,5 +133,13 @@ describe('@typepurify/cli', () => {
       const { formatSuccess } = await import('./index');
       expect(formatSuccess('Done!')).toBe('\x1b[32m[SUCCESS] Done!\x1b[0m');
     });
+
+    it('should format ASCII table correctly', async () => {
+      const { formatTable } = await import('./index');
+      const table = formatTable([{ name: 'Alice', age: 30 }]);
+      expect(table).toContain('name');
+      expect(table).toContain('Alice');
+      expect(formatTable([])).toBe('');
+    });
   });
 });

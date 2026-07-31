@@ -342,3 +342,29 @@ export function dedupeAsyncGenerator<T, Args extends any[]>(
     }
   };
 }
+
+/**
+ * Utility to measure request deduplication metrics (saved requests count).
+ */
+export class DedupeStats {
+  private savedRequests = 0;
+  private totalCalls = 0;
+
+  recordCall(isDuplicate: boolean) {
+    this.totalCalls++;
+    if (isDuplicate) this.savedRequests++;
+  }
+
+  getMetrics() {
+    return {
+      totalCalls: this.totalCalls,
+      savedRequests: this.savedRequests,
+      efficiencyRatio: this.totalCalls === 0 ? 0 : this.savedRequests / this.totalCalls,
+    };
+  }
+
+  reset() {
+    this.savedRequests = 0;
+    this.totalCalls = 0;
+  }
+}

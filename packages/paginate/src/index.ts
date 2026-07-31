@@ -279,3 +279,28 @@ export function calculateHasPreviousPage(page: number): boolean {
 export function calculateHasNextPage(page: number, totalPages: number): boolean {
   return page < totalPages && totalPages > 0;
 }
+
+/**
+ * Generates an array of page numbers for pagination UI controls with max window limits.
+ */
+export function paginateArrayWindow(
+  currentPage: number,
+  totalPages: number,
+  maxWindow = 5,
+): number[] {
+  if (totalPages <= 0) return [];
+  const half = Math.floor(maxWindow / 2);
+  let start = Math.max(1, currentPage - half);
+  let end = Math.min(totalPages, start + maxWindow - 1);
+
+  if (end - start + 1 < maxWindow) {
+    start = Math.max(1, end - maxWindow + 1);
+    end = Math.min(totalPages, start + maxWindow - 1);
+  }
+
+  const pages: number[] = [];
+  for (let i = start; i <= end; i++) {
+    pages.push(i);
+  }
+  return pages;
+}

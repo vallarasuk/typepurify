@@ -165,4 +165,15 @@ describe('@typepurify/security', () => {
       expect(randomStr).not.toBe(another);
     });
   });
+
+  describe('hashString', () => {
+    it('should generate SHA-256 hash of a string', async () => {
+      const { hashString } = await import('./index');
+      const hash1 = hashString('hello');
+      const hash2 = hashString('hello');
+
+      expect(hash1).toBe(hash2);
+      expect(hash1).toHaveLength(64);
+    });
+  });
 });

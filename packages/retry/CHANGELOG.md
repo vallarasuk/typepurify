@@ -1,3 +1,9 @@
+## 0.5.2
+
+### Minor Changes
+
+- Added `runExclusive` lock execution wrapper method to `RetryLock` class.
+
 ## 0.5.1
 
 ### Minor Changes

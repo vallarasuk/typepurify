@@ -288,4 +288,28 @@ describe('@typepurify/dedupe', () => {
       expect(callCount).toBe(1); // Deduplicated!
     });
   });
+
+  describe('DedupeStats', () => {
+    it('should calculate deduplication efficiency correctly', async () => {
+      const { DedupeStats } = await import('./index');
+      const stats = new DedupeStats();
+
+      stats.recordCall(false); // 1st call
+      stats.recordCall(true); // 2nd call (duplicate)
+      stats.recordCall(true); // 3rd call (duplicate)
+
+      expect(stats.getMetrics()).toEqual({
+        totalCalls: 3,
+        savedRequests: 2,
+        efficiencyRatio: 2 / 3,
+      });
+
+      stats.reset();
+      expect(stats.getMetrics()).toEqual({
+        totalCalls: 0,
+        savedRequests: 0,
+        efficiencyRatio: 0,
+      });
+    });
+  });
 });

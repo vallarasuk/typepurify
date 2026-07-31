@@ -189,4 +189,14 @@ describe('@typepurify/json', () => {
       expect(isJsonString(null as any)).toBe(false);
     });
   });
+
+  describe('jsonPathSelector', () => {
+    it('should extract nested values using dot notation path string', async () => {
+      const { jsonPathSelector } = await import('./index');
+      const obj = { user: { profile: { name: 'Alice' } } };
+
+      expect(jsonPathSelector(obj, 'user.profile.name')).toBe('Alice');
+      expect(jsonPathSelector(obj, 'user.profile.age', 25)).toBe(25);
+    });
+  });
 });

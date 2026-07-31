@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.2] (Core: 1.6.2) - 2026-07-31
+
+### Ecosystem Wide Feature Updates
+
+- **`@typepurify/fetch`**: Added `Http3TransportAdapter` for HTTP/3 QUIC connection management with client-side request throttling.
+- **`@typepurify/retry`**: Added `runExclusive` lock execution wrapper method to `RetryLock` class.
+- **Documentation**: Updated `ROADMAP.md` tracking status for completed ecosystem features.
+
 ## [0.5.1] (Core: 1.6.1) - 2026-07-30
 
 ### Ecosystem Wide Feature Updates

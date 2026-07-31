@@ -1,3 +1,15 @@
+## 0.5.2
+
+### Minor Changes
+
+- Ecosystem release 0.5.2 sync with updated helper utilities.
+
+## 0.5.1
+
+### Minor Changes
+
+- Added `SnakeToCamelCase` string utility type.
+
 ## 0.5.0
 
 ### Minor Changes

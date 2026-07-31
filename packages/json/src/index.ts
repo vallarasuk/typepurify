@@ -262,3 +262,17 @@ export function isJsonString(str: string): boolean {
     return false;
   }
 }
+
+/**
+ * Extracts a value from a JSON object using simple dot notation path string.
+ */
+export function jsonPathSelector<T = any>(obj: any, path: string, fallback?: T): T {
+  if (!obj || !path) return fallback as T;
+  const parts = path.split('.').filter(Boolean);
+  let curr = obj;
+  for (const part of parts) {
+    if (curr == null || typeof curr !== 'object') return fallback as T;
+    curr = curr[part];
+  }
+  return curr !== undefined ? curr : (fallback as T);
+}

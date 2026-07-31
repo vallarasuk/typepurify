@@ -206,4 +206,18 @@ describe('@typepurify/cache', () => {
       expect(v2).toBe('hello'); // uses cached value
     });
   });
+
+  describe('getStats', () => {
+    it('should calculate hit and miss statistics accurately', () => {
+      const cache = new Cache<number>();
+      cache.set('a', 1);
+      cache.get('a'); // hit
+      cache.get('b'); // miss
+
+      expect(cache.getStats()).toEqual({ hits: 1, misses: 1, hitRatio: 0.5 });
+
+      cache.clearStats();
+      expect(cache.getStats()).toEqual({ hits: 0, misses: 0, hitRatio: 0 });
+    });
+  });
 });

@@ -201,4 +201,13 @@ describe('@typepurify/paginate', () => {
       expect(calculateHasNextPage(1, 0)).toBe(false);
     });
   });
+
+  describe('paginateArrayWindow', () => {
+    it('should generate page numbers array window', async () => {
+      const { paginateArrayWindow } = await import('./index');
+      expect(paginateArrayWindow(1, 10, 5)).toEqual([1, 2, 3, 4, 5]);
+      expect(paginateArrayWindow(5, 10, 5)).toEqual([3, 4, 5, 6, 7]);
+      expect(paginateArrayWindow(10, 10, 5)).toEqual([6, 7, 8, 9, 10]);
+    });
+  });
 });

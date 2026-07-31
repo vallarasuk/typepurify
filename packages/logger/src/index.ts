@@ -198,3 +198,21 @@ export function createFileLogger(filePath: string, options?: LoggerOptions) {
   // For the browser/universal package, we return a standard logger that just logs.
   return new Logger(options);
 }
+
+/**
+ * Sanitizes sensitive key names (password, secret, token) from log metadata objects.
+ */
+export function sanitizeLogMeta(meta: Record<string, any>): Record<string, any> {
+  if (!meta || typeof meta !== 'object') return meta;
+  const sanitized: Record<string, any> = {};
+  const sensitiveRegex = /password|secret|token|authorization|key/i;
+
+  for (const [key, value] of Object.entries(meta)) {
+    if (sensitiveRegex.test(key)) {
+      sanitized[key] = '[REDACTED]';
+    } else {
+      sanitized[key] = value;
+    }
+  }
+  return sanitized;
+}

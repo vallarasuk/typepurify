@@ -71,6 +71,20 @@ try {
 }
 ```
 
+### 4. `RetryLock` Synchronization
+
+Synchronize async task execution across retries using exclusive locks.
+
+```typescript
+import { RetryLock } from '@typepurify/retry';
+
+const lock = new RetryLock();
+const result = await lock.runExclusive(async () => {
+  // Concurrently safe operation
+  return 'done';
+});
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

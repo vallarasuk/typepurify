@@ -434,4 +434,33 @@ describe('typepurify core engine', () => {
       expect((clone.b[1] as any).c).toBe(3);
     });
   });
+
+  describe('v1.6.2 memory and transform edge cases', () => {
+    it('should correctly process custom transform callbacks with null key', () => {
+      const result = clean(
+        { secret: 'hidden' },
+        {
+          transform: (val, key) => {
+            if (key === 'secret') return undefined;
+            return val;
+          },
+        },
+      );
+      expect(result).toEqual({});
+    });
+
+    it('should handle ArrayBuffer and TypedArray memory views safely', () => {
+      const buffer = new ArrayBuffer(8);
+      const view = new Int32Array(buffer);
+      view[0] = 42;
+
+      const obj = { buffer, view, regular: null };
+      const cleaned = clean(obj);
+
+      expect(cleaned.buffer).toBe(buffer);
+      expect(cleaned.view).toBe(view);
+      expect(cleaned.view[0]).toBe(42);
+      expect(cleaned).not.toHaveProperty('regular');
+    });
+  });
 });

@@ -143,3 +143,10 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>
  * Makes specific properties required.
  */
 export type MakeRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K>>;
+
+/**
+ * Recursively enforces all properties to be NonNullable and Required.
+ */
+export type DeepRequiredStrict<T> = T extends object
+  ? { [K in keyof T]-?: DeepRequiredStrict<NonNullable<T[K]>> }
+  : NonNullable<T>;
