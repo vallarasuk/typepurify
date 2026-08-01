@@ -142,4 +142,12 @@ describe('@typepurify/types', () => {
       expectTypeOf<Strict>().toMatchTypeOf<{ x: { y: string } }>();
     });
   });
+
+  describe('Writable', () => {
+    it('should remove readonly modifier from object properties', async () => {
+      type ReadonlyPoint = { readonly x: number; readonly y: number };
+      type MutablePoint = import('./index').Writable<ReadonlyPoint>;
+      expectTypeOf<MutablePoint>().toEqualTypeOf<{ x: number; y: number }>();
+    });
+  });
 });

@@ -216,3 +216,10 @@ export function sanitizeLogMeta(meta: Record<string, any>): Record<string, any> 
   }
   return sanitized;
 }
+
+/**
+ * Creates a silent no-op Logger instance for test environments.
+ */
+export function createNoopLogger(): Logger {
+  return new Logger({ silent: true });
+}

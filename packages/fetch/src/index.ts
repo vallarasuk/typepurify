@@ -346,3 +346,29 @@ export class Http3TransportAdapter {
     return this.activeStreams;
   }
 }
+
+/**
+ * Creates a fetch wrapper with simple in-memory response caching capabilities.
+ */
+export function createCacheFetch(options: { ttlMs?: number } = {}) {
+  const cache = new Map<string, { data: any; expiry: number }>();
+  const ttlMs = options.ttlMs ?? 60000;
+
+  return async function cacheFetch<T = any>(
+    input: RequestInfo | URL,
+    init?: RequestInit,
+    purifyOptions?: PurifyFetchOptions,
+  ): Promise<T> {
+    const key = typeof input === 'string' ? input : input.toString();
+    const now = Date.now();
+    const cached = cache.get(key);
+
+    if (cached && cached.expiry > now) {
+      return cached.data;
+    }
+
+    const data = await tFetch<T>(input, init, purifyOptions);
+    cache.set(key, { data, expiry: now + ttlMs });
+    return data;
+  };
+}

@@ -150,3 +150,10 @@ export type MakeRequired<T, K extends keyof T> = Omit<T, K> & Required<Pick<T, K
 export type DeepRequiredStrict<T> = T extends object
   ? { [K in keyof T]-?: DeepRequiredStrict<NonNullable<T[K]>> }
   : NonNullable<T>;
+
+/**
+ * Removes readonly modifier from object properties.
+ */
+export type Writable<T> = {
+  -readonly [P in keyof T]: T[P];
+};

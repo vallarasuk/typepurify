@@ -463,4 +463,19 @@ describe('typepurify core engine', () => {
       expect(cleaned).not.toHaveProperty('regular');
     });
   });
+
+  describe('MemoryBuffer', () => {
+    it('should buffer items and respect capacity limits', async () => {
+      const { MemoryBuffer } = await import('./index');
+      const buf = new MemoryBuffer<number>(2);
+
+      expect(buf.push(10)).toBe(true);
+      expect(buf.push(20)).toBe(true);
+      expect(buf.push(30)).toBe(false); // Capacity exceeded
+      expect(buf.size()).toBe(2);
+
+      expect(buf.flush()).toEqual([10, 20]);
+      expect(buf.size()).toBe(0);
+    });
+  });
 });

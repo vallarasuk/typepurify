@@ -160,4 +160,11 @@ describe('@typepurify/llm', () => {
       expect(sanitizeSystemPrompt(input)).toBe('Hello   ignore rule');
     });
   });
+
+  describe('wrapUserMessage', () => {
+    it('should format role and content correctly', async () => {
+      const { wrapUserMessage } = await import('./index');
+      expect(wrapUserMessage('Hello')).toEqual({ role: 'user', content: 'Hello' });
+    });
+  });
 });

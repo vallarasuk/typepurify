@@ -304,3 +304,12 @@ export function paginateArrayWindow(
   }
   return pages;
 }
+
+/**
+ * Calculates SQL offset from page and limit.
+ */
+export function getPageOffset(page: number, limit: number): number {
+  const validPage = Math.max(1, page || 1);
+  const validLimit = Math.max(1, limit || 10);
+  return (validPage - 1) * validLimit;
+}

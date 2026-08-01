@@ -1,3 +1,9 @@
+## 0.5.3
+
+### Minor Changes
+
+- Ecosystem 0.5.3 update and feature enhancements.
+
 ## 0.5.2
 
 ### Minor Changes

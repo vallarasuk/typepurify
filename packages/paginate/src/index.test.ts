@@ -210,4 +210,13 @@ describe('@typepurify/paginate', () => {
       expect(paginateArrayWindow(10, 10, 5)).toEqual([6, 7, 8, 9, 10]);
     });
   });
+
+  describe('getPageOffset', () => {
+    it('should calculate offset correctly', async () => {
+      const { getPageOffset } = await import('./index');
+      expect(getPageOffset(1, 10)).toBe(0);
+      expect(getPageOffset(2, 10)).toBe(10);
+      expect(getPageOffset(3, 20)).toBe(40);
+    });
+  });
 });

@@ -267,4 +267,8 @@ export class SlidingWindowCache<K, V> {
   has(key: K): boolean {
     return this.get(key) !== undefined;
   }
+
+  size(): number {
+    return this.store.size;
+  }
 }

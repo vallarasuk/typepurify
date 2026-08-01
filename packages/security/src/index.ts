@@ -211,3 +211,11 @@ export function generateRandomString(byteLength: number = 16): string {
 export function hashString(input: string, algorithm = 'sha256'): string {
   return createHash(algorithm).update(input).digest('hex');
 }
+
+/**
+ * Sanitizes HTTP header values against CRLF injection attacks.
+ */
+export function sanitizeHeaderValue(value: string): string {
+  if (!value) return '';
+  return value.replace(/[\r\n]/g, '');
+}

@@ -1,3 +1,9 @@
+## 0.5.3
+
+### Minor Changes
+
+- Added `createCacheFetch` utility for in-memory response caching with configurable TTL.
+
 ## 0.5.2
 
 ### Minor Changes

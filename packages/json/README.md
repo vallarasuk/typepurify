@@ -58,14 +58,23 @@ import { repairJson } from '@typepurify/json';
 const fixed = repairJson("{ 'name': 'Alice', }"); // => '{"name": "Alice"}'
 ```
 
-### 4. Utilities
+### 4. Key Differences (`jsonDiff`)
+
+```typescript
+import { jsonDiff } from '@typepurify/json';
+
+const diff = jsonDiff({ a: 1, b: 'old' }, { a: 1, b: 'new' });
+// => { b: { from: 'old', to: 'new' } }
+```
+
+### 5. Utilities
 
 - `jsonSize(obj)`: Accurately estimates the byte size of an object if it were to be stringified.
 - `deepMerge(target, ...sources)`: Deeply merges multiple objects.
 - `flattenCsvToJson(csv)`: Converts CSV strings into flat JSON objects.
 - `jsonToXml(obj)`: Converts JSON maps into clean XML representations.
 
-### 5. String Validation
+### 6. String Validation
 
 Safely check if a string is parseable JSON before attempting to parse it.
 

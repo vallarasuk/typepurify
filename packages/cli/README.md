@@ -67,13 +67,14 @@ console.log(`Bundle Size: ${bundle.totalSizeBytes} bytes`);
 
 ### 5. Terminal Formatting
 
-Format success and error messages elegantly for your CLI outputs.
+Format success, warning, and error messages elegantly for your CLI outputs.
 
 ```typescript
-import { formatError, formatSuccess } from '@typepurify/cli';
+import { formatError, formatSuccess, formatWarning } from '@typepurify/cli';
 
 console.log(formatSuccess('Task completed successfully!'));
-console.error(formatError('Task failed', new Error('Timeout')));
+console.log(formatWarning('Deprecated flag used'));
+console.error(formatError('Task failed'));
 ```
 
 ## 🛡️ License

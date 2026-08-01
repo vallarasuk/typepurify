@@ -287,3 +287,16 @@ export function filterTableData<T>(data: T[], filters: Record<string, (val: any)
     return true;
   });
 }
+
+/**
+ * Resets table state options to standard defaults.
+ */
+export function resetTableState() {
+  return {
+    currentPage: 1,
+    pageSize: 10,
+    searchQuery: '',
+    sortKey: null,
+    sortDirection: 'asc' as const,
+  };
+}

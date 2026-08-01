@@ -105,6 +105,15 @@ const adapter = new Http3TransportAdapter({ maxConcurrentStreams: 50 });
 const data = await adapter.fetch('https://api.example.com/data');
 ```
 
-## 🛡️ License
+### 3. Response Caching (`createCacheFetch`)
 
-MIT © Vallarasu Kanthasamy
+```typescript
+import { createCacheFetch } from '@typepurify/fetch';
+
+const cachedFetch = createCacheFetch({ ttlMs: 60000 });
+const data = await cachedFetch('https://api.example.com/data');
+```
+
+## 📄 License
+
+MIT © [Vallarasu Kanthasamy](https://github.com/vallarasuk)

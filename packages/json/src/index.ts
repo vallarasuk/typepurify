@@ -276,3 +276,22 @@ export function jsonPathSelector<T = any>(obj: any, path: string, fallback?: T):
   }
   return curr !== undefined ? curr : (fallback as T);
 }
+
+/**
+ * Returns key differences between two JSON objects.
+ */
+export function jsonDiff(
+  obj1: Record<string, any>,
+  obj2: Record<string, any>,
+): Record<string, any> {
+  const diff: Record<string, any> = {};
+  const keys = new Set([...Object.keys(obj1 || {}), ...Object.keys(obj2 || {})]);
+
+  keys.forEach((key) => {
+    if (JSON.stringify(obj1[key]) !== JSON.stringify(obj2[key])) {
+      diff[key] = { from: obj1[key], to: obj2[key] };
+    }
+  });
+
+  return diff;
+}

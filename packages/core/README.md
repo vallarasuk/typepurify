@@ -182,6 +182,10 @@ Asynchronous versions of the above that yield to the event loop every 1,000 iter
 
 A specialized JSON parser that deeply cleans a raw JSON string in a single pass. By skipping standard `JSON.parse` and its intermediate object allocation, `cleanParse` is incredibly memory-efficient and up to 25% faster for massive JSON payloads.
 
+### `MemoryBuffer<T>(capacity?: number)` (v1.6.3 🚀)
+
+An optimized in-memory chunk buffer for streaming data purification operations with customizable capacity boundaries and `.flush()`, `.push()`, `.size()` methods.
+
 ### Options Configuration (`CleanOptions`)
 
 - `stripEmptyStrings`: Removes `""`
