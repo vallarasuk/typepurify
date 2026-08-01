@@ -219,3 +219,10 @@ export function formatTable(data: Record<string, any>[]): string {
 
   return [separator, formatRow(headers), separator, ...rows.map(formatRow), separator].join('\n');
 }
+
+/**
+ * Formats a warning message with yellow ANSI colors.
+ */
+export function formatWarning(msg: string): string {
+  return `\x1b[33m[WARNING] ${msg}\x1b[0m`;
+}

@@ -323,9 +323,6 @@ export function useToggle(
   return [value, toggle, setValue];
 }
 
-/**
- * Hook providing boolean state management helpers (setTrue, setFalse, toggle).
- */
 export function useBooleanState(initialValue: boolean = false) {
   const [value, setValue] = useState(initialValue);
   const setTrue = useCallback(() => setValue(true), []);
@@ -333,4 +330,20 @@ export function useBooleanState(initialValue: boolean = false) {
   const toggle = useCallback(() => setValue((v) => !v), []);
 
   return { value, setTrue, setFalse, toggle, setValue };
+}
+
+/**
+ * Custom React hook for array state manipulation.
+ */
+export function useArray<T>(initialValue: T[] = []) {
+  const [array, setArray] = useState<T[]>(initialValue);
+
+  const push = useCallback((item: T) => setArray((a) => [...a, item]), []);
+  const removeByIndex = useCallback(
+    (index: number) => setArray((a) => a.filter((_, i) => i !== index)),
+    [],
+  );
+  const clear = useCallback(() => setArray([]), []);
+
+  return { array, setArray, push, removeByIndex, clear };
 }

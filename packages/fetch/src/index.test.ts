@@ -455,4 +455,23 @@ describe('tFetch wrapper', () => {
       expect(adapter.getActiveStreams()).toBe(0);
     });
   });
+
+  describe('createCacheFetch', () => {
+    it('should cache fetch responses until TTL expires', async () => {
+      const { createCacheFetch } = await import('./index');
+      fetchMock.mockResolvedValue({
+        ok: true,
+        headers: new Headers({ 'content-type': 'application/json' }),
+        json: async () => ({ value: 42 }),
+      });
+
+      const cachedFetch = createCacheFetch({ ttlMs: 100 });
+      const res1 = await cachedFetch('https://api.example.com/cache');
+      const res2 = await cachedFetch('https://api.example.com/cache');
+
+      expect(res1).toEqual({ value: 42 });
+      expect(res2).toEqual({ value: 42 });
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+    });
+  });
 });

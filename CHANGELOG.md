@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.5.3] (Core: 1.6.3) - 2026-08-01
+
+### Ecosystem Wide Feature Updates
+
+- **`@typepurify/fetch`**: Added `createCacheFetch` for lightweight in-memory response caching with custom TTL options.
+- **Ecosystem Sync**: Bumped version to `0.5.3` across all sub-packages (`typepurify` core @ `1.6.3`).
+
 ## [0.5.2] (Core: 1.6.2) - 2026-07-31
 
 ### Ecosystem Wide Feature Updates

@@ -67,6 +67,18 @@ if (cache.has('my-key')) {
 }
 ```
 
+### 4. `SlidingWindowCache`
+
+Extends item TTL on every successful read access. Query total cached items via `.size()`.
+
+```typescript
+import { SlidingWindowCache } from '@typepurify/cache';
+
+const windowCache = new SlidingWindowCache<string, number>(5000);
+windowCache.set('session:1', 100);
+console.log(windowCache.size()); // 1
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

@@ -22,7 +22,7 @@
   - **v1.0.5** - Bugfix: type confusion flaw
     - `[ ]` fix: [PATCH] Investigate and resolve type confusion flaw reported by users post-major release.
   - **v1.1.0** - Feature: memory buffer
-    - `[ ]` feat: [MINOR] Refactor new memory buffer capabilities to expand the API surface of @typepurify/core.
+    - `[x]` feat: [MINOR] Refactor new memory buffer capabilities to expand the API surface of @typepurify/core.
     - **v1.1.1** - Bugfix: null pointer exception
       - `[ ]` fix: [PATCH] Debug and resolve null pointer exception occurring under specific edge cases.
     - **v1.1.2** - Bugfix: type confusion flaw
@@ -341,7 +341,7 @@
     - **v1.2.5** - Bugfix: thundering herd problem
       - `[ ]` fix: [PATCH] Debug and resolve thundering herd problem occurring under specific edge cases.
   - **v1.3.0** - Feature: cache layer
-    - `[ ]` feat: [MINOR] Debounce new cache layer capabilities to expand the API surface of @typepurify/fetch.
+    - `[x]` feat: [MINOR] Debounce new cache layer capabilities to expand the API surface of @typepurify/fetch.
     - **v1.3.1** - Bugfix: SSL handshake error
       - `[ ]` fix: [PATCH] Debug and resolve SSL handshake error occurring under specific edge cases.
     - **v1.3.2** - Bugfix: memory leak on aborted request

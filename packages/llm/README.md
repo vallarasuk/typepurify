@@ -98,6 +98,17 @@ import { extractFirstMarkdownBlock } from '@typepurify/llm';
 const cleanCode = extractFirstMarkdownBlock(llmOutput, 'typescript');
 ```
 
+### 7. Message Formatting (`wrapUserMessage`)
+
+Format raw prompt text into structured API message objects.
+
+```typescript
+import { wrapUserMessage } from '@typepurify/llm';
+
+const msg = wrapUserMessage('Explain quantum computing');
+// => { role: 'user', content: 'Explain quantum computing' }
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

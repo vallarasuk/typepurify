@@ -217,3 +217,10 @@ export function sanitizeSystemPrompt(prompt: string): string {
     .replace(/\[system instruction\]/gi, '')
     .trim();
 }
+
+/**
+ * Wraps user text in structured message object for LLM APIs.
+ */
+export function wrapUserMessage(text: string): { role: 'user'; content: string } {
+  return { role: 'user', content: text };
+}

@@ -312,4 +312,20 @@ describe('@typepurify/dedupe', () => {
       });
     });
   });
+
+  describe('dedupeOnce', () => {
+    it('should execute a function only once', async () => {
+      const { dedupeOnce } = await import('./index');
+      let calls = 0;
+      const fn = async () => ++calls;
+      const once = dedupeOnce(fn);
+
+      const r1 = await once();
+      const r2 = await once();
+
+      expect(r1).toBe(1);
+      expect(r2).toBe(1);
+      expect(calls).toBe(1);
+    });
+  });
 });

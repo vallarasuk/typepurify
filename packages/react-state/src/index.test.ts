@@ -264,4 +264,26 @@ describe('@typepurify/react-state', () => {
       expect(result.current.value).toBe(false);
     });
   });
+
+  describe('useArray', () => {
+    it('should manage array state helpers', async () => {
+      const { useArray } = await import('./index');
+      const { result } = renderHook(() => useArray([1, 2]));
+
+      act(() => {
+        result.current.push(3);
+      });
+      expect(result.current.array).toEqual([1, 2, 3]);
+
+      act(() => {
+        result.current.removeByIndex(0);
+      });
+      expect(result.current.array).toEqual([2, 3]);
+
+      act(() => {
+        result.current.clear();
+      });
+      expect(result.current.array).toEqual([]);
+    });
+  });
 });

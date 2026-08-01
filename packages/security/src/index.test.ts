@@ -176,4 +176,11 @@ describe('@typepurify/security', () => {
       expect(hash1).toHaveLength(64);
     });
   });
+
+  describe('sanitizeHeaderValue', () => {
+    it('should strip CRLF characters from header value', async () => {
+      const { sanitizeHeaderValue } = await import('./index');
+      expect(sanitizeHeaderValue('value\r\nSet-Cookie: stolen')).toBe('valueSet-Cookie: stolen');
+    });
+  });
 });

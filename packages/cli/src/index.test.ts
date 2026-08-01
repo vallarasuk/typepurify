@@ -141,5 +141,10 @@ describe('@typepurify/cli', () => {
       expect(table).toContain('Alice');
       expect(formatTable([])).toBe('');
     });
+
+    it('should format warning messages correctly', async () => {
+      const { formatWarning } = await import('./index');
+      expect(formatWarning('Caution!')).toBe('\x1b[33m[WARNING] Caution!\x1b[0m');
+    });
   });
 });

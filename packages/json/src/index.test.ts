@@ -199,4 +199,18 @@ describe('@typepurify/json', () => {
       expect(jsonPathSelector(obj, 'user.profile.age', 25)).toBe(25);
     });
   });
+
+  describe('jsonDiff', () => {
+    it('should calculate key differences between two objects', async () => {
+      const { jsonDiff } = await import('./index');
+      const obj1 = { a: 1, b: 'old' };
+      const obj2 = { a: 1, b: 'new', c: true };
+
+      const diff = jsonDiff(obj1, obj2);
+      expect(diff).toEqual({
+        b: { from: 'old', to: 'new' },
+        c: { from: undefined, to: true },
+      });
+    });
+  });
 });

@@ -66,6 +66,21 @@ const cache = new MemoryCache();
 const fetchUser = dedupeAsync(fetchFn, { cache });
 ```
 
+### 4. Single Execution Wrapper (`dedupeOnce`)
+
+Ensures an asynchronous function executes strictly once per process lifecycle.
+
+```typescript
+import { dedupeOnce } from '@typepurify/dedupe';
+
+const initializeApp = dedupeOnce(async () => {
+  console.log('Connecting to database...');
+});
+
+await initializeApp();
+await initializeApp(); // No-op, returns existing promise
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

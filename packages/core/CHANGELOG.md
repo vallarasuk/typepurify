@@ -1,3 +1,9 @@
+## 1.6.3
+
+### Minor Changes
+
+- Ecosystem 1.6.3 update and feature enhancements.
+
 ## 1.6.2
 
 ### Minor Changes

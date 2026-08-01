@@ -184,4 +184,12 @@ describe('@typepurify/logger', () => {
       });
     });
   });
+
+  describe('createNoopLogger', () => {
+    it('should create silent logger instance', async () => {
+      const { createNoopLogger } = await import('./index');
+      const logger = createNoopLogger();
+      expect(logger).toBeDefined();
+    });
+  });
 });

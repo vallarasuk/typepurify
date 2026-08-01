@@ -226,13 +226,24 @@ describe('@typepurify/react-table', () => {
   describe('filterTableData', () => {
     it('should filter table data using custom column predicates', async () => {
       const { filterTableData } = await import('./index');
-
       const filtered = filterTableData(mockData, {
         age: (age) => age > 25,
         name: (name) => name === 'Alice',
       });
-
       expect(filtered).toEqual([{ id: 1, name: 'Alice', age: 30 }]);
+    });
+  });
+
+  describe('resetTableState', () => {
+    it('should return default table state', async () => {
+      const { resetTableState } = await import('./index');
+      expect(resetTableState()).toEqual({
+        currentPage: 1,
+        pageSize: 10,
+        searchQuery: '',
+        sortKey: null,
+        sortDirection: 'asc',
+      });
     });
   });
 });

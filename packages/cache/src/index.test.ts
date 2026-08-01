@@ -186,6 +186,7 @@ describe('@typepurify/cache', () => {
     it('should extend TTL when key is accessed before expiry', async () => {
       const cache = new SlidingWindowCache<string, number>(100);
       cache.set('a', 42);
+      expect(cache.size()).toBe(1);
 
       await new Promise((r) => setTimeout(r, 60));
       expect(cache.get('a')).toBe(42); // Access extends TTL by another 100ms

@@ -368,3 +368,19 @@ export class DedupeStats {
     this.totalCalls = 0;
   }
 }
+
+/**
+ * Ensures a function is executed only once per process lifecycle.
+ */
+export function dedupeOnce<T>(fn: () => Promise<T>): () => Promise<T> {
+  let executed = false;
+  let promise: Promise<T> | null = null;
+
+  return function runOnce(): Promise<T> {
+    if (!executed) {
+      executed = true;
+      promise = fn();
+    }
+    return promise!;
+  };
+}

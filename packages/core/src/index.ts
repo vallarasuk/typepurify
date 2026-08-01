@@ -750,3 +750,38 @@ export function deepMerge<T extends Record<string, any>, U extends Record<string
 
   return output;
 }
+
+/**
+ * MemoryBuffer provides an optimized in-memory chunk buffer
+ * for streaming data purification operations.
+ */
+export class MemoryBuffer<T = any> {
+  private chunks: T[] = [];
+  private capacity: number;
+
+  constructor(capacity = 1000) {
+    this.capacity = capacity;
+  }
+
+  push(item: T): boolean {
+    if (this.chunks.length >= this.capacity) {
+      return false;
+    }
+    this.chunks.push(item);
+    return true;
+  }
+
+  flush(): T[] {
+    const data = [...this.chunks];
+    this.chunks = [];
+    return data;
+  }
+
+  size(): number {
+    return this.chunks.length;
+  }
+
+  clear(): void {
+    this.chunks = [];
+  }
+}
