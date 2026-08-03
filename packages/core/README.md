@@ -186,6 +186,10 @@ A specialized JSON parser that deeply cleans a raw JSON string in a single pass.
 
 An optimized in-memory chunk buffer for streaming data purification operations with customizable capacity boundaries and `.flush()`, `.push()`, `.size()` methods.
 
+### `traverseObjectGraph(obj, callback, options?)` (v1.6.4 🚀)
+
+Deeply traverses complex nested object graphs (objects, arrays, Maps, Sets) visiting all key paths with parent tracking, circular reference protection, and configurable maximum depth limits.
+
 ### Options Configuration (`CleanOptions`)
 
 - `stripEmptyStrings`: Removes `""`

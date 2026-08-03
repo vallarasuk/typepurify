@@ -192,4 +192,16 @@ describe('@typepurify/logger', () => {
       expect(logger).toBeDefined();
     });
   });
+
+  describe('OpenTelemetryTracer', () => {
+    it('should record spans with attributes', async () => {
+      const { OpenTelemetryTracer } = await import('./index');
+      const tracer = new OpenTelemetryTracer();
+      const span = tracer.startSpan('http-request', { url: '/api/v1' });
+      span.end();
+
+      expect(tracer.getSpans()).toHaveLength(1);
+      expect(tracer.getSpans()[0].name).toBe('http-request');
+    });
+  });
 });

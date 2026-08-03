@@ -219,4 +219,15 @@ describe('@typepurify/paginate', () => {
       expect(getPageOffset(3, 20)).toBe(40);
     });
   });
+
+  describe('parseRelayParams', () => {
+    it('should parse Relay connection parameters into limit and offset', async () => {
+      const { parseRelayParams, createCursor } = await import('./index');
+      const cursor = createCursor('5');
+
+      const params = parseRelayParams(10, cursor);
+      expect(params.limit).toBe(10);
+      expect(params.offset).toBe(6);
+    });
+  });
 });

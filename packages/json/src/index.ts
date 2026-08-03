@@ -295,3 +295,30 @@ export function jsonDiff(
 
   return diff;
 }
+
+/**
+ * Large stream parser for chunked JSON payloads.
+ */
+export class LargeStreamParser<T = any> {
+  private buffer = '';
+
+  push(chunk: string): T[] {
+    this.buffer += chunk;
+    const items: T[] = [];
+    const lines = this.buffer.split('\n');
+    this.buffer = lines.pop() || '';
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (trimmed) {
+        try {
+          items.push(JSON.parse(trimmed));
+        } catch {
+          // Skip invalid chunk lines
+        }
+      }
+    }
+
+    return items;
+  }
+}

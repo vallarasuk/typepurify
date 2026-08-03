@@ -272,3 +272,28 @@ export class SlidingWindowCache<K, V> {
     return this.store.size;
   }
 }
+
+/**
+ * Basic in-memory file-system storage adapter fallback for persistent caching simulation.
+ */
+export class FileSystemStorageAdapter<T = any> {
+  private fileStore = new Map<string, { value: T; expiresAt: number }>();
+
+  async read(filePath: string): Promise<T | undefined> {
+    const item = this.fileStore.get(filePath);
+    if (!item) return undefined;
+    if (Date.now() > item.expiresAt) {
+      this.fileStore.delete(filePath);
+      return undefined;
+    }
+    return item.value;
+  }
+
+  async write(filePath: string, value: T, ttlMs = 60000): Promise<void> {
+    this.fileStore.set(filePath, { value, expiresAt: Date.now() + ttlMs });
+  }
+
+  async unlink(filePath: string): Promise<boolean> {
+    return this.fileStore.delete(filePath);
+  }
+}

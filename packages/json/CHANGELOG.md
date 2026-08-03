@@ -1,3 +1,9 @@
+## 0.5.4
+
+### Minor Changes
+
+- Added `LargeStreamParser` for newline-delimited JSON stream chunk parsing.
+
 ## 0.5.3
 
 ### Minor Changes

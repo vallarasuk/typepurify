@@ -226,3 +226,29 @@ export function formatTable(data: Record<string, any>[]): string {
 export function formatWarning(msg: string): string {
   return `\x1b[33m[WARNING] ${msg}\x1b[0m`;
 }
+
+/**
+ * Codemod engine for automated codebase refactoring and transformation rules.
+ */
+export class CodemodEngine {
+  private rules: Array<{ name: string; transform: (code: string) => string }> = [];
+
+  addRule(name: string, transform: (code: string) => string): void {
+    this.rules.push({ name, transform });
+  }
+
+  apply(code: string): { code: string; appliedRules: string[] } {
+    let result = code;
+    const appliedRules: string[] = [];
+
+    for (const rule of this.rules) {
+      const transformed = rule.transform(result);
+      if (transformed !== result) {
+        result = transformed;
+        appliedRules.push(rule.name);
+      }
+    }
+
+    return { code: result, appliedRules };
+  }
+}

@@ -147,4 +147,19 @@ describe('@typepurify/cli', () => {
       expect(formatWarning('Caution!')).toBe('\x1b[33m[WARNING] Caution!\x1b[0m');
     });
   });
+
+  describe('CodemodEngine', () => {
+    it('should apply codemod transformation rules to source code', async () => {
+      const { CodemodEngine } = await import('./index');
+      const codemod = new CodemodEngine();
+
+      codemod.addRule('typeclean-to-typepurify', (code) =>
+        code.replace(/from 'typeclean'/g, "from 'typepurify'"),
+      );
+
+      const res = codemod.apply("import { clean } from 'typeclean';");
+      expect(res.code).toBe("import { clean } from 'typepurify';");
+      expect(res.appliedRules).toEqual(['typeclean-to-typepurify']);
+    });
+  });
 });

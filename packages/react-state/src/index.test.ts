@@ -286,4 +286,17 @@ describe('@typepurify/react-state', () => {
       expect(result.current.array).toEqual([]);
     });
   });
+
+  describe('LeaderElectionNode', () => {
+    it('should claim leadership and return status', async () => {
+      const { LeaderElectionNode } = await import('./index');
+      const node = new LeaderElectionNode();
+
+      expect(node.isCurrentLeader()).toBe(false);
+      const claimed = await node.claimLeadership();
+      expect(claimed).toBe(true);
+      expect(node.isCurrentLeader()).toBe(true);
+      expect(typeof node.getId()).toBe('string');
+    });
+  });
 });

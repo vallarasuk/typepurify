@@ -219,3 +219,29 @@ export function sanitizeHeaderValue(value: string): string {
   if (!value) return '';
   return value.replace(/[\r\n]/g, '');
 }
+
+/**
+ * Sliding window rate limiter for security inspections and request protection.
+ */
+export class SlidingWindowRateLimiter {
+  private requests: Map<string, number[]> = new Map();
+
+  constructor(
+    private windowMs = 60000,
+    private maxRequests = 100,
+  ) {}
+
+  isRateLimited(key: string): boolean {
+    const now = Date.now();
+    const timestamps = (this.requests.get(key) || []).filter((t) => t > now - this.windowMs);
+
+    if (timestamps.length >= this.maxRequests) {
+      this.requests.set(key, timestamps);
+      return true;
+    }
+
+    timestamps.push(now);
+    this.requests.set(key, timestamps);
+    return false;
+  }
+}

@@ -157,3 +157,10 @@ export type DeepRequiredStrict<T> = T extends object
 export type Writable<T> = {
   -readonly [P in keyof T]: T[P];
 };
+
+/**
+ * Extracts inner pattern string type from a regex pattern.
+ */
+export type RegexParserType<S extends string> = S extends `/${infer Pattern}/${string}`
+  ? Pattern
+  : S;

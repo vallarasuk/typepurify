@@ -314,3 +314,33 @@ export class RetryLock {
     }
   }
 }
+
+/**
+ * Event emitter listener engine for tracking retry attempts, failures, and completions.
+ */
+export class RetryEventEmitter {
+  private listeners: Map<string, Array<(...args: any[]) => void>> = new Map();
+
+  on(event: 'retry' | 'success' | 'failure', listener: (...args: any[]) => void): void {
+    if (!this.listeners.has(event)) {
+      this.listeners.set(event, []);
+    }
+    this.listeners.get(event)!.push(listener);
+  }
+
+  off(event: 'retry' | 'success' | 'failure', listener: (...args: any[]) => void): void {
+    const list = this.listeners.get(event);
+    if (!list) return;
+    this.listeners.set(
+      event,
+      list.filter((l) => l !== listener),
+    );
+  }
+
+  emit(event: 'retry' | 'success' | 'failure', ...args: any[]): void {
+    const list = this.listeners.get(event);
+    if (list) {
+      list.forEach((l) => l(...args));
+    }
+  }
+}

@@ -1,8 +1,11 @@
-## 1.6.3
+## 1.6.4
 
 ### Minor Changes
 
-- Ecosystem 1.6.3 update and feature enhancements.
+- Added `traverseObjectGraph` utility for deep object graph visiting with circular reference guards.
+- Ecosystem 1.6.4 update and feature enhancements.
+
+## 1.6.3
 
 ## 1.6.2
 

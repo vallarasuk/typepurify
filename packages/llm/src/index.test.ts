@@ -167,4 +167,18 @@ describe('@typepurify/llm', () => {
       expect(wrapUserMessage('Hello')).toEqual({ role: 'user', content: 'Hello' });
     });
   });
+
+  describe('RagPipeline', () => {
+    it('should add documents and retrieve relevant results by keyword matching', async () => {
+      const { RagPipeline } = await import('./index');
+      const rag = new RagPipeline();
+
+      rag.addDocument('1', 'TypeScript zero schema data purification engine');
+      rag.addDocument('2', 'React state hooks for loading and forms');
+
+      const matches = rag.retrieve('purification TypeScript');
+      expect(matches).toHaveLength(1);
+      expect(matches[0].id).toBe('1');
+    });
+  });
 });

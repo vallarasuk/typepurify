@@ -1,3 +1,9 @@
+## 0.5.4
+
+### Minor Changes
+
+- Added `RetryEventEmitter` event listener engine for tracking retry attempts, completions, and failures.
+
 ## 0.5.3
 
 ### Minor Changes

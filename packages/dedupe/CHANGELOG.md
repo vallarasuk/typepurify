@@ -1,3 +1,9 @@
+## 0.5.4
+
+### Minor Changes
+
+- Added `parseGraphQLQueryAst` query AST parser for operation name and field extraction to generate deduplication keys.
+
 ## 0.5.3
 
 ### Minor Changes

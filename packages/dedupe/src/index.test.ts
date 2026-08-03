@@ -328,4 +328,24 @@ describe('@typepurify/dedupe', () => {
       expect(calls).toBe(1);
     });
   });
+
+  describe('parseGraphQLQueryAst', () => {
+    it('should parse operation name and query fields from GraphQL query', async () => {
+      const { parseGraphQLQueryAst } = await import('./index');
+      const query = `
+        query GetUserProfile {
+          user {
+            id
+            name
+          }
+        }
+      `;
+
+      const result = parseGraphQLQueryAst(query);
+      expect(result.operationName).toBe('GetUserProfile');
+      expect(result.fields).toContain('user');
+      expect(result.fields).toContain('id');
+      expect(result.fields).toContain('name');
+    });
+  });
 });

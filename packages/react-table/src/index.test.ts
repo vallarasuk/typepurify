@@ -239,11 +239,23 @@ describe('@typepurify/react-table', () => {
       const { resetTableState } = await import('./index');
       expect(resetTableState()).toEqual({
         currentPage: 1,
-        pageSize: 10,
         searchQuery: '',
         sortKey: null,
-        sortDirection: 'asc',
+        sortDirection: null,
       });
+    });
+  });
+
+  describe('HeadlessUiTableCore', () => {
+    it('should filter and sort items headlessly', async () => {
+      const { HeadlessUiTableCore } = await import('./index');
+      const core = new HeadlessUiTableCore(mockData);
+
+      const filtered = core.filter((item) => item.age > 20);
+      expect(filtered).toHaveLength(3);
+
+      const sorted = core.sort('age', true);
+      expect(sorted[0].age).toBe(25);
     });
   });
 });

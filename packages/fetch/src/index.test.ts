@@ -474,4 +474,26 @@ describe('tFetch wrapper', () => {
       expect(fetchMock).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('createRateLimitedFetch', () => {
+    it('should rate-limit requests to maximum allowed per window', async () => {
+      const { createRateLimitedFetch } = await import('./index');
+      fetchMock.mockResolvedValue({
+        ok: true,
+        headers: new Headers({ 'content-type': 'application/json' }),
+        json: async () => ({ res: 'ok' }),
+      });
+
+      const rateLimitedFetch = createRateLimitedFetch(2, 100);
+      const start = Date.now();
+
+      await rateLimitedFetch('https://api.example.com/1');
+      await rateLimitedFetch('https://api.example.com/2');
+      await rateLimitedFetch('https://api.example.com/3');
+
+      const duration = Date.now() - start;
+      expect(fetchMock).toHaveBeenCalledTimes(3);
+      expect(duration).toBeGreaterThanOrEqual(90);
+    });
+  });
 });

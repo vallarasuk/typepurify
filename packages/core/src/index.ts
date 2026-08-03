@@ -785,3 +785,58 @@ export class MemoryBuffer<T = any> {
     this.chunks = [];
   }
 }
+
+/**
+ * Traverses an object graph visiting all keys and values deeply.
+ * Invokes callback for each node with key path, value, and parent.
+ */
+export function traverseObjectGraph(
+  obj: any,
+  callback: (keyPath: string, value: any, parent: any) => void,
+  options: { maxDepth?: number } = {},
+): void {
+  const maxDepth = options.maxDepth ?? 50;
+  const seen = new WeakSet();
+
+  function walk(curr: any, path: string, depth: number) {
+    if (depth > maxDepth) return;
+    if (curr === null || curr === undefined) return;
+
+    if (typeof curr === 'object') {
+      if (seen.has(curr)) return;
+      seen.add(curr);
+
+      if (Array.isArray(curr)) {
+        for (let i = 0; i < curr.length; i++) {
+          const itemPath = path ? `${path}[${i}]` : `[${i}]`;
+          callback(itemPath, curr[i], curr);
+          walk(curr[i], itemPath, depth + 1);
+        }
+      } else if (curr instanceof Map) {
+        for (const [k, v] of curr.entries()) {
+          const itemPath = path ? `${path}.Map(${String(k)})` : `Map(${String(k)})`;
+          callback(itemPath, v, curr);
+          walk(v, itemPath, depth + 1);
+        }
+      } else if (curr instanceof Set) {
+        let i = 0;
+        for (const v of curr.values()) {
+          const itemPath = path ? `${path}.Set(${i})` : `Set(${i})`;
+          callback(itemPath, v, curr);
+          walk(v, itemPath, depth + 1);
+          i++;
+        }
+      } else {
+        for (const k in curr) {
+          if (Object.prototype.hasOwnProperty.call(curr, k)) {
+            const itemPath = path ? `${path}.${k}` : k;
+            callback(itemPath, curr[k], curr);
+            walk(curr[k], itemPath, depth + 1);
+          }
+        }
+      }
+    }
+  }
+
+  walk(obj, '', 0);
+}

@@ -1,3 +1,9 @@
+## 0.5.4
+
+### Minor Changes
+
+- Added `HeadlessUiTableCore` for headless UI filter and sort state management.
+
 ## 0.5.3
 
 ### Minor Changes

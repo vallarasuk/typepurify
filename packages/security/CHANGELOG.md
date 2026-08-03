@@ -1,3 +1,9 @@
+## 0.5.4
+
+### Minor Changes
+
+- Added `SlidingWindowRateLimiter` for security request rate limiting.
+
 ## 0.5.3
 
 ### Minor Changes

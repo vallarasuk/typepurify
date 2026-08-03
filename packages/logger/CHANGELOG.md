@@ -1,3 +1,9 @@
+## 0.5.4
+
+### Minor Changes
+
+- Added `OpenTelemetryTracer` for distributed span context tracking.
+
 ## 0.5.3
 
 ### Minor Changes

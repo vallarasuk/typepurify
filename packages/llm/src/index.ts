@@ -224,3 +224,28 @@ export function sanitizeSystemPrompt(prompt: string): string {
 export function wrapUserMessage(text: string): { role: 'user'; content: string } {
   return { role: 'user', content: text };
 }
+
+/**
+ * Basic Retrieval-Augmented Generation (RAG) pipeline helper.
+ */
+export class RagPipeline {
+  private documents: Array<{ id: string; text: string }> = [];
+
+  addDocument(id: string, text: string): void {
+    this.documents.push({ id, text });
+  }
+
+  retrieve(query: string, limit = 3): Array<{ id: string; text: string }> {
+    const terms = query.toLowerCase().split(/\s+/);
+    return [...this.documents]
+      .map((doc) => {
+        const lower = doc.text.toLowerCase();
+        const score = terms.reduce((acc, t) => (lower.includes(t) ? acc + 1 : acc), 0);
+        return { ...doc, score };
+      })
+      .filter((doc) => doc.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, limit)
+      .map(({ id, text }) => ({ id, text }));
+  }
+}

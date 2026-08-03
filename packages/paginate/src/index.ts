@@ -313,3 +313,22 @@ export function getPageOffset(page: number, limit: number): number {
   const validLimit = Math.max(1, limit || 10);
   return (validPage - 1) * validLimit;
 }
+
+/**
+ * Parses and formats Relay connection specification parameters into limit/offset parameters.
+ */
+export function parseRelayParams(
+  first?: number,
+  after?: string,
+): { limit: number; offset: number } {
+  const limit = first && first > 0 ? first : 10;
+  let offset = 0;
+  if (after) {
+    const decoded = parseCursor(after);
+    const parsed = parseInt(decoded, 10);
+    if (!isNaN(parsed)) {
+      offset = parsed + 1;
+    }
+  }
+  return { limit, offset };
+}

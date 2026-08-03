@@ -1,3 +1,9 @@
+## 0.5.4
+
+### Minor Changes
+
+- Added `LeaderElectionNode` for multi-tab leader election state coordination.
+
 ## 0.5.3
 
 ### Minor Changes

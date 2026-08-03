@@ -251,4 +251,24 @@ describe('@typepurify/retry', () => {
       expect(lock.isLocked()).toBe(false);
     });
   });
+
+  describe('RetryEventEmitter', () => {
+    it('should emit and listen to retry lifecycle events', async () => {
+      const { RetryEventEmitter } = await import('./index');
+      const emitter = new RetryEventEmitter();
+      const retryHits: number[] = [];
+
+      const listener = (attempt: number) => retryHits.push(attempt);
+      emitter.on('retry', listener);
+
+      emitter.emit('retry', 1);
+      emitter.emit('retry', 2);
+
+      expect(retryHits).toEqual([1, 2]);
+
+      emitter.off('retry', listener);
+      emitter.emit('retry', 3);
+      expect(retryHits).toEqual([1, 2]);
+    });
+  });
 });

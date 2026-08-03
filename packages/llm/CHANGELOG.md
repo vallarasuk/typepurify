@@ -1,3 +1,9 @@
+## 0.5.4
+
+### Minor Changes
+
+- Added `RagPipeline` document retrieval engine for RAG context creation.
+
 ## 0.5.3
 
 ### Minor Changes

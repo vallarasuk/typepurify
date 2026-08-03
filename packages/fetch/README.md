@@ -114,6 +114,16 @@ const cachedFetch = createCacheFetch({ ttlMs: 60000 });
 const data = await cachedFetch('https://api.example.com/data');
 ```
 
+### 4. Rate-Limited Fetch (`createRateLimitedFetch`)
+
+```typescript
+import { createRateLimitedFetch } from '@typepurify/fetch';
+
+// Allow at most 10 requests per 1000ms
+const rateLimitedFetch = createRateLimitedFetch(10, 1000);
+const data = await rateLimitedFetch('https://api.example.com/data');
+```
+
 ## 📄 License
 
 MIT © [Vallarasu Kanthasamy](https://github.com/vallarasuk)

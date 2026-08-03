@@ -478,4 +478,40 @@ describe('typepurify core engine', () => {
       expect(buf.size()).toBe(0);
     });
   });
+
+  describe('traverseObjectGraph', () => {
+    it('should traverse nested objects, arrays, and Maps calling the callback for every node', async () => {
+      const { traverseObjectGraph } = await import('./index');
+      const visited: Array<{ path: string; val: any }> = [];
+      const target = {
+        user: { name: 'Alice', roles: ['admin', 'dev'] },
+        metadata: new Map([['env', 'prod']]),
+      };
+
+      traverseObjectGraph(target, (keyPath, val) => {
+        visited.push({ path: keyPath, val });
+      });
+
+      expect(visited).toContainEqual({
+        path: 'user',
+        val: { name: 'Alice', roles: ['admin', 'dev'] },
+      });
+      expect(visited).toContainEqual({ path: 'user.name', val: 'Alice' });
+      expect(visited).toContainEqual({ path: 'user.roles[0]', val: 'admin' });
+      expect(visited).toContainEqual({ path: 'metadata.Map(env)', val: 'prod' });
+    });
+
+    it('should handle circular references safely without infinite loop', async () => {
+      const { traverseObjectGraph } = await import('./index');
+      const circ: any = { a: 1 };
+      circ.self = circ;
+
+      const paths: string[] = [];
+      expect(() => {
+        traverseObjectGraph(circ, (p) => paths.push(p));
+      }).not.toThrow();
+
+      expect(paths).toEqual(['a', 'self']);
+    });
+  });
 });

@@ -1,3 +1,9 @@
+## 0.5.4
+
+### Minor Changes
+
+- Added `parseRelayParams` to parse Relay connection parameters into limit/offset parameters.
+
 ## 0.5.3
 
 ### Minor Changes

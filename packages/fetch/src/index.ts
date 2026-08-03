@@ -348,6 +348,36 @@ export class Http3TransportAdapter {
 }
 
 /**
+ * Creates a rate-limited fetch wrapper that restricts total requests within a time window.
+ */
+export function createRateLimitedFetch(
+  maxRequests: number,
+  perWindowMs: number,
+  options?: PurifyFetchOptions,
+) {
+  const timestamps: number[] = [];
+
+  return async function rateLimitedFetch<T = any>(
+    input: RequestInfo | URL,
+    init?: RequestInit,
+    purifyOptions?: PurifyFetchOptions,
+  ): Promise<T> {
+    const now = Date.now();
+    while (timestamps.length > 0 && timestamps[0] <= now - perWindowMs) {
+      timestamps.shift();
+    }
+
+    if (timestamps.length >= maxRequests) {
+      const waitTime = timestamps[0] + perWindowMs - now;
+      await new Promise((resolve) => setTimeout(resolve, Math.max(0, waitTime)));
+    }
+
+    timestamps.push(Date.now());
+    return tFetch<T>(input, init, { ...options, ...purifyOptions });
+  };
+}
+
+/**
  * Creates a fetch wrapper with simple in-memory response caching capabilities.
  */
 export function createCacheFetch(options: { ttlMs?: number } = {}) {

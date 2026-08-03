@@ -221,4 +221,19 @@ describe('@typepurify/cache', () => {
       expect(cache.getStats()).toEqual({ hits: 0, misses: 0, hitRatio: 0 });
     });
   });
+
+  describe('FileSystemStorageAdapter', () => {
+    it('should write, read, and delete file cache entries', async () => {
+      const { FileSystemStorageAdapter } = await import('./index');
+      const adapter = new FileSystemStorageAdapter<string>();
+
+      await adapter.write('/tmp/cache1.json', 'cached content', 1000);
+      const res = await adapter.read('/tmp/cache1.json');
+      expect(res).toBe('cached content');
+
+      const deleted = await adapter.unlink('/tmp/cache1.json');
+      expect(deleted).toBe(true);
+      expect(await adapter.read('/tmp/cache1.json')).toBeUndefined();
+    });
+  });
 });

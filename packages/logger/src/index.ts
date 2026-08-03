@@ -223,3 +223,24 @@ export function sanitizeLogMeta(meta: Record<string, any>): Record<string, any> 
 export function createNoopLogger(): Logger {
   return new Logger({ silent: true });
 }
+
+/**
+ * OpenTelemetry tracer stub for distributed logging and span context propagation.
+ */
+export class OpenTelemetryTracer {
+  private spans: Array<{ name: string; timestamp: number; attributes?: Record<string, any> }> = [];
+
+  startSpan(name: string, attributes?: Record<string, any>): { end: () => void } {
+    const span = { name, timestamp: Date.now(), attributes };
+    this.spans.push(span);
+    return {
+      end: () => {
+        // End span callback logic
+      },
+    };
+  }
+
+  getSpans() {
+    return [...this.spans];
+  }
+}

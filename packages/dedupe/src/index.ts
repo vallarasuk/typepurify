@@ -384,3 +384,26 @@ export function dedupeOnce<T>(fn: () => Promise<T>): () => Promise<T> {
     return promise!;
   };
 }
+
+/**
+ * Basic AST parser for GraphQL query string normalization and deduplication key generation.
+ */
+export function parseGraphQLQueryAst(query: string): {
+  operationName: string | null;
+  fields: string[];
+} {
+  const normalized = query.replace(/\s+/g, ' ').trim();
+  const opMatch = normalized.match(/(?:query|mutation|subscription)\s+([A-Za-z0-9_]+)/);
+  const operationName = opMatch ? opMatch[1] : null;
+
+  const fieldMatches = normalized.match(/[{,\s]([A-Za-z0-9_]+)(?=[{\s,}]|$)/g) || [];
+  const fields = Array.from(
+    new Set(
+      fieldMatches
+        .map((f) => f.replace(/[{,\s]/g, '').trim())
+        .filter((f) => f && !['query', 'mutation', 'subscription'].includes(f)),
+    ),
+  );
+
+  return { operationName, fields };
+}

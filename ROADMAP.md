@@ -34,7 +34,7 @@
     - **v1.1.5** - Bugfix: heap out of memory error
       - `[ ]` fix: [PATCH] Debug and resolve heap out of memory error occurring under specific edge cases.
   - **v1.2.0** - Feature: object graph traversal
-    - `[ ]` feat: [MINOR] Architect new object graph traversal capabilities to expand the API surface of @typepurify/core.
+    - `[x]` feat: [MINOR] Architect new object graph traversal capabilities to expand the API surface of @typepurify/core.
     - **v1.2.1** - Bugfix: type confusion flaw
       - `[ ]` fix: [PATCH] Debug and resolve type confusion flaw occurring under specific edge cases.
     - **v1.2.2** - Bugfix: circular reference loop
@@ -353,7 +353,7 @@
     - **v1.3.5** - Bugfix: zombie connection thread
       - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
   - **v1.4.0** - Feature: rate limiter logic
-    - `[ ]` feat: [MINOR] Cache new rate limiter logic capabilities to expand the API surface of @typepurify/fetch.
+    - `[x]` feat: [MINOR] Cache new rate limiter logic capabilities to expand the API surface of @typepurify/fetch.
     - **v1.4.1** - Bugfix: memory leak on aborted request
       - `[ ]` fix: [PATCH] Debug and resolve memory leak on aborted request occurring under specific edge cases.
     - **v1.4.2** - Bugfix: stale cache collision
@@ -624,7 +624,7 @@
     - **v1.1.5** - Bugfix: false positive fast-fail
       - `[ ]` fix: [PATCH] Debug and resolve false positive fast-fail occurring under specific edge cases.
   - **v1.2.0** - Feature: event emitter listener
-    - `[ ]` feat: [MINOR] Broadcast new event emitter listener capabilities to expand the API surface of @typepurify/retry.
+    - `[x]` feat: [MINOR] Broadcast new event emitter listener capabilities to expand the API surface of @typepurify/retry.
     - **v1.2.1** - Bugfix: deadlock in queue
       - `[ ]` fix: [PATCH] Debug and resolve deadlock in queue occurring under specific edge cases.
     - **v1.2.2** - Bugfix: timer drift
@@ -907,7 +907,7 @@
   - **v1.0.5** - Bugfix: memory leak in accumulator array
     - `[ ]` fix: [PATCH] Investigate and resolve memory leak in accumulator array reported by users post-major release.
   - **v1.1.0** - Feature: AST parser for GraphQL
-    - `[ ]` feat: [MINOR] Merge new AST parser for GraphQL capabilities to expand the API surface of @typepurify/dedupe.
+    - `[x]` feat: [MINOR] Merge new AST parser for GraphQL capabilities to expand the API surface of @typepurify/dedupe.
     - **v1.1.1** - Bugfix: fuzzy match error
       - `[ ]` fix: [PATCH] Debug and resolve fuzzy match error occurring under specific edge cases.
     - **v1.1.2** - Bugfix: memory leak in accumulator array
@@ -1202,7 +1202,7 @@
   - **v1.0.5** - Bugfix: scroll position loss
     - `[ ]` fix: [PATCH] Investigate and resolve scroll position loss reported by users post-major release.
   - **v1.1.0** - Feature: Relay connection specification
-    - `[ ]` feat: [MINOR] Stream new Relay connection specification capabilities to expand the API surface of @typepurify/paginate.
+    - `[x]` feat: [MINOR] Stream new Relay connection specification capabilities to expand the API surface of @typepurify/paginate.
     - **v1.1.1** - Bugfix: layout shift bug
       - `[ ]` fix: [PATCH] Debug and resolve layout shift bug occurring under specific edge cases.
     - **v1.1.2** - Bugfix: scroll position loss
@@ -1497,7 +1497,7 @@
   - **v1.0.5** - Bugfix: filter resize bug
     - `[ ]` fix: [PATCH] Investigate and resolve filter resize bug reported by users post-major release.
   - **v1.1.0** - Feature: file-system storage adapter
-    - `[ ]` feat: [MINOR] Fallback new file-system storage adapter capabilities to expand the API surface of @typepurify/cache.
+    - `[x]` feat: [MINOR] Fallback new file-system storage adapter capabilities to expand the API surface of @typepurify/cache.
     - **v1.1.1** - Bugfix: promise rejection silence
       - `[ ]` fix: [PATCH] Debug and resolve promise rejection silence occurring under specific edge cases.
     - **v1.1.2** - Bugfix: filter resize bug
@@ -1792,7 +1792,7 @@
   - **v1.0.5** - Bugfix: negative math error
     - `[ ]` fix: [PATCH] Investigate and resolve negative math error reported by users post-major release.
   - **v1.1.0** - Feature: regex parser type
-    - `[ ]` feat: [MINOR] Flatten new regex parser type capabilities to expand the API surface of @typepurify/types.
+    - `[x]` feat: [MINOR] Flatten new regex parser type capabilities to expand the API surface of @typepurify/types.
     - **v1.1.1** - Bugfix: circular tree TS error
       - `[ ]` fix: [PATCH] Debug and resolve circular tree TS error occurring under specific edge cases.
     - **v1.1.2** - Bugfix: negative math error
@@ -2087,7 +2087,7 @@
   - **v1.0.5** - Bugfix: clipboard parse error
     - `[ ]` fix: [PATCH] Investigate and resolve clipboard parse error reported by users post-major release.
   - **v1.1.0** - Feature: headless UI core
-    - `[ ]` feat: [MINOR] Aggregate new headless UI core capabilities to expand the API surface of @typepurify/react-table.
+    - `[x]` feat: [MINOR] Aggregate new headless UI core capabilities to expand the API surface of @typepurify/react-table.
     - **v1.1.1** - Bugfix: floating point math error
       - `[ ]` fix: [PATCH] Debug and resolve floating point math error occurring under specific edge cases.
     - **v1.1.2** - Bugfix: clipboard parse error
@@ -2382,7 +2382,7 @@
   - **v1.0.5** - Bugfix: deep freeze fail
     - `[ ]` fix: [PATCH] Investigate and resolve deep freeze fail reported by users post-major release.
   - **v1.1.0** - Feature: leader election node
-    - `[ ]` feat: [MINOR] Sync new leader election node capabilities to expand the API surface of @typepurify/react-state.
+    - `[x]` feat: [MINOR] Sync new leader election node capabilities to expand the API surface of @typepurify/react-state.
     - **v1.1.1** - Bugfix: mutation tracking error
       - `[ ]` fix: [PATCH] Debug and resolve mutation tracking error occurring under specific edge cases.
     - **v1.1.2** - Bugfix: deep freeze fail
@@ -2677,7 +2677,7 @@
   - **v1.0.5** - Bugfix: agent conversational deadlock
     - `[ ]` fix: [PATCH] Investigate and resolve agent conversational deadlock reported by users post-major release.
   - **v1.1.0** - Feature: RAG pipeline
-    - `[ ]` feat: [MINOR] Summarize new RAG pipeline capabilities to expand the API surface of @typepurify/llm.
+    - `[x]` feat: [MINOR] Summarize new RAG pipeline capabilities to expand the API surface of @typepurify/llm.
     - **v1.1.1** - Bugfix: connection pool leak
       - `[ ]` fix: [PATCH] Debug and resolve connection pool leak occurring under specific edge cases.
     - **v1.1.2** - Bugfix: agent conversational deadlock
@@ -2972,7 +2972,7 @@
   - **v1.0.5** - Bugfix: binary encode error
     - `[ ]` fix: [PATCH] Investigate and resolve binary encode error reported by users post-major release.
   - **v1.1.0** - Feature: OpenTelemetry tracer
-    - `[ ]` feat: [MINOR] Inject new OpenTelemetry tracer capabilities to expand the API surface of @typepurify/logger.
+    - `[x]` feat: [MINOR] Inject new OpenTelemetry tracer capabilities to expand the API surface of @typepurify/logger.
     - **v1.1.1** - Bugfix: OOM burst during log spike
       - `[ ]` fix: [PATCH] Debug and resolve OOM burst during log spike occurring under specific edge cases.
     - **v1.1.2** - Bugfix: binary encode error
@@ -3267,7 +3267,7 @@
   - **v1.0.5** - Bugfix: CPU overhead spike during scan
     - `[ ]` fix: [PATCH] Investigate and resolve CPU overhead spike during scan reported by users post-major release.
   - **v1.1.0** - Feature: sliding window rate limiter
-    - `[ ]` feat: [MINOR] Spoof-check new sliding window rate limiter capabilities to expand the API surface of @typepurify/security.
+    - `[x]` feat: [MINOR] Spoof-check new sliding window rate limiter capabilities to expand the API surface of @typepurify/security.
     - **v1.1.1** - Bugfix: CVE sync delay
       - `[ ]` fix: [PATCH] Debug and resolve CVE sync delay occurring under specific edge cases.
     - **v1.1.2** - Bugfix: CPU overhead spike during scan
@@ -3562,7 +3562,7 @@
   - **v1.0.5** - Bugfix: YAML spacing error in CI generation
     - `[ ]` fix: [PATCH] Investigate and resolve YAML spacing error in CI generation reported by users post-major release.
   - **v1.1.0** - Feature: codemod engine
-    - `[ ]` feat: [MINOR] Rewrite new codemod engine capabilities to expand the API surface of @typepurify/cli.
+    - `[x]` feat: [MINOR] Rewrite new codemod engine capabilities to expand the API surface of @typepurify/cli.
     - **v1.1.1** - Bugfix: Windows pathing bug
       - `[ ]` fix: [PATCH] Debug and resolve Windows pathing bug occurring under specific edge cases.
     - **v1.1.2** - Bugfix: YAML spacing error in CI generation
@@ -3857,7 +3857,7 @@
   - **v1.0.5** - Bugfix: index shift during patch
     - `[ ]` fix: [PATCH] Investigate and resolve index shift during patch reported by users post-major release.
   - **v1.1.0** - Feature: large stream parser
-    - `[ ]` feat: [MINOR] Pipe new large stream parser capabilities to expand the API surface of @typepurify/json.
+    - `[x]` feat: [MINOR] Pipe new large stream parser capabilities to expand the API surface of @typepurify/json.
     - **v1.1.1** - Bugfix: precision loss for large numbers
       - `[ ]` fix: [PATCH] Debug and resolve precision loss for large numbers occurring under specific edge cases.
     - **v1.1.2** - Bugfix: index shift during patch

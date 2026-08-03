@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.5.4] (Core: 1.6.4) - 2026-08-03
+
+### Ecosystem Wide Feature Updates
+
+- **`typepurify` (Core)**: Added `traverseObjectGraph` utility for deep object graph visiting with circular reference guards.
+- **`@typepurify/fetch`**: Added `createRateLimitedFetch` for time-window based network request throttling.
+- **`@typepurify/retry`**: Added `RetryEventEmitter` event engine for tracking retry attempts, completions, and failures.
+- **`@typepurify/dedupe`**: Added `parseGraphQLQueryAst` query AST parser for operation name and field extraction to generate deduplication keys.
+- **`@typepurify/cache`**: Added `FileSystemStorageAdapter` for persistent file-system storage caching fallback.
+- **`@typepurify/types`**: Added `RegexParserType` utility type for extracting inner pattern strings from regex types.
+- **`@typepurify/react-table`**: Added `HeadlessUiTableCore` for headless UI filter and sort state management.
+- **`@typepurify/react-state`**: Added `LeaderElectionNode` for multi-tab leader election state coordination.
+- **`@typepurify/llm`**: Added `RagPipeline` document retrieval engine for RAG context creation.
+- **`@typepurify/logger`**: Added `OpenTelemetryTracer` for distributed span context tracking.
+- **`@typepurify/security`**: Added `SlidingWindowRateLimiter` for security request rate limiting.
+- **`@typepurify/cli`**: Added `CodemodEngine` for automated codebase refactoring and codemod rules.
+- **`@typepurify/json`**: Added `LargeStreamParser` for newline-delimited JSON stream chunk parsing.
+- **`@typepurify/paginate`**: Added `parseRelayParams` to parse Relay connection parameters into limit/offset parameters.
+- **Ecosystem Sync**: Bumped version to `0.5.4` across all sub-packages (`typepurify` core @ `1.6.4`).
+
 ## [0.5.3] (Core: 1.6.3) - 2026-08-01
 
 ### Ecosystem Wide Feature Updates

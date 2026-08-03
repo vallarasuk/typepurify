@@ -1,3 +1,9 @@
+## 0.5.4
+
+### Minor Changes
+
+- Added `RegexParserType` utility type for extracting inner pattern strings from regex types.
+
 ## 0.5.3
 
 ### Minor Changes

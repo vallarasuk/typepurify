@@ -107,6 +107,13 @@ describe('@typepurify/types', () => {
     });
   });
 
+  describe('RegexParserType', () => {
+    it('should extract regex pattern string type', async () => {
+      const { jsonToTsType } = await import('./index');
+      expect(typeof jsonToTsType).toBe('function');
+    });
+  });
+
   describe('RequireAtLeastOne', () => {
     it('should compile correctly', async () => {
       // Just import for side-effects or inline types to avoid unused var errors

@@ -213,4 +213,17 @@ describe('@typepurify/json', () => {
       });
     });
   });
+
+  describe('LargeStreamParser', () => {
+    it('should parse newline-delimited JSON stream chunks', async () => {
+      const { LargeStreamParser } = await import('./index');
+      const parser = new LargeStreamParser();
+
+      const items1 = parser.push('{"id":1}\n{"id":2');
+      expect(items1).toEqual([{ id: 1 }]);
+
+      const items2 = parser.push('}\n{"id":3}\n');
+      expect(items2).toEqual([{ id: 2 }, { id: 3 }]);
+    });
+  });
 });

@@ -291,12 +291,35 @@ export function filterTableData<T>(data: T[], filters: Record<string, (val: any)
 /**
  * Resets table state options to standard defaults.
  */
-export function resetTableState() {
+export function resetTableState(): {
+  searchQuery: string;
+  sortKey: null;
+  sortDirection: null;
+  currentPage: number;
+} {
   return {
-    currentPage: 1,
-    pageSize: 10,
     searchQuery: '',
     sortKey: null,
-    sortDirection: 'asc' as const,
+    sortDirection: null,
+    currentPage: 1,
   };
+}
+
+/**
+ * Headless UI core manager for React Data Table logic state.
+ */
+export class HeadlessUiTableCore<T> {
+  constructor(private items: T[]) {}
+
+  filter(predicate: (item: T) => boolean): T[] {
+    return this.items.filter(predicate);
+  }
+
+  sort(key: keyof T, asc = true): T[] {
+    return [...this.items].sort((a, b) => {
+      if (a[key] < b[key]) return asc ? -1 : 1;
+      if (a[key] > b[key]) return asc ? 1 : -1;
+      return 0;
+    });
+  }
 }

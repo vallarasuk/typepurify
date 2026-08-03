@@ -1,3 +1,9 @@
+## 0.5.4
+
+### Minor Changes
+
+- Added `createRateLimitedFetch` utility for time-window based network request throttling.
+
 ## 0.5.3
 
 ### Minor Changes

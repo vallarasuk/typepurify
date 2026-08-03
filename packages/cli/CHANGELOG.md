@@ -1,3 +1,9 @@
+## 0.5.4
+
+### Minor Changes
+
+- Added `CodemodEngine` for automated codebase refactoring and codemod rules.
+
 ## 0.5.3
 
 ### Minor Changes
