@@ -328,4 +328,12 @@ describe('@typepurify/dedupe', () => {
       expect(calls).toBe(1);
     });
   });
+
+  describe('parseGraphQLQueryKey', () => {
+    it('should generate normalized AST query keys', async () => {
+      const { parseGraphQLQueryKey } = await import('./index');
+      const key = parseGraphQLQueryKey('  query getUser {   user { id }  }', { id: 10 });
+      expect(key).toBe('gql:query getUser { user { id } }:{"id":10}');
+    });
+  });
 });

@@ -145,9 +145,11 @@ export function extractFirstMarkdownBlock(text: string, lang?: string): string |
  */
 export function validateLlmSchema(payload: any, schema: Record<string, any>): boolean {
   if (!payload || typeof payload !== 'object') return false;
-  // basic schema pass
+  // basic schema pass handling optional fields ending with '?'
   for (const key of Object.keys(schema)) {
-    if (!(key in payload)) return false;
+    const isOptional = key.endsWith('?');
+    const actualKey = isOptional ? key.slice(0, -1) : key;
+    if (!isOptional && !(actualKey in payload)) return false;
   }
   return true;
 }
@@ -223,4 +225,14 @@ export function sanitizeSystemPrompt(prompt: string): string {
  */
 export function wrapUserMessage(text: string): { role: 'user'; content: string } {
   return { role: 'user', content: text };
+}
+
+/**
+ * Summarizes RAG document context snippets for LLM retrieval pipelines.
+ */
+export function createRagPipelineSummary(documents: string[], query: string): string {
+  if (!documents || documents.length === 0) return '';
+  const filtered = documents.filter((doc) => doc.toLowerCase().includes(query.toLowerCase()));
+  const selected = filtered.length > 0 ? filtered : documents;
+  return selected.slice(0, 3).join('\n---\n');
 }

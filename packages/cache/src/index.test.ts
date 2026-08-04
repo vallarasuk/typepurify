@@ -221,4 +221,14 @@ describe('@typepurify/cache', () => {
       expect(cache.getStats()).toEqual({ hits: 0, misses: 0, hitRatio: 0 });
     });
   });
+
+  describe('FileSystemStorageAdapter', () => {
+    it('should set and get items from file storage adapter', async () => {
+      const { FileSystemStorageAdapter } = await import('./index');
+      const fsCache = new FileSystemStorageAdapter();
+      await fsCache.setItem('k', 'v');
+      const val = await fsCache.getItem('k');
+      expect(val).toBe('v');
+    });
+  });
 });

@@ -145,12 +145,15 @@ export function formatError(err: Error): string {
  */
 export class LogRateLimiter {
   private count = 0;
-  private timer: ReturnType<typeof setInterval>;
+  private timer: any;
+  private maxBuffer = 10000;
 
   constructor(
     private limit: number,
     windowMs: number,
+    maxBuffer = 10000,
   ) {
+    this.maxBuffer = maxBuffer;
     this.timer = setInterval(() => {
       this.count = 0;
     }, windowMs);
@@ -160,6 +163,10 @@ export class LogRateLimiter {
   }
 
   canLog(): boolean {
+    if (this.count >= this.maxBuffer) {
+      // Hard cap protection against network partition overflow
+      return false;
+    }
     if (this.count < this.limit) {
       this.count++;
       return true;
@@ -222,4 +229,16 @@ export function sanitizeLogMeta(meta: Record<string, any>): Record<string, any> 
  */
 export function createNoopLogger(): Logger {
   return new Logger({ silent: true });
+}
+
+/**
+ * Injects W3C OpenTelemetry traceparent context headers into outgoing request metadata.
+ */
+export function injectOpenTelemetryTraceHeader(
+  traceId = '4bf92f3577b34da6a3ce929d0e0e4736',
+  spanId = '00f067aa0ba902b7',
+): Record<string, string> {
+  return {
+    traceparent: `00-${traceId}-${spanId}-01`,
+  };
 }

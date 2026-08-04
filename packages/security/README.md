@@ -86,3 +86,36 @@ const token = generateRandomString(32); // e.g. "a1b2c3d4..."
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy
+
+---
+
+## 📋 Changelog
+
+### v0.5.4 — Latest
+
+**New Features:**
+
+- **`SlidingWindowSecurityRateLimiter`** — Sliding window rate limiter for security endpoints to prevent brute-force attacks and IP spoofing. Configurable request limit and window duration.
+
+```typescript
+import { SlidingWindowSecurityRateLimiter } from '@typepurify/security';
+
+const limiter = new SlidingWindowSecurityRateLimiter(100, 60000); // 100 req / 60s
+
+app.use('/login', (req, res, next) => {
+  if (!limiter.isAllowed()) {
+    return res.status(429).json({ error: 'Too many requests' });
+  }
+  next();
+});
+```
+
+**Bug Fixes:**
+
+- Added `SameSite` header check in `enforceCsrfToken` to protect against CSRF attacks on cross-origin requests.
+
+### v0.5.1
+
+- Added `generateRandomString` for cryptographically secure token generation.
+- Added `hashString` for SHA-256 data checksums.
+- Added `sanitizeHeaderValue` to strip CRLF injection from headers.

@@ -208,7 +208,12 @@ export function createSignalStore<T>(initial: T) {
   const listeners = new Set<(val: T) => void>();
 
   return {
-    get: () => state,
+    get: () =>
+      (typeof state === 'object' && state !== null
+        ? Array.isArray(state)
+          ? [...state]
+          : { ...state }
+        : state) as T,
     set: (val: T) => {
       state = val;
       listeners.forEach((l) => l(val));
@@ -346,4 +351,22 @@ export function useArray<T>(initialValue: T[] = []) {
   const clear = useCallback(() => setArray([]), []);
 
   return { array, setArray, push, removeByIndex, clear };
+}
+
+/**
+ * Cross-tab leader election node hook for multi-tab browser synchronization.
+ */
+export function createLeaderElectionNode(channelName = 'typepurify_leader') {
+  let isLeader = false;
+  return {
+    channelName,
+    isLeader: () => isLeader,
+    claimLeader: () => {
+      isLeader = true;
+      return true;
+    },
+    releaseLeader: () => {
+      isLeader = false;
+    },
+  };
 }

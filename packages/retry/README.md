@@ -85,6 +85,45 @@ const result = await lock.runExclusive(async () => {
 });
 ```
 
+### 4. Retry Event Emitter (`RetryEventEmitter`) — _v0.5.4_
+
+Subscribe to retry lifecycle events for observability.
+
+```typescript
+import { RetryEventEmitter } from '@typepurify/retry';
+
+const emitter = new RetryEventEmitter();
+
+const off = emitter.on('attempt', (data) => console.log('Attempt:', data));
+const off2 = emitter.on('exhaust', () => console.error('All retries exhausted'));
+
+emitter.emit('attempt', { count: 1 });
+off(); // unsubscribe
+```
+
+---
+
+## 📋 Changelog
+
+### v0.5.4 — Latest
+
+**New Features:**
+
+- **`RetryEventEmitter`** — Event emitter supporting `attempt`, `success`, `failure`, and `exhaust` lifecycle events with typed `on(event, listener)` subscriptions and automatic unsubscribe.
+
+**Bug Fixes:**
+
+- Enforced `Math.min(retries, 100)` hard cap to prevent infinite retry loops.
+
+### v0.5.2
+
+- Added `RetryLock` with `runExclusive()` for safe concurrent task execution.
+- Added `withExponentialBackoff`, `withLinearBackoff`, `withFibonacciBackoff`.
+
+### v0.5.1
+
+- Introduced `RetryExhaustedError` for cleaner error propagation after backoff exhaustion.
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

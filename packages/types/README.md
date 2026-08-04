@@ -115,3 +115,28 @@ console.log(jsonToTsType({ id: 1, active: true }));
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy
+
+---
+
+## 📋 Changelog
+
+### v0.5.4 — Latest
+
+**New Features:**
+
+- **`RegexMatchLiteral<S, Pattern>`** — Type-level utility that extracts literal string pattern matches from a string type as a union type.
+
+```typescript
+import type { RegexMatchLiteral } from '@typepurify/types';
+
+type Matches = RegexMatchLiteral<'hello_world_test', 'world'>;
+// => 'world'
+```
+
+**Bug Fixes:**
+
+- Prototype pollution guard added to `get()` path helper — paths containing `__proto__`, `constructor`, or `prototype` now throw safely.
+
+### v0.5.1
+
+- Added `RequireAtLeastOne<T>`, `MakeOptional<T, K>`, `MakeRequired<T, K>`, `DeepRequiredStrict<T>`, `Writable<T>`.

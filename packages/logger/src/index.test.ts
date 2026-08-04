@@ -192,4 +192,12 @@ describe('@typepurify/logger', () => {
       expect(logger).toBeDefined();
     });
   });
+
+  describe('injectOpenTelemetryTraceHeader', () => {
+    it('should inject W3C traceparent header', async () => {
+      const { injectOpenTelemetryTraceHeader } = await import('./index');
+      const headers = injectOpenTelemetryTraceHeader('1234', '5678');
+      expect(headers).toEqual({ traceparent: '00-1234-5678-01' });
+    });
+  });
 });

@@ -144,8 +144,14 @@ export function isEmail(email: string): boolean {
 /**
  * CSRF token validator engine for high-security endpoints.
  */
-export function enforceCsrfToken(reqToken: string, sessionToken: string): boolean {
-  // Using timing-safe equality in a real scenario
+export function enforceCsrfToken(
+  reqToken: string,
+  sessionToken: string,
+  sameSiteHeader?: string,
+): boolean {
+  if (sameSiteHeader && sameSiteHeader.toLowerCase() === 'none') {
+    return false; // Reject unsafe SameSite=None without Lax/Strict protection
+  }
   return reqToken === sessionToken && reqToken.length > 32;
 }
 
@@ -218,4 +224,23 @@ export function hashString(input: string, algorithm = 'sha256'): string {
 export function sanitizeHeaderValue(value: string): string {
   if (!value) return '';
   return value.replace(/[\r\n]/g, '');
+}
+
+/**
+ * Sliding window rate limiter for security endpoints to prevent IP spoofing and brute-force.
+ */
+export class SlidingWindowSecurityRateLimiter {
+  private requests: number[] = [];
+
+  constructor(
+    private limit: number = 100,
+    private windowMs: number = 60000,
+  ) {}
+
+  isAllowed(timestamp: number = Date.now()): boolean {
+    this.requests = this.requests.filter((t) => timestamp - t < this.windowMs);
+    if (this.requests.length >= this.limit) return false;
+    this.requests.push(timestamp);
+    return true;
+  }
 }

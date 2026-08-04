@@ -45,7 +45,7 @@ export async function withRetry<T>(
   fn: (signal?: AbortSignal) => Promise<T>,
   options: RetryOptions = {},
 ): Promise<T> {
-  const retries = options.retries ?? 3;
+  const retries = Math.min(Math.max(0, options.retries ?? 3), 100);
   const initialDelay = options.delay ?? 1000;
   const backoff = options.backoff ?? 'fixed';
   const jitter = options.jitter ?? false;
@@ -312,5 +312,27 @@ export class RetryLock {
     } finally {
       this.release();
     }
+  }
+}
+
+/**
+ * Event emitter for listening to retry events (attempt, success, failure, exhaust).
+ */
+export class RetryEventEmitter {
+  private listeners: Record<string, Array<(data?: any) => void>> = {};
+
+  on(
+    event: 'attempt' | 'success' | 'failure' | 'exhaust',
+    listener: (data?: any) => void,
+  ): () => void {
+    if (!this.listeners[event]) this.listeners[event] = [];
+    this.listeners[event].push(listener);
+    return () => {
+      this.listeners[event] = this.listeners[event]?.filter((l) => l !== listener);
+    };
+  }
+
+  emit(event: 'attempt' | 'success' | 'failure' | 'exhaust', data?: any): void {
+    this.listeners[event]?.forEach((l) => l(data));
   }
 }

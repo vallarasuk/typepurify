@@ -209,7 +209,15 @@ export class RequestQueue {
     this.processing = true;
     while (this.queue.length > 0) {
       const req = this.queue.shift();
-      if (req) await req();
+      if (req) {
+        try {
+          await req();
+        } catch (err) {
+          // Socket hangup / connection abort guard prevents queue deadlock
+          // Log the error to help debugging
+          console.error('[RequestQueue] Error processing request:', err);
+        }
+      }
     }
     this.processing = false;
   }
@@ -367,8 +375,39 @@ export function createCacheFetch(options: { ttlMs?: number } = {}) {
       return cached.data;
     }
 
-    const data = await tFetch<T>(input, init, purifyOptions);
-    cache.set(key, { data, expiry: now + ttlMs });
-    return data;
+    const result = await tFetch<T>(input, init, purifyOptions);
+    cache.set(key, { data: result, expiry: now + ttlMs });
+    return result;
+  };
+}
+
+/**
+ * Creates a rate-limited fetch wrapper that throttles outgoing requests.
+ */
+export function createRateLimiterFetch(options: { maxRequests?: number; perMs?: number } = {}) {
+  const maxRequests = options.maxRequests ?? 10;
+  const perMs = options.perMs ?? 1000;
+  let tokens = maxRequests;
+  let lastRefill = Date.now();
+
+  return async function rateLimiterFetch<T = any>(
+    input: RequestInfo | URL,
+    init?: RequestInit,
+    purifyOptions?: PurifyFetchOptions,
+  ): Promise<T> {
+    const now = Date.now();
+    if (now - lastRefill > perMs) {
+      tokens = maxRequests;
+      lastRefill = now;
+    }
+
+    if (tokens <= 0) {
+      const wait = perMs - (now - lastRefill);
+      await new Promise((r) => setTimeout(r, wait));
+      return rateLimiterFetch<T>(input, init, purifyOptions);
+    }
+
+    tokens--;
+    return tFetch<T>(input, init, purifyOptions);
   };
 }

@@ -156,7 +156,8 @@ describe('@typepurify/react-table', () => {
   describe('measureVirtualizer', () => {
     it('should measure virtualizer totalHeight and visibleNodes', () => {
       const result = measureVirtualizer(100, 40);
-      expect(result).toEqual({ totalHeight: 4000, visibleNodes: 25 });
+      expect(result.totalHeight).toBe(4000);
+      expect(result.visibleNodes).toBe(25);
     });
   });
 
@@ -244,6 +245,16 @@ describe('@typepurify/react-table', () => {
         sortKey: null,
         sortDirection: 'asc',
       });
+    });
+  });
+
+  describe('createHeadlessTableCore', () => {
+    it('should compute headless table metadata', async () => {
+      const { createHeadlessTableCore } = await import('./index');
+      const core = createHeadlessTableCore([{ id: 1 }], [{ key: 'id' }]);
+      expect(core.itemCount).toBe(1);
+      expect(core.columnKeys).toEqual(['id']);
+      expect(core.isEmpty).toBe(false);
     });
   });
 });

@@ -163,6 +163,24 @@ export async function* paginateAll<T>(
   }
 }
 
+/**
+ * Merges paginated pages while removing duplicate items to prevent overlapping list item rendering.
+ */
+export function mergePaginatedPages<T>(
+  existingItems: T[],
+  newItems: T[],
+  keyExtractor: (item: T) => any = (item: any) => item.id,
+): T[] {
+  const seenKeys = new Set(existingItems.map(keyExtractor));
+  const uniqueNewItems = newItems.filter((item) => {
+    const key = keyExtractor(item);
+    if (key === undefined || seenKeys.has(key)) return false;
+    seenKeys.add(key);
+    return true;
+  });
+  return [...existingItems, ...uniqueNewItems];
+}
+
 export interface RelayEdge<T> {
   node: T;
   cursor: string;
@@ -312,4 +330,12 @@ export function getPageOffset(page: number, limit: number): number {
   const validPage = Math.max(1, page || 1);
   const validLimit = Math.max(1, limit || 10);
   return (validPage - 1) * validLimit;
+}
+
+/**
+ * Extracts raw node array from a GraphQL Relay connection object.
+ */
+export function parseRelayConnection<T>(connection: RelayConnection<T>): T[] {
+  if (!connection || !Array.isArray(connection.edges)) return [];
+  return connection.edges.map((edge) => edge.node);
 }

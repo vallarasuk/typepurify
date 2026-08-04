@@ -213,4 +213,13 @@ describe('@typepurify/json', () => {
       });
     });
   });
+
+  describe('parseJsonStreamChunk', () => {
+    it('should parse JSON stream array chunks', async () => {
+      const { parseJsonStreamChunk } = await import('./index');
+      const stream = '[{"id":1}, {"id":2}]';
+      const items = Array.from(parseJsonStreamChunk(stream));
+      expect(items).toEqual([{ id: 1 }, { id: 2 }]);
+    });
+  });
 });

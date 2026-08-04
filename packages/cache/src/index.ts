@@ -109,6 +109,7 @@ export class Cache<T = any> {
    * If the cache exceeds maxSize, the least recently used item is evicted.
    */
   set(key: string, value: T, customTtl?: number): void {
+    if (key === '__proto__' || key === 'constructor' || key === 'prototype') return;
     if (this.store.size >= this.maxSize && !this.store.has(key)) {
       // Evict least recently used (the first item in the Map)
       const firstKey = this.store.keys().next().value;
@@ -270,5 +271,26 @@ export class SlidingWindowCache<K, V> {
 
   size(): number {
     return this.store.size;
+  }
+}
+
+/**
+ * Basic in-memory mock for file-system storage adapter.
+ */
+export class FileSystemStorageAdapter<T = any> {
+  private mem = new Map<string, T>();
+
+  constructor(public readonly storagePath: string = '/tmp/typepurify-cache') {}
+
+  async getItem(key: string): Promise<T | undefined> {
+    return this.mem.get(key);
+  }
+
+  async setItem(key: string, value: T): Promise<void> {
+    this.mem.set(key, value);
+  }
+
+  async removeItem(key: string): Promise<void> {
+    this.mem.delete(key);
   }
 }

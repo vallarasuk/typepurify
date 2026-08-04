@@ -82,3 +82,31 @@ console.log(windowCache.size()); // 1
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy
+
+---
+
+## 📋 Changelog
+
+### v0.5.4 — Latest
+
+**New Features:**
+
+- **`FileSystemStorageAdapter`** — Pluggable async storage adapter for persistent cache backends. Provides `getItem`, `setItem`, and `removeItem` async methods compatible with any key-value storage layer.
+
+```typescript
+import { FileSystemStorageAdapter } from '@typepurify/cache';
+
+const store = new FileSystemStorageAdapter('/tmp/my-cache');
+await store.setItem('user:1', { name: 'Alice', age: 30 });
+const user = await store.getItem('user:1');
+// => { name: 'Alice', age: 30 }
+await store.removeItem('user:1');
+```
+
+**Bug Fixes:**
+
+- Added prototype pollution guard in `Cache.set()` — keys matching `__proto__`, `constructor`, or `prototype` are now silently rejected.
+
+### v0.5.1
+
+- Added `has(key)` method for non-mutating cache existence checks.

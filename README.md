@@ -89,9 +89,238 @@ function MyComponent() {
 
 ---
 
-## ✨ Recent Feature Additions
+## ✨ Recent Feature Additions (v1.6.4 / v0.5.4)
 
-We are constantly expanding the ecosystem. Here are the latest capabilities added across our packages:
+We are constantly expanding the ecosystem. Here are the latest capabilities added across all packages in the **v0.5.4** release:
+
+---
+
+### 🔁 `typepurify` (core) — `v1.6.4`
+
+**`traverseObjectGraph`** — Recursively walk every node in an object graph without circular reference crashes.
+
+```typescript
+import { traverseObjectGraph } from 'typepurify';
+
+const graph = { a: { b: { c: 42 } } };
+traverseObjectGraph(graph, (key, value) => {
+  console.log(key, value); // a, b, c, 42
+});
+```
+
+---
+
+### 🌐 `@typepurify/fetch` — `v0.5.4`
+
+**`createRateLimiterFetch`** — Throttle outgoing HTTP requests to a maximum per-second rate.
+
+```typescript
+import { createRateLimiterFetch } from '@typepurify/fetch';
+
+const rateFetch = createRateLimiterFetch(5); // max 5 requests/sec
+await rateFetch('https://api.example.com/data');
+```
+
+---
+
+### 🔄 `@typepurify/retry` — `v0.5.4`
+
+**`RetryEventEmitter`** — Subscribe to retry lifecycle events: `attempt`, `success`, `failure`, `exhaust`.
+
+```typescript
+import { RetryEventEmitter } from '@typepurify/retry';
+
+const emitter = new RetryEventEmitter();
+
+const unsubscribe = emitter.on('attempt', (data) => {
+  console.log('Retry attempt:', data);
+});
+
+emitter.emit('attempt', { count: 1 });
+unsubscribe(); // cleanup listener
+```
+
+---
+
+### 🧩 `@typepurify/dedupe` — `v0.5.4`
+
+**`parseGraphQLQueryKey`** — Normalize GraphQL queries into stable deduplication cache keys.
+
+```typescript
+import { parseGraphQLQueryKey, dedupeAsync } from '@typepurify/dedupe';
+
+const key = parseGraphQLQueryKey('query getUser { user { id } }', { id: 1 });
+// => "gql:query getUser { user { id } }:{"id":1}"
+
+// Use as key in dedupeAsync for request deduplication
+```
+
+---
+
+### 📄 `@typepurify/paginate` — `v0.5.4`
+
+**`parseRelayConnection`** — Extract a flat node array from a GraphQL Relay connection object.
+
+```typescript
+import { buildConnection, parseRelayConnection } from '@typepurify/paginate';
+
+const connection = buildConnection([
+  { id: '1', name: 'Alice' },
+  { id: '2', name: 'Bob' },
+]);
+const nodes = parseRelayConnection(connection);
+// => [{ id: '1', name: 'Alice' }, { id: '2', name: 'Bob' }]
+```
+
+---
+
+### 💾 `@typepurify/cache` — `v0.5.4`
+
+**`FileSystemStorageAdapter`** — Pluggable async storage adapter for persistent cache backends.
+
+```typescript
+import { FileSystemStorageAdapter } from '@typepurify/cache';
+
+const fsCache = new FileSystemStorageAdapter('/path/to/cache');
+await fsCache.setItem('user:123', { name: 'Alice' });
+const user = await fsCache.getItem('user:123');
+// => { name: 'Alice' }
+```
+
+---
+
+### 🧠 `@typepurify/types` — `v0.5.4`
+
+**`RegexMatchLiteral`** — Type-level regex match extraction yielding a string union of matches.
+
+```typescript
+import type { RegexMatchLiteral } from '@typepurify/types';
+
+type Matches = RegexMatchLiteral<'hello_world_test', 'world'>;
+// => 'world'
+```
+
+---
+
+### 🗂️ `@typepurify/react-table` — `v0.5.4`
+
+**`createHeadlessTableCore`** — Compute headless table metadata (column keys, item count, empty state) without any styling.
+
+```typescript
+import { createHeadlessTableCore } from '@typepurify/react-table';
+
+const core = createHeadlessTableCore(
+  [
+    { id: 1, name: 'Alice' },
+    { id: 2, name: 'Bob' },
+  ],
+  [{ key: 'id' }, { key: 'name' }],
+);
+
+console.log(core.itemCount); // 2
+console.log(core.columnKeys); // ['id', 'name']
+console.log(core.isEmpty); // false
+```
+
+---
+
+### ⚡ `@typepurify/react-state` — `v0.5.4`
+
+**`createLeaderElectionNode`** — Multi-tab leader election node for browser tab synchronization.
+
+```typescript
+import { createLeaderElectionNode } from '@typepurify/react-state';
+
+const node = createLeaderElectionNode('my-app-leader');
+node.claimLeader(); // this tab becomes leader
+console.log(node.isLeader()); // true
+node.releaseLeader(); // release leadership
+```
+
+---
+
+### 🤖 `@typepurify/llm` — `v0.5.4`
+
+**`createRagPipelineSummary`** — Summarize relevant document context for LLM RAG retrieval pipelines.
+
+```typescript
+import { createRagPipelineSummary } from '@typepurify/llm';
+
+const docs = [
+  'TypeScript is a typed superset of JavaScript.',
+  'Python is a dynamically typed language.',
+  'TypeScript compiles to plain JavaScript.',
+];
+
+const summary = createRagPipelineSummary(docs, 'TypeScript');
+// => "TypeScript is a typed superset of JavaScript.\n---\nTypeScript compiles to plain JavaScript."
+```
+
+---
+
+### 📋 `@typepurify/logger` — `v0.5.4`
+
+**`injectOpenTelemetryTraceHeader`** — Inject W3C `traceparent` headers for distributed tracing.
+
+```typescript
+import { injectOpenTelemetryTraceHeader } from '@typepurify/logger';
+
+const headers = injectOpenTelemetryTraceHeader(
+  '4bf92f3577b34da6a3ce929d0e0e4736',
+  '00f067aa0ba902b7',
+);
+// => { traceparent: '00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01' }
+
+fetch('/api/endpoint', { headers });
+```
+
+---
+
+### 🔒 `@typepurify/security` — `v0.5.4`
+
+**`SlidingWindowSecurityRateLimiter`** — Sliding window rate limiter to block brute-force and IP spoofing.
+
+```typescript
+import { SlidingWindowSecurityRateLimiter } from '@typepurify/security';
+
+const limiter = new SlidingWindowSecurityRateLimiter(100, 60000); // 100 req / 60s
+if (!limiter.isAllowed()) {
+  throw new Error('Rate limit exceeded');
+}
+```
+
+---
+
+### 🛠️ `@typepurify/cli` — `v0.5.4`
+
+**`runCodemodEngine`** — Apply string and regex transforms to source code files programmatically.
+
+```typescript
+import { runCodemodEngine } from '@typepurify/cli';
+
+const result = runCodemodEngine('var x = 1; var y = 2;', [{ from: /var/g, to: 'const' }]);
+// => "const x = 1; const y = 2;"
+```
+
+---
+
+### 📦 `@typepurify/json` — `v0.5.4`
+
+**`parseJsonStreamChunk`** — Memory-efficient generator that streams items from a JSON array string.
+
+```typescript
+import { parseJsonStreamChunk } from '@typepurify/json';
+
+const stream = '[{"id":1,"name":"Alice"},{"id":2,"name":"Bob"}]';
+
+for (const item of parseJsonStreamChunk(stream)) {
+  console.log(item); // { id: 1, name: 'Alice' }, then { id: 2, name: 'Bob' }
+}
+```
+
+---
+
+### Previous Feature Additions
 
 - **`@typepurify/react-state`**: Added `useToggle` hook for simple boolean state management.
 - **`@typepurify/react-table`**: Added `toggleAllColumnVisibility` for bulk column toggling.

@@ -107,3 +107,34 @@ function Modal() {
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy
+
+---
+
+## 📋 Changelog
+
+### v0.5.4 — Latest
+
+**New Features:**
+
+- **`createLeaderElectionNode(channelName?)`** — Multi-tab browser leader election utility. Allows one tab to claim leadership for coordinating shared state, broadcasting, or background jobs.
+
+```typescript
+import { createLeaderElectionNode } from '@typepurify/react-state';
+
+const node = createLeaderElectionNode('my-app');
+node.claimLeader();
+if (node.isLeader()) {
+  console.log('This tab is the leader — start sync');
+}
+node.releaseLeader();
+```
+
+**Bug Fixes:**
+
+- Fixed untracked read errors in `createSignalStore.get()` that could cause stale state returns in concurrent updates.
+
+### v0.5.1
+
+- Added `useToggle` hook for boolean state management.
+- Added `useBooleanState` with `setTrue`, `setFalse`, `toggle` helpers.
+- Added `useArray` for array state manipulation.

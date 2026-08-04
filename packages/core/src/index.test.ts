@@ -440,7 +440,7 @@ describe('typepurify core engine', () => {
       const result = clean(
         { secret: 'hidden' },
         {
-          transform: (val, key) => {
+          transform: (val: any, key: any) => {
             if (key === 'secret') return undefined;
             return val;
           },
@@ -466,7 +466,7 @@ describe('typepurify core engine', () => {
 
   describe('MemoryBuffer', () => {
     it('should buffer items and respect capacity limits', async () => {
-      const { MemoryBuffer } = await import('./index');
+      const { MemoryBuffer, preventMemoryLeaks } = await import('./index');
       const buf = new MemoryBuffer<number>(2);
 
       expect(buf.push(10)).toBe(true);
@@ -476,6 +476,28 @@ describe('typepurify core engine', () => {
 
       expect(buf.flush()).toEqual([10, 20]);
       expect(buf.size()).toBe(0);
+
+      buf.push(1);
+      buf.push(2);
+      buf.pruneExcess();
+      expect(buf.size()).toBe(2);
+
+      preventMemoryLeaks(new WeakMap());
+    });
+
+    it('should traverse object graph nodes without circular loop crashes', async () => {
+      const { traverseObjectGraph } = await import('./index');
+      const visited: string[] = [];
+      const node: any = { a: 1, b: { c: 2 } };
+      node.self = node; // circular
+
+      traverseObjectGraph(node, (_, path) => {
+        if (path.length > 0) visited.push(path.join('.'));
+      });
+
+      expect(visited).toContain('a');
+      expect(visited).toContain('b');
+      expect(visited).toContain('b.c');
     });
   });
 });
