@@ -112,3 +112,36 @@ const msg = wrapUserMessage('Explain quantum computing');
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy
+
+---
+
+## 📋 Changelog
+
+### v0.5.4 — Latest
+
+**New Features:**
+
+- **`createRagPipelineSummary(documents, query)`** — Summarizes the most relevant documents from a RAG (Retrieval-Augmented Generation) context list for LLM prompts. Filters docs containing the query string and returns the top-3 joined with a `---` separator.
+
+```typescript
+import { createRagPipelineSummary } from '@typepurify/llm';
+
+const docs = [
+  'TypeScript is a typed superset of JavaScript.',
+  'Python is dynamically typed.',
+  'TypeScript compiles to plain JavaScript.',
+];
+
+const context = createRagPipelineSummary(docs, 'TypeScript');
+// => "TypeScript is a typed superset of JavaScript.\n---\nTypeScript compiles to plain JavaScript."
+```
+
+**Bug Fixes:**
+
+- Fixed optional field handling (`?`) in `validateLlmSchema` — fields marked optional in the schema no longer cause false-negative validation failures.
+
+### v0.5.1
+
+- Added `extractFirstMarkdownBlock` to pull code/JSON from AI responses.
+- Added `sanitizeSystemPrompt` to strip prompt injection patterns.
+- Added `wrapUserMessage` for structured LLM message formatting.

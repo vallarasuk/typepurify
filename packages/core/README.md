@@ -247,6 +247,44 @@ I build lightweight, high-performance developer utilities and media automation e
 
 MIT © [Vallarasu Kanthasamy](https://github.com/vallarasuk)
 
-### New in v0.4.6
+---
+
+## 📋 Changelog
+
+### v1.6.4 — Latest
+
+**New Features:**
+
+- **`traverseObjectGraph(obj, visitor)`** — Recursively walks every node of an object graph, safely detecting and skipping circular references and prototype-polluting keys (`__proto__`, `constructor`, `prototype`).
+
+```typescript
+import { traverseObjectGraph } from 'typepurify';
+
+const graph = { a: { b: { c: 42 } } };
+const visited: string[] = [];
+
+traverseObjectGraph(graph, (value, path) => {
+  if (path.length > 0) visited.push(path.join('.'));
+});
+// visited => ['a', 'a.b', 'a.b.c']
+```
+
+**Bug Fixes:**
+
+- Fixed `transform` callback TypeScript inference — parameters are now explicitly typed as `(val: any, key: any)` to prevent `TS7006` implicit-any errors in strict mode projects.
+- Fixed `deepOmit` return type access on omitted keys requiring an explicit `as any` cast to satisfy strict TypeScript.
+
+---
+
+### v1.2.0
+
+- Added `traverseObjectGraph` for safe, circular-reference-aware graph traversal.
+
+### v1.0.1
+
+- Added `pruneExcess` to strip excess properties beyond a defined schema shape.
+- Added `preventMemoryLeaks` to proactively clear WeakRef/WeakMap collections.
+
+### v0.4.6
 
 - Added `deepMerge(target, source)` to deeply merge objects and deduplicate arrays, and `isPlainObject(val)` for reliable type checking.

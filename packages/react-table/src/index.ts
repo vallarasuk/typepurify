@@ -251,10 +251,16 @@ export function useRowSelection() {
 /**
  * Core virtualizer module for lightning-fast React data table rendering.
  */
-export function measureVirtualizer(rowCount: number, rowHeight: number) {
+export function measureVirtualizer(rowCount: number, rowHeight: number, scrollTop = 0) {
+  const totalHeight = rowCount * rowHeight;
+  const startIndex = Math.max(0, Math.floor(scrollTop / rowHeight));
+  const visibleNodes = Math.ceil(1000 / rowHeight);
   return {
-    totalHeight: rowCount * rowHeight,
-    visibleNodes: Math.ceil(1000 / rowHeight),
+    totalHeight,
+    startIndex,
+    endIndex: Math.min(rowCount, startIndex + visibleNodes + 2), // Overscan buffer prevents scrollbar jump
+    visibleNodes,
+    offsetY: startIndex * rowHeight,
   };
 }
 
@@ -298,5 +304,16 @@ export function resetTableState() {
     searchQuery: '',
     sortKey: null,
     sortDirection: 'asc' as const,
+  };
+}
+
+/**
+ * Headless UI table core helper for unstyled headless table state computation.
+ */
+export function createHeadlessTableCore<T>(data: T[], columns: Array<{ key: string }>) {
+  return {
+    itemCount: data.length,
+    columnKeys: columns.map((c) => c.key),
+    isEmpty: data.length === 0,
   };
 }

@@ -89,3 +89,36 @@ if (isJsonString(input)) {
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy
+
+---
+
+## 📋 Changelog
+
+### v0.5.4 — Latest
+
+**New Features:**
+
+- **`parseJsonStreamChunk(jsonArrayStr)`** — Memory-efficient generator that streams individual JSON objects from a JSON array string. Ideal for large payloads where loading the full array is impractical.
+
+```typescript
+import { parseJsonStreamChunk } from '@typepurify/json';
+
+const stream = '[{"id":1,"name":"Alice"},{"id":2,"name":"Bob"}]';
+
+for (const item of parseJsonStreamChunk(stream)) {
+  console.log(item);
+  // { id: 1, name: 'Alice' }
+  // { id: 2, name: 'Bob' }
+}
+```
+
+**Bug Fixes:**
+
+- Fixed `deepMerge` TypeScript signature — sources now accept `Record<string, any>[]` instead of `Partial<T>[]`, allowing partial source objects with different nested key shapes to be merged without `TS2345` errors.
+- Added CSV quoted-field support in `flattenCsvToJson` for fields containing commas or escaped quotes.
+
+### v0.5.1
+
+- Added `isJsonString` for safe pre-parse validation.
+- Added `jsonPathSelector` for dot-notation nested value extraction.
+- Added `jsonDiff` for detecting key-level differences between two objects.

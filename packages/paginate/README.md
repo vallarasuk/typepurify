@@ -98,3 +98,32 @@ const hasPrev = calculateHasPreviousPage(currentPage);
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy
+
+---
+
+## 📋 Changelog
+
+### v0.5.4 — Latest
+
+**New Features:**
+
+- **`parseRelayConnection(connection)`** — Extracts a flat node array from a GraphQL Relay connection object. Companion to the existing `buildConnection` helper.
+
+```typescript
+import { buildConnection, parseRelayConnection } from '@typepurify/paginate';
+
+const conn = buildConnection([
+  { id: '1', name: 'Alice' },
+  { id: '2', name: 'Bob' },
+]);
+const nodes = parseRelayConnection(conn);
+// => [{ id: '1', name: 'Alice' }, { id: '2', name: 'Bob' }]
+```
+
+**Bug Fixes:**
+
+- Added `mergePaginatedPages` helper for deduplicating overlapping items across infinite scroll pages.
+
+### v0.5.1
+
+- Added `calculateHasPreviousPage` and `calculateHasNextPage` utilities.

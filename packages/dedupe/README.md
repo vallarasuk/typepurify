@@ -84,3 +84,29 @@ await initializeApp(); // No-op, returns existing promise
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy
+
+---
+
+## 📋 Changelog
+
+### v0.5.4 — Latest
+
+**New Features:**
+
+- **`parseGraphQLQueryKey(query, variables?)`** — Normalizes GraphQL query strings and variables into a stable, whitespace-normalized deduplication cache key. Ideal for deduplicating identical GraphQL requests regardless of whitespace formatting.
+
+```typescript
+import { parseGraphQLQueryKey } from '@typepurify/dedupe';
+
+const key = parseGraphQLQueryKey('query getUser { user { id } }', { id: 1 });
+// => "gql:query getUser { user { id } }:{"id":1}"
+```
+
+**Bug Fixes:**
+
+- Fixed primitive key collision by adding type tags to dedupe keys (`str:`, `num:`, `bool:`), preventing string `"1"` from colliding with number `1`.
+- `clearDedupeCache` now correctly clears formatted tagged keys.
+
+### v0.5.1
+
+- Added custom LRU cache injection support in `dedupeAsync`.

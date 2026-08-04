@@ -150,4 +150,11 @@ describe('@typepurify/types', () => {
       expectTypeOf<MutablePoint>().toEqualTypeOf<{ x: number; y: number }>();
     });
   });
+
+  describe('RegexMatchLiteral', () => {
+    it('should extract regex match literal types', async () => {
+      type Matched = import('./index').RegexMatchLiteral<'abc_test_xyz', 'test'>;
+      expectTypeOf<Matched>().toEqualTypeOf<'test'>();
+    });
+  });
 });

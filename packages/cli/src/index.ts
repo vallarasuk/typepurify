@@ -183,8 +183,17 @@ export function analyzeBundleSize(dirPath: string): { totalFiles: number; totalS
   let totalSizeBytes = 0;
   files.forEach((file) => {
     const fullPath = path.join(dirPath, file);
-    if (fs.statSync(fullPath).isFile()) {
-      totalSizeBytes += fs.statSync(fullPath).size;
+    try {
+      const stat = fs.lstatSync(fullPath);
+      if (stat.isSymbolicLink()) {
+        // Skip symlinks to prevent circular traversal crashes
+        return;
+      }
+      if (stat.isFile()) {
+        totalSizeBytes += stat.size;
+      }
+    } catch {
+      // Ignore unreadable paths
     }
   });
   return { totalFiles: files.length, totalSizeBytes };
@@ -218,6 +227,20 @@ export function formatTable(data: Record<string, any>[]): string {
   const separator = '+' + colWidths.map((w) => '-'.repeat(w + 2)).join('+') + '+';
 
   return [separator, formatRow(headers), separator, ...rows.map(formatRow), separator].join('\n');
+}
+
+/**
+ * Codemod engine helper to run AST string replacements across code files.
+ */
+export function runCodemodEngine(
+  sourceCode: string,
+  transforms: Array<{ from: string | RegExp; to: string }>,
+): string {
+  let result = sourceCode;
+  for (const transform of transforms) {
+    result = result.replace(transform.from, transform.to);
+  }
+  return result;
 }
 
 /**

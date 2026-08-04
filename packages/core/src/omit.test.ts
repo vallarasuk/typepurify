@@ -38,6 +38,6 @@ describe('deepOmit', () => {
 
     expect(result.date).toBe(date);
     expect(result.regex).toBe(regex);
-    expect(result.a).toBeUndefined();
+    expect((result as any).a).toBeUndefined();
   });
 });

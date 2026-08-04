@@ -474,4 +474,19 @@ describe('tFetch wrapper', () => {
       expect(fetchMock).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('createRateLimiterFetch', () => {
+    it('should rate limit outgoing requests', async () => {
+      const { createRateLimiterFetch } = await import('./index');
+      fetchMock.mockResolvedValue({
+        ok: true,
+        headers: new Headers({ 'content-type': 'application/json' }),
+        json: async () => ({ status: 'ok' }),
+      });
+
+      const limitedFetch = createRateLimiterFetch({ maxRequests: 2, perMs: 100 });
+      const res = await limitedFetch('https://api.example.com/rl');
+      expect(res).toEqual({ status: 'ok' });
+    });
+  });
 });

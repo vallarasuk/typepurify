@@ -114,6 +114,45 @@ const cachedFetch = createCacheFetch({ ttlMs: 60000 });
 const data = await cachedFetch('https://api.example.com/data');
 ```
 
+### 6. Rate Limiter Fetch (`createRateLimiterFetch`) — _v0.5.4_
+
+Throttle outgoing HTTP requests to a configurable maximum rate to avoid overwhelming APIs.
+
+```typescript
+import { createRateLimiterFetch } from '@typepurify/fetch';
+
+const rateFetch = createRateLimiterFetch(5); // max 5 requests/sec
+await rateFetch('https://api.example.com/items');
+```
+
+---
+
+## 📋 Changelog
+
+### v0.5.4 — Latest
+
+**New Features:**
+
+- **`createRateLimiterFetch(maxPerSec)`** — Wraps native fetch with a token-bucket rate limiter preventing burst overload to downstream APIs.
+
+**Bug Fixes:**
+
+- Added `console.error` logging inside `RequestQueue.processQueue()` catch block for socket hangup errors — previously swallowed silently, now surfaced for easier debugging.
+- Abort controller connection errors no longer cause queue deadlock.
+
+### v0.5.3
+
+- Added `createCacheFetch` for lightweight in-memory response caching with custom TTL.
+
+### v0.5.2
+
+- Added `Http3TransportAdapter` for HTTP/3 QUIC connection management.
+- Fixed socket hangup / connection abort errors in `RequestQueue` to prevent queue deadlock.
+
+### v0.5.1
+
+- Added `buildQueryString` for elegant query parameter construction.
+
 ## 📄 License
 
 MIT © [Vallarasu Kanthasamy](https://github.com/vallarasuk)

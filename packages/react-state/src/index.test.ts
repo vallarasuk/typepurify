@@ -286,4 +286,16 @@ describe('@typepurify/react-state', () => {
       expect(result.current.array).toEqual([]);
     });
   });
+
+  describe('createLeaderElectionNode', () => {
+    it('should handle leader election states', async () => {
+      const { createLeaderElectionNode } = await import('./index');
+      const node = createLeaderElectionNode();
+      expect(node.isLeader()).toBe(false);
+      node.claimLeader();
+      expect(node.isLeader()).toBe(true);
+      node.releaseLeader();
+      expect(node.isLeader()).toBe(false);
+    });
+  });
 });

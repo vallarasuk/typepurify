@@ -113,7 +113,9 @@ describe('@typepurify/cli', () => {
     it('should return file count and byte size for directory', () => {
       (fs.existsSync as any).mockReturnValue(true);
       (fs.readdirSync as any).mockReturnValue(['index.js', 'index.mjs']);
-      (fs.statSync as any).mockReturnValue({ isFile: () => true, size: 500 });
+      const mockStat = { isFile: () => true, isSymbolicLink: () => false, size: 500 };
+      (fs.statSync as any).mockReturnValue(mockStat);
+      (fs.lstatSync as any).mockReturnValue(mockStat);
 
       const res = analyzeBundleSize('/dist');
       expect(res.totalFiles).toBe(2);
@@ -145,6 +147,12 @@ describe('@typepurify/cli', () => {
     it('should format warning messages correctly', async () => {
       const { formatWarning } = await import('./index');
       expect(formatWarning('Caution!')).toBe('\x1b[33m[WARNING] Caution!\x1b[0m');
+    });
+
+    it('should transform code using runCodemodEngine', async () => {
+      const { runCodemodEngine } = await import('./index');
+      const transformed = runCodemodEngine('var x = 1;', [{ from: 'var', to: 'const' }]);
+      expect(transformed).toBe('const x = 1;');
     });
   });
 });

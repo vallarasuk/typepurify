@@ -167,4 +167,14 @@ describe('@typepurify/llm', () => {
       expect(wrapUserMessage('Hello')).toEqual({ role: 'user', content: 'Hello' });
     });
   });
+  describe('createRagPipelineSummary', () => {
+    it('should summarize relevant RAG documents', async () => {
+      const { createRagPipelineSummary } = await import('./index');
+      const docs = ['Doc A about TypeScript', 'Doc B about Python', 'Doc C about TypeScript'];
+      const summary = createRagPipelineSummary(docs, 'TypeScript');
+      expect(summary).toContain('Doc A about TypeScript');
+      expect(summary).toContain('Doc C about TypeScript');
+      expect(summary).not.toContain('Doc B');
+    });
+  });
 });

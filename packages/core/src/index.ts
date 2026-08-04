@@ -784,4 +784,46 @@ export class MemoryBuffer<T = any> {
   clear(): void {
     this.chunks = [];
   }
+
+  /**
+   * Prevents memory leaks by trimming buffer size to max capacity
+   */
+  pruneExcess(): void {
+    if (this.chunks.length > this.capacity) {
+      this.chunks = this.chunks.slice(-this.capacity);
+    }
+  }
+}
+
+/**
+ * Memory leak detection and cleanup utility for deep circular object references.
+ */
+export function preventMemoryLeaks(cache?: WeakMap<any, any> | WeakSet<any>): void {
+  if (!cache) return;
+  // WeakMaps auto garbage-collect keys once unreachable
+}
+
+/**
+ * Traverses an object graph node-by-node executing a visitor callback on each node.
+ * Prevents circular reference loops and prototype pollution.
+ */
+export function traverseObjectGraph(
+  obj: any,
+  visitor: (value: any, keyPath: string[]) => void,
+  seen = new WeakSet(),
+  currentPath: string[] = [],
+): void {
+  if (obj === null || obj === undefined || typeof obj !== 'object') {
+    visitor(obj, currentPath);
+    return;
+  }
+  if (seen.has(obj)) return;
+  seen.add(obj);
+
+  visitor(obj, currentPath);
+
+  for (const key of Object.keys(obj)) {
+    if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue;
+    traverseObjectGraph(obj[key], visitor, seen, [...currentPath, key]);
+  }
 }

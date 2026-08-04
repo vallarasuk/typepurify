@@ -79,3 +79,36 @@ const log = new Logger({
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy
+
+---
+
+## 📋 Changelog
+
+### v0.5.4 — Latest
+
+**New Features:**
+
+- **`injectOpenTelemetryTraceHeader(traceId, spanId)`** — Generates a W3C-compliant `traceparent` header object for distributed tracing with OpenTelemetry.
+
+```typescript
+import { injectOpenTelemetryTraceHeader } from '@typepurify/logger';
+
+const headers = injectOpenTelemetryTraceHeader(
+  '4bf92f3577b34da6a3ce929d0e0e4736',
+  '00f067aa0ba902b7',
+);
+// => { traceparent: '00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-01' }
+
+fetch('/api/endpoint', { headers });
+```
+
+**Bug Fixes:**
+
+- Added `maxBuffer` cap to `LogRateLimiter` to prevent unbounded memory growth during log spikes.
+
+### v0.5.1
+
+- Added `silent` mode for quiet test environments.
+- Added `sanitizeLogMeta` to redact sensitive fields (`password`, `token`, `secret`, etc.).
+- Added `createNoopLogger` for test stubs.
+- Added `createScopedLogger` for tagged context logging.

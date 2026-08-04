@@ -80,3 +80,33 @@ console.error(formatError('Task failed'));
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy
+
+---
+
+## 📋 Changelog
+
+### v0.5.4 — Latest
+
+**New Features:**
+
+- **`runCodemodEngine(sourceCode, transforms)`** — Applies a list of string or regex transformations to source code programmatically. Designed for automated code migrations and refactoring scripts.
+
+```typescript
+import { runCodemodEngine } from '@typepurify/cli';
+
+const updated = runCodemodEngine('var x = 1; var y = 2;', [
+  { from: /var/g, to: 'const' },
+  { from: 'x', to: 'myVar' },
+]);
+// => "const myVar = 1; const y = 2;"
+```
+
+**Bug Fixes:**
+
+- `analyzeBundleSize` now uses `fs.lstatSync` instead of `statSync` to correctly ignore symlinks and avoid double-counting linked files.
+
+### v0.5.1
+
+- Added `formatError`, `formatSuccess`, `formatWarning` ANSI terminal formatters.
+- Added `formatTable` for ASCII table rendering.
+- Added `runHealthScorer` for project health analysis.

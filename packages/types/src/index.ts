@@ -67,7 +67,8 @@ export function get<T = any>(obj: any, path: string | string[], defaultValue?: T
 
   let result = obj;
   for (const key of keys) {
-    if (result == null) return defaultValue as T;
+    if (result == null || key === '__proto__' || key === 'constructor' || key === 'prototype')
+      return defaultValue as T;
     result = result[key];
   }
 
@@ -157,3 +158,13 @@ export type DeepRequiredStrict<T> = T extends object
 export type Writable<T> = {
   -readonly [P in keyof T]: T[P];
 };
+
+/**
+ * Extracts regex pattern match results as string union type.
+ */
+export type RegexMatchLiteral<
+  S extends string,
+  Pattern extends string,
+> = S extends `${string}${Pattern}${infer Rest}`
+  ? Pattern | RegexMatchLiteral<Rest, Pattern>
+  : never;

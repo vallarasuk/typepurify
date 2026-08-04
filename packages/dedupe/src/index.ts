@@ -107,9 +107,9 @@ export function dedupe<T extends (...args: any[]) => Promise<any>>(
     if (options.keyGenerator) {
       key = options.keyGenerator(...args);
     } else {
-      // Fast path: single primitive argument (very common in API fetching)
+      // Fast path: single primitive argument with type tag to prevent false positive collisions
       if (args.length === 1 && typeof args[0] !== 'object' && typeof args[0] !== 'function') {
-        key = String(args[0]);
+        key = `${typeof args[0]}:${String(args[0])}`;
       } else if (args.length === 0) {
         key = '()';
       } else {
@@ -170,13 +170,21 @@ export function dedupe<T extends (...args: any[]) => Promise<any>>(
 
   wrapped.clearDedupeCache = (key?: string) => {
     if (key !== undefined) {
+      const formattedKey = key.includes(':') ? key : `string:${key}`;
       ongoingPromises.delete(key);
+      ongoingPromises.delete(formattedKey);
       cachedResults.delete(key);
+      cachedResults.delete(formattedKey);
       if (debounceTimers.has(key)) {
         clearTimeout(debounceTimers.get(key));
         debounceTimers.delete(key);
       }
+      if (debounceTimers.has(formattedKey)) {
+        clearTimeout(debounceTimers.get(formattedKey));
+        debounceTimers.delete(formattedKey);
+      }
       pendingResolvers.delete(key);
+      pendingResolvers.delete(formattedKey);
     } else {
       ongoingPromises.clear();
       cachedResults.clear();
@@ -383,4 +391,15 @@ export function dedupeOnce<T>(fn: () => Promise<T>): () => Promise<T> {
     }
     return promise!;
   };
+}
+
+/**
+ * Lightweight GraphQL query AST normalizer for GraphQL request deduplication keys.
+ * Removes whitespace and formats operation names cleanly.
+ */
+export function parseGraphQLQueryKey(query: string, variables?: Record<string, any>): string {
+  if (!query) return '';
+  const normalizedQuery = query.replace(/\s+/g, ' ').trim();
+  const normalizedVars = variables ? JSON.stringify(variables) : '{}';
+  return `gql:${normalizedQuery}:${normalizedVars}`;
 }

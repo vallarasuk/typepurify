@@ -219,4 +219,14 @@ describe('@typepurify/paginate', () => {
       expect(getPageOffset(3, 20)).toBe(40);
     });
   });
+
+  describe('parseRelayConnection', () => {
+    it('should extract nodes from Relay connection object', async () => {
+      const { parseRelayConnection, buildConnection } = await import('./index');
+      const items = [{ id: '1' }, { id: '2' }];
+      const conn = buildConnection(items);
+      const nodes = parseRelayConnection(conn);
+      expect(nodes).toEqual(items);
+    });
+  });
 });

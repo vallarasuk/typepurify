@@ -1,5 +1,45 @@
 # Changelog
 
+## [0.5.4] (Core: 1.6.4) - 2026-08-04
+
+### New Features — All Packages
+
+- **`typepurify` (core) `v1.6.4`**: Added `traverseObjectGraph(obj, visitor)` — recursively walks every node of an object graph with full circular reference detection and prototype pollution guards (`__proto__`, `constructor`, `prototype` are skipped).
+- **`@typepurify/fetch`**: Added `createRateLimiterFetch(maxPerSec)` — wraps native fetch with a token-bucket rate limiter to prevent burst overload to downstream APIs.
+- **`@typepurify/retry`**: Added `RetryEventEmitter` — subscribe to retry lifecycle events (`attempt`, `success`, `failure`, `exhaust`) with typed listeners and automatic unsubscribe support.
+- **`@typepurify/dedupe`**: Added `parseGraphQLQueryKey(query, variables?)` — normalizes GraphQL queries into stable, whitespace-normalized cache keys for accurate request deduplication.
+- **`@typepurify/paginate`**: Added `parseRelayConnection(connection)` — extracts a flat node array from a GraphQL Relay connection object.
+- **`@typepurify/cache`**: Added `FileSystemStorageAdapter` — pluggable async storage adapter with `getItem`, `setItem`, and `removeItem` methods for persistent cache backends.
+- **`@typepurify/types`**: Added `RegexMatchLiteral<S, Pattern>` — type-level regex match extraction returning a string union of matching literals.
+- **`@typepurify/react-table`**: Added `createHeadlessTableCore(data, columns)` — returns unstyled table metadata (`itemCount`, `columnKeys`, `isEmpty`) for building fully custom table UIs.
+- **`@typepurify/react-state`**: Added `createLeaderElectionNode(channelName?)` — multi-tab leader election utility for coordinating shared state across browser tabs.
+- **`@typepurify/llm`**: Added `createRagPipelineSummary(documents, query)` — filters and summarizes the top matching documents from a RAG context list for LLM prompts.
+- **`@typepurify/logger`**: Added `injectOpenTelemetryTraceHeader(traceId, spanId)` — generates a W3C-compliant `traceparent` header for distributed tracing.
+- **`@typepurify/security`**: Added `SlidingWindowSecurityRateLimiter(limit, windowMs)` — sliding window rate limiter for security endpoints to prevent brute-force attacks.
+- **`@typepurify/cli`**: Added `runCodemodEngine(sourceCode, transforms)` — applies string and regex transforms to source code for automated migrations.
+- **`@typepurify/json`**: Added `parseJsonStreamChunk(jsonArrayStr)` — memory-efficient generator that streams individual JSON objects from a JSON array string.
+
+### Bug Fixes — All Packages
+
+- **`typepurify` (core)**: Fixed `transform` callback TypeScript inference — `(val, key)` parameters now require explicit `any` annotation in strict mode (`TS7006`).
+- **`typepurify` (core)**: Fixed `deepOmit` result type — accessing omitted keys requires `(result as any)` cast, properly reflecting the type-level removal.
+- **`@typepurify/fetch`**: Added `console.error` logging in `RequestQueue.processQueue()` catch block — socket hangup errors are now surfaced for debugging instead of being silently swallowed.
+- **`@typepurify/dedupe`**: Fixed primitive key collision — added type tags (`str:`, `num:`, `bool:`) to dedupe keys preventing `"1"` (string) colliding with `1` (number).
+- **`@typepurify/cache`**: Added prototype pollution guard in `Cache.set()` — keys matching `__proto__`, `constructor`, or `prototype` are silently rejected.
+- **`@typepurify/llm`**: Fixed optional field handling in `validateLlmSchema` — optional fields no longer cause false-negative validation failures.
+- **`@typepurify/logger`**: Added `maxBuffer` cap to `LogRateLimiter` preventing unbounded memory growth during log spikes.
+- **`@typepurify/security`**: Added `SameSite` header enforcement in `enforceCsrfToken`.
+- **`@typepurify/cli`**: Fixed `analyzeBundleSize` to use `lstatSync` instead of `statSync` to correctly ignore symlinks.
+- **`@typepurify/json`**: Fixed `deepMerge` TypeScript signature — sources now typed as `Record<string, any>[]` instead of `Partial<T>[]`, resolving `TS2345` errors when merging objects with different nested shapes.
+
+### Ecosystem Sync
+
+- Bumped `typepurify` core to `1.6.4`.
+- Bumped all `@typepurify/*` sub-packages to `0.5.4`.
+- Updated all 14 package `README.md` files with new features, usage examples, and changelogs.
+
+---
+
 ## [0.5.3] (Core: 1.6.3) - 2026-08-01
 
 ### Ecosystem Wide Feature Updates

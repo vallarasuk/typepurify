@@ -12,7 +12,7 @@
 - **v1.0.0** - Major Release: JSON parser
   - `[x]` feat: [MAJOR] Implement the core JSON parser for @typepurify/core to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: memory leak edge cases
-    - `[ ]` fix: [PATCH] Investigate and resolve memory leak edge cases reported by users post-major release.
+    - `[x]` fix: [PATCH] Investigate and resolve memory leak edge cases reported by users post-major release.
   - **v1.0.2** - Bugfix: infinite recursion bug
     - `[ ]` fix: [PATCH] Investigate and resolve infinite recursion bug reported by users post-major release.
   - **v1.0.3** - Bugfix: stack overflow on deep objects
@@ -34,7 +34,7 @@
     - **v1.1.5** - Bugfix: heap out of memory error
       - `[ ]` fix: [PATCH] Debug and resolve heap out of memory error occurring under specific edge cases.
   - **v1.2.0** - Feature: object graph traversal
-    - `[ ]` feat: [MINOR] Architect new object graph traversal capabilities to expand the API surface of @typepurify/core.
+    - `[x]` feat: [MINOR] Architect new object graph traversal capabilities to expand the API surface of @typepurify/core.
     - **v1.2.1** - Bugfix: type confusion flaw
       - `[ ]` fix: [PATCH] Debug and resolve type confusion flaw occurring under specific edge cases.
     - **v1.2.2** - Bugfix: circular reference loop
@@ -307,7 +307,7 @@
 - **v1.0.0** - Major Release: request queue
   - `[x]` feat: [MAJOR] Build the core request queue for @typepurify/fetch to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: socket hangup issue
-    - `[ ]` fix: [PATCH] Investigate and resolve socket hangup issue reported by users post-major release.
+    - `[x]` fix: [PATCH] Investigate and resolve socket hangup issue reported by users post-major release.
   - **v1.0.2** - Bugfix: DNS resolution timeout
     - `[ ]` fix: [PATCH] Investigate and resolve DNS resolution timeout reported by users post-major release.
   - **v1.0.3** - Bugfix: HTTP header parsing error
@@ -353,7 +353,7 @@
     - **v1.3.5** - Bugfix: zombie connection thread
       - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
   - **v1.4.0** - Feature: rate limiter logic
-    - `[ ]` feat: [MINOR] Cache new rate limiter logic capabilities to expand the API surface of @typepurify/fetch.
+    - `[x]` feat: [MINOR] Cache new rate limiter logic capabilities to expand the API surface of @typepurify/fetch.
     - **v1.4.1** - Bugfix: memory leak on aborted request
       - `[ ]` fix: [PATCH] Debug and resolve memory leak on aborted request occurring under specific edge cases.
     - **v1.4.2** - Bugfix: stale cache collision
@@ -602,7 +602,7 @@
 - **v1.0.0** - Major Release: exponential backoff algorithm
   - `[x]` feat: [MAJOR] Calculate the core exponential backoff algorithm for @typepurify/retry to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: infinite retry loop
-    - `[ ]` fix: [PATCH] Investigate and resolve infinite retry loop reported by users post-major release.
+    - `[x]` fix: [PATCH] Investigate and resolve infinite retry loop reported by users post-major release.
   - **v1.0.2** - Bugfix: math overflow in delay calc
     - `[ ]` fix: [PATCH] Investigate and resolve math overflow in delay calc reported by users post-major release.
   - **v1.0.3** - Bugfix: race condition during lock
@@ -624,7 +624,7 @@
     - **v1.1.5** - Bugfix: false positive fast-fail
       - `[ ]` fix: [PATCH] Debug and resolve false positive fast-fail occurring under specific edge cases.
   - **v1.2.0** - Feature: event emitter listener
-    - `[ ]` feat: [MINOR] Broadcast new event emitter listener capabilities to expand the API surface of @typepurify/retry.
+    - `[x]` feat: [MINOR] Broadcast new event emitter listener capabilities to expand the API surface of @typepurify/retry.
     - **v1.2.1** - Bugfix: deadlock in queue
       - `[ ]` fix: [PATCH] Debug and resolve deadlock in queue occurring under specific edge cases.
     - **v1.2.2** - Bugfix: timer drift
@@ -897,7 +897,7 @@
 - **v1.0.0** - Major Release: SHA-256 hash generator
   - `[x]` feat: [MAJOR] Hash the core SHA-256 hash generator for @typepurify/dedupe to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: hash collision false positive
-    - `[ ]` fix: [PATCH] Investigate and resolve hash collision false positive reported by users post-major release.
+    - `[x]` fix: [PATCH] Investigate and resolve hash collision false positive reported by users post-major release.
   - **v1.0.2** - Bugfix: stale data read
     - `[ ]` fix: [PATCH] Investigate and resolve stale data read reported by users post-major release.
   - **v1.0.3** - Bugfix: tab crash deadlock
@@ -907,7 +907,7 @@
   - **v1.0.5** - Bugfix: memory leak in accumulator array
     - `[ ]` fix: [PATCH] Investigate and resolve memory leak in accumulator array reported by users post-major release.
   - **v1.1.0** - Feature: AST parser for GraphQL
-    - `[ ]` feat: [MINOR] Merge new AST parser for GraphQL capabilities to expand the API surface of @typepurify/dedupe.
+    - `[x]` feat: [MINOR] Merge new AST parser for GraphQL capabilities to expand the API surface of @typepurify/dedupe.
     - **v1.1.1** - Bugfix: fuzzy match error
       - `[ ]` fix: [PATCH] Debug and resolve fuzzy match error occurring under specific edge cases.
     - **v1.1.2** - Bugfix: memory leak in accumulator array
@@ -1192,7 +1192,7 @@
 - **v1.0.0** - Major Release: cursor parser
   - `[x]` feat: [MAJOR] Pre-fetch the core cursor parser for @typepurify/paginate to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: overlapping list items
-    - `[ ]` fix: [PATCH] Investigate and resolve overlapping list items reported by users post-major release.
+    - `[x]` fix: [PATCH] Investigate and resolve overlapping list items reported by users post-major release.
   - **v1.0.2** - Bugfix: stream unclosed memory leak
     - `[ ]` fix: [PATCH] Investigate and resolve stream unclosed memory leak reported by users post-major release.
   - **v1.0.3** - Bugfix: missing cursor exception
@@ -1202,7 +1202,7 @@
   - **v1.0.5** - Bugfix: scroll position loss
     - `[ ]` fix: [PATCH] Investigate and resolve scroll position loss reported by users post-major release.
   - **v1.1.0** - Feature: Relay connection specification
-    - `[ ]` feat: [MINOR] Stream new Relay connection specification capabilities to expand the API surface of @typepurify/paginate.
+    - `[x]` feat: [MINOR] Stream new Relay connection specification capabilities to expand the API surface of @typepurify/paginate.
     - **v1.1.1** - Bugfix: layout shift bug
       - `[ ]` fix: [PATCH] Debug and resolve layout shift bug occurring under specific edge cases.
     - **v1.1.2** - Bugfix: scroll position loss
@@ -1487,7 +1487,7 @@
 - **v1.0.0** - Major Release: TTL engine
   - `[x]` feat: [MAJOR] Revalidate the core TTL engine for @typepurify/cache to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: cache pollution vulnerability
-    - `[ ]` fix: [PATCH] Investigate and resolve cache pollution vulnerability reported by users post-major release.
+    - `[x]` fix: [PATCH] Investigate and resolve cache pollution vulnerability reported by users post-major release.
   - **v1.0.2** - Bugfix: file corruption on write
     - `[ ]` fix: [PATCH] Investigate and resolve file corruption on write reported by users post-major release.
   - **v1.0.3** - Bugfix: tier sync delay
@@ -1497,7 +1497,7 @@
   - **v1.0.5** - Bugfix: filter resize bug
     - `[ ]` fix: [PATCH] Investigate and resolve filter resize bug reported by users post-major release.
   - **v1.1.0** - Feature: file-system storage adapter
-    - `[ ]` feat: [MINOR] Fallback new file-system storage adapter capabilities to expand the API surface of @typepurify/cache.
+    - `[x]` feat: [MINOR] Fallback new file-system storage adapter capabilities to expand the API surface of @typepurify/cache.
     - **v1.1.1** - Bugfix: promise rejection silence
       - `[ ]` fix: [PATCH] Debug and resolve promise rejection silence occurring under specific edge cases.
     - **v1.1.2** - Bugfix: filter resize bug
@@ -1782,7 +1782,7 @@
 - **v1.0.0** - Major Release: template literal parser
   - `[x]` feat: [MAJOR] Transform the core template literal parser for @typepurify/types to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: slow compilation times
-    - `[ ]` fix: [PATCH] Investigate and resolve slow compilation times reported by users post-major release.
+    - `[x]` fix: [PATCH] Investigate and resolve slow compilation times reported by users post-major release.
   - **v1.0.2** - Bugfix: inference mismatch
     - `[ ]` fix: [PATCH] Investigate and resolve inference mismatch reported by users post-major release.
   - **v1.0.3** - Bugfix: recursion depth limit hit
@@ -1792,7 +1792,7 @@
   - **v1.0.5** - Bugfix: negative math error
     - `[ ]` fix: [PATCH] Investigate and resolve negative math error reported by users post-major release.
   - **v1.1.0** - Feature: regex parser type
-    - `[ ]` feat: [MINOR] Flatten new regex parser type capabilities to expand the API surface of @typepurify/types.
+    - `[x]` feat: [MINOR] Flatten new regex parser type capabilities to expand the API surface of @typepurify/types.
     - **v1.1.1** - Bugfix: circular tree TS error
       - `[ ]` fix: [PATCH] Debug and resolve circular tree TS error occurring under specific edge cases.
     - **v1.1.2** - Bugfix: negative math error
@@ -2077,7 +2077,7 @@
 - **v1.0.0** - Major Release: virtualizer module
   - `[x]` feat: [MAJOR] Measure the core virtualizer module for @typepurify/react-table to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: scrollbar jump on load
-    - `[ ]` fix: [PATCH] Investigate and resolve scrollbar jump on load reported by users post-major release.
+    - `[x]` fix: [PATCH] Investigate and resolve scrollbar jump on load reported by users post-major release.
   - **v1.0.2** - Bugfix: minWidth CSS bypass
     - `[ ]` fix: [PATCH] Investigate and resolve minWidth CSS bypass reported by users post-major release.
   - **v1.0.3** - Bugfix: ARIA mapping bug
@@ -2087,7 +2087,7 @@
   - **v1.0.5** - Bugfix: clipboard parse error
     - `[ ]` fix: [PATCH] Investigate and resolve clipboard parse error reported by users post-major release.
   - **v1.1.0** - Feature: headless UI core
-    - `[ ]` feat: [MINOR] Aggregate new headless UI core capabilities to expand the API surface of @typepurify/react-table.
+    - `[x]` feat: [MINOR] Aggregate new headless UI core capabilities to expand the API surface of @typepurify/react-table.
     - **v1.1.1** - Bugfix: floating point math error
       - `[ ]` fix: [PATCH] Debug and resolve floating point math error occurring under specific edge cases.
     - **v1.1.2** - Bugfix: clipboard parse error
@@ -2372,7 +2372,7 @@
 - **v1.0.0** - Major Release: signal store hook
   - `[x]` feat: [MAJOR] Track the core signal store hook for @typepurify/react-state to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: untracked read error
-    - `[ ]` fix: [PATCH] Investigate and resolve untracked read error reported by users post-major release.
+    - `[x]` fix: [PATCH] Investigate and resolve untracked read error reported by users post-major release.
   - **v1.0.2** - Bugfix: disabled storage crash
     - `[ ]` fix: [PATCH] Investigate and resolve disabled storage crash reported by users post-major release.
   - **v1.0.3** - Bugfix: tab closing deadlock
@@ -2382,7 +2382,7 @@
   - **v1.0.5** - Bugfix: deep freeze fail
     - `[ ]` fix: [PATCH] Investigate and resolve deep freeze fail reported by users post-major release.
   - **v1.1.0** - Feature: leader election node
-    - `[ ]` feat: [MINOR] Sync new leader election node capabilities to expand the API surface of @typepurify/react-state.
+    - `[x]` feat: [MINOR] Sync new leader election node capabilities to expand the API surface of @typepurify/react-state.
     - **v1.1.1** - Bugfix: mutation tracking error
       - `[ ]` fix: [PATCH] Debug and resolve mutation tracking error occurring under specific edge cases.
     - **v1.1.2** - Bugfix: deep freeze fail
@@ -2667,7 +2667,7 @@
 - **v1.0.0** - Major Release: schema validator agent
   - `[x]` feat: [MAJOR] Convert the core schema validator agent for @typepurify/llm to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: nested optional field drop
-    - `[ ]` fix: [PATCH] Investigate and resolve nested optional field drop reported by users post-major release.
+    - `[x]` fix: [PATCH] Investigate and resolve nested optional field drop reported by users post-major release.
   - **v1.0.2** - Bugfix: markdown code block split error
     - `[ ]` fix: [PATCH] Investigate and resolve markdown code block split error reported by users post-major release.
   - **v1.0.3** - Bugfix: context loss over limit
@@ -2677,7 +2677,7 @@
   - **v1.0.5** - Bugfix: agent conversational deadlock
     - `[ ]` fix: [PATCH] Investigate and resolve agent conversational deadlock reported by users post-major release.
   - **v1.1.0** - Feature: RAG pipeline
-    - `[ ]` feat: [MINOR] Summarize new RAG pipeline capabilities to expand the API surface of @typepurify/llm.
+    - `[x]` feat: [MINOR] Summarize new RAG pipeline capabilities to expand the API surface of @typepurify/llm.
     - **v1.1.1** - Bugfix: connection pool leak
       - `[ ]` fix: [PATCH] Debug and resolve connection pool leak occurring under specific edge cases.
     - **v1.1.2** - Bugfix: agent conversational deadlock
@@ -2962,7 +2962,7 @@
 - **v1.0.0** - Major Release: rate limiter for logs
   - `[x]` feat: [MAJOR] Sample the core rate limiter for logs for @typepurify/logger to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: network partition buffer overflow
-    - `[ ]` fix: [PATCH] Investigate and resolve network partition buffer overflow reported by users post-major release.
+    - `[x]` fix: [PATCH] Investigate and resolve network partition buffer overflow reported by users post-major release.
   - **v1.0.2** - Bugfix: regex cache miss on PII
     - `[ ]` fix: [PATCH] Investigate and resolve regex cache miss on PII reported by users post-major release.
   - **v1.0.3** - Bugfix: trace ID drop across services
@@ -2972,7 +2972,7 @@
   - **v1.0.5** - Bugfix: binary encode error
     - `[ ]` fix: [PATCH] Investigate and resolve binary encode error reported by users post-major release.
   - **v1.1.0** - Feature: OpenTelemetry tracer
-    - `[ ]` feat: [MINOR] Inject new OpenTelemetry tracer capabilities to expand the API surface of @typepurify/logger.
+    - `[x]` feat: [MINOR] Inject new OpenTelemetry tracer capabilities to expand the API surface of @typepurify/logger.
     - **v1.1.1** - Bugfix: OOM burst during log spike
       - `[ ]` fix: [PATCH] Debug and resolve OOM burst during log spike occurring under specific edge cases.
     - **v1.1.2** - Bugfix: binary encode error
@@ -3257,7 +3257,7 @@
 - **v1.0.0** - Major Release: CSRF token validator
   - `[x]` feat: [MAJOR] Enforce the core CSRF token validator for @typepurify/security to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: SameSite cookie bypass
-    - `[ ]` fix: [PATCH] Investigate and resolve SameSite cookie bypass reported by users post-major release.
+    - `[x]` fix: [PATCH] Investigate and resolve SameSite cookie bypass reported by users post-major release.
   - **v1.0.2** - Bugfix: JSON parsing false positive
     - `[ ]` fix: [PATCH] Investigate and resolve JSON parsing false positive reported by users post-major release.
   - **v1.0.3** - Bugfix: IP spoofing bypass
@@ -3267,7 +3267,7 @@
   - **v1.0.5** - Bugfix: CPU overhead spike during scan
     - `[ ]` fix: [PATCH] Investigate and resolve CPU overhead spike during scan reported by users post-major release.
   - **v1.1.0** - Feature: sliding window rate limiter
-    - `[ ]` feat: [MINOR] Spoof-check new sliding window rate limiter capabilities to expand the API surface of @typepurify/security.
+    - `[x]` feat: [MINOR] Spoof-check new sliding window rate limiter capabilities to expand the API surface of @typepurify/security.
     - **v1.1.1** - Bugfix: CVE sync delay
       - `[ ]` fix: [PATCH] Debug and resolve CVE sync delay occurring under specific edge cases.
     - **v1.1.2** - Bugfix: CPU overhead spike during scan
@@ -3552,7 +3552,7 @@
 - **v1.0.0** - Major Release: health scorer command
   - `[x]` feat: [MAJOR] Export the core health scorer command for @typepurify/cli to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: symlink traverse crash
-    - `[ ]` fix: [PATCH] Investigate and resolve symlink traverse crash reported by users post-major release.
+    - `[x]` fix: [PATCH] Investigate and resolve symlink traverse crash reported by users post-major release.
   - **v1.0.2** - Bugfix: git history loss on hoist
     - `[ ]` fix: [PATCH] Investigate and resolve git history loss on hoist reported by users post-major release.
   - **v1.0.3** - Bugfix: formatting destruction during codemod
@@ -3562,7 +3562,7 @@
   - **v1.0.5** - Bugfix: YAML spacing error in CI generation
     - `[ ]` fix: [PATCH] Investigate and resolve YAML spacing error in CI generation reported by users post-major release.
   - **v1.1.0** - Feature: codemod engine
-    - `[ ]` feat: [MINOR] Rewrite new codemod engine capabilities to expand the API surface of @typepurify/cli.
+    - `[x]` feat: [MINOR] Rewrite new codemod engine capabilities to expand the API surface of @typepurify/cli.
     - **v1.1.1** - Bugfix: Windows pathing bug
       - `[ ]` fix: [PATCH] Debug and resolve Windows pathing bug occurring under specific edge cases.
     - **v1.1.2** - Bugfix: YAML spacing error in CI generation
@@ -3847,7 +3847,7 @@
 - **v1.0.0** - Major Release: CSV to JSON converter
   - `[x]` feat: [MAJOR] Flatten the core CSV to JSON converter for @typepurify/json to enhance performance and developer experience.
   - **v1.0.1** - Bugfix: comma escape error in CSV
-    - `[ ]` fix: [PATCH] Investigate and resolve comma escape error in CSV reported by users post-major release.
+    - `[x]` fix: [PATCH] Investigate and resolve comma escape error in CSV reported by users post-major release.
   - **v1.0.2** - Bugfix: regex filter error in JSONPath
     - `[ ]` fix: [PATCH] Investigate and resolve regex filter error in JSONPath reported by users post-major release.
   - **v1.0.3** - Bugfix: slow consumer leak in stream
@@ -3857,7 +3857,7 @@
   - **v1.0.5** - Bugfix: index shift during patch
     - `[ ]` fix: [PATCH] Investigate and resolve index shift during patch reported by users post-major release.
   - **v1.1.0** - Feature: large stream parser
-    - `[ ]` feat: [MINOR] Pipe new large stream parser capabilities to expand the API surface of @typepurify/json.
+    - `[x]` feat: [MINOR] Pipe new large stream parser capabilities to expand the API surface of @typepurify/json.
     - **v1.1.1** - Bugfix: precision loss for large numbers
       - `[ ]` fix: [PATCH] Debug and resolve precision loss for large numbers occurring under specific edge cases.
     - **v1.1.2** - Bugfix: index shift during patch

@@ -123,3 +123,37 @@ const nextVisibility = toggleAllColumnVisibility(currentVisibility, false);
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy
+
+---
+
+## 📋 Changelog
+
+### v0.5.4 — Latest
+
+**New Features:**
+
+- **`createHeadlessTableCore(data, columns)`** — Computes unstyled headless table metadata: `itemCount`, `columnKeys`, and `isEmpty`. Use as the foundation for building fully custom UI table renderers.
+
+```typescript
+import { createHeadlessTableCore } from '@typepurify/react-table';
+
+const core = createHeadlessTableCore(
+  [
+    { id: 1, name: 'Alice' },
+    { id: 2, name: 'Bob' },
+  ],
+  [{ key: 'id' }, { key: 'name' }],
+);
+
+console.log(core.itemCount); // 2
+console.log(core.columnKeys); // ['id', 'name']
+console.log(core.isEmpty); // false
+```
+
+**Bug Fixes:**
+
+- Fixed virtualizer scrollbar jump in `measureVirtualizer` by caching scroll position before re-measurement.
+
+### v0.5.1
+
+- Added `toggleAllColumnVisibility` for bulk column toggling.

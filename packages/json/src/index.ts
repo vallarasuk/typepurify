@@ -151,7 +151,7 @@ export function safeJsonParse<T = any>(str: string): { data: T | null; error: Er
  * Deep merges multiple JSON-serializable objects.
  * Arrays are overwritten by default unless custom logic is provided.
  */
-export function deepMerge<T extends object = any>(target: T, ...sources: Partial<T>[]): T {
+export function deepMerge<T extends object = any>(target: T, ...sources: Record<string, any>[]): T {
   if (!sources.length) return target;
   const source = sources.shift();
 
@@ -160,6 +160,7 @@ export function deepMerge<T extends object = any>(target: T, ...sources: Partial
   }
 
   if (typeof target === 'object' && typeof source === 'object' && source !== null) {
+    const t = target as Record<string, any>;
     for (const key in source) {
       if (Object.prototype.hasOwnProperty.call(source, key)) {
         if (
@@ -167,10 +168,10 @@ export function deepMerge<T extends object = any>(target: T, ...sources: Partial
           source[key] !== null &&
           !Array.isArray(source[key])
         ) {
-          if (!target[key]) Object.assign(target, { [key]: {} });
-          deepMerge(target[key] as any, source[key] as any);
+          if (!t[key]) Object.assign(t, { [key]: {} });
+          deepMerge(t[key] as any, source[key] as any);
         } else {
-          Object.assign(target, { [key]: source[key] });
+          Object.assign(t, { [key]: source[key] });
         }
       }
     }
@@ -198,12 +199,31 @@ export function jsonSize(obj: any): number {
  * Flatten CSV to JSON converter stream.
  */
 export function flattenCsvToJson(csv: string): object[] {
+  const parseCsvLine = (line: string): string[] => {
+    const values: string[] = [];
+    let current = '';
+    let inQuotes = false;
+    for (let i = 0; i < line.length; i++) {
+      const char = line[i];
+      if (char === '"') {
+        inQuotes = !inQuotes;
+      } else if (char === ',' && !inQuotes) {
+        values.push(current.trim().replace(/^"|"$/g, ''));
+        current = '';
+      } else {
+        current += char;
+      }
+    }
+    values.push(current.trim().replace(/^"|"$/g, ''));
+    return values;
+  };
+
   const lines = csv.split('\n').filter(Boolean);
   if (lines.length === 0) return [];
-  const headers = lines[0].split(',');
+  const headers = parseCsvLine(lines[0]);
 
   return lines.slice(1).map((line) => {
-    const values = line.split(',');
+    const values = parseCsvLine(line);
     const obj: any = {};
     headers.forEach((h, i) => {
       obj[h] = values[i];
@@ -275,6 +295,22 @@ export function jsonPathSelector<T = any>(obj: any, path: string, fallback?: T):
     curr = curr[part];
   }
   return curr !== undefined ? curr : (fallback as T);
+}
+
+/**
+ * Large JSON stream chunk generator helper for memory-friendly streaming.
+ */
+export function* parseJsonStreamChunk(jsonArrayStr: string): Generator<any, void, unknown> {
+  const trimmed = jsonArrayStr.trim().replace(/^\[|\]$/g, '');
+  if (!trimmed) return;
+  const items = trimmed.split(/\s*,\s*(?={)/);
+  for (const item of items) {
+    try {
+      yield JSON.parse(item);
+    } catch {
+      // Ignore incomplete items in stream
+    }
+  }
 }
 
 /**

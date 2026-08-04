@@ -251,4 +251,23 @@ describe('@typepurify/retry', () => {
       expect(lock.isLocked()).toBe(false);
     });
   });
+
+  describe('RetryEventEmitter', () => {
+    it('should emit and unsubscribe retry events', async () => {
+      const { RetryEventEmitter } = await import('./index');
+      const emitter = new RetryEventEmitter();
+      let fired = false;
+      const unsubscribe = emitter.on('attempt', () => {
+        fired = true;
+      });
+
+      emitter.emit('attempt');
+      expect(fired).toBe(true);
+
+      fired = false;
+      unsubscribe();
+      emitter.emit('attempt');
+      expect(fired).toBe(false);
+    });
+  });
 });

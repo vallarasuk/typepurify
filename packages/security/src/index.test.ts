@@ -183,4 +183,14 @@ describe('@typepurify/security', () => {
       expect(sanitizeHeaderValue('value\r\nSet-Cookie: stolen')).toBe('valueSet-Cookie: stolen');
     });
   });
+
+  describe('SlidingWindowSecurityRateLimiter', () => {
+    it('should limit request frequency in sliding window', async () => {
+      const { SlidingWindowSecurityRateLimiter } = await import('./index');
+      const limiter = new SlidingWindowSecurityRateLimiter(2, 1000);
+      expect(limiter.isAllowed(100)).toBe(true);
+      expect(limiter.isAllowed(200)).toBe(true);
+      expect(limiter.isAllowed(300)).toBe(false); // limit exceeded
+    });
+  });
 });
