@@ -339,3 +339,21 @@ export function parseRelayConnection<T>(connection: RelayConnection<T>): T[] {
   if (!connection || !Array.isArray(connection.edges)) return [];
   return connection.edges.map((edge) => edge.node);
 }
+
+/**
+ * Filters items and recalculates pagination metadata dynamically.
+ */
+export function filterPaginatedItems<T>(
+  items: T[],
+  predicate: (item: T) => boolean,
+  page = 1,
+  limit = 10,
+): { items: T[]; total: number; page: number; totalPages: number } {
+  const filtered = (items || []).filter(predicate);
+  const total = filtered.length;
+  const totalPages = Math.ceil(total / limit) || 1;
+  const offset = (Math.max(1, page) - 1) * limit;
+  const pageItems = filtered.slice(offset, offset + limit);
+
+  return { items: pageItems, total, page, totalPages };
+}

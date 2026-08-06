@@ -43,7 +43,16 @@ export class PromptTemplate {
  */
 export function countTokens(
   text: string,
-  model: 'openai' | 'claude' | 'gemini' | 'gpt-4' | 'gpt-4o' | 'gemini-1.5-pro' = 'openai',
+  model:
+    | 'openai'
+    | 'claude'
+    | 'gemini'
+    | 'gpt-4'
+    | 'gpt-4o'
+    | 'gemini-1.5-pro'
+    | 'gemini-2.0-flash'
+    | 'claude-3-5-sonnet'
+    | 'deepseek-r1' = 'openai',
 ): number {
   const chars = text.length;
   // Very rough approximations for fallback without heavy tokenizers
@@ -81,6 +90,9 @@ export function* parseAiStream(chunk: string): Generator<string, void, unknown> 
 export function estimateCost(tokens: number, model: string): number {
   if (model === 'gpt-4o') return (tokens / 1000) * 0.005;
   if (model === 'gemini-1.5-pro') return (tokens / 1000) * 0.0035;
+  if (model === 'gemini-2.0-flash') return (tokens / 1000) * 0.0001;
+  if (model === 'claude-3-5-sonnet') return (tokens / 1000) * 0.003;
+  if (model === 'deepseek-r1') return (tokens / 1000) * 0.00055;
   return 0;
 }
 
@@ -235,4 +247,24 @@ export function createRagPipelineSummary(documents: string[], query: string): st
   const filtered = documents.filter((doc) => doc.toLowerCase().includes(query.toLowerCase()));
   const selected = filtered.length > 0 ? filtered : documents;
   return selected.slice(0, 3).join('\n---\n');
+}
+
+/**
+ * Formats a function tool call payload into standardized LLM JSON.
+ */
+export function formatToolCall(
+  name: string,
+  args: Record<string, any>,
+): { name: string; arguments: string } {
+  return {
+    name,
+    arguments: JSON.stringify(args),
+  };
+}
+
+/**
+ * Wraps system prompt text in structured system message object for LLM APIs.
+ */
+export function createSystemMessage(text: string): { role: 'system'; content: string } {
+  return { role: 'system', content: sanitizeSystemPrompt(text) };
 }

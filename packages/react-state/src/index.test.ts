@@ -281,6 +281,11 @@ describe('@typepurify/react-state', () => {
       expect(result.current.array).toEqual([2, 3]);
 
       act(() => {
+        result.current.updateAtIndex(0, 99);
+      });
+      expect(result.current.array).toEqual([99, 3]);
+
+      act(() => {
         result.current.clear();
       });
       expect(result.current.array).toEqual([]);
@@ -296,6 +301,28 @@ describe('@typepurify/react-state', () => {
       expect(node.isLeader()).toBe(true);
       node.releaseLeader();
       expect(node.isLeader()).toBe(false);
+    });
+  });
+
+  describe('useAsyncEffect', () => {
+    it('should execute async effect', async () => {
+      const { useAsyncEffect } = await import('./index');
+      let executed = false;
+      renderHook(() =>
+        useAsyncEffect(async (isCancelled) => {
+          if (!isCancelled()) executed = true;
+        }),
+      );
+      expect(executed).toBe(true);
+    });
+  });
+
+  describe('useCopyToClipboard', () => {
+    it('should provide copy function', async () => {
+      const { useCopyToClipboard } = await import('./index');
+      const { result } = renderHook(() => useCopyToClipboard());
+      expect(result.current[0]).toBe(false);
+      expect(typeof result.current[1]).toBe('function');
     });
   });
 });

@@ -489,4 +489,15 @@ describe('tFetch wrapper', () => {
       expect(res).toEqual({ status: 'ok' });
     });
   });
+
+  describe('createMockFetchAdapter', () => {
+    it('should mock response object', async () => {
+      const { createMockFetchAdapter } = await import('./index');
+      const mockFetch = createMockFetchAdapter({ data: 'test' });
+      const res = await mockFetch();
+      expect(res.status).toBe(200);
+      const data = await res.json();
+      expect(data).toEqual({ data: 'test' });
+    });
+  });
 });

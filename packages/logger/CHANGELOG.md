@@ -1,3 +1,9 @@
+## 0.5.6
+
+### Patch Changes
+
+- Added `createBufferedLogger()` in-memory log buffer inspector and flusher.
+
 ## 0.5.3
 
 ### Minor Changes

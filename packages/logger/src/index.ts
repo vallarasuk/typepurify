@@ -5,6 +5,7 @@ export interface LoggerOptions {
   format?: 'json' | 'text';
   colorize?: boolean;
   silent?: boolean;
+  sanitizeSensitiveData?: boolean;
 }
 
 const LEVEL_COLORS: Record<LogLevel, string> = {
@@ -58,13 +59,20 @@ export class Logger {
 
   private formatMessage(level: LogLevel, message: string, meta?: any): string {
     const timestamp = new Date().toISOString();
+    const processedMeta =
+      this.options.sanitizeSensitiveData &&
+      meta &&
+      typeof meta === 'object' &&
+      !(meta instanceof Error)
+        ? sanitizeLogMeta(meta)
+        : meta;
 
     if (this.options.format === 'json') {
-      const metaObj = meta instanceof Error ? { error: meta } : meta;
+      const metaObj = processedMeta instanceof Error ? { error: processedMeta } : processedMeta;
       return this.safeStringify({ timestamp, level, message, ...metaObj });
     }
 
-    const metaStr = meta ? ` ${this.safeStringify(meta)}` : '';
+    const metaStr = processedMeta ? ` ${this.safeStringify(processedMeta)}` : '';
     let levelStr = `[${level.toUpperCase()}]`;
 
     if (this.options.colorize) {
@@ -240,5 +248,42 @@ export function injectOpenTelemetryTraceHeader(
 ): Record<string, string> {
   return {
     traceparent: `00-${traceId}-${spanId}-01`,
+  };
+}
+
+/**
+ * Creates an in-memory buffered logger that stores log messages for batch inspection or flushing.
+ */
+export function createBufferedLogger(options?: LoggerOptions) {
+  const logs: Array<{ level: LogLevel; message: string; meta?: any; timestamp: string }> = [];
+  const baseLogger = new Logger(options);
+
+  const push = (level: LogLevel, message: string, meta?: any) => {
+    logs.push({ level, message, meta, timestamp: new Date().toISOString() });
+  };
+
+  return {
+    debug: (msg: string, meta?: any) => {
+      push('debug', msg, meta);
+      baseLogger.debug(msg, meta);
+    },
+    info: (msg: string, meta?: any) => {
+      push('info', msg, meta);
+      baseLogger.info(msg, meta);
+    },
+    warn: (msg: string, meta?: any) => {
+      push('warn', msg, meta);
+      baseLogger.warn(msg, meta);
+    },
+    error: (msg: string, meta?: any) => {
+      push('error', msg, meta);
+      baseLogger.error(msg, meta);
+    },
+    getBufferedLogs: () => [...logs],
+    flushBufferedLogs: () => {
+      const copy = [...logs];
+      logs.length = 0;
+      return copy;
+    },
   };
 }

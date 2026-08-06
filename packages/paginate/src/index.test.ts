@@ -229,4 +229,15 @@ describe('@typepurify/paginate', () => {
       expect(nodes).toEqual(items);
     });
   });
+
+  describe('filterPaginatedItems', () => {
+    it('should filter items and return paginated slice with metadata', async () => {
+      const { filterPaginatedItems } = await import('./index');
+      const items = [1, 2, 3, 4, 5, 6];
+      const res = filterPaginatedItems(items, (n) => n % 2 === 0, 1, 2);
+      expect(res.items).toEqual([2, 4]);
+      expect(res.total).toBe(3);
+      expect(res.totalPages).toBe(2);
+    });
+  });
 });

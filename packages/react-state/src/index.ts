@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 import { clean, type DeepRequired, type CleanOptions } from 'typepurify';
 
 /**
@@ -161,8 +161,6 @@ export function useLocalStorage<T>(
 
   return [storedValue, setValue];
 }
-
-import { useRef } from 'react';
 
 export function useThrottledState<T>(
   initialState: T | (() => T),
@@ -348,9 +346,14 @@ export function useArray<T>(initialValue: T[] = []) {
     (index: number) => setArray((a) => a.filter((_, i) => i !== index)),
     [],
   );
+  const updateAtIndex = useCallback(
+    (index: number, item: T) =>
+      setArray((a) => a.map((existing, i) => (i === index ? item : existing))),
+    [],
+  );
   const clear = useCallback(() => setArray([]), []);
 
-  return { array, setArray, push, removeByIndex, clear };
+  return { array, setArray, push, removeByIndex, updateAtIndex, clear };
 }
 
 /**
@@ -369,4 +372,46 @@ export function createLeaderElectionNode(channelName = 'typepurify_leader') {
       isLeader = false;
     },
   };
+}
+
+/**
+ * React hook for running async effects cleanly with automatic cancellation signal logic.
+ */
+export function useAsyncEffect(
+  effect: (isCancelled: () => boolean) => Promise<void>,
+  deps: any[] = [],
+) {
+  useEffect(() => {
+    let cancelled = false;
+    effect(() => cancelled);
+    return () => {
+      cancelled = true;
+    };
+  }, deps);
+}
+
+/**
+ * React hook to copy text to clipboard with feedback state.
+ */
+export function useCopyToClipboard(
+  resetTimeoutMs = 2000,
+): [boolean, (text: string) => Promise<boolean>] {
+  const [isCopied, setIsCopied] = useState(false);
+
+  const copy = useCallback(
+    async (text: string): Promise<boolean> => {
+      if (typeof navigator === 'undefined' || !navigator.clipboard) return false;
+      try {
+        await navigator.clipboard.writeText(text);
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), resetTimeoutMs);
+        return true;
+      } catch {
+        return false;
+      }
+    },
+    [resetTimeoutMs],
+  );
+
+  return [isCopied, copy];
 }

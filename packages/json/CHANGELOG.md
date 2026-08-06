@@ -1,3 +1,9 @@
+## 0.5.6
+
+### Patch Changes
+
+- Added `flattenJson()` utility for dot-notation key path flattening.
+
 ## 0.5.3
 
 ### Minor Changes

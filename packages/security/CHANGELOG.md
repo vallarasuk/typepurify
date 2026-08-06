@@ -1,3 +1,9 @@
+## 0.5.6
+
+### Patch Changes
+
+- Added `isSqlInjectionAttempt()` heuristic payload scanner.
+
 ## 0.5.3
 
 ### Minor Changes

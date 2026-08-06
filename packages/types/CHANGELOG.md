@@ -1,3 +1,9 @@
+## 0.5.6
+
+### Patch Changes
+
+- Added `AsyncReturnType<T>` and `ValueOf<T>` TypeScript utility types.
+
 ## 0.5.3
 
 ### Minor Changes

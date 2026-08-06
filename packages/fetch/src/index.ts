@@ -411,3 +411,15 @@ export function createRateLimiterFetch(options: { maxRequests?: number; perMs?: 
     return tFetch<T>(input, init, purifyOptions);
   };
 }
+
+/**
+ * Creates a mock fetch function handler for test suites and offline mock APIs.
+ */
+export function createMockFetchAdapter(mockResponse: any, status = 200) {
+  return async function mockFetch(): Promise<Response> {
+    return new Response(JSON.stringify(mockResponse), {
+      status,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  };
+}

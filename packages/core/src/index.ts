@@ -48,6 +48,10 @@ export interface CleanOptions {
   transform?: (value: any, key?: any) => any;
   /** Removes falsy values (0, false, "") in addition to null/undefined. */
   stripFalsy?: boolean;
+  /** Removes NaN numeric values from the payload. */
+  stripNaN?: boolean;
+  /** Removes Infinity and -Infinity numeric values from the payload. */
+  stripInfinity?: boolean;
 }
 
 /**
@@ -86,6 +90,10 @@ export function clean<T, const O extends CleanOptions = {}>(
   }
 
   if (typeof obj !== 'object') {
+    if (typeof obj === 'number') {
+      if (Number.isNaN(obj) && options.stripNaN) return undefined as any;
+      if (!Number.isFinite(obj) && options.stripInfinity) return undefined as any;
+    }
     if (typeof obj === 'string') {
       const val = options.trimStrings ? obj.trim() : obj;
       if (val === '' && options.stripEmptyStrings) return undefined as any;
@@ -826,4 +834,62 @@ export function traverseObjectGraph(
     if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue;
     traverseObjectGraph(obj[key], visitor, seen, [...currentPath, key]);
   }
+}
+
+/**
+ * Recursively maps and sanitizes all string values in an object graph using a custom mapper.
+ */
+export function sanitizeObject<T>(obj: T, stringMapper: (str: string, key?: string) => string): T {
+  if (obj === null || obj === undefined) return obj;
+  if (typeof obj === 'string') return stringMapper(obj) as any;
+  if (typeof obj !== 'object') return obj;
+
+  if (Array.isArray(obj)) {
+    return obj.map((item) => sanitizeObject(item, stringMapper)) as any;
+  }
+
+  const result: Record<string, any> = {};
+  for (const key of Object.keys(obj)) {
+    if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue;
+    const val = (obj as any)[key];
+    result[key] =
+      typeof val === 'string' ? stringMapper(val, key) : sanitizeObject(val, stringMapper);
+  }
+  return result as T;
+}
+
+/**
+ * Array crawler helper for high-throughput filtering and transforming of arrays.
+ */
+export function crawlArray<T, R>(
+  arr: T[],
+  crawlerFn: (item: T, index: number) => R | undefined,
+): R[] {
+  const result: R[] = [];
+  if (!Array.isArray(arr)) return result;
+  for (let i = 0; i < arr.length; i++) {
+    const res = crawlerFn(arr[i], i);
+    if (res !== undefined) result.push(res);
+  }
+  return result;
+}
+
+/**
+ * Schema inferencer that inspects an object graph and generates a runtime schema definition.
+ */
+export function inferSchema(obj: any): Record<string, string> {
+  if (obj === null || obj === undefined) return { type: 'null' };
+  if (Array.isArray(obj)) {
+    const itemType = obj.length > 0 ? inferSchema(obj[0]) : { type: 'unknown' };
+    return { type: 'array', items: itemType } as any;
+  }
+  if (typeof obj === 'object') {
+    const shape: Record<string, any> = {};
+    for (const key of Object.keys(obj)) {
+      if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue;
+      shape[key] = inferSchema(obj[key]);
+    }
+    return { type: 'object', properties: shape } as any;
+  }
+  return { type: typeof obj };
 }

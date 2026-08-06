@@ -1,6 +1,6 @@
 {
   "name": "@typepurify/security",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "description": "Security inspection tools.",
   "publishConfig": {
     "access": "public"

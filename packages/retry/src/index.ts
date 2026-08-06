@@ -336,3 +336,27 @@ export class RetryEventEmitter {
     this.listeners[event]?.forEach((l) => l(data));
   }
 }
+
+/**
+ * Executes a function with a maximum retry budget percentage to avoid cascading failures.
+ */
+export async function executeWithRetryBudget<T>(
+  fn: () => Promise<T>,
+  budgetRatio = 0.5,
+  maxRetries = 3,
+): Promise<T> {
+  let attempt = 0;
+
+  while (attempt <= maxRetries) {
+    try {
+      return await fn();
+    } catch (err) {
+      attempt++;
+      if (attempt > maxRetries || attempt / Math.max(1, maxRetries) > budgetRatio) {
+        throw err;
+      }
+      await new Promise((r) => setTimeout(r, 10));
+    }
+  }
+  throw new Error('Retry budget exhausted');
+}

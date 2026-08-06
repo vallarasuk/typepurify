@@ -249,3 +249,12 @@ export function runCodemodEngine(
 export function formatWarning(msg: string): string {
   return `\x1b[33m[WARNING] ${msg}\x1b[0m`;
 }
+
+/**
+ * Generates markdown changelog entries from commit message subjects.
+ */
+export function generateChangelogFromCommits(commits: string[]): string {
+  if (!commits || commits.length === 0) return '## Changelog\n\n- No recent commits.';
+  const entries = commits.map((c) => `- ${c.trim()}`).join('\n');
+  return `## Changelog\n\n${entries}`;
+}

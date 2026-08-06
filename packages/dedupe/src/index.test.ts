@@ -336,4 +336,22 @@ describe('@typepurify/dedupe', () => {
       expect(key).toBe('gql:query getUser { user { id } }:{"id":10}');
     });
   });
+
+  describe('DedupePromisePool', () => {
+    it('should deduplicate concurrent executions by key', async () => {
+      const { DedupePromisePool } = await import('./index');
+      const pool = new DedupePromisePool<string, number>();
+      let calls = 0;
+      const fn = async () => {
+        calls++;
+        await new Promise((r) => setTimeout(r, 10));
+        return 42;
+      };
+
+      const [r1, r2] = await Promise.all([pool.run('k1', fn), pool.run('k1', fn)]);
+      expect(r1).toBe(42);
+      expect(r2).toBe(42);
+      expect(calls).toBe(1);
+    });
+  });
 });

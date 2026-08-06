@@ -118,6 +118,21 @@ describe('@typepurify/cache', () => {
     });
   });
 
+  describe('mget and mset', () => {
+    it('should set and get multiple keys in bulk', () => {
+      const cache = new Cache<number>();
+      cache.mset({ k1: 10, k2: 20, k3: 30 });
+
+      const bulkResult = cache.mget(['k1', 'k2', 'k3', 'k4']);
+      expect(bulkResult).toEqual({
+        k1: 10,
+        k2: 20,
+        k3: 30,
+        k4: undefined,
+      });
+    });
+  });
+
   describe('events', () => {
     it('should fire onCacheHit and onCacheMiss', () => {
       let hit = '';
@@ -222,13 +237,16 @@ describe('@typepurify/cache', () => {
     });
   });
 
-  describe('FileSystemStorageAdapter', () => {
+  describe('FileSystemStorageAdapter and LocalStorageAdapter', () => {
     it('should set and get items from file storage adapter', async () => {
-      const { FileSystemStorageAdapter } = await import('./index');
+      const { FileSystemStorageAdapter, LocalStorageAdapter } = await import('./index');
       const fsCache = new FileSystemStorageAdapter();
       await fsCache.setItem('k', 'v');
       const val = await fsCache.getItem('k');
       expect(val).toBe('v');
+
+      const lsCache = new LocalStorageAdapter();
+      expect(typeof lsCache.getItem).toBe('function');
     });
   });
 });

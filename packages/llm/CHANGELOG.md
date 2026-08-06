@@ -1,3 +1,9 @@
+## 0.5.6
+
+### Patch Changes
+
+- Added `formatToolCall()` and `createSystemMessage()` LLM response helpers.
+
 ## 0.5.3
 
 ### Minor Changes

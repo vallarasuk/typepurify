@@ -1,3 +1,9 @@
+## 0.5.6
+
+### Patch Changes
+
+- Added `generateChangelogFromCommits()` scaffolding helper.
+
 ## 0.5.3
 
 ### Minor Changes

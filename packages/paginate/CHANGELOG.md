@@ -1,3 +1,9 @@
+## 0.5.6
+
+### Patch Changes
+
+- Added `filterPaginatedItems()` for dynamic item filtering and pagination metadata calculation.
+
 ## 0.5.3
 
 ### Minor Changes

@@ -1,3 +1,9 @@
+## 0.5.6
+
+### Patch Changes
+
+- Added `exportToJson()` client-side data export helper to `useTable`.
+
 ## 0.5.3
 
 ### Minor Changes

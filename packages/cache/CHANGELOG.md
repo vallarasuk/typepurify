@@ -1,3 +1,10 @@
+## 0.5.6
+
+### Patch Changes
+
+- Added `LocalStorageAdapter` for browser Web Storage caching.
+- Added `mget()` and `mset()` bulk key cache operations.
+
 ## 0.5.3
 
 ### Minor Changes
