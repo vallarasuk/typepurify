@@ -331,3 +331,19 @@ export function jsonDiff(
 
   return diff;
 }
+
+/**
+ * Flattens nested JSON objects into single level dot-notation key paths.
+ */
+export function flattenJson(obj: Record<string, any>, prefix = ''): Record<string, any> {
+  const result: Record<string, any> = {};
+  for (const [key, value] of Object.entries(obj || {})) {
+    const newKey = prefix ? `${prefix}.${key}` : key;
+    if (value !== null && typeof value === 'object' && !Array.isArray(value)) {
+      Object.assign(result, flattenJson(value, newKey));
+    } else {
+      result[newKey] = value;
+    }
+  }
+  return result;
+}

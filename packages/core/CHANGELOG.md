@@ -1,3 +1,12 @@
+## 1.6.6
+
+### Patch Changes
+
+- Added `sanitizeObject()` for recursive string transformation.
+- Added `crawlArray()` for high-throughput array mapping.
+- Added `inferSchema()` for runtime object graph schema inference.
+- Added `stripNaN` and `stripInfinity` options to CleanOptions.
+
 ## 1.6.3
 
 ### Minor Changes

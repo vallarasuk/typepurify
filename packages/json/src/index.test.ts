@@ -222,4 +222,12 @@ describe('@typepurify/json', () => {
       expect(items).toEqual([{ id: 1 }, { id: 2 }]);
     });
   });
+
+  describe('flattenJson', () => {
+    it('should flatten nested objects into dot-notation keys', async () => {
+      const { flattenJson } = await import('./index');
+      const res = flattenJson({ user: { name: 'Alice', details: { age: 30 } } });
+      expect(res).toEqual({ 'user.name': 'Alice', 'user.details.age': 30 });
+    });
+  });
 });

@@ -89,24 +89,156 @@ function MyComponent() {
 
 ---
 
-## ✨ Recent Feature Additions (v1.6.4 / v0.5.4)
+## ✨ Recent Feature Additions (v1.6.6 / v0.5.6)
 
-We are constantly expanding the ecosystem. Here are the latest capabilities added across all packages in the **v0.5.4** release:
+We are constantly expanding the ecosystem. Here are the latest capabilities added across all packages in the **v0.5.6** (Core **v1.6.6**) release:
 
 ---
 
-### 🔁 `typepurify` (core) — `v1.6.4`
+### 🔁 `typepurify` (core) — `v1.6.6`
 
-**`traverseObjectGraph`** — Recursively walk every node in an object graph without circular reference crashes.
+**`sanitizeObject`**, **`crawlArray`**, **`inferSchema`** — Deep recursive string sanitization, high-throughput array crawling, and runtime payload schema inference.
 
 ```typescript
-import { traverseObjectGraph } from 'typepurify';
+import { sanitizeObject, crawlArray, inferSchema } from 'typepurify';
 
-const graph = { a: { b: { c: 42 } } };
-traverseObjectGraph(graph, (key, value) => {
-  console.log(key, value); // a, b, c, 42
-});
+// 1. Sanitize nested string values
+const clean = sanitizeObject({ name: '  ALICE ' }, (s) => s.trim().toLowerCase());
+
+// 2. High-throughput array crawling
+const crawled = crawlArray([1, null, 3], (val) => (val ? val * 2 : undefined));
+
+// 3. Runtime schema inference
+const schema = inferSchema({ name: 'Alice', age: 30 });
 ```
+
+---
+
+### 💾 `@typepurify/cache` — `v0.5.6`
+
+**`LocalStorageAdapter`**, **`mget`**, **`mset`** — Web Storage persistent caching adapter and bulk key operations.
+
+```typescript
+import { LocalStorageAdapter, Cache } from '@typepurify/cache';
+
+const ls = new LocalStorageAdapter('my_app_');
+ls.setItem('user', { name: 'Alice' });
+
+const cache = new Cache<number>();
+cache.mset([
+  ['a', 1],
+  ['b', 2],
+]);
+const values = cache.mget(['a', 'b']);
+```
+
+---
+
+### 🧩 `@typepurify/dedupe` — `v0.5.6`
+
+**`DedupePromisePool`** — Deduplicate concurrent promise executions across a shared key pool.
+
+```typescript
+import { DedupePromisePool } from '@typepurify/dedupe';
+
+const pool = new DedupePromisePool<string, Response>();
+const res = await pool.run('user-1', () => fetch('/api/user/1'));
+```
+
+---
+
+### 🧠 `@typepurify/types` — `v0.5.6`
+
+**`AsyncReturnType`**, **`ValueOf`** — Extract unwrapped async return types and object property value unions.
+
+```typescript
+import type { AsyncReturnType, ValueOf } from '@typepurify/types';
+
+type UserFn = () => Promise<{ id: string }>;
+type User = AsyncReturnType<UserFn>; // => { id: string }
+type UserProps = ValueOf<User>; // => string
+```
+
+---
+
+### 🔒 `@typepurify/security` — `v0.5.6`
+
+**`isSqlInjectionAttempt`** — Heuristic SQL Injection scanner for untrusted input strings.
+
+```typescript
+import { isSqlInjectionAttempt } from '@typepurify/security';
+
+if (isSqlInjectionAttempt("SELECT * FROM users WHERE '1'='1'")) {
+  throw new Error('Malicious payload detected');
+}
+```
+
+---
+
+### ⚡ `@typepurify/react-state` — `v0.5.6`
+
+**`useAsyncEffect`**, **`useCopyToClipboard`** — React hooks for cancellable async effects and clipboard interactions.
+
+```typescript
+import { useAsyncEffect, useCopyToClipboard } from '@typepurify/react-state';
+
+useAsyncEffect(async (isCancelled) => {
+  const data = await fetchData();
+  if (!isCancelled()) setState(data);
+}, []);
+
+const [isCopied, copy] = useCopyToClipboard();
+```
+
+---
+
+### 🗂️ `@typepurify/react-table` — `v0.5.6`
+
+**`exportToJson`** — Client-side JSON file exporter helper in `useTable`.
+
+---
+
+### 🤖 `@typepurify/llm` — `v0.5.6`
+
+**`formatToolCall`**, **`createSystemMessage`** — Standardized tool call JSON formatting and system prompt wrappers.
+
+---
+
+### 📋 `@typepurify/logger` — `v0.5.6`
+
+**`createBufferedLogger`** — In-memory log buffer inspector and flusher.
+
+---
+
+### 🛠️ `@typepurify/cli` — `v0.5.6`
+
+**`generateChangelogFromCommits`** — Scaffolding changelog generator from commit messages.
+
+---
+
+### 🌐 `@typepurify/fetch` — `v0.5.6`
+
+**`createMockFetchAdapter`** — Offline mock response fetch handler for unit testing.
+
+---
+
+### 📄 `@typepurify/paginate` — `v0.5.6`
+
+**`filterPaginatedItems`** — Dynamic filtering and paginated slice recalculation.
+
+---
+
+### 📦 `@typepurify/json` — `v0.5.6`
+
+**`flattenJson`** — Flatten nested object structures into single-level dot-notation key paths.
+
+---
+
+### 🔄 `@typepurify/retry` — `v0.5.6`
+
+**`executeWithRetryBudget`** — Prevent cascading retry storms using max retry budget ratio controls.
+
+---
 
 ---
 

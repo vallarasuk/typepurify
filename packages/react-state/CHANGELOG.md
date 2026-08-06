@@ -1,3 +1,11 @@
+## 0.5.6
+
+### Patch Changes
+
+- Added `useAsyncEffect()` hook with cancellation flag support.
+- Added `useCopyToClipboard()` hook.
+- Added `updateAtIndex` method to `useArray` hook.
+
 ## 0.5.3
 
 ### Minor Changes

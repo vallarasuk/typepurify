@@ -154,5 +154,12 @@ describe('@typepurify/cli', () => {
       const transformed = runCodemodEngine('var x = 1;', [{ from: 'var', to: 'const' }]);
       expect(transformed).toBe('const x = 1;');
     });
+
+    it('should generate changelog markdown from commits', async () => {
+      const { generateChangelogFromCommits } = await import('./index');
+      const md = generateChangelogFromCommits(['feat: add new feature']);
+      expect(md).toContain('## Changelog');
+      expect(md).toContain('- feat: add new feature');
+    });
   });
 });

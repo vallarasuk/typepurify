@@ -193,4 +193,12 @@ describe('@typepurify/security', () => {
       expect(limiter.isAllowed(300)).toBe(false); // limit exceeded
     });
   });
+
+  describe('isSqlInjectionAttempt', () => {
+    it('should detect SQL injection payloads', async () => {
+      const { isSqlInjectionAttempt } = await import('./index');
+      expect(isSqlInjectionAttempt("SELECT * FROM users WHERE '1'='1'")).toBe(true);
+      expect(isSqlInjectionAttempt('hello world')).toBe(false);
+    });
+  });
 });

@@ -403,3 +403,29 @@ export function parseGraphQLQueryKey(query: string, variables?: Record<string, a
   const normalizedVars = variables ? JSON.stringify(variables) : '{}';
   return `gql:${normalizedQuery}:${normalizedVars}`;
 }
+
+/**
+ * Deduplicates concurrent promise executions across a shared promise pool.
+ */
+export class DedupePromisePool<K = string, V = any> {
+  private pool = new Map<K, Promise<V>>();
+
+  async run(key: K, fn: () => Promise<V>): Promise<V> {
+    if (this.pool.has(key)) {
+      return this.pool.get(key)!;
+    }
+    const promise = fn().finally(() => {
+      this.pool.delete(key);
+    });
+    this.pool.set(key, promise);
+    return promise;
+  }
+
+  size(): number {
+    return this.pool.size;
+  }
+
+  clear(): void {
+    this.pool.clear();
+  }
+}

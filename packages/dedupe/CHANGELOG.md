@@ -1,3 +1,9 @@
+## 0.5.6
+
+### Patch Changes
+
+- Added `DedupePromisePool` class for deduplicating concurrent promises across key pools.
+
 ## 0.5.3
 
 ### Minor Changes

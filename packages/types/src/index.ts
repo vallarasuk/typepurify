@@ -168,3 +168,17 @@ export type RegexMatchLiteral<
 > = S extends `${string}${Pattern}${infer Rest}`
   ? Pattern | RegexMatchLiteral<Rest, Pattern>
   : never;
+
+/**
+ * Extracts the unwrapped resolved return type of an asynchronous function.
+ */
+export type AsyncReturnType<T extends (...args: any) => Promise<any>> = T extends (
+  ...args: any
+) => Promise<infer R>
+  ? R
+  : never;
+
+/**
+ * Extracts all property value types of an object or interface as a union.
+ */
+export type ValueOf<T> = T[keyof T];

@@ -174,6 +174,22 @@ export function useTable<T>(options: UseTableOptions<T>) {
     return csvContent;
   };
 
+  const exportToJson = (filename: string = 'export.json') => {
+    const jsonContent = JSON.stringify(processedData, null, 2);
+
+    if (typeof window !== 'undefined') {
+      const blob = new Blob([jsonContent], { type: 'application/json' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.setAttribute('download', filename);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    return jsonContent;
+  };
+
   const toggleColumnVisibility = (key: string, isVisible?: boolean) => {
     setColumnVisibility((prev) => ({
       ...prev,
@@ -225,6 +241,7 @@ export function useTable<T>(options: UseTableOptions<T>) {
     toggleColumnVisibility,
     toggleAllColumnVisibility,
     exportToCsv,
+    exportToJson,
     setData,
   };
 }

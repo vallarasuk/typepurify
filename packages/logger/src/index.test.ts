@@ -87,6 +87,21 @@ describe('@typepurify/logger', () => {
       consoleLogSpy.mockRestore();
     });
 
+    it('should sanitize sensitive metadata when sanitizeSensitiveData is true', () => {
+      const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+      const logger = new Logger({ format: 'json', level: 'info', sanitizeSensitiveData: true });
+
+      logger.info('User Auth', { user: 'bob', secretKey: 'topsecret' });
+
+      expect(consoleSpy).toHaveBeenCalledTimes(1);
+      const output = JSON.parse(consoleSpy.mock.calls[0][0]);
+
+      expect(output.user).toBe('bob');
+      expect(output.secretKey).toBe('[REDACTED]');
+
+      consoleSpy.mockRestore();
+    });
+
     it('should not log anything if silent is true', () => {
       const consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
       const logger = new Logger({ silent: true });
@@ -198,6 +213,23 @@ describe('@typepurify/logger', () => {
       const { injectOpenTelemetryTraceHeader } = await import('./index');
       const headers = injectOpenTelemetryTraceHeader('1234', '5678');
       expect(headers).toEqual({ traceparent: '00-1234-5678-01' });
+    });
+  });
+
+  describe('createBufferedLogger', () => {
+    it('should buffer and flush logs', async () => {
+      const { createBufferedLogger } = await import('./index');
+      const logger = createBufferedLogger({ silent: true });
+
+      logger.info('Message 1', { a: 1 });
+      logger.warn('Message 2');
+
+      expect(logger.getBufferedLogs().length).toBe(2);
+
+      const flushed = logger.flushBufferedLogs();
+      expect(flushed.length).toBe(2);
+      expect(flushed[0].message).toBe('Message 1');
+      expect(logger.getBufferedLogs().length).toBe(0);
     });
   });
 });

@@ -1,3 +1,9 @@
+## 0.5.6
+
+### Patch Changes
+
+- Added `createMockFetchAdapter()` helper for unit testing fetch calls.
+
 ## 0.5.3
 
 ### Minor Changes

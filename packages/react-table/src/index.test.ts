@@ -109,6 +109,15 @@ describe('@typepurify/react-table', () => {
     expect(lines.length).toBe(4); // header + 3 rows
   });
 
+  it('should generate JSON export correctly', () => {
+    const { result } = renderHook(() => useTable({ data: mockData, columns }));
+
+    const json = result.current.exportToJson('test.json');
+    const parsed = JSON.parse(json);
+
+    expect(parsed).toEqual(mockData);
+  });
+
   describe('useRowSelection', () => {
     it('should exist', () => {
       expect(typeof useRowSelection).toBe('function');

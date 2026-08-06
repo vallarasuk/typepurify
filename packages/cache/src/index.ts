@@ -147,6 +147,26 @@ export class Cache<T = any> {
   }
 
   /**
+   * Bulk retrieve multiple keys at once.
+   */
+  mget(keys: string[]): Record<string, T | undefined> {
+    const result: Record<string, T | undefined> = {};
+    for (const key of keys) {
+      result[key] = this.get(key);
+    }
+    return result;
+  }
+
+  /**
+   * Bulk set multiple key-value pairs at once.
+   */
+  mset(entries: Record<string, T>, customTtl?: number): void {
+    for (const [key, val] of Object.entries(entries)) {
+      this.set(key, val, customTtl);
+    }
+  }
+
+  /**
    * Clears the entire cache.
    */
   clear(): void {
@@ -292,5 +312,36 @@ export class FileSystemStorageAdapter<T = any> {
 
   async removeItem(key: string): Promise<void> {
     this.mem.delete(key);
+  }
+}
+
+/**
+ * Universal Web Storage Adapter for localStorage.
+ */
+export class LocalStorageAdapter<T = any> {
+  constructor(private prefix = 'typepurify_') {}
+
+  getItem(key: string): T | undefined {
+    if (typeof window === 'undefined' || !window.localStorage) return undefined;
+    try {
+      const item = window.localStorage.getItem(this.prefix + key);
+      return item ? JSON.parse(item) : undefined;
+    } catch {
+      return undefined;
+    }
+  }
+
+  setItem(key: string, value: T): void {
+    if (typeof window === 'undefined' || !window.localStorage) return;
+    try {
+      window.localStorage.setItem(this.prefix + key, JSON.stringify(value));
+    } catch {
+      // Ignore quota errors
+    }
+  }
+
+  removeItem(key: string): void {
+    if (typeof window === 'undefined' || !window.localStorage) return;
+    window.localStorage.removeItem(this.prefix + key);
   }
 }

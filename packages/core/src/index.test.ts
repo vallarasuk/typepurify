@@ -78,6 +78,33 @@ describe('typepurify core engine', () => {
     });
   });
 
+  it('should strip NaN values if stripNaN is true', () => {
+    const payload = {
+      validNumber: 42,
+      invalidNumber: NaN,
+      text: 'hello',
+    };
+
+    expect(clean(payload, { stripNaN: true })).toEqual({
+      validNumber: 42,
+      text: 'hello',
+    });
+  });
+
+  it('should strip Infinity values if stripInfinity is true', () => {
+    const payload = {
+      validNumber: 42,
+      posInf: Infinity,
+      negInf: -Infinity,
+      text: 'hello',
+    };
+
+    expect(clean(payload, { stripInfinity: true })).toEqual({
+      validNumber: 42,
+      text: 'hello',
+    });
+  });
+
   it('should clean in place (mutate original object)', () => {
     const original = {
       a: 1,
@@ -498,6 +525,34 @@ describe('typepurify core engine', () => {
       expect(visited).toContain('a');
       expect(visited).toContain('b');
       expect(visited).toContain('b.c');
+    });
+
+    it('should recursively sanitize all string values in object graph', async () => {
+      const { sanitizeObject } = await import('./index');
+      const input = {
+        name: '  alice ',
+        meta: { title: '  DEVELOPER  ' },
+        tags: ['  react  ', ' typescript '],
+      };
+
+      const result = sanitizeObject(input, (s) => s.trim().toLowerCase());
+      expect(result).toEqual({
+        name: 'alice',
+        meta: { title: 'developer' },
+        tags: ['react', 'typescript'],
+      });
+    });
+
+    it('should crawl array items using crawlArray', async () => {
+      const { crawlArray } = await import('./index');
+      const res = crawlArray([1, null, 3], (val) => (val ? val * 2 : undefined));
+      expect(res).toEqual([2, 6]);
+    });
+
+    it('should infer schema of object structure using inferSchema', async () => {
+      const { inferSchema } = await import('./index');
+      const schema = inferSchema({ name: 'Alice', age: 30 });
+      expect(schema.type).toBe('object');
     });
   });
 });

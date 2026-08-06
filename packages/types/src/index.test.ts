@@ -157,4 +157,16 @@ describe('@typepurify/types', () => {
       expectTypeOf<Matched>().toEqualTypeOf<'test'>();
     });
   });
+
+  describe('AsyncReturnType and ValueOf', () => {
+    it('should extract unwrapped async return type and valueof union', async () => {
+      type AsyncFn = () => Promise<number>;
+      type Ret = import('./index').AsyncReturnType<AsyncFn>;
+      expectTypeOf<Ret>().toEqualTypeOf<number>();
+
+      type MyObj = { a: string; b: number };
+      type Vals = import('./index').ValueOf<MyObj>;
+      expectTypeOf<Vals>().toEqualTypeOf<string | number>();
+    });
+  });
 });

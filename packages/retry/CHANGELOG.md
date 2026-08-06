@@ -1,3 +1,9 @@
+## 0.5.6
+
+### Patch Changes
+
+- Added `executeWithRetryBudget()` utility to avoid cascading retry storms.
+
 ## 0.5.3
 
 ### Minor Changes

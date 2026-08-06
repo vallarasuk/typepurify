@@ -270,4 +270,19 @@ describe('@typepurify/retry', () => {
       expect(fired).toBe(false);
     });
   });
+
+  describe('executeWithRetryBudget', () => {
+    it('should respect retry budget limits', async () => {
+      const { executeWithRetryBudget } = await import('./index');
+      let calls = 0;
+      const fn = async () => {
+        calls++;
+        if (calls === 1) throw new Error('First attempt failed');
+        return 'success';
+      };
+
+      const res = await executeWithRetryBudget(fn, 0.5, 2);
+      expect(res).toBe('success');
+    });
+  });
 });

@@ -64,6 +64,9 @@ describe('@typepurify/llm', () => {
     it('should return cost', () => {
       expect(estimateCost(1000, 'gpt-4o')).toBe(0.005);
       expect(estimateCost(1000, 'gemini-1.5-pro')).toBe(0.0035);
+      expect(estimateCost(1000, 'gemini-2.0-flash')).toBe(0.0001);
+      expect(estimateCost(1000, 'claude-3-5-sonnet')).toBe(0.003);
+      expect(estimateCost(1000, 'deepseek-r1')).toBe(0.00055);
       expect(estimateCost(1000, 'unknown-model')).toBe(0);
     });
   });
@@ -175,6 +178,17 @@ describe('@typepurify/llm', () => {
       expect(summary).toContain('Doc A about TypeScript');
       expect(summary).toContain('Doc C about TypeScript');
       expect(summary).not.toContain('Doc B');
+    });
+  });
+
+  describe('formatToolCall and createSystemMessage', () => {
+    it('should format tool call payloads properly', async () => {
+      const { formatToolCall, createSystemMessage } = await import('./index');
+      const toolCall = formatToolCall('get_weather', { location: 'Chennai' });
+      expect(toolCall).toEqual({ name: 'get_weather', arguments: '{"location":"Chennai"}' });
+
+      const sysMsg = createSystemMessage('Helpful Assistant');
+      expect(sysMsg).toEqual({ role: 'system', content: 'Helpful Assistant' });
     });
   });
 });

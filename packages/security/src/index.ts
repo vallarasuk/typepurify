@@ -244,3 +244,16 @@ export class SlidingWindowSecurityRateLimiter {
     return true;
   }
 }
+
+/**
+ * Basic SQL Injection heuristic scanner for untrusted string inputs.
+ */
+export function isSqlInjectionAttempt(input: string): boolean {
+  if (!input || typeof input !== 'string') return false;
+  const sqlPatterns = [
+    /(%27)|(')|(--)|(%23)|(#)/i,
+    /(union\s+select|select\s+.*\s+from|insert\s+into|drop\s+table|delete\s+from)/i,
+    /exec(\s|\+)+(s|x)p\w+/i,
+  ];
+  return sqlPatterns.some((pattern) => pattern.test(input));
+}
