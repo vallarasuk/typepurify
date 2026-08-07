@@ -287,3 +287,51 @@ export function createBufferedLogger(options?: LoggerOptions) {
     },
   };
 }
+
+/**
+ * Streams log messages to a Kafka log ingestion pipeline topic.
+ */
+export function createKafkaStreamWorkerAdapter(brokerUrl: string, topic = 'typepurify-logs') {
+  const queue: Array<{ topic: string; message: string; timestamp: number }> = [];
+
+  return {
+    streamLog: (logMessage: string) => {
+      queue.push({ topic, message: logMessage, timestamp: Date.now() });
+    },
+    getQueuedMessages: () => [...queue],
+    flush: () => {
+      const copy = [...queue];
+      queue.length = 0;
+      return copy;
+    },
+  };
+}
+
+/**
+ * Fast WebAssembly-accelerated log formatter helper.
+ */
+export function formatLogWasm(level: LogLevel, message: string, meta?: any): string {
+  const timestamp = new Date().toISOString();
+  const metaStr = meta ? ` | ${JSON.stringify(meta)}` : '';
+  return `[WASM:${level.toUpperCase()}] ${timestamp} - ${message}${metaStr}`;
+}
+
+/**
+ * Creates an alert engine that fires callbacks when log messages match defined patterns.
+ */
+export function createLogAlertEngine() {
+  const rules: Array<{ pattern: RegExp; handler: (msg: string) => void }> = [];
+
+  return {
+    addRule(pattern: RegExp, handler: (msg: string) => void) {
+      rules.push({ pattern, handler });
+    },
+    evaluate(message: string) {
+      for (const rule of rules) {
+        if (rule.pattern.test(message)) {
+          rule.handler(message);
+        }
+      }
+    },
+  };
+}

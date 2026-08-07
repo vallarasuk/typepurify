@@ -500,4 +500,39 @@ describe('tFetch wrapper', () => {
       expect(data).toEqual({ data: 'test' });
     });
   });
+
+  describe('createDnsResolverInterceptor', () => {
+    it('should intercept and rewrite hostnames', async () => {
+      const { createDnsResolverInterceptor } = await import('./index');
+      const interceptor = createDnsResolverInterceptor({ 'api.custom.internal': '127.0.0.1' });
+      const req = await interceptor({ input: 'https://api.custom.internal/health' });
+      expect(req.input).toBe('https://127.0.0.1/health');
+    });
+  });
+
+  describe('createConnectionPoolerFetch', () => {
+    it('should limit active connections using pooler', async () => {
+      const { createConnectionPoolerFetch } = await import('./index');
+      fetchMock.mockResolvedValue({
+        ok: true,
+        headers: new Headers({ 'content-type': 'application/json' }),
+        json: async () => ({ pool: 'ok' }),
+      });
+      const poolFetch = createConnectionPoolerFetch(2);
+      const res = await poolFetch('https://api.example.com/pool');
+      expect(res).toEqual({ pool: 'ok' });
+    });
+  });
+
+  describe('parseFetchPayload', () => {
+    it('should parse JSON response payload', async () => {
+      const { parseFetchPayload } = await import('./index');
+      const mockRes = {
+        headers: new Headers({ 'content-type': 'application/json' }),
+        json: async () => ({ hello: 'world' }),
+      } as Response;
+      const parsed = await parseFetchPayload(mockRes);
+      expect(parsed).toEqual({ hello: 'world' });
+    });
+  });
 });

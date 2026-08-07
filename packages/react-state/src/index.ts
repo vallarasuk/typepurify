@@ -415,3 +415,62 @@ export function useCopyToClipboard(
 
   return [isCopied, copy];
 }
+
+/**
+ * Connects state stores to Redux DevTools extension if available.
+ */
+export function createReduxDevtoolsBridge(name = 'TypePurifyState') {
+  let devtools: any = null;
+  if (typeof window !== 'undefined' && (window as any).__REDUX_DEVTOOLS_EXTENSION__) {
+    devtools = (window as any).__REDUX_DEVTOOLS_EXTENSION__.connect({ name });
+  }
+
+  return {
+    send: (action: string, state: any) => {
+      devtools?.send(action, state);
+    },
+    init: (state: any) => {
+      devtools?.init(state);
+    },
+  };
+}
+
+/**
+ * React hook for mutable state draft mutations.
+ */
+export function useImmerDraft<T extends Record<string, any>>(initialState: T) {
+  const [state, setState] = useState<T>(initialState);
+
+  const updateDraft = (updater: (draft: T) => void) => {
+    setState((prev) => {
+      const clone = JSON.parse(JSON.stringify(prev));
+      updater(clone);
+      return clone;
+    });
+  };
+
+  return [state, updateDraft] as const;
+}
+
+/**
+ * React hook that provides undo/redo state management with a history stack.
+ */
+export function useUndoRedoState<T>(initial: T) {
+  const [history, setHistory] = useState<T[]>([initial]);
+  const [cursor, setCursor] = useState(0);
+
+  const current = history[cursor] as T;
+
+  const set = (next: T) => {
+    const sliced = history.slice(0, cursor + 1);
+    setHistory([...sliced, next]);
+    setCursor(sliced.length);
+  };
+
+  const undo = () => setCursor((c) => Math.max(0, c - 1));
+  const redo = () => setCursor((c) => Math.min(history.length - 1, c + 1));
+  const canUndo = cursor > 0;
+  const canRedo = cursor < history.length - 1;
+
+  return { current, set, undo, redo, canUndo, canRedo };
+}

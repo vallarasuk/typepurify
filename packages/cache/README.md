@@ -79,6 +79,32 @@ windowCache.set('session:1', 100);
 console.log(windowCache.size()); // 1
 ```
 
+## 🆕 New in v0.5.8
+
+### `createStaleWhileRevalidateCache(ttlMs)` — SWR Cache
+
+Returns stale data immediately while revalidating in the background after TTL expires.
+
+```typescript
+import { createStaleWhileRevalidateCache } from '@typepurify/cache';
+
+const swr = createStaleWhileRevalidateCache(30_000); // 30s TTL
+const data = await swr('user:123', () => fetchUser(123));
+```
+
+### `BloomFilterCache` — Probabilistic Membership Filter
+
+Set-backed bloom filter to prevent redundant cache lookups.
+
+```typescript
+import { BloomFilterCache } from '@typepurify/cache';
+
+const bf = new BloomFilterCache();
+bf.add('seen-key');
+bf.mightContain('seen-key'); // true
+bf.mightContain('unseen'); // false
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

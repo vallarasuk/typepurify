@@ -285,4 +285,44 @@ describe('@typepurify/retry', () => {
       expect(res).toBe('success');
     });
   });
+
+  describe('CircuitBreakerStateMachine', () => {
+    it('should manage states, pause, and resume execution', async () => {
+      const { CircuitBreakerStateMachine } = await import('./index');
+      const cb = new CircuitBreakerStateMachine(2, 5000);
+      expect(cb.getState()).toBe('CLOSED');
+      expect(cb.canExecute()).toBe(true);
+
+      cb.recordFailure();
+      cb.recordFailure();
+      expect(cb.getState()).toBe('OPEN');
+      expect(cb.canExecute()).toBe(false);
+
+      cb.pause();
+      expect(cb.getState()).toBe('PAUSED');
+
+      cb.resume();
+      expect(cb.getState()).toBe('CLOSED');
+      expect(cb.canExecute()).toBe(true);
+    });
+  });
+
+  describe('TokenBucketRateLimiter', () => {
+    it('should consume tokens and reject when empty', async () => {
+      const { TokenBucketRateLimiter } = await import('./index');
+      const limiter = new TokenBucketRateLimiter(2, 1);
+      expect(limiter.tryConsume(1)).toBe(true);
+      expect(limiter.tryConsume(1)).toBe(true);
+      expect(limiter.tryConsume(1)).toBe(false);
+    });
+  });
+
+  describe('FailoverRouter', () => {
+    it('should rotate endpoints on failover', async () => {
+      const { FailoverRouter } = await import('./index');
+      const router = new FailoverRouter(['https://a.com', 'https://b.com']);
+      expect(router.getActiveEndpoint()).toBe('https://a.com');
+      expect(router.failover()).toBe('https://b.com');
+    });
+  });
 });

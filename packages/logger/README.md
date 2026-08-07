@@ -76,6 +76,32 @@ const log = new Logger({
 });
 ```
 
+## 🆕 New in v0.5.8
+
+### `createLogAlertEngine()` — Pattern-Based Log Alerting
+
+Fires registered handler callbacks when log messages match defined RegExp rules.
+
+```typescript
+import { createLogAlertEngine } from '@typepurify/logger';
+
+const engine = createLogAlertEngine();
+engine.addRule(/ERROR/, (msg) => sendAlert(msg));
+engine.evaluate('ERROR: Database unreachable'); // triggers alert
+engine.evaluate('INFO: Server started'); // no-op
+```
+
+### `formatLogWasm(level, message, meta?)` — WASM Log Formatter
+
+Fast structured log line formatter with ISO timestamp and meta serialization.
+
+```typescript
+import { formatLogWasm } from '@typepurify/logger';
+
+const line = formatLogWasm('error', 'DB timeout', { db: 'postgres' });
+// "[WASM:ERROR] 2026-08-07T... - DB timeout | {"db":"postgres"}"
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

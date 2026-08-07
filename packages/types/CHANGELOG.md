@@ -1,3 +1,10 @@
+## 0.5.8
+
+### Minor Changes
+
+- Added `asDeepPartial<T>(value)` — Zero-cost cast helper to convert any unknown value to `DeepPartial<T>` at the type level.
+- Added `MathOperator` type and `evaluateMathOperator(a, op, b)` — Type-safe numeric operator evaluator (+, -, *, /).
+
 ## 0.5.6
 
 ### Patch Changes

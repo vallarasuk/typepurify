@@ -120,6 +120,33 @@ import { toggleAllColumnVisibility } from '@typepurify/react-table';
 const nextVisibility = toggleAllColumnVisibility(currentVisibility, false);
 ```
 
+## 🆕 New in v0.5.8
+
+### `createTreeGridNodes(items, depth?)` — Tree Grid Flattener
+
+Flattens a recursive tree structure into a depth-annotated flat list for virtualized tree-grid rendering.
+
+```typescript
+import { createTreeGridNodes } from '@typepurify/react-table';
+
+const nodes = createTreeGridNodes([
+  { id: '1', label: 'Root', children: [{ id: '1-1', label: 'Child' }] },
+]);
+// => [{ id: "1", depth: 0, hasChildren: true, ... }, { id: "1-1", depth: 1, hasChildren: false, ... }]
+```
+
+### `useInlineCellEditor()` — Inline Cell Edit Hook
+
+Manages per-cell edit state in inline editable tables.
+
+```typescript
+import { useInlineCellEditor } from '@typepurify/react-table';
+
+const { editingCell, editValue, startEditing, cancelEditing } = useInlineCellEditor();
+startEditing(0, 'name', 'Alice');
+// editingCell => { rowIndex: 0, columnKey: "name" }
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

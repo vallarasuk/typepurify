@@ -127,6 +127,31 @@ await rateFetch('https://api.example.com/items');
 
 ---
 
+## 🆕 New in v0.5.8
+
+### `parseFetchPayload(response)` — Auto Payload Parser
+
+Automatically detects the `content-type` header and returns parsed JSON or raw text.
+
+```typescript
+import { parseFetchPayload } from '@typepurify/fetch';
+
+const res = await fetch('https://api.example.com/data');
+const data = await parseFetchPayload(res);
+// => parsed JSON object if content-type is application/json
+```
+
+### `createConnectionPoolerFetch(maxConnections)` — Connection Pooler
+
+Limits concurrent outbound fetch calls using a semaphore queue.
+
+```typescript
+import { createConnectionPoolerFetch } from '@typepurify/fetch';
+
+const poolFetch = createConnectionPoolerFetch(5); // max 5 concurrent
+const data = await poolFetch('https://api.example.com/data');
+```
+
 ## 📋 Changelog
 
 ### v0.5.4 — Latest

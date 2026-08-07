@@ -103,6 +103,34 @@ off(); // unsubscribe
 
 ---
 
+## 🆕 New in v0.5.8
+
+### `FailoverRouter` — Endpoint Failover
+
+Automatically rotates through backup endpoints on failure.
+
+```typescript
+import { FailoverRouter } from '@typepurify/retry';
+
+const router = new FailoverRouter(['https://primary.api.com', 'https://backup.api.com']);
+console.log(router.getActiveEndpoint()); // "https://primary.api.com"
+router.failover();
+console.log(router.getActiveEndpoint()); // "https://backup.api.com"
+```
+
+### `TokenBucketRateLimiter` — Token Bucket
+
+Classic token bucket algorithm for steady-state rate control.
+
+```typescript
+import { TokenBucketRateLimiter } from '@typepurify/retry';
+
+const limiter = new TokenBucketRateLimiter(10, 2); // 10 capacity, refill 2/sec
+if (limiter.tryConsume(1)) {
+  await retryFetch('https://api.example.com');
+}
+```
+
 ## 📋 Changelog
 
 ### v0.5.4 — Latest

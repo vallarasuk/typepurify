@@ -1,3 +1,10 @@
+## 0.5.8
+
+### Minor Changes
+
+- Added `generateJsonSchema(sample)` — Generates a JSON Schema draft-07 object from a plain object sample, inferring property types and required fields.
+- Added `JsonCrdtSynchronizer<T>` — Lightweight CRDT-style conflict-free document state synchronizer with `merge(patch)` and `getDoc()`.
+
 ## 0.5.6
 
 ### Patch Changes

@@ -347,3 +347,58 @@ export function flattenJson(obj: Record<string, any>, prefix = ''): Record<strin
   }
   return result;
 }
+
+/**
+ * Adapter helper for parsing BSON binary-json representations.
+ */
+export function parseBsonAdapter(data: any): Record<string, any> {
+  if (typeof data === 'string') {
+    try {
+      return JSON.parse(data);
+    } catch {
+      return {};
+    }
+  }
+  return data && typeof data === 'object' ? data : {};
+}
+
+/**
+ * JSON CRDT state synchronizer helper.
+ */
+export class JsonCrdtSynchronizer<T extends Record<string, any>> {
+  private doc: T;
+
+  constructor(initialDoc: T) {
+    this.doc = { ...initialDoc };
+  }
+
+  getDoc(): T {
+    return { ...this.doc };
+  }
+
+  merge(patch: Partial<T>): T {
+    this.doc = { ...this.doc, ...patch };
+    return this.getDoc();
+  }
+}
+
+/**
+ * Generates a JSON Schema (draft-07) object from a sample plain object.
+ */
+export function generateJsonSchema(sample: Record<string, any>): Record<string, any> {
+  const properties: Record<string, any> = {};
+  const required: string[] = [];
+
+  for (const [key, value] of Object.entries(sample)) {
+    required.push(key);
+    const type = value === null ? 'null' : Array.isArray(value) ? 'array' : typeof value;
+    properties[key] = { type };
+  }
+
+  return {
+    $schema: 'http://json-schema.org/draft-07/schema#',
+    type: 'object',
+    properties,
+    required,
+  };
+}

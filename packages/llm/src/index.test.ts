@@ -191,4 +191,39 @@ describe('@typepurify/llm', () => {
       expect(sysMsg).toEqual({ role: 'system', content: 'Helpful Assistant' });
     });
   });
+
+  describe('createMemoryVectorDbAdapter', () => {
+    it('should perform vector search across documents', async () => {
+      const { createMemoryVectorDbAdapter } = await import('./index');
+      const docs = [
+        { id: '1', content: 'React component design' },
+        { id: '2', content: 'TypeScript cleaning library' },
+      ];
+      const adapter = createMemoryVectorDbAdapter(docs);
+      const results = adapter.search('TypeScript', 1);
+      expect(results).toHaveLength(1);
+      expect(results[0].id).toBe('2');
+    });
+  });
+
+  describe('AgentStateMachine', () => {
+    it('should handle state transitions cleanly', async () => {
+      const { AgentStateMachine } = await import('./index');
+      const sm = new AgentStateMachine();
+      expect(sm.getState()).toBe('IDLE');
+      sm.transition('THINKING');
+      expect(sm.getState()).toBe('THINKING');
+    });
+  });
+
+  describe('TokenCostLimiter', () => {
+    it('should track token spend and throw on budget exceeded', async () => {
+      const { TokenCostLimiter } = await import('./index');
+      const limiter = new TokenCostLimiter(100);
+      limiter.spend(40);
+      expect(limiter.remaining).toBe(60);
+      expect(limiter.canSpend(70)).toBe(false);
+      expect(() => limiter.spend(70)).toThrow('Token budget exceeded');
+    });
+  });
 });

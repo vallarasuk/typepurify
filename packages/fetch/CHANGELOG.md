@@ -1,3 +1,10 @@
+## 0.5.8
+
+### Minor Changes
+
+- Added `parseFetchPayload(response)` — Detects `content-type` header and automatically parses JSON or text response bodies.
+- Added `createConnectionPoolerFetch(maxConnections)` — Limits concurrent in-flight requests using a semaphore-style queue.
+
 ## 0.5.6
 
 ### Patch Changes

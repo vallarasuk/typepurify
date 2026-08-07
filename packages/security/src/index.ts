@@ -257,3 +257,76 @@ export function isSqlInjectionAttempt(input: string): boolean {
   ];
   return sqlPatterns.some((pattern) => pattern.test(input));
 }
+
+/**
+ * Vulnerability scanner that checks inputs for XSS, SQL Injection, and sensitive data leaks.
+ */
+export function scanVulnerabilities(input: any): {
+  hasVulnerabilities: boolean;
+  issues: string[];
+} {
+  const issues: string[] = [];
+  if (typeof input === 'string') {
+    if (isSqlInjectionAttempt(input)) issues.push('SQL_INJECTION');
+    if (input.includes('<script>') || input.toLowerCase().includes('javascript:')) {
+      issues.push('XSS_ATTACK');
+    }
+  }
+  const secrets = detectSecrets(input);
+  if (secrets.length > 0) issues.push('SECRET_LEAK');
+
+  return {
+    hasVulnerabilities: issues.length > 0,
+    issues,
+  };
+}
+
+/**
+ * RASP (Runtime Application Self-Protection) HTTP middleware inspector helper.
+ */
+export function createRaspMiddleware() {
+  return (req: { body?: any; query?: any; headers?: any }, res: any, next: () => void) => {
+    const payload = JSON.stringify(req.body || {}) + JSON.stringify(req.query || {});
+    const scan = scanVulnerabilities(payload);
+    if (scan.hasVulnerabilities) {
+      if (res && typeof res.status === 'function') {
+        res.status(403).json({ error: 'RASP security violation detected', issues: scan.issues });
+      } else {
+        throw new Error(`RASP security violation detected: ${scan.issues.join(', ')}`);
+      }
+      return;
+    }
+    if (typeof next === 'function') next();
+  };
+}
+
+/**
+ * Manages JWT signing key rotation for periodic secret refresh.
+ */
+export class JwtKeyRotator {
+  private currentKey: string;
+  private previousKey: string | null = null;
+  private rotatedAt: number = Date.now();
+
+  constructor(initialKey: string) {
+    this.currentKey = initialKey;
+  }
+
+  rotate(newKey: string): void {
+    this.previousKey = this.currentKey;
+    this.currentKey = newKey;
+    this.rotatedAt = Date.now();
+  }
+
+  getActiveKey(): string {
+    return this.currentKey;
+  }
+
+  getPreviousKey(): string | null {
+    return this.previousKey;
+  }
+
+  getRotatedAt(): number {
+    return this.rotatedAt;
+  }
+}

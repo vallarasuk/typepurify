@@ -161,5 +161,30 @@ describe('@typepurify/cli', () => {
       expect(md).toContain('## Changelog');
       expect(md).toContain('- feat: add new feature');
     });
+
+    it('should format shell script payload using injectGitHook', async () => {
+      const { injectGitHook } = await import('./index');
+      const hook = injectGitHook('pre-commit', 'npx lint-staged');
+      expect(hook.hookPath).toBe('.husky/pre-commit');
+      expect(hook.content).toBe('#!/bin/sh\nnpx lint-staged\n');
+    });
+
+    it('should generate GitHub Actions CI YAML string', async () => {
+      const { generateCiPipelineYaml } = await import('./index');
+      const yaml = generateCiPipelineYaml('20.x');
+      expect(yaml).toContain('name: CI');
+      expect(yaml).toContain("node-version: '20.x'");
+    });
+
+    it('should generate Docker Compose YAML string', async () => {
+      const { generateDockerComposeYaml } = await import('./index');
+      const yaml = generateDockerComposeYaml('api', 'node:18-alpine', 3000, {
+        NODE_ENV: 'production',
+      });
+      expect(yaml).toContain('version: "3.8"');
+      expect(yaml).toContain('image: node:18-alpine');
+      expect(yaml).toContain('"3000:3000"');
+      expect(yaml).toContain('NODE_ENV=production');
+    });
   });
 });

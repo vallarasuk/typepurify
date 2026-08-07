@@ -1,3 +1,10 @@
+## 0.5.8
+
+### Minor Changes
+
+- Added `createTreeGridNodes(items, depth)` — Flattens a recursive tree structure into a depth-annotated flat list suitable for virtualized tree-grid rendering.
+- Added `useInlineCellEditor()` — React hook for managing per-cell edit state (editing cell ref, edit value, start/cancel) in inline editable tables.
+
 ## 0.5.6
 
 ### Patch Changes

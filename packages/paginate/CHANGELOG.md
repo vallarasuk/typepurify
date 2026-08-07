@@ -1,3 +1,10 @@
+## 0.5.8
+
+### Minor Changes
+
+- Added `collectPaginatedChunks(map, activePage)` — Memory-safe paginated chunk garbage collector that removes inactive page entries from a Map store.
+- Added `calculateVirtualListItems(total, pageSize, page)` — Computes slice start/end offsets for virtualized list rendering.
+
 ## 0.5.6
 
 ### Patch Changes

@@ -423,3 +423,72 @@ export function createMockFetchAdapter(mockResponse: any, status = 200) {
     });
   };
 }
+
+/**
+ * Interceptor that resolves custom hostnames using an in-memory DNS resolver pool map.
+ */
+export function createDnsResolverInterceptor(dnsMap: Record<string, string>) {
+  return async (request: { input: RequestInfo | URL; init?: RequestInit }) => {
+    const urlStr = typeof request.input === 'string' ? request.input : request.input.toString();
+    try {
+      const parsed = new URL(urlStr);
+      if (dnsMap[parsed.hostname]) {
+        const originalHost = parsed.hostname;
+        parsed.hostname = dnsMap[parsed.hostname];
+        const newInit = { ...request.init };
+        const headers = new Headers(newInit.headers);
+        if (!headers.has('Host')) {
+          headers.set('Host', originalHost);
+        }
+        newInit.headers = headers;
+        return { input: parsed.toString(), init: newInit };
+      }
+    } catch {
+      // Ignore invalid URLs
+    }
+    return request;
+  };
+}
+
+/**
+ * Connection pooler wrapper around tFetch that limits maximum simultaneous connection slots.
+ */
+export function createConnectionPoolerFetch(maxConnections = 5) {
+  let activeConnections = 0;
+  const queue: Array<() => void> = [];
+
+  const dequeue = () => {
+    if (queue.length > 0 && activeConnections < maxConnections) {
+      const next = queue.shift();
+      next?.();
+    }
+  };
+
+  return async function poolerFetch<T = any>(
+    input: RequestInfo | URL,
+    init?: RequestInit,
+    purifyOptions?: PurifyFetchOptions,
+  ): Promise<T> {
+    if (activeConnections >= maxConnections) {
+      await new Promise<void>((resolve) => queue.push(resolve));
+    }
+    activeConnections++;
+    try {
+      return await tFetch<T>(input, init, purifyOptions);
+    } finally {
+      activeConnections--;
+      dequeue();
+    }
+  };
+}
+
+/**
+ * Automatically parses HTTP response payload into JSON or Text depending on Content-Type header.
+ */
+export async function parseFetchPayload<T = any>(response: Response): Promise<T> {
+  const contentType = response.headers.get('content-type') || '';
+  if (contentType.includes('application/json')) {
+    return (await response.json()) as T;
+  }
+  return (await response.text()) as any;
+}

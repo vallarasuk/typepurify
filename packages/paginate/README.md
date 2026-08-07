@@ -95,6 +95,30 @@ const hasNext = calculateHasNextPage(currentPage, totalPages);
 const hasPrev = calculateHasPreviousPage(currentPage);
 ```
 
+## 🆕 New in v0.5.8
+
+### `collectPaginatedChunks(map, activePage)` — Memory-Safe Chunk GC
+
+Garbage-collects inactive paginated chunks from a Map store, retaining only the active page.
+
+```typescript
+import { collectPaginatedChunks } from "@typepurify/paginate";
+
+const chunks = new Map([[0, [...]], [1, [...]], [2, [...]]]);
+collectPaginatedChunks(chunks, 1); // removes pages 0 and 2
+```
+
+### `calculateVirtualListItems(total, pageSize, page)` — Virtual List Offsets
+
+Computes slice start/end offsets for virtualized list rendering.
+
+```typescript
+import { calculateVirtualListItems } from '@typepurify/paginate';
+
+const { start, end } = calculateVirtualListItems(100, 10, 2);
+// => { start: 20, end: 30 }
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

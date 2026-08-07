@@ -109,6 +109,34 @@ const msg = wrapUserMessage('Explain quantum computing');
 // => { role: 'user', content: 'Explain quantum computing' }
 ```
 
+## 🆕 New in v0.5.8
+
+### `TokenCostLimiter` — Budget Enforcement
+
+Enforces a maximum token budget, throwing on breach with remaining balance tracking.
+
+```typescript
+import { TokenCostLimiter } from '@typepurify/llm';
+
+const limiter = new TokenCostLimiter(4096);
+limiter.spend(1200);
+console.log(limiter.remaining); // 2896
+limiter.spend(3000); // throws: "Token budget exceeded"
+```
+
+### `AgentStateMachine` — Agent Phase Manager
+
+Simple FSM for managing autonomous AI agent execution phases.
+
+```typescript
+import { AgentStateMachine } from '@typepurify/llm';
+
+const agent = new AgentStateMachine();
+agent.transition('THINKING');
+agent.transition('EXECUTING');
+agent.getState(); // "EXECUTING"
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

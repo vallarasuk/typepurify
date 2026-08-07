@@ -325,4 +325,42 @@ describe('@typepurify/react-state', () => {
       expect(typeof result.current[1]).toBe('function');
     });
   });
+
+  describe('createReduxDevtoolsBridge', () => {
+    it('should initialize bridge and safely send actions', async () => {
+      const { createReduxDevtoolsBridge } = await import('./index');
+      const bridge = createReduxDevtoolsBridge('test-store');
+      expect(typeof bridge.send).toBe('function');
+      expect(typeof bridge.init).toBe('function');
+      bridge.init({ count: 0 });
+      bridge.send('INCREMENT', { count: 1 });
+    });
+  });
+
+  describe('useImmerDraft', () => {
+    it('should mutate draft state immutably', async () => {
+      const { useImmerDraft } = await import('./index');
+      const { result } = renderHook(() => useImmerDraft({ user: { name: 'Alice', count: 0 } }));
+      act(() => {
+        result.current[1]((draft) => {
+          draft.user.count = 1;
+        });
+      });
+      expect(result.current[0].user.count).toBe(1);
+    });
+  });
+
+  describe('useUndoRedoState', () => {
+    it('should support undo and redo through history', async () => {
+      const { useUndoRedoState } = await import('./index');
+      const { result } = renderHook(() => useUndoRedoState<number>(0));
+      act(() => result.current.set(1));
+      act(() => result.current.set(2));
+      expect(result.current.current).toBe(2);
+      act(() => result.current.undo());
+      expect(result.current.current).toBe(1);
+      act(() => result.current.redo());
+      expect(result.current.current).toBe(2);
+    });
+  });
 });

@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import {
   detectSecrets,
   inspectJwt,
@@ -199,6 +199,39 @@ describe('@typepurify/security', () => {
       const { isSqlInjectionAttempt } = await import('./index');
       expect(isSqlInjectionAttempt("SELECT * FROM users WHERE '1'='1'")).toBe(true);
       expect(isSqlInjectionAttempt('hello world')).toBe(false);
+    });
+  });
+
+  describe('scanVulnerabilities', () => {
+    it('should scan payload and report detected vulnerabilities', async () => {
+      const { scanVulnerabilities } = await import('./index');
+      const report = scanVulnerabilities('<script>alert(1)</script> UNION SELECT * FROM users');
+      expect(report.hasVulnerabilities).toBe(true);
+      expect(report.issues).toContain('SQL_INJECTION');
+      expect(report.issues).toContain('XSS_ATTACK');
+    });
+  });
+
+  describe('createRaspMiddleware', () => {
+    it('should intercept malicious requests in RASP middleware', async () => {
+      const { createRaspMiddleware } = await import('./index');
+      const middleware = createRaspMiddleware();
+      const next = vi.fn();
+      expect(() => middleware({ body: { query: 'DROP TABLE users' } }, null, next)).toThrow(
+        'RASP security violation detected',
+      );
+    });
+  });
+
+  describe('JwtKeyRotator', () => {
+    it('should rotate JWT signing keys and track previous key', async () => {
+      const { JwtKeyRotator } = await import('./index');
+      const rotator = new JwtKeyRotator('secret-v1');
+      expect(rotator.getActiveKey()).toBe('secret-v1');
+      expect(rotator.getPreviousKey()).toBeNull();
+      rotator.rotate('secret-v2');
+      expect(rotator.getActiveKey()).toBe('secret-v2');
+      expect(rotator.getPreviousKey()).toBe('secret-v1');
     });
   });
 });

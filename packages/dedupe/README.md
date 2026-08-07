@@ -81,6 +81,33 @@ await initializeApp();
 await initializeApp(); // No-op, returns existing promise
 ```
 
+## 🆕 New in v0.5.8
+
+### `createRedisClusterSyncer(clusterNodes)` — Distributed Lock Syncer
+
+Distributed deduplication lock key manager for Redis cluster environments.
+
+```typescript
+import { createRedisClusterSyncer } from '@typepurify/dedupe';
+
+const syncer = createRedisClusterSyncer(['redis://node1:6379', 'redis://node2:6379']);
+if (syncer.lock('request-abc')) {
+  // safe to process
+  syncer.unlock('request-abc');
+}
+```
+
+### `exportPrometheusMetrics(stats)` — Prometheus Exporter
+
+Exports Prometheus-formatted counters for total and deduplicated call counts.
+
+```typescript
+import { exportPrometheusMetrics } from '@typepurify/dedupe';
+
+const output = exportPrometheusMetrics({ totalCalls: 1000, deduplicatedCalls: 350 });
+// => Prometheus text format string
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

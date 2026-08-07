@@ -1,6 +1,6 @@
 {
   "name": "@typepurify/react-table",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "description": "Universal, zero-dependency Data Table.",
   "publishConfig": {
     "access": "public"
@@ -41,7 +41,7 @@
   "author": "Vallarasu Kanthasamy",
   "license": "MIT",
   "dependencies": {
-    "typepurify": "^1.6.0"
+    "typepurify": "^1.6.7"
   },
   "peerDependencies": {
     "react": ">=18.0.0",

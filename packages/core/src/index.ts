@@ -858,19 +858,53 @@ export function sanitizeObject<T>(obj: T, stringMapper: (str: string, key?: stri
   return result as T;
 }
 
+export interface CrawlArrayOptions {
+  /** Maximum number of items to return */
+  limit?: number;
+  /** Flatten array outputs from crawler function */
+  flatten?: boolean;
+  /** Automatically clean undefined/null values from resulting items using clean() */
+  cleanResult?: boolean;
+}
+
 /**
  * Array crawler helper for high-throughput filtering and transforming of arrays.
  */
 export function crawlArray<T, R>(
   arr: T[],
   crawlerFn: (item: T, index: number) => R | undefined,
+  options?: CrawlArrayOptions,
 ): R[] {
   const result: R[] = [];
   if (!Array.isArray(arr)) return result;
+
+  const limit = options?.limit;
+  const flatten = options?.flatten;
+  const cleanResult = options?.cleanResult;
+
   for (let i = 0; i < arr.length; i++) {
-    const res = crawlerFn(arr[i], i);
-    if (res !== undefined) result.push(res);
+    if (limit !== undefined && result.length >= limit) break;
+
+    let res = crawlerFn(arr[i], i);
+    if (res !== undefined) {
+      if (cleanResult && typeof res === 'object' && res !== null) {
+        res = clean(res) as any;
+      }
+
+      if (flatten && Array.isArray(res)) {
+        for (let j = 0; j < res.length; j++) {
+          if (limit !== undefined && result.length >= limit) break;
+          const val = res[j];
+          if (val !== undefined) {
+            result.push(val as R);
+          }
+        }
+      } else {
+        result.push(res as R);
+      }
+    }
   }
+
   return result;
 }
 
@@ -892,4 +926,27 @@ export function inferSchema(obj: any): Record<string, string> {
     return { type: 'object', properties: shape } as any;
   }
   return { type: typeof obj };
+}
+
+/**
+ * Parallelized/batched schema inferencer across an array of object payloads.
+ */
+export function inferSchemaBatch(objects: any[]): Array<Record<string, string>> {
+  if (!Array.isArray(objects)) return [];
+  return objects.map((obj) => inferSchema(obj));
+}
+
+/**
+ * WASM bindings adapter for running WebAssembly module function executions.
+ */
+export function createWasmBindingsAdapter(wasmModule: any) {
+  return {
+    isReady: () => Boolean(wasmModule && typeof wasmModule === 'object'),
+    callWasm: (exportName: string, ...args: any[]) => {
+      if (wasmModule && typeof wasmModule[exportName] === 'function') {
+        return wasmModule[exportName](...args);
+      }
+      throw new Error(`WASM export ${exportName} not found`);
+    },
+  };
 }

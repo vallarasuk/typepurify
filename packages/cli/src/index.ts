@@ -258,3 +258,61 @@ export function generateChangelogFromCommits(commits: string[]): string {
   const entries = commits.map((c) => `- ${c.trim()}`).join('\n');
   return `## Changelog\n\n${entries}`;
 }
+
+/**
+ * Git hook injector helper to generate shell scripts for git hooks.
+ */
+export function injectGitHook(
+  hookName: string,
+  scriptContent: string,
+): { hookPath: string; content: string } {
+  const hookPath = `.husky/${hookName}`;
+  const content = `#!/bin/sh\n${scriptContent}\n`;
+  return { hookPath, content };
+}
+
+/**
+ * CI pipeline generator helper for producing GitHub Actions workflows.
+ */
+export function generateCiPipelineYaml(nodeVersion = '18.x'): string {
+  return [
+    'name: CI',
+    'on: [push, pull_request]',
+    'jobs:',
+    '  build:',
+    '    runs-on: ubuntu-latest',
+    '    steps:',
+    '      - uses: actions/checkout@v3',
+    '      - uses: actions/setup-node@v3',
+    '        with:',
+    `          node-version: '${nodeVersion}'`,
+    '      - run: npm ci',
+    '      - run: npm test',
+  ].join('\n');
+}
+
+/**
+ * Generates a Docker Compose YAML configuration string for a given service definition.
+ */
+export function generateDockerComposeYaml(
+  serviceName: string,
+  image: string,
+  port: number,
+  envVars: Record<string, string> = {},
+): string {
+  const envLines = Object.entries(envVars)
+    .map(([k, v]) => `      - ${k}=${v}`)
+    .join('\n');
+  const envSection = envLines ? `    environment:\n${envLines}\n` : '';
+  return [
+    'version: "3.8"',
+    'services:',
+    `  ${serviceName}:`,
+    `    image: ${image}`,
+    `    ports:`,
+    `      - "${port}:${port}"`,
+    envSection.trimEnd(),
+  ]
+    .filter(Boolean)
+    .join('\n');
+}

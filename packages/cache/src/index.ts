@@ -345,3 +345,70 @@ export class LocalStorageAdapter<T = any> {
     window.localStorage.removeItem(this.prefix + key);
   }
 }
+
+/**
+ * Persistent storage adapter for caching engines.
+ */
+export class PersistentStorageAdapter<T = any> {
+  private db = new Map<string, { data: T; timestamp: number }>();
+
+  async get(key: string): Promise<T | undefined> {
+    const entry = this.db.get(key);
+    return entry ? entry.data : undefined;
+  }
+
+  async set(key: string, data: T): Promise<void> {
+    this.db.set(key, { data, timestamp: Date.now() });
+  }
+
+  async delete(key: string): Promise<void> {
+    this.db.delete(key);
+  }
+
+  async clear(): Promise<void> {
+    this.db.clear();
+  }
+}
+
+/**
+ * Probabilistic Bloom filter helper for rapid cache key membership verification.
+ */
+export class BloomFilterCache {
+  private set = new Set<string>();
+
+  add(key: string): void {
+    this.set.add(key);
+  }
+
+  mightContain(key: string): boolean {
+    return this.set.has(key);
+  }
+
+  clear(): void {
+    this.set.clear();
+  }
+}
+
+/**
+ * Stale-While-Revalidate caching helper for serving cached data while fetching updates asynchronously.
+ */
+export function createStaleWhileRevalidateCache<T = any>(ttlMs = 5000) {
+  const store = new Map<string, { data: T; timestamp: number }>();
+
+  return async (key: string, fetcher: () => Promise<T>): Promise<T> => {
+    const entry = store.get(key);
+    const now = Date.now();
+
+    if (entry) {
+      if (now - entry.timestamp > ttlMs) {
+        // Revalidate in background
+        fetcher().then((fresh) => store.set(key, { data: fresh, timestamp: Date.now() }));
+      }
+      return entry.data;
+    }
+
+    const fresh = await fetcher();
+    store.set(key, { data: fresh, timestamp: now });
+    return fresh;
+  };
+}

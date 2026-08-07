@@ -360,3 +360,106 @@ export async function executeWithRetryBudget<T>(
   }
   throw new Error('Retry budget exhausted');
 }
+
+/**
+ * State machine for circuit breaker pattern with pause/resume support.
+ */
+export class CircuitBreakerStateMachine {
+  private state: 'CLOSED' | 'OPEN' | 'HALF_OPEN' | 'PAUSED' = 'CLOSED';
+  private failures = 0;
+  private lastFailureTime = 0;
+
+  constructor(
+    private failureThreshold = 5,
+    private cooldownMs = 10000,
+  ) {}
+
+  getState(): 'CLOSED' | 'OPEN' | 'HALF_OPEN' | 'PAUSED' {
+    if (this.state === 'PAUSED') return 'PAUSED';
+    if (this.state === 'OPEN' && Date.now() - this.lastFailureTime > this.cooldownMs) {
+      this.state = 'HALF_OPEN';
+    }
+    return this.state;
+  }
+
+  pause(): void {
+    this.state = 'PAUSED';
+  }
+
+  resume(): void {
+    this.state = 'CLOSED';
+    this.failures = 0;
+  }
+
+  recordSuccess(): void {
+    if (this.state === 'PAUSED') return;
+    this.failures = 0;
+    this.state = 'CLOSED';
+  }
+
+  recordFailure(): void {
+    if (this.state === 'PAUSED') return;
+    this.failures++;
+    this.lastFailureTime = Date.now();
+    if (this.failures >= this.failureThreshold) {
+      this.state = 'OPEN';
+    }
+  }
+
+  canExecute(): boolean {
+    const currentState = this.getState();
+    return currentState === 'CLOSED' || currentState === 'HALF_OPEN';
+  }
+}
+
+/**
+ * Token bucket rate limiter for restricting retry throughput.
+ */
+export class TokenBucketRateLimiter {
+  private tokens: number;
+  private lastRefill: number;
+
+  constructor(
+    private capacity = 10,
+    private refillRatePerSec = 2,
+  ) {
+    this.tokens = capacity;
+    this.lastRefill = Date.now();
+  }
+
+  tryConsume(amount = 1): boolean {
+    this.refill();
+    if (this.tokens >= amount) {
+      this.tokens -= amount;
+      return true;
+    }
+    return false;
+  }
+
+  private refill(): void {
+    const now = Date.now();
+    const elapsedSec = (now - this.lastRefill) / 1000;
+    this.tokens = Math.min(this.capacity, this.tokens + elapsedSec * this.refillRatePerSec);
+    this.lastRefill = now;
+  }
+}
+
+/**
+ * Failover router that rotates primary and secondary endpoint targets upon failure.
+ */
+export class FailoverRouter {
+  private activeIndex = 0;
+
+  constructor(private endpoints: string[]) {}
+
+  getActiveEndpoint(): string {
+    return this.endpoints[this.activeIndex] || '';
+  }
+
+  failover(): string {
+    if (this.endpoints.length > 0) {
+      this.activeIndex = (this.activeIndex + 1) % this.endpoints.length;
+    }
+    return this.getActiveEndpoint();
+  }
+}
