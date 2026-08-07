@@ -547,12 +547,32 @@ describe('typepurify core engine', () => {
       const { crawlArray } = await import('./index');
       const res = crawlArray([1, null, 3], (val) => (val ? val * 2 : undefined));
       expect(res).toEqual([2, 6]);
+
+      const limited = crawlArray([1, 2, 3, 4, 5], (val) => val * 10, { limit: 3 });
+      expect(limited).toEqual([10, 20, 30]);
+
+      const flattened = crawlArray([1, 2], (val) => [val, val * 2], { flatten: true });
+      expect(flattened).toEqual([1, 2, 2, 4]);
+
+      const cleaned = crawlArray([{ a: 1, b: null }], (item) => item, { cleanResult: true });
+      expect(cleaned).toEqual([{ a: 1 }]);
     });
 
     it('should infer schema of object structure using inferSchema', async () => {
-      const { inferSchema } = await import('./index');
+      const { inferSchema, inferSchemaBatch } = await import('./index');
       const schema = inferSchema({ name: 'Alice', age: 30 });
       expect(schema.type).toBe('object');
+
+      const batch = inferSchemaBatch([{ a: 1 }, { b: 'str' }]);
+      expect(batch).toHaveLength(2);
+      expect(batch[0].type).toBe('object');
+    });
+
+    it('should invoke wasm export using createWasmBindingsAdapter', async () => {
+      const { createWasmBindingsAdapter } = await import('./index');
+      const adapter = createWasmBindingsAdapter({ add: (a: number, b: number) => a + b });
+      expect(adapter.isReady()).toBe(true);
+      expect(adapter.callWasm('add', 2, 3)).toBe(5);
     });
   });
 });

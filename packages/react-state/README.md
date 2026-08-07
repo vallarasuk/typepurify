@@ -104,6 +104,36 @@ function Modal() {
 }
 ```
 
+## 🆕 New in v0.5.8
+
+### `useUndoRedoState<T>(initial)` — Undo / Redo State
+
+Full undo/redo history stack with cursor navigation.
+
+```typescript
+import { useUndoRedoState } from '@typepurify/react-state';
+
+const { current, set, undo, redo, canUndo, canRedo } = useUndoRedoState(0);
+set(1);
+set(2);
+undo(); // current => 1
+redo(); // current => 2
+```
+
+### `useImmerDraft<T>(initialState)` — Immer-Like Draft
+
+Apply mutable draft mutations to deeply cloned immutable state.
+
+```typescript
+import { useImmerDraft } from '@typepurify/react-state';
+
+const [state, updateDraft] = useImmerDraft({ user: { count: 0 } });
+updateDraft((draft) => {
+  draft.user.count = 5;
+});
+// state.user.count => 5
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

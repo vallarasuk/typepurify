@@ -65,6 +65,32 @@ import { generateRandomString } from '@typepurify/security';
 const token = generateRandomString(32);
 ```
 
+## 🆕 New in v0.5.10
+
+### `JwtKeyRotator` — JWT Signing Key Rotation
+
+Manages JWT signing key lifecycle with previous-key tracking for zero-downtime rotation.
+
+```typescript
+import { JwtKeyRotator } from '@typepurify/security';
+
+const rotator = new JwtKeyRotator('secret-v1');
+rotator.rotate('secret-v2');
+rotator.getActiveKey(); // "secret-v2"
+rotator.getPreviousKey(); // "secret-v1" (still valid for in-flight tokens)
+```
+
+### `createRaspMiddleware()` — Runtime Application Self-Protection
+
+HTTP middleware that scans requests for SQL injection and XSS attack patterns.
+
+```typescript
+import { createRaspMiddleware } from '@typepurify/security';
+
+app.use(createRaspMiddleware()); // Express-compatible
+// Blocks requests with DROP TABLE, <script>, etc.
+```
+
 ## 🛡️ License
 
 MIT © [Vallarasu Kanthasamy](https://github.com/vallarasuk)

@@ -1,3 +1,16 @@
+## 1.6.8
+
+### Minor Changes
+
+- Added `inferSchemaBatch(objects)` — Batch schema inference across multiple objects, returning an array of inferred schemas using `inferSchema` under the hood.
+- Added `createWasmBindingsAdapter(wasmModule)` — Lightweight adapter pattern to proxy WebAssembly module exports as a callable JavaScript facade.
+
+## 1.6.7
+
+### Patch Changes
+
+- Core typepurify package patch release update.
+
 ## 1.6.6
 
 ### Patch Changes

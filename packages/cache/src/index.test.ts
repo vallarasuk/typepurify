@@ -239,7 +239,8 @@ describe('@typepurify/cache', () => {
 
   describe('FileSystemStorageAdapter and LocalStorageAdapter', () => {
     it('should set and get items from file storage adapter', async () => {
-      const { FileSystemStorageAdapter, LocalStorageAdapter } = await import('./index');
+      const { FileSystemStorageAdapter, LocalStorageAdapter, PersistentStorageAdapter } =
+        await import('./index');
       const fsCache = new FileSystemStorageAdapter();
       await fsCache.setItem('k', 'v');
       const val = await fsCache.getItem('k');
@@ -247,6 +248,36 @@ describe('@typepurify/cache', () => {
 
       const lsCache = new LocalStorageAdapter();
       expect(typeof lsCache.getItem).toBe('function');
+
+      const pCache = new PersistentStorageAdapter();
+      await pCache.set('pk', 100);
+      expect(await pCache.get('pk')).toBe(100);
+      await pCache.delete('pk');
+      expect(await pCache.get('pk')).toBeUndefined();
+    });
+  });
+
+  describe('BloomFilterCache', () => {
+    it('should verify membership using BloomFilterCache', async () => {
+      const { BloomFilterCache } = await import('./index');
+      const bf = new BloomFilterCache();
+      bf.add('item-1');
+      expect(bf.mightContain('item-1')).toBe(true);
+      expect(bf.mightContain('item-2')).toBe(false);
+    });
+  });
+
+  describe('createStaleWhileRevalidateCache', () => {
+    it('should return cached value while revalidating in background', async () => {
+      const { createStaleWhileRevalidateCache } = await import('./index');
+      const swr = createStaleWhileRevalidateCache(5000);
+      let callCount = 0;
+      const fetcher = async () => ++callCount;
+      const first = await swr('key', fetcher);
+      expect(first).toBe(1);
+      const second = await swr('key', fetcher);
+      expect(second).toBe(1); // still cached
+      expect(callCount).toBe(1);
     });
   });
 });

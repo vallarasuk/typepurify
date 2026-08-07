@@ -266,4 +266,50 @@ describe('@typepurify/react-table', () => {
       expect(core.isEmpty).toBe(false);
     });
   });
+
+  describe('createPivotTableCore', () => {
+    it('should compute pivot matrix aggregates', async () => {
+      const { createPivotTableCore } = await import('./index');
+      const data = [
+        { region: 'US', product: 'A', sales: 100 },
+        { region: 'US', product: 'B', sales: 200 },
+        { region: 'EU', product: 'A', sales: 150 },
+      ];
+      const pivot = createPivotTableCore(data, 'region', 'product', 'sales');
+      expect(pivot.rows).toEqual(['US', 'EU']);
+      expect(pivot.columns).toEqual(['A', 'B']);
+      expect(pivot.matrix.US.A).toBe(100);
+      expect(pivot.matrix.US.B).toBe(200);
+    });
+  });
+
+  describe('useInlineCellEditor', () => {
+    it('should manage cell editor state', async () => {
+      const { useInlineCellEditor } = await import('./index');
+      const { result } = renderHook(() => useInlineCellEditor());
+      act(() => {
+        result.current.startEditing(0, 'name', 'Alice');
+      });
+      expect(result.current.editingCell).toEqual({ rowIndex: 0, columnKey: 'name' });
+      expect(result.current.editValue).toBe('Alice');
+
+      act(() => {
+        result.current.cancelEditing();
+      });
+      expect(result.current.editingCell).toBeNull();
+    });
+  });
+
+  describe('createTreeGridNodes', () => {
+    it('should flatten tree hierarchy with depth and hasChildren flags', async () => {
+      const { createTreeGridNodes } = await import('./index');
+      const tree = [{ id: '1', label: 'Root', children: [{ id: '1-1', label: 'Child' }] }];
+      const nodes = createTreeGridNodes(tree);
+      expect(nodes).toHaveLength(2);
+      expect(nodes[0].depth).toBe(0);
+      expect(nodes[0].hasChildren).toBe(true);
+      expect(nodes[1].depth).toBe(1);
+      expect(nodes[1].hasChildren).toBe(false);
+    });
+  });
 });

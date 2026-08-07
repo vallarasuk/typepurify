@@ -232,4 +232,39 @@ describe('@typepurify/logger', () => {
       expect(logger.getBufferedLogs().length).toBe(0);
     });
   });
+
+  describe('createKafkaStreamWorkerAdapter', () => {
+    it('should queue and flush Kafka stream logs', async () => {
+      const { createKafkaStreamWorkerAdapter } = await import('./index');
+      const worker = createKafkaStreamWorkerAdapter('kafka:9092');
+      worker.streamLog('log-entry-1');
+      expect(worker.getQueuedMessages().length).toBe(1);
+      const flushed = worker.flush();
+      expect(flushed[0].message).toBe('log-entry-1');
+      expect(worker.getQueuedMessages().length).toBe(0);
+    });
+  });
+
+  describe('formatLogWasm', () => {
+    it('should format logs using formatLogWasm', async () => {
+      const { formatLogWasm } = await import('./index');
+      const formatted = formatLogWasm('info', 'System ready');
+      expect(formatted).toContain('[WASM:INFO]');
+      expect(formatted).toContain('System ready');
+    });
+  });
+
+  describe('createLogAlertEngine', () => {
+    it('should trigger handler when pattern matches', async () => {
+      const { createLogAlertEngine } = await import('./index');
+      const engine = createLogAlertEngine();
+      const triggered: string[] = [];
+      engine.addRule(/ERROR/, (msg) => triggered.push(msg));
+      engine.evaluate('INFO: all good');
+      expect(triggered).toHaveLength(0);
+      engine.evaluate('ERROR: something failed');
+      expect(triggered).toHaveLength(1);
+      expect(triggered[0]).toContain('ERROR');
+    });
+  });
 });

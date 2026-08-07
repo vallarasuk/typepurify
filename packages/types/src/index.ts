@@ -182,3 +182,46 @@ export type AsyncReturnType<T extends (...args: any) => Promise<any>> = T extend
  * Extracts all property value types of an object or interface as a union.
  */
 export type ValueOf<T> = T[keyof T];
+
+/**
+ * Converts a tuple type to a union type.
+ */
+export type TupleToUnion<T extends readonly any[]> = T[number];
+
+/**
+ * Converts an array to a fixed-length tuple helper function.
+ */
+export function convertToTuple<T extends any[], N extends number>(
+  arr: T,
+  length: N,
+): T & { length: N } {
+  if (arr.length !== length) {
+    throw new Error(`Expected array length of ${length}, got ${arr.length}`);
+  }
+  return arr as any;
+}
+
+export type MathOperator = '+' | '-' | '*' | '/';
+
+/**
+ * Evaluates math operations for numeric calculations.
+ */
+export function evaluateMathOperator(a: number, op: MathOperator, b: number): number {
+  switch (op) {
+    case '+':
+      return a + b;
+    case '-':
+      return a - b;
+    case '*':
+      return a * b;
+    case '/':
+      return b !== 0 ? a / b : NaN;
+  }
+}
+
+/**
+ * Helper to cast a value as a DeepPartial of T without runtime cost.
+ */
+export function asDeepPartial<T>(value: unknown): DeepPartial<T> {
+  return value as DeepPartial<T>;
+}

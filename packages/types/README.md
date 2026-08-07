@@ -112,6 +112,30 @@ console.log(jsonToTsType({ id: 1, active: true }));
 // => "{ id: number; active: boolean; }"
 ```
 
+## 🆕 New in v0.5.8
+
+### `asDeepPartial<T>(value)` — Zero-Cost Deep Partial Cast
+
+Casts any unknown value to `DeepPartial<T>` at compile time — no runtime cost.
+
+```typescript
+import { asDeepPartial } from '@typepurify/types';
+
+const partial = asDeepPartial<User>({ name: 'Alice' });
+// partial.name => "Alice" | undefined
+```
+
+### `evaluateMathOperator(a, op, b)` — Type-Safe Math
+
+Type-safe numeric operator evaluator using the `MathOperator` type.
+
+```typescript
+import { evaluateMathOperator } from '@typepurify/types';
+
+evaluateMathOperator(10, '+', 5); // 15
+evaluateMathOperator(10, '/', 0); // NaN
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

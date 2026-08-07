@@ -86,6 +86,31 @@ if (isJsonString(input)) {
 }
 ```
 
+## 🆕 New in v0.5.8
+
+### `generateJsonSchema(sample)` — JSON Schema Draft-07 Generator
+
+Infers a JSON Schema draft-07 object from a sample plain object, including property types and required fields.
+
+```typescript
+import { generateJsonSchema } from '@typepurify/json';
+
+const schema = generateJsonSchema({ name: 'Alice', age: 30, active: true });
+// => { $schema: "...", type: "object", properties: { name: { type: "string" }, ... }, required: [...] }
+```
+
+### `JsonCrdtSynchronizer<T>` — CRDT Document Synchronizer
+
+Conflict-free document state synchronizer with merge and snapshot access.
+
+```typescript
+import { JsonCrdtSynchronizer } from '@typepurify/json';
+
+const crdt = new JsonCrdtSynchronizer({ title: 'Draft', count: 1 });
+crdt.merge({ count: 2 });
+crdt.getDoc(); // { title: "Draft", count: 2 }
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

@@ -354,4 +354,37 @@ describe('@typepurify/dedupe', () => {
       expect(calls).toBe(1);
     });
   });
+
+  describe('BroadcastChannelDedupeSynchronizer', () => {
+    it('should initialize cleanly and manage channel sync lifecycle', async () => {
+      const { BroadcastChannelDedupeSynchronizer } = await import('./index');
+      const sync = new BroadcastChannelDedupeSynchronizer('test-channel');
+      const listener = vi.fn();
+      const unsubscribe = sync.onSync(listener);
+      sync.broadcast('key1', { value: 123 });
+      expect(typeof unsubscribe).toBe('function');
+      sync.close();
+    });
+  });
+
+  describe('exportPrometheusMetrics', () => {
+    it('should export formatted Prometheus metrics string', async () => {
+      const { exportPrometheusMetrics } = await import('./index');
+      const metrics = exportPrometheusMetrics({ totalCalls: 10, deduplicatedCalls: 5 });
+      expect(metrics).toContain('typepurify_dedupe_total_calls 10');
+      expect(metrics).toContain('typepurify_dedupe_saved_calls 5');
+    });
+  });
+
+  describe('createRedisClusterSyncer', () => {
+    it('should acquire and release Redis cluster locks', async () => {
+      const { createRedisClusterSyncer } = await import('./index');
+      const syncer = createRedisClusterSyncer(['redis://node1']);
+      expect(syncer.lock('req-1')).toBe(true);
+      expect(syncer.isLocked('req-1')).toBe(true);
+      expect(syncer.lock('req-1')).toBe(false);
+      syncer.unlock('req-1');
+      expect(syncer.isLocked('req-1')).toBe(false);
+    });
+  });
 });

@@ -1,3 +1,10 @@
+## 0.5.8
+
+### Minor Changes
+
+- Added `FailoverRouter` — Rotates through a list of endpoint URLs on each failure, supporting round-robin failover logic.
+- Added `TokenBucketRateLimiter` — Token bucket implementation for steady-state retry throughput backpressure control.
+
 ## 0.5.6
 
 ### Patch Changes

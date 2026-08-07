@@ -1,3 +1,10 @@
+## 0.5.8
+
+### Minor Changes
+
+- Added `generateDockerComposeYaml(serviceName, image, port, envVars)` — Generates a Docker Compose v3.8 YAML string with service definition, port mapping, and env variables.
+- Added `generateCiPipelineYaml(nodeVersion)` — Generates a GitHub Actions CI workflow YAML with checkout, setup-node, install, and test steps.
+
 ## 0.5.6
 
 ### Patch Changes

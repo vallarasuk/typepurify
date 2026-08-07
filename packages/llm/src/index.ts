@@ -268,3 +268,65 @@ export function formatToolCall(
 export function createSystemMessage(text: string): { role: 'system'; content: string } {
   return { role: 'system', content: sanitizeSystemPrompt(text) };
 }
+
+/**
+ * In-memory Vector DB adapter for RAG retrieval in LLM applications.
+ */
+export function createMemoryVectorDbAdapter(documents: Array<{ id: string; content: string }>) {
+  return {
+    search: (query: string, limit = 3) => {
+      const lower = query.toLowerCase();
+      const scored = documents.map((doc) => {
+        const score = doc.content.toLowerCase().includes(lower) ? 1 : 0;
+        return { doc, score };
+      });
+      return scored
+        .sort((a, b) => b.score - a.score)
+        .slice(0, limit)
+        .map((s) => s.doc);
+    },
+  };
+}
+
+/**
+ * Agent State Machine for managing autonomous AI agent task execution phases.
+ */
+export class AgentStateMachine {
+  private state: 'IDLE' | 'THINKING' | 'EXECUTING' | 'DONE' | 'ERROR' = 'IDLE';
+
+  getState() {
+    return this.state;
+  }
+
+  transition(nextState: 'IDLE' | 'THINKING' | 'EXECUTING' | 'DONE' | 'ERROR') {
+    this.state = nextState;
+  }
+}
+
+/**
+ * Enforces a maximum token budget for LLM API calls to control costs.
+ */
+export class TokenCostLimiter {
+  private used = 0;
+
+  constructor(private maxTokens: number) {}
+
+  canSpend(tokens: number): boolean {
+    return this.used + tokens <= this.maxTokens;
+  }
+
+  spend(tokens: number): void {
+    if (!this.canSpend(tokens)) {
+      throw new Error(`Token budget exceeded: would use ${this.used + tokens} / ${this.maxTokens}`);
+    }
+    this.used += tokens;
+  }
+
+  get remaining(): number {
+    return this.maxTokens - this.used;
+  }
+
+  reset(): void {
+    this.used = 0;
+  }
+}

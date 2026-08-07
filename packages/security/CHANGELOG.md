@@ -1,3 +1,18 @@
+## 0.5.10
+
+### Minor Changes
+
+- Added `JwtKeyRotator` — Manages JWT signing key rotation with `rotate(newKey)`, `getActiveKey()`, `getPreviousKey()`, and `getRotatedAt()` methods.
+- Added `createRaspMiddleware()` — Runtime Application Self-Protection HTTP middleware that scans request body/query for SQL injection and XSS patterns.
+
+## 0.5.9
+
+### Patch Changes
+
+- Security package enhancements and README documentation updates.
+- Updated dependencies
+  - typepurify@1.6.7
+
 ## 0.5.6
 
 ### Patch Changes

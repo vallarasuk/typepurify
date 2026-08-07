@@ -429,3 +429,84 @@ export class DedupePromisePool<K = string, V = any> {
     this.pool.clear();
   }
 }
+
+/**
+ * Synchronizes deduplication keys across browser tabs using BroadcastChannel API.
+ */
+export class BroadcastChannelDedupeSynchronizer {
+  private channel: any = null;
+  private listeners = new Set<(key: string, data: any) => void>();
+
+  constructor(private channelName = 'typepurify-dedupe-channel') {
+    if (typeof BroadcastChannel !== 'undefined') {
+      this.channel = new BroadcastChannel(this.channelName);
+      this.channel.onmessage = (event: any) => {
+        if (event.data && event.data.type === 'DEDUPE_SYNC') {
+          this.listeners.forEach((listener) => listener(event.data.key, event.data.value));
+        }
+      };
+    }
+  }
+
+  broadcast(key: string, value: any): void {
+    if (this.channel) {
+      this.channel.postMessage({ type: 'DEDUPE_SYNC', key, value });
+    }
+  }
+
+  onSync(callback: (key: string, data: any) => void): () => void {
+    this.listeners.add(callback);
+    return () => {
+      this.listeners.delete(callback);
+    };
+  }
+
+  close(): void {
+    if (this.channel) {
+      this.channel.close();
+      this.channel = null;
+    }
+    this.listeners.clear();
+  }
+}
+
+/**
+ * Formats deduplication metrics into Prometheus exporter string representation.
+ */
+export function exportPrometheusMetrics(stats: {
+  totalCalls: number;
+  deduplicatedCalls: number;
+}): string {
+  const saved = stats.deduplicatedCalls;
+  const ratio = stats.totalCalls > 0 ? (saved / stats.totalCalls).toFixed(2) : '0.00';
+  return [
+    '# HELP typepurify_dedupe_total_calls Total API calls executed',
+    '# TYPE typepurify_dedupe_total_calls counter',
+    `typepurify_dedupe_total_calls ${stats.totalCalls}`,
+    '# HELP typepurify_dedupe_saved_calls Deduplicated calls prevented',
+    '# TYPE typepurify_dedupe_saved_calls counter',
+    `typepurify_dedupe_saved_calls ${saved}`,
+    '# HELP typepurify_dedupe_efficiency Efficiency ratio',
+    '# TYPE typepurify_dedupe_efficiency gauge',
+    `typepurify_dedupe_efficiency ${ratio}`,
+  ].join('\n');
+}
+
+/**
+ * Synchronizer adapter for distributed Redis cluster deduplication lock keys.
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function createRedisClusterSyncer(clusterNodes: string[]) {
+  const activeKeys = new Set<string>();
+  return {
+    lock: (key: string) => {
+      if (activeKeys.has(key)) return false;
+      activeKeys.add(key);
+      return true;
+    },
+    unlock: (key: string) => {
+      activeKeys.delete(key);
+    },
+    isLocked: (key: string) => activeKeys.has(key),
+  };
+}

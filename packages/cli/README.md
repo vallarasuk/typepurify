@@ -77,6 +77,32 @@ console.log(formatWarning('Deprecated flag used'));
 console.error(formatError('Task failed'));
 ```
 
+## 🆕 New in v0.5.8
+
+### `generateDockerComposeYaml(...)` — Docker Compose Generator
+
+Generates a Docker Compose v3.8 YAML string with service definition, port mapping, and environment variables.
+
+```typescript
+import { generateDockerComposeYaml } from '@typepurify/cli';
+
+const yaml = generateDockerComposeYaml('api', 'node:18-alpine', 3000, {
+  NODE_ENV: 'production',
+  PORT: '3000',
+});
+```
+
+### `generateCiPipelineYaml(nodeVersion)` — GitHub Actions Generator
+
+Generates a GitHub Actions CI workflow YAML with install and test steps.
+
+```typescript
+import { generateCiPipelineYaml } from '@typepurify/cli';
+
+const yaml = generateCiPipelineYaml('20.x');
+// Outputs: name: CI, on: [push, pull_request], ...
+```
+
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy

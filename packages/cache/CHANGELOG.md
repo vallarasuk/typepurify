@@ -1,3 +1,10 @@
+## 0.5.8
+
+### Minor Changes
+
+- Added `createStaleWhileRevalidateCache(ttlMs)` — Returns stale cached data immediately while triggering a background revalidation fetch when the TTL expires.
+- Added `BloomFilterCache` — Probabilistic membership filter using a Set-backed bloom filter to prevent redundant cache lookups.
+
 ## 0.5.6
 
 ### Patch Changes

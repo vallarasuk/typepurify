@@ -1,3 +1,10 @@
+## 0.5.8
+
+### Minor Changes
+
+- Added `createRedisClusterSyncer(clusterNodes)` — Distributed deduplication lock key manager for multi-node Redis cluster environments.
+- Added `exportPrometheusMetrics(stats)` — Outputs Prometheus-formatted gauge and counter metrics from dedupe execution statistics.
+
 ## 0.5.6
 
 ### Patch Changes

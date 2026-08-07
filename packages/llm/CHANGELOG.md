@@ -1,3 +1,10 @@
+## 0.5.8
+
+### Minor Changes
+
+- Added `TokenCostLimiter` — Enforces a maximum token budget for LLM API calls, throwing on budget breach with spend/remaining tracking.
+- Added `AgentStateMachine` — Simple state machine for managing autonomous AI agent execution phases (IDLE, THINKING, EXECUTING, DONE, ERROR).
+
 ## 0.5.6
 
 ### Patch Changes

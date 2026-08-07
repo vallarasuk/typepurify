@@ -334,3 +334,71 @@ export function createHeadlessTableCore<T>(data: T[], columns: Array<{ key: stri
     isEmpty: data.length === 0,
   };
 }
+
+/**
+ * Headless Pivot Table aggregation core helper.
+ */
+export function createPivotTableCore<T extends Record<string, any>>(
+  data: T[],
+  rowKey: keyof T,
+  colKey: keyof T,
+  valKey: keyof T,
+) {
+  const pivotMap: Record<string, Record<string, number>> = {};
+  const columns = new Set<string>();
+
+  for (const row of data) {
+    const rVal = String(row[rowKey] ?? '');
+    const cVal = String(row[colKey] ?? '');
+    const vVal = Number(row[valKey] ?? 0);
+
+    columns.add(cVal);
+    if (!pivotMap[rVal]) pivotMap[rVal] = {};
+    pivotMap[rVal][cVal] = (pivotMap[rVal][cVal] || 0) + vVal;
+  }
+
+  return {
+    rows: Object.keys(pivotMap),
+    columns: Array.from(columns),
+    matrix: pivotMap,
+  };
+}
+
+/**
+ * React hook for managing inline cell edit states in Data Tables.
+ */
+export function useInlineCellEditor() {
+  const [editingCell, setEditingCell] = useState<{ rowIndex: number; columnKey: string } | null>(
+    null,
+  );
+  const [editValue, setEditValue] = useState<any>(null);
+
+  const startEditing = (rowIndex: number, columnKey: string, initialValue: any) => {
+    setEditingCell({ rowIndex, columnKey });
+    setEditValue(initialValue);
+  };
+
+  const cancelEditing = () => {
+    setEditingCell(null);
+    setEditValue(null);
+  };
+
+  return { editingCell, editValue, setEditValue, startEditing, cancelEditing };
+}
+
+/**
+ * Creates a flat node list for rendering hierarchical tree-grid data structures.
+ */
+export function createTreeGridNodes<T extends { id: string; children?: T[] }>(
+  items: T[],
+  depth = 0,
+): Array<T & { depth: number; hasChildren: boolean }> {
+  const result: Array<T & { depth: number; hasChildren: boolean }> = [];
+  for (const item of items) {
+    result.push({ ...item, depth, hasChildren: Boolean(item.children?.length) });
+    if (item.children?.length) {
+      result.push(...createTreeGridNodes(item.children, depth + 1));
+    }
+  }
+  return result;
+}

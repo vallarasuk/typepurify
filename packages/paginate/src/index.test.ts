@@ -240,4 +240,31 @@ describe('@typepurify/paginate', () => {
       expect(res.totalPages).toBe(2);
     });
   });
+
+  describe('calculateVirtualListItems', () => {
+    it('should calculate virtualized list item bounds', async () => {
+      const { calculateVirtualListItems } = await import('./index');
+      const res = calculateVirtualListItems(100, 40, 400, 0, 2);
+      expect(res.startIndex).toBe(0);
+      expect(res.totalHeight).toBe(4000);
+      expect(res.endIndex).toBeGreaterThan(10);
+    });
+  });
+
+  describe('collectPaginatedChunks', () => {
+    it('should purge cached pagination chunks outside radius', async () => {
+      const { collectPaginatedChunks } = await import('./index');
+      const map = new Map<number, number[]>([
+        [1, [1]],
+        [5, [5]],
+        [6, [6]],
+        [10, [10]],
+      ]);
+      const purged = collectPaginatedChunks(map, 5, 1);
+      expect(purged).toBe(2);
+      expect(map.has(1)).toBe(false);
+      expect(map.has(10)).toBe(false);
+      expect(map.has(5)).toBe(true);
+    });
+  });
 });

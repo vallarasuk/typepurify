@@ -357,3 +357,39 @@ export function filterPaginatedItems<T>(
 
   return { items: pageItems, total, page, totalPages };
 }
+
+/**
+ * Calculates start and end indices for virtualized list rendering based on scroll position.
+ */
+export function calculateVirtualListItems(
+  totalItems: number,
+  itemHeight: number,
+  containerHeight: number,
+  scrollTop: number,
+  overscan = 3,
+): { startIndex: number; endIndex: number; totalHeight: number } {
+  const totalHeight = totalItems * itemHeight;
+  const startIndex = Math.max(0, Math.floor(scrollTop / itemHeight) - overscan);
+  const visibleCount = Math.ceil(containerHeight / itemHeight);
+  const endIndex = Math.min(totalItems - 1, startIndex + visibleCount + overscan * 2);
+
+  return { startIndex, endIndex, totalHeight };
+}
+
+/**
+ * Garbage collector helper that purges cached pagination chunks outside active window bounds.
+ */
+export function collectPaginatedChunks<T>(
+  pagesMap: Map<number, T[]>,
+  activePage: number,
+  windowRadius = 2,
+): number {
+  let purgedCount = 0;
+  for (const pageNum of Array.from(pagesMap.keys())) {
+    if (Math.abs(pageNum - activePage) > windowRadius) {
+      pagesMap.delete(pageNum);
+      purgedCount++;
+    }
+  }
+  return purgedCount;
+}

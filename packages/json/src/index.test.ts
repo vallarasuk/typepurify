@@ -230,4 +230,33 @@ describe('@typepurify/json', () => {
       expect(res).toEqual({ 'user.name': 'Alice', 'user.details.age': 30 });
     });
   });
+
+  describe('parseBsonAdapter', () => {
+    it('should parse BSON JSON string or object payload', async () => {
+      const { parseBsonAdapter } = await import('./index');
+      expect(parseBsonAdapter('{"a":1}')).toEqual({ a: 1 });
+      expect(parseBsonAdapter({ b: 2 })).toEqual({ b: 2 });
+    });
+  });
+
+  describe('JsonCrdtSynchronizer', () => {
+    it('should merge document patches using CRDT synchronizer', async () => {
+      const { JsonCrdtSynchronizer } = await import('./index');
+      const crdt = new JsonCrdtSynchronizer({ title: 'Draft', count: 1 });
+      crdt.merge({ count: 2 });
+      expect(crdt.getDoc()).toEqual({ title: 'Draft', count: 2 });
+    });
+  });
+
+  describe('generateJsonSchema', () => {
+    it('should generate a JSON Schema draft-07 from a sample object', async () => {
+      const { generateJsonSchema } = await import('./index');
+      const schema = generateJsonSchema({ name: 'Alice', age: 30, active: true });
+      expect(schema.$schema).toContain('json-schema.org');
+      expect(schema.type).toBe('object');
+      expect(schema.properties.name).toEqual({ type: 'string' });
+      expect(schema.properties.age).toEqual({ type: 'number' });
+      expect(schema.required).toContain('name');
+    });
+  });
 });

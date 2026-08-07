@@ -1,3 +1,10 @@
+## 0.5.8
+
+### Minor Changes
+
+- Added `useUndoRedoState<T>(initial)` — React hook with full undo/redo history stack, cursor navigation, and `canUndo`/`canRedo` guards.
+- Added `useImmerDraft<T>(initialState)` — Immer-like React hook for applying mutable draft mutations to immutable state via deep clone.
+
 ## 0.5.6
 
 ### Patch Changes

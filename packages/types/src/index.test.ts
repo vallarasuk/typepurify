@@ -169,4 +169,32 @@ describe('@typepurify/types', () => {
       expectTypeOf<Vals>().toEqualTypeOf<string | number>();
     });
   });
+
+  describe('convertToTuple', () => {
+    it('should validate array length and convert to tuple helper', async () => {
+      const { convertToTuple } = await import('./index');
+      const arr = [1, 2, 3];
+      const tuple = convertToTuple(arr, 3);
+      expect(tuple).toHaveLength(3);
+      expect(() => convertToTuple(arr, 5)).toThrow('Expected array length of 5, got 3');
+    });
+  });
+
+  describe('evaluateMathOperator', () => {
+    it('should evaluate numeric operators', async () => {
+      const { evaluateMathOperator } = await import('./index');
+      expect(evaluateMathOperator(10, '+', 5)).toBe(15);
+      expect(evaluateMathOperator(10, '*', 2)).toBe(20);
+    });
+  });
+
+  describe('asDeepPartial', () => {
+    it('should cast object as DeepPartial without mutation', async () => {
+      const { asDeepPartial } = await import('./index');
+      const obj = { name: 'test', nested: { value: 42 } };
+      const partial = asDeepPartial<typeof obj>(obj);
+      expect(partial.name).toBe('test');
+      expect(partial.nested?.value).toBe(42);
+    });
+  });
 });

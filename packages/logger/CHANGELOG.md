@@ -1,3 +1,10 @@
+## 0.5.8
+
+### Minor Changes
+
+- Added `createLogAlertEngine()` — Pattern-based log alert engine; fires registered handler callbacks when log messages match defined RegExp rules.
+- Added `formatLogWasm(level, message, meta)` — Fast WASM-style log line formatter with ISO timestamp and structured meta support.
+
 ## 0.5.6
 
 ### Patch Changes

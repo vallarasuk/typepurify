@@ -208,6 +208,36 @@ An optimized in-memory chunk buffer for streaming data purification operations w
 
 ---
 
+## 🆕 New in v1.6.8
+
+### `inferSchemaBatch(objects)` — Batch Schema Inferencer
+
+Runs `inferSchema` across an array of objects in a single call, returning an array of schema maps.
+
+```typescript
+import { inferSchemaBatch } from 'typepurify';
+
+const schemas = inferSchemaBatch([
+  { id: 1, name: 'Alice' },
+  { id: 2, active: true, tags: ['ts'] },
+]);
+// => [{ id: 'number', name: 'string' }, { id: 'number', active: 'boolean', tags: 'array' }]
+```
+
+### `createWasmBindingsAdapter(wasmModule)` — WASM Bindings Adapter
+
+Wraps a WebAssembly module exports object as a typed JavaScript facade.
+
+```typescript
+import { createWasmBindingsAdapter } from 'typepurify';
+
+const wasmModule = await WebAssembly.instantiate(buffer);
+const adapter = createWasmBindingsAdapter(wasmModule.exports);
+const result = adapter.call('add', 1, 2);
+```
+
+---
+
 ## Contributing
 
 Contributions, issues, and feature requests are welcome! See our [Contributing Guidelines](CONTRIBUTING.md) for more details.
