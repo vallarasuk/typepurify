@@ -234,4 +234,24 @@ describe('@typepurify/security', () => {
       expect(rotator.getPreviousKey()).toBe('secret-v1');
     });
   });
+
+  describe('analyzeAstForInjection', () => {
+    it('should block dangerous AST nodes', async () => {
+      const { analyzeAstForInjection } = await import('./index');
+
+      const safeAst = { type: 'Program', body: [{ type: 'ExpressionStatement' }] };
+      expect(analyzeAstForInjection(safeAst)).toBe(false);
+
+      const maliciousAst1 = JSON.parse(
+        '{"type":"ObjectExpression","properties":{"__proto__":{"admin":true}}}',
+      );
+      expect(analyzeAstForInjection(maliciousAst1)).toBe(true);
+
+      const maliciousAst2 = {
+        type: 'Program',
+        body: [{ type: 'CallExpression', callee: { constructor: { name: 'Function' } } }],
+      };
+      expect(analyzeAstForInjection(maliciousAst2)).toBe(true);
+    });
+  });
 });

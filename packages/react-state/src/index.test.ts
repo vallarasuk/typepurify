@@ -363,4 +363,30 @@ describe('@typepurify/react-state', () => {
       expect(result.current.current).toBe(2);
     });
   });
+
+  describe('useEncryptedState', () => {
+    it('should encrypt and decrypt state transparently', async () => {
+      const { useEncryptedState } = await import('./index');
+      const secret = 'super-secret';
+      const initial = { foo: 'bar' };
+
+      const { result } = renderHook(() => useEncryptedState(initial, secret));
+
+      // Since useEffect runs asynchronously for encryption initialization, encrypted might be null initially
+      // depending on hook execution environment, but we can check setValue effect.
+
+      const [val] = result.current;
+      expect(val).toEqual(initial);
+
+      act(() => {
+        result.current[1]({ foo: 'baz' });
+      });
+
+      const encrypted = result.current[2];
+      const decrypt = result.current[3];
+      expect(encrypted).not.toBeNull();
+      expect(encrypted).not.toContain('baz'); // Should be encrypted (base64)
+      expect(decrypt(encrypted!)).toEqual({ foo: 'baz' });
+    });
+  });
 });

@@ -136,3 +136,7 @@ const updated = runCodemodEngine('var x = 1; var y = 2;', [
 - Added `formatError`, `formatSuccess`, `formatWarning` ANSI terminal formatters.
 - Added `formatTable` for ASCII table rendering.
 - Added `runHealthScorer` for project health analysis.
+
+## 0.5.8 Updates
+
+Includes new features.

@@ -267,4 +267,18 @@ describe('@typepurify/paginate', () => {
       expect(map.has(5)).toBe(true);
     });
   });
+
+  describe('OffsetStateManager', () => {
+    it('should stitch offset chunks correctly in order', async () => {
+      const { OffsetStateManager } = await import('./index');
+      const manager = new OffsetStateManager<number>();
+
+      manager.addChunk(20, [3, 4]);
+      manager.addChunk(0, [1, 2]);
+      manager.addChunk(40, [5, 6]);
+
+      const data = manager.getStitchedData();
+      expect(data).toEqual([1, 2, 3, 4, 5, 6]);
+    });
+  });
 });

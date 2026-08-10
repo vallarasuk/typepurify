@@ -330,3 +330,30 @@ export class TokenCostLimiter {
     this.used = 0;
   }
 }
+
+/**
+ * Split the core text into overlapping chunks based on max character/token length.
+ */
+export class TextTokenChunker {
+  constructor(
+    private maxChunkSize: number,
+    private overlap: number = 0,
+  ) {
+    if (overlap >= maxChunkSize) {
+      throw new Error('Overlap must be less than maxChunkSize');
+    }
+  }
+
+  chunk(text: string): string[] {
+    if (!text) return [];
+
+    const chunks: string[] = [];
+    let i = 0;
+    while (i < text.length) {
+      chunks.push(text.slice(i, i + this.maxChunkSize));
+      if (i + this.maxChunkSize >= text.length) break;
+      i += this.maxChunkSize - this.overlap;
+    }
+    return chunks;
+  }
+}

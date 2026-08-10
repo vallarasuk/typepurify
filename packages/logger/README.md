@@ -138,3 +138,7 @@ fetch('/api/endpoint', { headers });
 - Added `sanitizeLogMeta` to redact sensitive fields (`password`, `token`, `secret`, etc.).
 - Added `createNoopLogger` for test stubs.
 - Added `createScopedLogger` for tagged context logging.
+
+## 0.5.8 Updates
+
+Includes new features.

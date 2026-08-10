@@ -325,4 +325,31 @@ describe('@typepurify/retry', () => {
       expect(router.failover()).toBe('https://b.com');
     });
   });
+
+  describe('generateJitteredBackoff', () => {
+    it('should generate delay within exponential bounds', async () => {
+      const { generateJitteredBackoff } = await import('./index');
+      const baseDelay = 100;
+      const attempt = 2;
+      const maxDelay = 30000;
+
+      const delay = generateJitteredBackoff(baseDelay, attempt, maxDelay);
+
+      // baseDelay * (2^attempt) = 100 * 4 = 400
+      expect(delay).toBeGreaterThanOrEqual(0);
+      expect(delay).toBeLessThanOrEqual(400);
+    });
+
+    it('should respect maxDelay bound', async () => {
+      const { generateJitteredBackoff } = await import('./index');
+      const baseDelay = 1000;
+      const attempt = 10;
+      const maxDelay = 5000; // 1000 * 1024 > 5000
+
+      const delay = generateJitteredBackoff(baseDelay, attempt, maxDelay);
+
+      expect(delay).toBeGreaterThanOrEqual(0);
+      expect(delay).toBeLessThanOrEqual(maxDelay);
+    });
+  });
 });

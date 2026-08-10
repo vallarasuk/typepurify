@@ -151,3 +151,7 @@ const nodes = parseRelayConnection(conn);
 ### v0.5.1
 
 - Added `calculateHasPreviousPage` and `calculateHasNextPage` utilities.
+
+## 0.5.8 Updates
+
+Includes new features.

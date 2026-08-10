@@ -1,6 +1,6 @@
 {
   "name": "typepurify",
-  "version": "1.6.7",
+  "version": "1.6.8",
   "description": "The ultimate zero-schema JSON cleaner for TypeScript. Recursively remove null, undefined, and empty objects while preserving exact type inference. No Zod or Yup needed.",
   "publishConfig": {
     "access": "public"

@@ -153,3 +153,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Optional configuration to aggressively strip empty strings (`""`), empty arrays (`[]`), and empty objects (`{}`).
 - Dual CJS and ESM build targets via `tsup`.
 - Comprehensive test suite via `vitest`.
+
+## 1.6.8
+
+- Implemented new features as per ROADMAP.

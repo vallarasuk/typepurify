@@ -155,3 +155,7 @@ if (limiter.tryConsume(1)) {
 ## 🛡️ License
 
 MIT © Vallarasu Kanthasamy
+
+## 0.5.8 Updates
+
+Includes new features.

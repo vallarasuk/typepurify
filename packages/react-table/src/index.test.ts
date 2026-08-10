@@ -312,4 +312,34 @@ describe('@typepurify/react-table', () => {
       expect(nodes[1].hasChildren).toBe(false);
     });
   });
+
+  describe('usePersistentColumnResizer', () => {
+    it('should persist and retrieve column widths', async () => {
+      const { usePersistentColumnResizer } = await import('./index');
+      const { renderHook, act } = await import('@testing-library/react');
+
+      const storageKey = 'table-widths';
+      // Mock localStorage
+      const store: Record<string, string> = {};
+      Object.defineProperty(window, 'localStorage', {
+        value: {
+          getItem: (k: string) => store[k] || null,
+          setItem: (k: string, v: string) => {
+            store[k] = v;
+          },
+        },
+        writable: true,
+      });
+
+      const { result } = renderHook(() => usePersistentColumnResizer(storageKey, { colA: 100 }));
+      expect(result.current.widths).toEqual({ colA: 100 });
+
+      act(() => {
+        result.current.setColumnWidth('colB', 200);
+      });
+
+      expect(result.current.widths).toEqual({ colA: 100, colB: 200 });
+      expect(JSON.parse(store[storageKey])).toEqual({ colA: 100, colB: 200 });
+    });
+  });
 });

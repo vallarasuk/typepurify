@@ -267,4 +267,18 @@ describe('@typepurify/logger', () => {
       expect(triggered[0]).toContain('ERROR');
     });
   });
+
+  describe('redactPii', () => {
+    it('should redact emails, SSNs, and phone numbers', async () => {
+      const { redactPii } = await import('./index');
+      const text = 'User john.doe@example.com called 555-123-4567 and SSN is 123-45-6789.';
+      const redacted = redactPii(text);
+      expect(redacted).toContain('[EMAIL REDACTED]');
+      expect(redacted).toContain('[PHONE REDACTED]');
+      expect(redacted).toContain('[SSN REDACTED]');
+      expect(redacted).not.toContain('john.doe@example.com');
+      expect(redacted).not.toContain('555-123-4567');
+      expect(redacted).not.toContain('123-45-6789');
+    });
+  });
 });

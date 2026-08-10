@@ -173,3 +173,7 @@ const context = createRagPipelineSummary(docs, 'TypeScript');
 - Added `extractFirstMarkdownBlock` to pull code/JSON from AI responses.
 - Added `sanitizeSystemPrompt` to strip prompt injection patterns.
 - Added `wrapUserMessage` for structured LLM message formatting.
+
+## 0.5.8 Updates
+
+Includes new features.

@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
 export interface Column<T> {
   key: keyof T | string;
@@ -401,4 +401,39 @@ export function createTreeGridNodes<T extends { id: string; children?: T[] }>(
     }
   }
   return result;
+}
+
+/**
+ * Persist the core column resizer hook for syncing grid layout with localStorage.
+ */
+export function usePersistentColumnResizer(
+  storageKey: string,
+  defaultWidths: Record<string, number> = {},
+) {
+  const [widths, setWidths] = useState<Record<string, number>>(() => {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const stored = window.localStorage.getItem(storageKey);
+      if (stored) {
+        try {
+          return JSON.parse(stored);
+        } catch {
+          // ignore parse errors
+        }
+      }
+    }
+
+    return defaultWidths;
+  });
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      window.localStorage.setItem(storageKey, JSON.stringify(widths));
+    }
+  }, [widths, storageKey]);
+
+  const setColumnWidth = (columnKey: string, width: number) => {
+    setWidths((prev) => ({ ...prev, [columnKey]: width }));
+  };
+
+  return { widths, setColumnWidth };
 }

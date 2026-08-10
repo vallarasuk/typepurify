@@ -318,3 +318,7 @@ traverseObjectGraph(graph, (value, path) => {
 ### v0.4.6
 
 - Added `deepMerge(target, source)` to deeply merge objects and deduplicate arrays, and `isPlainObject(val)` for reliable type checking.
+
+## 1.6.8 Updates
+
+Includes new features.

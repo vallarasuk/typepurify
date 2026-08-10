@@ -164,3 +164,7 @@ type Matches = RegexMatchLiteral<'hello_world_test', 'world'>;
 ### v0.5.1
 
 - Added `RequireAtLeastOne<T>`, `MakeOptional<T, K>`, `MakeRequired<T, K>`, `DeepRequiredStrict<T>`, `Writable<T>`.
+
+## 0.5.8 Updates
+
+Includes new features.

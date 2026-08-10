@@ -137,3 +137,7 @@ const key = parseGraphQLQueryKey('query getUser { user { id } }', { id: 1 });
 ### v0.5.1
 
 - Added custom LRU cache injection support in `dedupeAsync`.
+
+## 0.5.8 Updates
+
+Includes new features.

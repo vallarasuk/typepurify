@@ -330,3 +330,28 @@ export class JwtKeyRotator {
     return this.rotatedAt;
   }
 }
+
+/**
+ * Block the core AST security analyzer for prototype pollution and injection attacks.
+ * Scans object structures recursively for dangerous keys.
+ */
+export function analyzeAstForInjection(ast: any): boolean {
+  if (!ast || typeof ast !== 'object') {
+    return false;
+  }
+
+  const dangerousKeys = ['__proto__', 'constructor', 'prototype'];
+
+  for (const key in ast) {
+    if (Object.prototype.hasOwnProperty.call(ast, key)) {
+      if (dangerousKeys.includes(key)) {
+        return true;
+      }
+      if (typeof ast[key] === 'object' && analyzeAstForInjection(ast[key])) {
+        return true;
+      }
+    }
+  }
+
+  return false;
+}

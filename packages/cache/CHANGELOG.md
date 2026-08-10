@@ -101,3 +101,7 @@
 ### Minor Changes
 
 - Initial release of all packages and advanced networking features for fetch.
+
+## 0.5.8
+
+- Implemented new features as per ROADMAP.

@@ -335,3 +335,21 @@ export function createLogAlertEngine() {
     },
   };
 }
+
+/**
+ * Redacts common Personally Identifiable Information (PII) from strings using regex.
+ * Specifically targets email addresses, phone numbers, and SSNs.
+ */
+export function redactPii(text: string): string {
+  if (!text) return text;
+
+  return (
+    text
+      // Redact emails
+      .replace(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g, '[EMAIL REDACTED]')
+      // Redact SSNs (simple pattern)
+      .replace(/\b\d{3}-\d{2}-\d{4}\b/g, '[SSN REDACTED]')
+      // Redact Phone numbers (simple US pattern)
+      .replace(/\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/g, '[PHONE REDACTED]')
+  );
+}

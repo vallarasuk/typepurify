@@ -412,3 +412,46 @@ export function createStaleWhileRevalidateCache<T = any>(ttlMs = 5000) {
     return fresh;
   };
 }
+
+/**
+ * Cleanup the core LRU eviction queue for efficient stale cache evictions in O(1) time.
+ */
+export class LruEvictionQueue<K, V> {
+  private map = new Map<K, V>();
+
+  constructor(private capacity: number) {}
+
+  get(key: K): V | undefined {
+    if (!this.map.has(key)) return undefined;
+    const val = this.map.get(key)!;
+    // Move to end (most recently used)
+    this.map.delete(key);
+    this.map.set(key, val);
+    return val;
+  }
+
+  set(key: K, value: V): void {
+    if (this.map.has(key)) {
+      this.map.delete(key);
+    } else if (this.map.size >= this.capacity) {
+      // Delete the first item (least recently used)
+      const lruKey = this.map.keys().next().value;
+      if (lruKey !== undefined) {
+        this.map.delete(lruKey);
+      }
+    }
+    this.map.set(key, value);
+  }
+
+  has(key: K): boolean {
+    return this.map.has(key);
+  }
+
+  delete(key: K): void {
+    this.map.delete(key);
+  }
+
+  size(): number {
+    return this.map.size;
+  }
+}

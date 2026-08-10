@@ -535,4 +535,35 @@ describe('tFetch wrapper', () => {
       expect(parsed).toEqual({ hello: 'world' });
     });
   });
+
+  describe('MultiplexCircuitBreaker', () => {
+    it('should multiplex circuit breaker across different domains', async () => {
+      const { MultiplexCircuitBreaker } = await import('./index');
+
+      const originalFetch = global.fetch;
+      // @ts-expect-error - overriding global fetch for tests
+      global.fetch = vi.fn().mockImplementation((url: string) => {
+        if (url.includes('fail.com')) {
+          return Promise.resolve({ ok: false, status: 500 });
+        }
+        return Promise.resolve({ ok: true, status: 200 });
+      });
+
+      const breaker = new MultiplexCircuitBreaker(2, 100);
+
+      // fail.com will fail twice and trip
+      await breaker.fetch('https://fail.com/api');
+      await breaker.fetch('https://fail.com/api');
+
+      await expect(breaker.fetch('https://fail.com/api')).rejects.toThrow(
+        'Circuit breaker is OPEN for https://fail.com',
+      );
+
+      // But success.com should still work
+      const res = await breaker.fetch('https://success.com/api');
+      expect(res.status).toBe(200);
+
+      global.fetch = originalFetch;
+    });
+  });
 });

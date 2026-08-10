@@ -474,3 +474,67 @@ export function useUndoRedoState<T>(initial: T) {
 
   return { current, set, undo, redo, canUndo, canRedo };
 }
+
+/**
+ * Hook for managing state with transparent encryption adapter for sensitive data.
+ */
+export function useEncryptedState<T>(initialValue: T, secretKey: string) {
+  const [encryptedData, setEncryptedData] = useState<string | null>(null);
+  const [decryptedValue, setDecryptedValue] = useState<T>(initialValue);
+
+  const encrypt = useCallback(
+    (data: any) => {
+      try {
+        const json = JSON.stringify(data);
+        let out = '';
+        for (let i = 0; i < json.length; i++) {
+          out += String.fromCharCode(
+            json.charCodeAt(i) ^ secretKey.charCodeAt(i % secretKey.length),
+          );
+        }
+        return typeof window !== 'undefined'
+          ? window.btoa(out)
+          : Buffer.from(out).toString('base64');
+      } catch {
+        return null;
+      }
+    },
+    [secretKey],
+  );
+
+  const decrypt = useCallback(
+    (cipher: string) => {
+      try {
+        const raw =
+          typeof window !== 'undefined'
+            ? window.atob(cipher)
+            : Buffer.from(cipher, 'base64').toString('utf8');
+        let out = '';
+        for (let i = 0; i < raw.length; i++) {
+          out += String.fromCharCode(
+            raw.charCodeAt(i) ^ secretKey.charCodeAt(i % secretKey.length),
+          );
+        }
+        return JSON.parse(out);
+      } catch {
+        return null;
+      }
+    },
+    [secretKey],
+  );
+
+  // initial encryption
+  useEffect(() => {
+    setEncryptedData(encrypt(initialValue));
+  }, []);
+
+  const setValue = useCallback(
+    (newValue: T) => {
+      setDecryptedValue(newValue);
+      setEncryptedData(encrypt(newValue));
+    },
+    [encrypt],
+  );
+
+  return [decryptedValue, setValue, encryptedData, decrypt] as const;
+}
