@@ -510,3 +510,39 @@ export function createRedisClusterSyncer(clusterNodes: string[]) {
     isLocked: (key: string) => activeKeys.has(key),
   };
 }
+
+/**
+ * Coalescing in-memory cache store that merges simultaneous identical requests
+ * and distributes the resolved result to all waiting callers.
+ */
+export class CoalescingCacheStore<T> {
+  private activePromises = new Map<string, Promise<T>>();
+  private cache = new Map<string, { value: T; expiresAt: number }>();
+
+  constructor(private ttlMs: number = 60000) {}
+
+  async fetch(key: string, fetcher: () => Promise<T>): Promise<T> {
+    const cached = this.cache.get(key);
+    if (cached && Date.now() < cached.expiresAt) {
+      return cached.value;
+    }
+
+    if (this.activePromises.has(key)) {
+      return this.activePromises.get(key)!;
+    }
+
+    const promise = fetcher()
+      .then((value) => {
+        this.cache.set(key, { value, expiresAt: Date.now() + this.ttlMs });
+        this.activePromises.delete(key);
+        return value;
+      })
+      .catch((err) => {
+        this.activePromises.delete(key);
+        throw err;
+      });
+
+    this.activePromises.set(key, promise);
+    return promise;
+  }
+}

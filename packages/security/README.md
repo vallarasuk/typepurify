@@ -94,3 +94,7 @@ app.use(createRaspMiddleware()); // Express-compatible
 ## 🛡️ License
 
 MIT © [Vallarasu Kanthasamy](https://github.com/vallarasuk)
+
+## 0.5.10 Updates
+
+Includes new features.

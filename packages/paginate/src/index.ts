@@ -393,3 +393,23 @@ export function collectPaginatedChunks<T>(
   }
   return purgedCount;
 }
+
+/**
+ * Stitch the core offset state manager for seamless infinite scroll data chunking.
+ */
+export class OffsetStateManager<T> {
+  private chunks = new Map<number, T[]>();
+
+  addChunk(offset: number, data: T[]) {
+    this.chunks.set(offset, data);
+  }
+
+  getStitchedData(): T[] {
+    const sortedOffsets = Array.from(this.chunks.keys()).sort((a, b) => a - b);
+    const result: T[] = [];
+    for (const offset of sortedOffsets) {
+      result.push(...this.chunks.get(offset)!);
+    }
+    return result;
+  }
+}

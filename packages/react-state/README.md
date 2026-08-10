@@ -168,3 +168,7 @@ node.releaseLeader();
 - Added `useToggle` hook for boolean state management.
 - Added `useBooleanState` with `setTrue`, `setFalse`, `toggle` helpers.
 - Added `useArray` for array state manipulation.
+
+## 0.5.8 Updates
+
+Includes new features.

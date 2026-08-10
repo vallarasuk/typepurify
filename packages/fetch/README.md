@@ -181,3 +181,7 @@ const data = await poolFetch('https://api.example.com/data');
 ## 📄 License
 
 MIT © [Vallarasu Kanthasamy](https://github.com/vallarasuk)
+
+## 0.5.8 Updates
+
+Includes new features.

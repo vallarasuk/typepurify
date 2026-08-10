@@ -147,3 +147,7 @@ for (const item of parseJsonStreamChunk(stream)) {
 - Added `isJsonString` for safe pre-parse validation.
 - Added `jsonPathSelector` for dot-notation nested value extraction.
 - Added `jsonDiff` for detecting key-level differences between two objects.
+
+## 0.5.8 Updates
+
+Includes new features.

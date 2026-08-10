@@ -197,4 +197,17 @@ describe('@typepurify/types', () => {
       expect(partial.nested?.value).toBe(42);
     });
   });
+
+  describe('assertBrand', () => {
+    it('should enforce nominal typing validation', async () => {
+      const { assertBrand } = await import('./index');
+
+      const email = assertBrand<string, 'Email'>('test@example.com', (val) => val.includes('@'));
+      expect(email).toBe('test@example.com');
+
+      expect(() => {
+        assertBrand<string, 'Email'>('invalid-email', (val) => val.includes('@'));
+      }).toThrow('Value fails validation for brand.');
+    });
+  });
 });

@@ -186,5 +186,13 @@ describe('@typepurify/cli', () => {
       expect(yaml).toContain('"3000:3000"');
       expect(yaml).toContain('NODE_ENV=production');
     });
+
+    it('should generate turbo monorepo config', async () => {
+      const { generateMonorepoConfig } = await import('./index');
+      const config = generateMonorepoConfig();
+      expect(config).toContain('https://turbo.build/schema.json');
+      const parsed = JSON.parse(config);
+      expect(parsed.pipeline.build.outputs).toContain('dist/**');
+    });
   });
 });

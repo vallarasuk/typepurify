@@ -402,3 +402,25 @@ export function generateJsonSchema(sample: Record<string, any>): Record<string, 
     required,
   };
 }
+
+/**
+ * Compiles the core JSONPath execution engine into an executable query function.
+ * Simple implementation for basic paths (e.g. "$.store.book[0].title").
+ */
+export function compileJsonPath(path: string): (obj: any) => any {
+  // Strip leading $. and split by . or []
+  const tokens = path
+    .replace(/^\$\.?/, '')
+    .split(/\.|\[|\]/g)
+    .filter(Boolean)
+    .map((t) => t.replace(/['"]/g, '')); // remove quotes if any
+
+  return (obj: any) => {
+    let current = obj;
+    for (const token of tokens) {
+      if (current === undefined || current === null) return undefined;
+      current = current[token];
+    }
+    return current;
+  };
+}

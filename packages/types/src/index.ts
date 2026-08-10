@@ -225,3 +225,19 @@ export function evaluateMathOperator(a: number, op: MathOperator, b: number): nu
 export function asDeepPartial<T>(value: unknown): DeepPartial<T> {
   return value as DeepPartial<T>;
 }
+
+/**
+ * Nominal branded type utility for compile-time validation.
+ */
+declare const __brand: unique symbol;
+export type Branded<T, Brand> = T & { [__brand]: Brand };
+
+/**
+ * Validates the core branded type definition at runtime and enforces nominal typing at compile time.
+ */
+export function assertBrand<T, Brand>(value: T, validator?: (v: T) => boolean): Branded<T, Brand> {
+  if (validator && !validator(value)) {
+    throw new Error(`Value fails validation for brand.`);
+  }
+  return value as Branded<T, Brand>;
+}

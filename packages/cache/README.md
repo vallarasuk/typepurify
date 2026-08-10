@@ -136,3 +136,7 @@ await store.removeItem('user:1');
 ### v0.5.1
 
 - Added `has(key)` method for non-mutating cache existence checks.
+
+## 0.5.8 Updates
+
+Includes new features.

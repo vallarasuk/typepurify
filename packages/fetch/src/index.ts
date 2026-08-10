@@ -492,3 +492,71 @@ export async function parseFetchPayload<T = any>(response: Response): Promise<T>
   }
   return (await response.text()) as any;
 }
+
+/**
+ * Multiplexed circuit breaker that manages failure states independently per origin.
+ */
+export class MultiplexCircuitBreaker {
+  private breakers = new Map<
+    string,
+    { failures: number; state: 'CLOSED' | 'OPEN' | 'HALF_OPEN'; nextAttempt: number }
+  >();
+
+  constructor(
+    private failureThreshold = 5,
+    private resetTimeout = 30000,
+  ) {}
+
+  private getBreaker(origin: string) {
+    if (!this.breakers.has(origin)) {
+      this.breakers.set(origin, { failures: 0, state: 'CLOSED', nextAttempt: 0 });
+    }
+    return this.breakers.get(origin)!;
+  }
+
+  async fetch(input: RequestInfo | URL, init?: RequestInit): Promise<Response> {
+    const urlStr = typeof input === 'string' ? input : (input as Request).url || input.toString();
+    let origin = 'unknown';
+    try {
+      origin = new URL(urlStr).origin;
+    } catch {
+      // Ignore if invalid URL
+    }
+
+    const breaker = this.getBreaker(origin);
+
+    if (breaker.state === 'OPEN') {
+      if (Date.now() > breaker.nextAttempt) {
+        breaker.state = 'HALF_OPEN';
+      } else {
+        throw new Error(`Circuit breaker is OPEN for ${origin}`);
+      }
+    }
+
+    try {
+      const response = await fetch(input, init);
+      if (!response.ok && response.status >= 500) {
+        this.recordFailure(breaker);
+      } else {
+        this.recordSuccess(breaker);
+      }
+      return response;
+    } catch (err) {
+      this.recordFailure(breaker);
+      throw err;
+    }
+  }
+
+  private recordFailure(breaker: any) {
+    breaker.failures++;
+    if (breaker.failures >= this.failureThreshold) {
+      breaker.state = 'OPEN';
+      breaker.nextAttempt = Date.now() + this.resetTimeout;
+    }
+  }
+
+  private recordSuccess(breaker: any) {
+    breaker.failures = 0;
+    breaker.state = 'CLOSED';
+  }
+}

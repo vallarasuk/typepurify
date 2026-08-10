@@ -105,3 +105,7 @@
 
 - Updated dependencies
   - typepurify@1.4.4
+
+## 0.5.8
+
+- Implemented new features as per ROADMAP.

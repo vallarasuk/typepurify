@@ -259,4 +259,17 @@ describe('@typepurify/json', () => {
       expect(schema.required).toContain('name');
     });
   });
+
+  describe('compileJsonPath', () => {
+    it('should compile and execute JSONPath against an object', async () => {
+      const { compileJsonPath } = await import('./index');
+      const obj = { store: { book: [{ title: 'Book 1' }, { title: 'Book 2' }] } };
+
+      const getTitle = compileJsonPath('$.store.book[0].title');
+      expect(getTitle(obj)).toBe('Book 1');
+
+      const getMissing = compileJsonPath('$.store.missing[0]');
+      expect(getMissing(obj)).toBeUndefined();
+    });
+  });
 });

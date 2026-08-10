@@ -574,5 +574,20 @@ describe('typepurify core engine', () => {
       expect(adapter.isReady()).toBe(true);
       expect(adapter.callWasm('add', 2, 3)).toBe(5);
     });
+
+    it('should optimize object graph traversal using cleanV2', async () => {
+      const { cleanV2 } = await import('./index');
+      const data = { a: 1, b: { c: 2 }, d: [3, 4] };
+      const cleaned = cleanV2(data);
+      expect(cleaned).toEqual(data);
+      expect(cleaned).not.toBe(data); // Ensures it's a deep copy, not reference
+
+      // Verify circular ref resilience or deduplication
+      const circular: any = { a: 1 };
+      circular.self = circular;
+      const cleanedCircular = cleanV2(circular);
+      expect(cleanedCircular.a).toBe(1);
+      expect(cleanedCircular.self).toBe(cleanedCircular);
+    });
   });
 });

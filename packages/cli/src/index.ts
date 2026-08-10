@@ -316,3 +316,26 @@ export function generateDockerComposeYaml(
     .filter(Boolean)
     .join('\n');
 }
+
+/**
+ * Generates a base turbo.json configuration string for migrating to a turborepo monorepo.
+ */
+export function generateMonorepoConfig(): string {
+  return JSON.stringify(
+    {
+      $schema: 'https://turbo.build/schema.json',
+      pipeline: {
+        build: {
+          dependsOn: ['^build'],
+          outputs: ['dist/**'],
+        },
+        test: {
+          dependsOn: ['build'],
+        },
+        lint: {},
+      },
+    },
+    null,
+    2,
+  );
+}

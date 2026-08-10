@@ -226,4 +226,18 @@ describe('@typepurify/llm', () => {
       expect(() => limiter.spend(70)).toThrow('Token budget exceeded');
     });
   });
+
+  describe('TextTokenChunker', () => {
+    it('should chunk text with specified size and overlap', async () => {
+      const { TextTokenChunker } = await import('./index');
+      const chunker = new TextTokenChunker(5, 2);
+      const text = 'abcdefghij';
+      // chunks:
+      // 0-5: 'abcde'
+      // 3-8: 'defgh'
+      // 6-11: 'ghij'
+      const chunks = chunker.chunk(text);
+      expect(chunks).toEqual(['abcde', 'defgh', 'ghij']);
+    });
+  });
 });

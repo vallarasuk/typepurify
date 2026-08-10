@@ -387,4 +387,45 @@ describe('@typepurify/dedupe', () => {
       expect(syncer.isLocked('req-1')).toBe(false);
     });
   });
+
+  describe('CoalescingCacheStore', () => {
+    it('should coalesce simultaneous requests for the same key', async () => {
+      const { CoalescingCacheStore } = await import('./index');
+      const store = new CoalescingCacheStore<number>(1000);
+      let fetchCount = 0;
+
+      const fetcher = async () => {
+        fetchCount++;
+        await new Promise((r) => setTimeout(r, 10));
+        return 42;
+      };
+
+      const promises = [
+        store.fetch('key1', fetcher),
+        store.fetch('key1', fetcher),
+        store.fetch('key1', fetcher),
+      ];
+
+      const results = await Promise.all(promises);
+      expect(results).toEqual([42, 42, 42]);
+      expect(fetchCount).toBe(1); // Only fetched once
+    });
+
+    it('should use cache if available and not expired', async () => {
+      const { CoalescingCacheStore } = await import('./index');
+      const store = new CoalescingCacheStore<string>(1000);
+
+      let fetchCount = 0;
+      const fetcher = async () => {
+        fetchCount++;
+        return 'value';
+      };
+
+      await store.fetch('key2', fetcher);
+      const res = await store.fetch('key2', fetcher);
+
+      expect(res).toBe('value');
+      expect(fetchCount).toBe(1); // Read from cache
+    });
+  });
 });

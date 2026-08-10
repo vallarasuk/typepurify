@@ -463,3 +463,17 @@ export class FailoverRouter {
     return this.getActiveEndpoint();
   }
 }
+
+/**
+ * Generates a "Full Jitter" randomized exponential backoff delay.
+ * Helps prevent thundering herd problems during massive retry cascades.
+ */
+export function generateJitteredBackoff(
+  baseDelay: number,
+  attempt: number,
+  maxDelay: number = 30000,
+): number {
+  const exponentialDelay = Math.min(maxDelay, baseDelay * Math.pow(2, attempt));
+  // Full jitter: Random value between 0 and exponentialDelay
+  return Math.random() * exponentialDelay;
+}

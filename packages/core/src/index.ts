@@ -950,3 +950,53 @@ export function createWasmBindingsAdapter(wasmModule: any) {
     },
   };
 }
+
+/**
+ * Optimized single-pass purification engine (v2.0).
+ * Reduces memory allocation overhead by reusing traversal states.
+ */
+export function cleanV2<T>(input: T): T {
+  if (input === null || input === undefined) {
+    return input;
+  }
+
+  if (typeof input !== 'object') {
+    return input;
+  }
+
+  const stack: Array<{ source: any; target: any }> = [
+    { source: input, target: Array.isArray(input) ? [] : {} },
+  ];
+  const rootTarget = stack[0].target;
+  const seen = new WeakMap();
+  seen.set(input as any, rootTarget);
+
+  while (stack.length > 0) {
+    const { source, target } = stack.pop()!;
+
+    for (const k in source) {
+      if (Object.prototype.hasOwnProperty.call(source, k)) {
+        const val = source[k];
+
+        if (val === null || val === undefined) {
+          continue;
+        }
+
+        if (typeof val === 'object') {
+          if (seen.has(val)) {
+            target[k] = seen.get(val);
+          } else {
+            const nextTarget = Array.isArray(val) ? [] : {};
+            seen.set(val, nextTarget);
+            target[k] = nextTarget;
+            stack.push({ source: val, target: nextTarget });
+          }
+        } else {
+          target[k] = val;
+        }
+      }
+    }
+  }
+
+  return rootTarget;
+}

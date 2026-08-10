@@ -184,3 +184,7 @@ console.log(core.isEmpty); // false
 ### v0.5.1
 
 - Added `toggleAllColumnVisibility` for bulk column toggling.
+
+## 0.5.8 Updates
+
+Includes new features.

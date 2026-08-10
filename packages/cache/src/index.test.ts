@@ -280,4 +280,29 @@ describe('@typepurify/cache', () => {
       expect(callCount).toBe(1);
     });
   });
+
+  describe('LruEvictionQueue', () => {
+    it('should evict least recently used items when capacity is reached', async () => {
+      const { LruEvictionQueue } = await import('./index');
+      const lru = new LruEvictionQueue<string, number>(3);
+
+      lru.set('a', 1);
+      lru.set('b', 2);
+      lru.set('c', 3);
+
+      expect(lru.size()).toBe(3);
+      expect(lru.has('a')).toBe(true);
+
+      // Access 'a' to make it recently used
+      lru.get('a');
+
+      // Add 'd', should evict 'b' since 'a' was recently used and 'b' is the oldest
+      lru.set('d', 4);
+
+      expect(lru.size()).toBe(3);
+      expect(lru.has('b')).toBe(false);
+      expect(lru.has('a')).toBe(true);
+      expect(lru.has('d')).toBe(true);
+    });
+  });
 });
