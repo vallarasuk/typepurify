@@ -421,13 +421,9 @@ export function usePersistentColumnResizer(
         }
       }
     }
+
     return defaultWidths;
   });
-
-  // eslint-disable-next-line no-empty
-  useEffect(() => {
-    // intentional empty block
-  }, [columns]);
 
   useEffect(() => {
     if (typeof window !== 'undefined' && window.localStorage) {
