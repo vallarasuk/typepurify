@@ -179,8 +179,10 @@ export function analyzeBundleSize(dirPath: string): { totalFiles: number; totalS
   if (!dirPath || !fs.existsSync(dirPath)) {
     return { totalFiles: 0, totalSizeBytes: 0 };
   }
-  const files = fs.readdirSync(dirPath);
   let totalSizeBytes = 0;
+  let totalFiles = 0;
+  const files = fs.readdirSync(dirPath);
+
   files.forEach((file) => {
     const fullPath = path.join(dirPath, file);
     try {
@@ -189,14 +191,19 @@ export function analyzeBundleSize(dirPath: string): { totalFiles: number; totalS
         // Skip symlinks to prevent circular traversal crashes
         return;
       }
-      if (stat.isFile()) {
+      if (stat.isDirectory()) {
+        const nested = analyzeBundleSize(fullPath);
+        totalFiles += nested.totalFiles;
+        totalSizeBytes += nested.totalSizeBytes;
+      } else if (stat.isFile()) {
         totalSizeBytes += stat.size;
+        totalFiles++;
       }
     } catch {
       // Ignore unreadable paths
     }
   });
-  return { totalFiles: files.length, totalSizeBytes };
+  return { totalFiles, totalSizeBytes };
 }
 
 /**

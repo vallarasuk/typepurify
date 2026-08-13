@@ -472,7 +472,11 @@ export function generateJitteredBackoff(
   baseDelay: number,
   attempt: number,
   maxDelay: number = 30000,
+  maxAttempts: number = 100,
 ): number {
+  if (attempt > maxAttempts) {
+    throw new Error(`Maximum retry attempts (${maxAttempts}) exceeded to prevent infinite loop`);
+  }
   const exponentialDelay = Math.min(maxDelay, baseDelay * Math.pow(2, attempt));
   // Full jitter: Random value between 0 and exponentialDelay
   return Math.random() * exponentialDelay;

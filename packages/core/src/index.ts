@@ -971,31 +971,36 @@ export function cleanV2<T>(input: T): T {
   const seen = new WeakMap();
   seen.set(input as any, rootTarget);
 
-  while (stack.length > 0) {
-    const { source, target } = stack.pop()!;
+  try {
+    while (stack.length > 0) {
+      const { source, target } = stack.pop()!;
 
-    for (const k in source) {
-      if (Object.prototype.hasOwnProperty.call(source, k)) {
-        const val = source[k];
+      for (const k in source) {
+        if (Object.prototype.hasOwnProperty.call(source, k)) {
+          const val = source[k];
 
-        if (val === null || val === undefined) {
-          continue;
-        }
-
-        if (typeof val === 'object') {
-          if (seen.has(val)) {
-            target[k] = seen.get(val);
-          } else {
-            const nextTarget = Array.isArray(val) ? [] : {};
-            seen.set(val, nextTarget);
-            target[k] = nextTarget;
-            stack.push({ source: val, target: nextTarget });
+          if (val === null || val === undefined) {
+            continue;
           }
-        } else {
-          target[k] = val;
+
+          if (typeof val === 'object') {
+            if (seen.has(val)) {
+              target[k] = seen.get(val);
+            } else {
+              const nextTarget = Array.isArray(val) ? [] : {};
+              seen.set(val, nextTarget);
+              target[k] = nextTarget;
+              stack.push({ source: val, target: nextTarget });
+            }
+          } else {
+            target[k] = val;
+          }
         }
       }
     }
+  } finally {
+    // Explicitly release references to avoid potential memory leaks in long-running processes
+    stack.length = 0;
   }
 
   return rootTarget;

@@ -1,6 +1,6 @@
 {
   "name": "@typepurify/cli",
-  "version": "0.5.8",
+  "version": "0.5.9",
   "description": "Scaffolding and analysis CLI.",
   "publishConfig": {
     "access": "public"

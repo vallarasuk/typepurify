@@ -224,6 +224,29 @@ export function createSignalStore<T>(initial: T) {
 }
 
 /**
+ * Hook to consume a signal store with unmount safety.
+ */
+export function useStore<T>(store: ReturnType<typeof createSignalStore<T>>) {
+  const [state, setState] = useState(store.get());
+  const mounted = useRef(true);
+
+  useEffect(() => {
+    mounted.current = true;
+    const unsubscribe = store.subscribe((val) => {
+      if (mounted.current) {
+        setState(val);
+      }
+    });
+    return () => {
+      mounted.current = false;
+      unsubscribe();
+    };
+  }, [store]);
+
+  return state;
+}
+
+/**
  * React hook that stores and returns the previous value of a variable across renders.
  */
 export function usePrevious<T>(value: T): T | undefined {

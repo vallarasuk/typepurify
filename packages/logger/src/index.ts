@@ -254,12 +254,16 @@ export function injectOpenTelemetryTraceHeader(
 /**
  * Creates an in-memory buffered logger that stores log messages for batch inspection or flushing.
  */
-export function createBufferedLogger(options?: LoggerOptions) {
+export function createBufferedLogger(options?: LoggerOptions & { maxBufferSize?: number }) {
+  const maxBufferSize = options?.maxBufferSize ?? 10000;
   const logs: Array<{ level: LogLevel; message: string; meta?: any; timestamp: string }> = [];
   const baseLogger = new Logger(options);
 
   const push = (level: LogLevel, message: string, meta?: any) => {
     logs.push({ level, message, meta, timestamp: new Date().toISOString() });
+    if (logs.length > maxBufferSize) {
+      logs.shift(); // Explicitly drop older logs to avoid Node.js OOM crashes
+    }
   };
 
   return {

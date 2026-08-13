@@ -233,6 +233,26 @@ export function flattenCsvToJson(csv: string): object[] {
 }
 
 /**
+ * JSON to CSV exporter.
+ */
+export function jsonToCsv(data: Record<string, any>[]): string {
+  if (!data || !data.length) return '';
+  const headers = Object.keys(data[0]);
+
+  const escapeCsv = (val: any) => {
+    if (val === null || val === undefined) return '';
+    const str = String(val);
+    if (str.includes(',') || str.includes('"') || str.includes('\n')) {
+      return `"${str.replace(/"/g, '""')}"`;
+    }
+    return str;
+  };
+
+  const rows = data.map((row) => headers.map((h) => escapeCsv(row[h])).join(','));
+  return [headers.map(escapeCsv).join(','), ...rows].join('\n');
+}
+
+/**
  * Converts a JSON object or map into clean XML representation.
  */
 export function jsonToXml(obj: Record<string, any>, rootTag = 'root'): string {

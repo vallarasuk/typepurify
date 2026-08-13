@@ -281,4 +281,17 @@ describe('@typepurify/logger', () => {
       expect(redacted).not.toContain('123-45-6789');
     });
   });
+  describe('createBufferedLogger maxBufferSize', () => {
+    it('should work', async () => {
+      const { createBufferedLogger } = await import('./index');
+      const logger = createBufferedLogger({ maxBufferSize: 2 });
+      logger.info('1');
+      logger.info('2');
+      logger.info('3');
+      const logs = logger.getBufferedLogs();
+      expect(logs.length).toBe(2);
+      expect(logs[0].message).toBe('2');
+      expect(logs[1].message).toBe('3');
+    });
+  });
 });

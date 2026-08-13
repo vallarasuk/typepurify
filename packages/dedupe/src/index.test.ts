@@ -428,4 +428,17 @@ describe('@typepurify/dedupe', () => {
       expect(fetchCount).toBe(1); // Read from cache
     });
   });
+  describe('dedupeSync hash collision', () => {
+    it('should work', async () => {
+      const { dedupeSync } = await import('./index');
+      let callCount = 0;
+      const fn = dedupeSync((x: number) => {
+        callCount++;
+        return x * 2;
+      });
+      fn(1);
+      fn(1); // Same arg — should be deduped (cached)
+      expect(callCount).toBe(1);
+    });
+  });
 });

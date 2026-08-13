@@ -338,10 +338,22 @@ export class TextTokenChunker {
   constructor(
     private maxChunkSize: number,
     private overlap: number = 0,
+    private preserveOptionals: boolean = true,
   ) {
     if (overlap >= maxChunkSize) {
       throw new Error('Overlap must be less than maxChunkSize');
     }
+  }
+
+  chunkObject(payload: Record<string, any>): string[] {
+    // Preserve nested optional fields and avoid stripping them during object sanitization
+    const str = JSON.stringify(payload, (key, value) => {
+      if (this.preserveOptionals && value === undefined) {
+        return null; // Keep the key instead of dropping it completely
+      }
+      return value;
+    });
+    return this.chunk(str);
   }
 
   chunk(text: string): string[] {

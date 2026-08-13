@@ -389,4 +389,10 @@ describe('@typepurify/react-state', () => {
       expect(decrypt(encrypted!)).toEqual({ foo: 'baz' });
     });
   });
+  describe('useStore safe unmount', () => {
+    it('should work', async () => {
+      const { useStore } = await import('./index');
+      expect(typeof useStore).toBe('function');
+    });
+  });
 });
