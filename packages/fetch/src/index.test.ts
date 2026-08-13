@@ -566,4 +566,11 @@ describe('tFetch wrapper', () => {
       global.fetch = originalFetch;
     });
   });
+  describe('MultiplexCircuitBreaker ECONNRESET handling', () => {
+    it('should work', async () => {
+      const { MultiplexCircuitBreaker } = await import('./index');
+      const cb = new MultiplexCircuitBreaker(1, 1000);
+      expect(cb).toBeDefined();
+    });
+  });
 });

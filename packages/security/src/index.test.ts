@@ -254,4 +254,11 @@ describe('@typepurify/security', () => {
       expect(analyzeAstForInjection(maliciousAst2)).toBe(true);
     });
   });
+  describe('serializeCookie defaults to Lax', () => {
+    it('should work', async () => {
+      const { serializeCookie } = await import('./index');
+      const cookie = serializeCookie('test', 'val');
+      expect(cookie).toContain('SameSite=Lax');
+    });
+  });
 });

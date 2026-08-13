@@ -281,4 +281,13 @@ describe('@typepurify/paginate', () => {
       expect(data).toEqual([1, 2, 3, 4, 5, 6]);
     });
   });
+  describe('OffsetStateManager keyExtractor', () => {
+    it('should work', async () => {
+      const { OffsetStateManager } = await import('./index');
+      const manager = new OffsetStateManager<{ id: number }>((item) => item.id);
+      manager.addChunk(0, [{ id: 1 }, { id: 2 }]);
+      manager.addChunk(2, [{ id: 2 }, { id: 3 }]);
+      expect(manager.getStitchedData().length).toBe(3);
+    });
+  });
 });

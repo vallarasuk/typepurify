@@ -239,5 +239,14 @@ describe('@typepurify/llm', () => {
       const chunks = chunker.chunk(text);
       expect(chunks).toEqual(['abcde', 'defgh', 'ghij']);
     });
+
+    it('should preserve optionals in chunkObject when preserveOptionals is true', async () => {
+      const { TextTokenChunker } = await import('./index');
+      const chunker = new TextTokenChunker(50, 0, true);
+      const payload = { a: 1, b: undefined, c: 3 };
+      const chunks = chunker.chunkObject(payload);
+      expect(chunks[0]).toContain('"b":null');
+      expect(chunks[0]).toContain('"a":1');
+    });
   });
 });

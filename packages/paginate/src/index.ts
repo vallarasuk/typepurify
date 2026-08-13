@@ -399,6 +399,11 @@ export function collectPaginatedChunks<T>(
  */
 export class OffsetStateManager<T> {
   private chunks = new Map<number, T[]>();
+  private keyExtractor?: (item: T) => any;
+
+  constructor(keyExtractor?: (item: T) => any) {
+    this.keyExtractor = keyExtractor;
+  }
 
   addChunk(offset: number, data: T[]) {
     this.chunks.set(offset, data);
@@ -407,8 +412,19 @@ export class OffsetStateManager<T> {
   getStitchedData(): T[] {
     const sortedOffsets = Array.from(this.chunks.keys()).sort((a, b) => a - b);
     const result: T[] = [];
+    const seenKeys = new Set<any>();
+
     for (const offset of sortedOffsets) {
-      result.push(...this.chunks.get(offset)!);
+      for (const item of this.chunks.get(offset)!) {
+        if (this.keyExtractor) {
+          const key = this.keyExtractor(item);
+          if (key !== undefined && key !== null) {
+            if (seenKeys.has(key)) continue;
+            seenKeys.add(key);
+          }
+        }
+        result.push(item);
+      }
     }
     return result;
   }

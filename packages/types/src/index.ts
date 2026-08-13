@@ -229,15 +229,17 @@ export function asDeepPartial<T>(value: unknown): DeepPartial<T> {
 /**
  * Nominal branded type utility for compile-time validation.
  */
-declare const __brand: unique symbol;
-export type Branded<T, Brand> = T & { [__brand]: Brand };
+export type Branded<T, BrandName extends string> = T & { readonly __brand: BrandName };
 
 /**
  * Validates the core branded type definition at runtime and enforces nominal typing at compile time.
  */
-export function assertBrand<T, Brand>(value: T, validator?: (v: T) => boolean): Branded<T, Brand> {
+export function assertBrand<T, BrandName extends string>(
+  value: T,
+  validator?: (v: T) => boolean,
+): Branded<T, BrandName> {
   if (validator && !validator(value)) {
     throw new Error(`Value fails validation for brand.`);
   }
-  return value as Branded<T, Brand>;
+  return value as Branded<T, BrandName>;
 }

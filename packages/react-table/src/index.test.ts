@@ -342,4 +342,11 @@ describe('@typepurify/react-table', () => {
       expect(JSON.parse(store[storageKey])).toEqual({ colA: 100, colB: 200 });
     });
   });
+  describe('measureVirtualizer safeRowHeight', () => {
+    it('should work', async () => {
+      const { measureVirtualizer } = await import('./index');
+      const result = measureVirtualizer(100, 0, 0);
+      expect(result.totalHeight).toBe(3500); // 100 * 35
+    });
+  });
 });

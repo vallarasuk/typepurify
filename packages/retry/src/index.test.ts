@@ -352,4 +352,17 @@ describe('@typepurify/retry', () => {
       expect(delay).toBeLessThanOrEqual(maxDelay);
     });
   });
+  describe('generateJitteredBackoff maxAttempts', () => {
+    it('should work', async () => {
+      const { generateJitteredBackoff } = await import('./index');
+      // Should succeed when attempt is within maxAttempts
+      const delay = generateJitteredBackoff(100, 5, 5000, 10);
+      expect(delay).toBeGreaterThanOrEqual(0);
+      expect(delay).toBeLessThanOrEqual(5000);
+      // Should throw when attempt exceeds maxAttempts
+      expect(() => generateJitteredBackoff(100, 11, 5000, 10)).toThrow(
+        'Maximum retry attempts (10) exceeded to prevent infinite loop',
+      );
+    });
+  });
 });

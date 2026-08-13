@@ -590,4 +590,12 @@ describe('typepurify core engine', () => {
       expect(cleanedCircular.self).toBe(cleanedCircular);
     });
   });
+  describe('cleanV2 try-finally test', () => {
+    it('should work', async () => {
+      const { cleanV2 } = await import('./index');
+      const obj = { a: 1 };
+      const cleaned = cleanV2(obj);
+      expect(cleaned).toEqual({ a: 1 });
+    });
+  });
 });

@@ -431,6 +431,11 @@ export class LruEvictionQueue<K, V> {
   }
 
   set(key: K, value: V): void {
+    if (
+      typeof key === 'string' &&
+      (key === '__proto__' || key === 'constructor' || key === 'prototype')
+    )
+      return;
     if (this.map.has(key)) {
       this.map.delete(key);
     } else if (this.map.size >= this.capacity) {

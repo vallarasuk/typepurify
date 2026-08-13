@@ -1,6 +1,6 @@
 {
   "name": "typeclean-monorepo",
-  "version": "0.0.1",
+  "version": "0.5.9",
   "private": true,
   "description": "TypePurify Ecosystem - Enterprise-grade, zero-schema data purification and type-safe utilities for TypeScript and React.",
   "packageManager": "npm@11.7.0",

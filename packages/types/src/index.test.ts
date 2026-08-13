@@ -210,4 +210,12 @@ describe('@typepurify/types', () => {
       }).toThrow('Value fails validation for brand.');
     });
   });
+  describe('Branded type flattens', () => {
+    it('should work', async () => {
+      const { assertBrand } = await import('./index');
+      const obj = 'test';
+      const branded = assertBrand(obj, () => true);
+      expect(branded).toBe('test');
+    });
+  });
 });

@@ -269,16 +269,24 @@ export function useRowSelection() {
  * Core virtualizer module for lightning-fast React data table rendering.
  */
 export function measureVirtualizer(rowCount: number, rowHeight: number, scrollTop = 0) {
-  const totalHeight = rowCount * rowHeight;
-  const startIndex = Math.max(0, Math.floor(scrollTop / rowHeight));
-  const visibleNodes = Math.ceil(1000 / rowHeight);
+  const safeRowHeight = rowHeight > 0 ? rowHeight : 35; // Default height if DOM is not painted
+  const totalHeight = rowCount * safeRowHeight;
+  const startIndex = Math.max(0, Math.floor(scrollTop / safeRowHeight));
+  const visibleNodes = Math.ceil(1000 / safeRowHeight);
   return {
     totalHeight,
     startIndex,
     endIndex: Math.min(rowCount, startIndex + visibleNodes + 2), // Overscan buffer prevents scrollbar jump
     visibleNodes,
-    offsetY: startIndex * rowHeight,
+    offsetY: startIndex * safeRowHeight,
   };
+}
+
+export function useVirtualizer(rowCount: number, rowHeight: number, scrollTop = 0) {
+  return useMemo(
+    () => measureVirtualizer(rowCount, rowHeight, scrollTop),
+    [rowCount, rowHeight, scrollTop],
+  );
 }
 
 /**

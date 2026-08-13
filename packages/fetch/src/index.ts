@@ -541,8 +541,11 @@ export class MultiplexCircuitBreaker {
         this.recordSuccess(breaker);
       }
       return response;
-    } catch (err) {
+    } catch (err: any) {
       this.recordFailure(breaker);
+      if (err?.code === 'ECONNRESET' || err?.message?.includes('socket hang up')) {
+        throw new Error(`Connection reset or socket hung up for ${origin}`);
+      }
       throw err;
     }
   }

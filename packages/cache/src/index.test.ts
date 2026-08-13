@@ -305,4 +305,12 @@ describe('@typepurify/cache', () => {
       expect(lru.has('d')).toBe(true);
     });
   });
+  describe('LruEvictionQueue prevents prototype pollution', () => {
+    it('should work', async () => {
+      const { LruEvictionQueue } = await import('./index');
+      const queue = new LruEvictionQueue(10);
+      queue.set('__proto__', 'polluted');
+      expect(queue.has('__proto__')).toBe(false);
+    });
+  });
 });

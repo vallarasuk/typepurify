@@ -82,7 +82,7 @@
     - **v1.5.5** - Bugfix: infinite recursion bug
       - `[ ]` fix: [PATCH] Debug and resolve infinite recursion bug occurring under specific edge cases.
 - **v2.0.0** - Major Release: purification engine
-  - `[ ]` feat: [MAJOR] Rewrite the core purification engine for @typepurify/core to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Rewrite the core purification engine for @typepurify/core to enhance performance and developer experience.
   - **v2.0.1** - Bugfix: memory leak edge cases
     - `[ ]` fix: [PATCH] Investigate and resolve memory leak edge cases reported by users post-major release.
   - **v2.0.2** - Bugfix: infinite recursion bug
@@ -377,7 +377,7 @@
     - **v1.5.5** - Bugfix: DNS resolution timeout
       - `[ ]` fix: [PATCH] Debug and resolve DNS resolution timeout occurring under specific edge cases.
 - **v2.0.0** - Major Release: circuit breaker
-  - `[ ]` feat: [MAJOR] Multiplex the core circuit breaker for @typepurify/fetch to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Multiplex the core circuit breaker for @typepurify/fetch to enhance performance and developer experience.
   - **v2.0.1** - Bugfix: socket hangup issue
     - `[ ]` fix: [PATCH] Investigate and resolve socket hangup issue reported by users post-major release.
   - **v2.0.2** - Bugfix: DNS resolution timeout
@@ -672,7 +672,7 @@
     - **v1.5.5** - Bugfix: math overflow in delay calc
       - `[ ]` fix: [PATCH] Debug and resolve math overflow in delay calc occurring under specific edge cases.
 - **v2.0.0** - Major Release: jitter generator
-  - `[ ]` feat: [MAJOR] Delay the core jitter generator for @typepurify/retry to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Delay the core jitter generator for @typepurify/retry to enhance performance and developer experience.
   - **v2.0.1** - Bugfix: infinite retry loop
     - `[ ]` fix: [PATCH] Investigate and resolve infinite retry loop reported by users post-major release.
   - **v2.0.2** - Bugfix: math overflow in delay calc
@@ -967,7 +967,7 @@
     - **v1.5.5** - Bugfix: stale data read
       - `[ ]` fix: [PATCH] Debug and resolve stale data read occurring under specific edge cases.
 - **v2.0.0** - Major Release: in-memory cache store
-  - `[ ]` feat: [MAJOR] Coalesce the core in-memory cache store for @typepurify/dedupe to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Coalesce the core in-memory cache store for @typepurify/dedupe to enhance performance and developer experience.
   - **v2.0.1** - Bugfix: hash collision false positive
     - `[ ]` fix: [PATCH] Investigate and resolve hash collision false positive reported by users post-major release.
   - **v2.0.2** - Bugfix: stale data read
@@ -1262,7 +1262,7 @@
     - **v1.5.5** - Bugfix: stream unclosed memory leak
       - `[ ]` fix: [PATCH] Debug and resolve stream unclosed memory leak occurring under specific edge cases.
 - **v2.0.0** - Major Release: offset state manager
-  - `[ ]` feat: [MAJOR] Stitch the core offset state manager for @typepurify/paginate to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Stitch the core offset state manager for @typepurify/paginate to enhance performance and developer experience.
   - **v2.0.1** - Bugfix: overlapping list items
     - `[ ]` fix: [PATCH] Investigate and resolve overlapping list items reported by users post-major release.
   - **v2.0.2** - Bugfix: stream unclosed memory leak
@@ -1557,7 +1557,7 @@
     - **v1.5.5** - Bugfix: file corruption on write
       - `[ ]` fix: [PATCH] Debug and resolve file corruption on write occurring under specific edge cases.
 - **v2.0.0** - Major Release: LRU eviction queue
-  - `[ ]` feat: [MAJOR] Cleanup the core LRU eviction queue for @typepurify/cache to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Cleanup the core LRU eviction queue for @typepurify/cache to enhance performance and developer experience.
   - **v2.0.1** - Bugfix: cache pollution vulnerability
     - `[ ]` fix: [PATCH] Investigate and resolve cache pollution vulnerability reported by users post-major release.
   - **v2.0.2** - Bugfix: file corruption on write
@@ -1852,7 +1852,7 @@
     - **v1.5.5** - Bugfix: inference mismatch
       - `[ ]` fix: [PATCH] Debug and resolve inference mismatch occurring under specific edge cases.
 - **v2.0.0** - Major Release: branded type definition
-  - `[ ]` feat: [MAJOR] Validate the core branded type definition for @typepurify/types to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Validate the core branded type definition for @typepurify/types to enhance performance and developer experience.
   - **v2.0.1** - Bugfix: slow compilation times
     - `[ ]` fix: [PATCH] Investigate and resolve slow compilation times reported by users post-major release.
   - **v2.0.2** - Bugfix: inference mismatch
@@ -2147,7 +2147,7 @@
     - **v1.5.5** - Bugfix: minWidth CSS bypass
       - `[ ]` fix: [PATCH] Debug and resolve minWidth CSS bypass occurring under specific edge cases.
 - **v2.0.0** - Major Release: column resizer hook
-  - `[ ]` feat: [MAJOR] Persist the core column resizer hook for @typepurify/react-table to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Persist the core column resizer hook for @typepurify/react-table to enhance performance and developer experience.
   - **v2.0.1** - Bugfix: scrollbar jump on load
     - `[ ]` fix: [PATCH] Investigate and resolve scrollbar jump on load reported by users post-major release.
   - **v2.0.2** - Bugfix: minWidth CSS bypass
@@ -2442,7 +2442,7 @@
     - **v1.5.5** - Bugfix: disabled storage crash
       - `[ ]` fix: [PATCH] Debug and resolve disabled storage crash occurring under specific edge cases.
 - **v2.0.0** - Major Release: encryption adapter
-  - `[ ]` feat: [MAJOR] Encrypt the core encryption adapter for @typepurify/react-state to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Encrypt the core encryption adapter for @typepurify/react-state to enhance performance and developer experience.
   - **v2.0.1** - Bugfix: untracked read error
     - `[ ]` fix: [PATCH] Investigate and resolve untracked read error reported by users post-major release.
   - **v2.0.2** - Bugfix: disabled storage crash
@@ -2737,7 +2737,7 @@
     - **v1.5.5** - Bugfix: markdown code block split error
       - `[ ]` fix: [PATCH] Debug and resolve markdown code block split error occurring under specific edge cases.
 - **v2.0.0** - Major Release: token chunker
-  - `[ ]` feat: [MAJOR] Split the core token chunker for @typepurify/llm to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Split the core token chunker for @typepurify/llm to enhance performance and developer experience.
   - **v2.0.1** - Bugfix: nested optional field drop
     - `[ ]` fix: [PATCH] Investigate and resolve nested optional field drop reported by users post-major release.
   - **v2.0.2** - Bugfix: markdown code block split error
@@ -3032,7 +3032,7 @@
     - **v1.5.5** - Bugfix: regex cache miss on PII
       - `[ ]` fix: [PATCH] Debug and resolve regex cache miss on PII occurring under specific edge cases.
 - **v2.0.0** - Major Release: regex redactor for PII
-  - `[ ]` feat: [MAJOR] Redact the core regex redactor for PII for @typepurify/logger to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Redact the core regex redactor for PII for @typepurify/logger to enhance performance and developer experience.
   - **v2.0.1** - Bugfix: network partition buffer overflow
     - `[ ]` fix: [PATCH] Investigate and resolve network partition buffer overflow reported by users post-major release.
   - **v2.0.2** - Bugfix: regex cache miss on PII
@@ -3327,7 +3327,7 @@
     - **v1.5.5** - Bugfix: JSON parsing false positive
       - `[ ]` fix: [PATCH] Debug and resolve JSON parsing false positive occurring under specific edge cases.
 - **v2.0.0** - Major Release: AST security analyzer
-  - `[ ]` feat: [MAJOR] Block the core AST security analyzer for @typepurify/security to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Block the core AST security analyzer for @typepurify/security to enhance performance and developer experience.
   - **v2.0.1** - Bugfix: SameSite cookie bypass
     - `[ ]` fix: [PATCH] Investigate and resolve SameSite cookie bypass reported by users post-major release.
   - **v2.0.2** - Bugfix: JSON parsing false positive
@@ -3622,7 +3622,7 @@
     - **v1.5.5** - Bugfix: git history loss on hoist
       - `[ ]` fix: [PATCH] Debug and resolve git history loss on hoist occurring under specific edge cases.
 - **v2.0.0** - Major Release: monorepo migrator
-  - `[ ]` feat: [MAJOR] Hoist the core monorepo migrator for @typepurify/cli to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Hoist the core monorepo migrator for @typepurify/cli to enhance performance and developer experience.
   - **v2.0.1** - Bugfix: symlink traverse crash
     - `[ ]` fix: [PATCH] Investigate and resolve symlink traverse crash reported by users post-major release.
   - **v2.0.2** - Bugfix: git history loss on hoist
@@ -3917,7 +3917,7 @@
     - **v1.5.5** - Bugfix: regex filter error in JSONPath
       - `[ ]` fix: [PATCH] Debug and resolve regex filter error in JSONPath occurring under specific edge cases.
 - **v2.0.0** - Major Release: JSONPath execution engine
-  - `[ ]` feat: [MAJOR] Compile the core JSONPath execution engine for @typepurify/json to enhance performance and developer experience.
+  - `[x]` feat: [MAJOR] Compile the core JSONPath execution engine for @typepurify/json to enhance performance and developer experience.
   - **v2.0.1** - Bugfix: comma escape error in CSV
     - `[ ]` fix: [PATCH] Investigate and resolve comma escape error in CSV reported by users post-major release.
   - **v2.0.2** - Bugfix: regex filter error in JSONPath

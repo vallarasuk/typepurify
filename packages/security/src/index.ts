@@ -355,3 +355,33 @@ export function analyzeAstForInjection(ast: any): boolean {
 
   return false;
 }
+
+export interface CookieOptions {
+  maxAge?: number;
+  domain?: string;
+  path?: string;
+  expires?: Date;
+  httpOnly?: boolean;
+  secure?: boolean;
+  sameSite?: 'Strict' | 'Lax' | 'None' | boolean;
+}
+
+/**
+ * Cookie serialization helper.
+ */
+export function serializeCookie(name: string, value: string, options: CookieOptions = {}): string {
+  let str = `${encodeURIComponent(name)}=${encodeURIComponent(value)}`;
+
+  if (options.maxAge != null) str += `; Max-Age=${Math.floor(options.maxAge)}`;
+  if (options.domain) str += `; Domain=${options.domain}`;
+  if (options.path) str += `; Path=${options.path}`;
+  if (options.expires) str += `; Expires=${options.expires.toUTCString()}`;
+  if (options.httpOnly) str += `; HttpOnly`;
+  if (options.secure) str += `; Secure`;
+
+  const sameSite = options.sameSite ?? 'Lax'; // Explicitly default to Lax to prevent SameSite bypass
+  if (sameSite === true) str += `; SameSite=Strict`;
+  else if (sameSite) str += `; SameSite=${sameSite}`;
+
+  return str;
+}

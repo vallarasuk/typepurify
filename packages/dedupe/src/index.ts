@@ -266,7 +266,13 @@ export function createBatchDeduper<K, V>(
  */
 export function dedupeSync<T extends (...args: any[]) => any>(
   fn: T,
-  keyGenerator: (...args: any[]) => string = (...args) => JSON.stringify(args),
+  keyGenerator: (...args: any[]) => string = (...args) => {
+    if (args.length === 1 && typeof args[0] !== 'object' && typeof args[0] !== 'function') {
+      return `${typeof args[0]}:${String(args[0])}`;
+    }
+    if (args.length === 0) return '()';
+    return JSON.stringify(args);
+  },
 ): T {
   const cache = new Map<string, any>();
   return function (...args: any[]) {
@@ -287,7 +293,13 @@ export function dedupeSync<T extends (...args: any[]) => any>(
  */
 export function dedupeAsyncGenerator<T, Args extends any[]>(
   genFn: (...args: Args) => AsyncGenerator<T, void, unknown>,
-  keyGenerator: (...args: Args) => string = (...args) => JSON.stringify(args),
+  keyGenerator: (...args: Args) => string = (...args) => {
+    if (args.length === 1 && typeof args[0] !== 'object' && typeof args[0] !== 'function') {
+      return `${typeof args[0]}:${String(args[0])}`;
+    }
+    if (args.length === 0) return '()';
+    return JSON.stringify(args);
+  },
 ): (...args: Args) => AsyncGenerator<T, void, unknown> {
   const ongoing = new Map<
     string,

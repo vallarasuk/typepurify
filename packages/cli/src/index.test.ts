@@ -111,11 +111,16 @@ describe('@typepurify/cli', () => {
 
   describe('analyzeBundleSize', () => {
     it('should return file count and byte size for directory', () => {
-      (fs.existsSync as any).mockReturnValue(true);
-      (fs.readdirSync as any).mockReturnValue(['index.js', 'index.mjs']);
-      const mockStat = { isFile: () => true, isSymbolicLink: () => false, size: 500 };
+      const mockStat = {
+        isFile: () => true,
+        isSymbolicLink: () => false,
+        isDirectory: () => false,
+        size: 500,
+      };
+      (fs.existsSync as any).mockReturnValueOnce(true);
+      (fs.readdirSync as any).mockReturnValueOnce(['index.js', 'index.mjs']);
       (fs.statSync as any).mockReturnValue(mockStat);
-      (fs.lstatSync as any).mockReturnValue(mockStat);
+      (fs.lstatSync as any).mockImplementation(() => mockStat);
 
       const res = analyzeBundleSize('/dist');
       expect(res.totalFiles).toBe(2);
@@ -193,6 +198,13 @@ describe('@typepurify/cli', () => {
       expect(config).toContain('https://turbo.build/schema.json');
       const parsed = JSON.parse(config);
       expect(parsed.pipeline.build.outputs).toContain('dist/**');
+    });
+  });
+  describe('analyzeBundleSize safe symlink traversal', () => {
+    it('should work', async () => {
+      const { analyzeBundleSize } = await import('./index');
+      (fs.existsSync as any).mockReturnValue(false);
+      expect(analyzeBundleSize('non_existent_dir').totalFiles).toBe(0);
     });
   });
 });

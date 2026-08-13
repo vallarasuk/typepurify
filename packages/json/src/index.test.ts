@@ -272,4 +272,11 @@ describe('@typepurify/json', () => {
       expect(getMissing(obj)).toBeUndefined();
     });
   });
+  describe('jsonToCsv comma escape', () => {
+    it('should work', async () => {
+      const { jsonToCsv } = await import('./index');
+      const csv = jsonToCsv([{ a: 'foo,bar', b: 'baz' }]);
+      expect(csv).toContain('"foo,bar"');
+    });
+  });
 });
