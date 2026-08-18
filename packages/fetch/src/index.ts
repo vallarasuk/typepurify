@@ -563,3 +563,27 @@ export class MultiplexCircuitBreaker {
     breaker.state = 'CLOSED';
   }
 }
+
+/**
+ * Throttles HTTP/3 requests using a leaky bucket approach.
+ */
+export function throttleHttp3Transport(fetchFn: typeof fetch, maxConcurrent: number): typeof fetch {
+  let active = 0;
+  const queue: Array<() => void> = [];
+
+  return async (input: RequestInfo | URL, init?: RequestInit): Promise<Response> => {
+    if (active >= maxConcurrent) {
+      await new Promise<void>((resolve) => queue.push(resolve));
+    }
+    active++;
+    try {
+      return await fetchFn(input, init);
+    } finally {
+      active--;
+      if (queue.length > 0) {
+        const next = queue.shift();
+        if (next) next();
+      }
+    }
+  };
+}

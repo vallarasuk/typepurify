@@ -313,4 +313,12 @@ describe('@typepurify/cache', () => {
       expect(queue.has('__proto__')).toBe(false);
     });
   });
+  describe('trackGraphQLGraphTracker', () => {
+    it('should generate consistent signatures for queries', async () => {
+      const { trackGraphQLGraphTracker } = await import('./index');
+      const sig1 = trackGraphQLGraphTracker('{ user { id name } }');
+      const sig2 = trackGraphQLGraphTracker('{user{id name}}');
+      expect(sig1).toBe(sig2);
+    });
+  });
 });

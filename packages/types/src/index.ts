@@ -243,3 +243,16 @@ export function assertBrand<T, BrandName extends string>(
   }
   return value as Branded<T, BrandName>;
 }
+
+/**
+ * Compiles a minimal OpenAPI schema into internal type representations.
+ */
+export function compileOpenAPI(schema: any): Record<string, string> {
+  const result: Record<string, string> = {};
+  if (schema?.components?.schemas) {
+    for (const [key, value] of Object.entries(schema.components.schemas)) {
+      result[key] = (value as any).type || 'any';
+    }
+  }
+  return result;
+}

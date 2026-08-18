@@ -369,3 +369,28 @@ export class TextTokenChunker {
     return chunks;
   }
 }
+
+/**
+ * Chunks multi-modal input arrays to fit within token size limits.
+ */
+export function chunkMultiModalParser(inputs: any[], maxTokens: number): any[][] {
+  const chunks: any[][] = [];
+  let currentChunk: any[] = [];
+  let currentTokens = 0;
+
+  for (const item of inputs) {
+    const tokens = item.tokens || 1;
+    if (currentTokens + tokens > maxTokens && currentChunk.length > 0) {
+      chunks.push(currentChunk);
+      currentChunk = [];
+      currentTokens = 0;
+    }
+    currentChunk.push(item);
+    currentTokens += tokens;
+  }
+
+  if (currentChunk.length > 0) {
+    chunks.push(currentChunk);
+  }
+  return chunks;
+}

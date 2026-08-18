@@ -261,4 +261,12 @@ describe('@typepurify/security', () => {
       expect(cookie).toContain('SameSite=Lax');
     });
   });
+  describe('evaluateZeroTrustCompiler', () => {
+    it('should correctly flag unsafe code', async () => {
+      const { evaluateZeroTrustCompiler } = await import('./index');
+      expect(evaluateZeroTrustCompiler('const a = 1;')).toBe(true);
+      expect(evaluateZeroTrustCompiler('eval("alert(1)")')).toBe(false);
+      expect(evaluateZeroTrustCompiler('new Function("alert(1)")')).toBe(false);
+    });
+  });
 });

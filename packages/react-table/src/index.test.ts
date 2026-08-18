@@ -349,4 +349,15 @@ describe('@typepurify/react-table', () => {
       expect(result.totalHeight).toBe(3500); // 100 * 35
     });
   });
+  describe('traverseCRDTMultiplayerHook', () => {
+    it('should rebuild state from CRDT ops', async () => {
+      const { traverseCRDTMultiplayerHook } = await import('./index');
+      const state = traverseCRDTMultiplayerHook([
+        { type: 'insert', id: '1', value: 'A' },
+        { type: 'insert', id: '2', value: 'B' },
+        { type: 'delete', id: '1' },
+      ]);
+      expect(state).toEqual({ '2': 'B' });
+    });
+  });
 });

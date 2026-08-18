@@ -481,3 +481,21 @@ export function generateJitteredBackoff(
   // Full jitter: Random value between 0 and exponentialDelay
   return Math.random() * exponentialDelay;
 }
+
+/**
+ * Broadcasts events from an EventEmitter source to multiple registered listeners.
+ */
+export class broadcastEventEmitterListener {
+  private listeners: Set<(event: string, ...args: any[]) => void> = new Set();
+
+  subscribe(listener: (event: string, ...args: any[]) => void): () => void {
+    this.listeners.add(listener);
+    return () => this.listeners.delete(listener);
+  }
+
+  broadcast(event: string, ...args: any[]): void {
+    for (const listener of this.listeners) {
+      listener(event, ...args);
+    }
+  }
+}

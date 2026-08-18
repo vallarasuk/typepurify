@@ -218,4 +218,18 @@ describe('@typepurify/types', () => {
       expect(branded).toBe('test');
     });
   });
+  describe('compileOpenAPI', () => {
+    it('should compile OpenAPI schemas', async () => {
+      const { compileOpenAPI } = await import('./index');
+      const types = compileOpenAPI({
+        components: {
+          schemas: {
+            User: { type: 'object' },
+            Age: { type: 'number' },
+          },
+        },
+      });
+      expect(types).toEqual({ User: 'object', Age: 'number' });
+    });
+  });
 });

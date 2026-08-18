@@ -357,3 +357,20 @@ export function redactPii(text: string): string {
       .replace(/\b\d{3}[-.]?\d{3}[-.]?\d{4}\b/g, '[PHONE REDACTED]')
   );
 }
+
+/**
+ * Logger optimized for Edge Workers that batches logs before flushing.
+ */
+export class optimizeEdgeWorkerLogger {
+  private logs: string[] = [];
+
+  log(message: string): void {
+    this.logs.push(message);
+  }
+
+  flush(): string[] {
+    const batched = [...this.logs];
+    this.logs = [];
+    return batched;
+  }
+}

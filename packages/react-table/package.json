@@ -1,6 +1,6 @@
 {
   "name": "@typepurify/react-table",
-  "version": "0.5.9",
+  "version": "0.5.10",
   "description": "Universal, zero-dependency Data Table.",
   "publishConfig": {
     "access": "public"

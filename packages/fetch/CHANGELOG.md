@@ -1,4 +1,4 @@
-## 0.5.8
+## 0.5.10\n\n### Minor Changes\n\n- Added `throttleHttp3Transport` — a wrapper for fetch that restricts max concurrent requests via a queue.\n\n## 0.5.8
 
 ### Minor Changes
 

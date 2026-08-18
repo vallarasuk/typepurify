@@ -365,4 +365,19 @@ describe('@typepurify/retry', () => {
       );
     });
   });
+  describe('broadcastEventEmitterListener', () => {
+    it('should broadcast events to all subscribers', async () => {
+      const { broadcastEventEmitterListener } = await import('./index');
+      const broadcaster = new broadcastEventEmitterListener();
+      let callCount = 0;
+      broadcaster.subscribe((event, data) => {
+        if (event === 'ping' && data === 42) callCount++;
+      });
+      broadcaster.subscribe((event, data) => {
+        if (event === 'ping' && data === 42) callCount++;
+      });
+      broadcaster.broadcast('ping', 42);
+      expect(callCount).toBe(2);
+    });
+  });
 });

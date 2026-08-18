@@ -1,4 +1,4 @@
-## 0.5.8
+## 0.5.10\n\n### Minor Changes\n\n- Added `optimizeEdgeWorkerLogger` — a class that batches logs into memory and flushes them on demand for Edge execution environments.\n\n## 0.5.8
 
 ### Minor Changes
 

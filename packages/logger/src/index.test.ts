@@ -294,4 +294,15 @@ describe('@typepurify/logger', () => {
       expect(logs[1].message).toBe('3');
     });
   });
+  describe('optimizeEdgeWorkerLogger', () => {
+    it('should batch and flush logs', async () => {
+      const { optimizeEdgeWorkerLogger } = await import('./index');
+      const logger = new optimizeEdgeWorkerLogger();
+      logger.log('msg1');
+      logger.log('msg2');
+      const flushed = logger.flush();
+      expect(flushed).toEqual(['msg1', 'msg2']);
+      expect(logger.flush()).toEqual([]);
+    });
+  });
 });

@@ -1,4 +1,4 @@
-## 0.5.8
+## 0.5.10\n\n### Minor Changes\n\n- Added `chunkMultiModalParser` — chunks a multimodal input stream into arrays constrained by a maxTokens limit.\n\n## 0.5.8
 
 ### Minor Changes
 

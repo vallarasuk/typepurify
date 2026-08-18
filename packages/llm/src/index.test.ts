@@ -249,4 +249,17 @@ describe('@typepurify/llm', () => {
       expect(chunks[0]).toContain('"a":1');
     });
   });
+  describe('chunkMultiModalParser', () => {
+    it('should chunk inputs based on tokens', async () => {
+      const { chunkMultiModalParser } = await import('./index');
+      const inputs = [
+        { data: 'A', tokens: 10 },
+        { data: 'B', tokens: 15 },
+        { data: 'C', tokens: 20 },
+      ];
+      const chunks = chunkMultiModalParser(inputs, 20);
+      expect(chunks.length).toBe(3); // A, B, C each in their own chunk if they can't fit together
+      expect(chunks[0][0].data).toBe('A');
+    });
+  });
 });

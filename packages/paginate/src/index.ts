@@ -429,3 +429,10 @@ export class OffsetStateManager<T> {
     return result;
   }
 }
+
+/**
+ * Hydrates and aggregates paginated data from multiple sources.
+ */
+export function hydrateMultiSourceAggregator<T>(sources: Array<T[]>): T[] {
+  return sources.reduce((acc, source) => acc.concat(source), []);
+}

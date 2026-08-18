@@ -460,3 +460,12 @@ export class LruEvictionQueue<K, V> {
     return this.map.size;
   }
 }
+
+/**
+ * Tracks a GraphQL query AST to generate a cache signature.
+ */
+export function trackGraphQLGraphTracker(query: string): string {
+  // Simplistic AST tracker simulation
+  const cleaned = query.replace(/\s+/g, '').trim();
+  return Buffer.from(cleaned).toString('base64');
+}

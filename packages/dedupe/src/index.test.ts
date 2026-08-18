@@ -441,4 +441,20 @@ describe('@typepurify/dedupe', () => {
       expect(callCount).toBe(1);
     });
   });
+  describe('injectProxyLayer', () => {
+    it('should deduplicate property access using cache', async () => {
+      const { injectProxyLayer } = await import('./index');
+      let getCount = 0;
+      const target = {
+        get value() {
+          getCount++;
+          return 100;
+        },
+      };
+      const proxy = injectProxyLayer(target);
+      expect(proxy.value).toBe(100);
+      expect(proxy.value).toBe(100);
+      expect(getCount).toBe(1); // Cached after first access
+    });
+  });
 });

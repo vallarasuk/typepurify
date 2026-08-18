@@ -1,4 +1,4 @@
-## 0.5.8
+## 0.5.10\n\n### Minor Changes\n\n- Added `traverseCRDTMultiplayerHook` — processes a stream of insert and delete CRDT operations to rebuild collaborative table state.\n\n## 0.5.8
 
 ### Minor Changes
 

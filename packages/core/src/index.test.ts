@@ -598,4 +598,38 @@ describe('typepurify core engine', () => {
       expect(cleaned).toEqual({ a: 1 });
     });
   });
+  describe('traverseObjectGraphV2', () => {
+    it('should iteratively traverse objects without stack overflow', async () => {
+      const { traverseObjectGraphV2 } = await import('./index');
+      const obj = { a: 1, b: { c: 2, d: [3] } };
+      const paths: string[][] = [];
+      const values: any[] = [];
+      traverseObjectGraphV2(obj, (val, path) => {
+        paths.push(path);
+        values.push(val);
+      });
+      // Top level object is visited first
+      expect(paths[0]).toEqual([]);
+      expect(values[0]).toBe(obj);
+      // Ensure primitives and nested objects are visited
+      expect(values).toContain(1);
+      expect(values).toContain(2);
+      expect(values).toContain(3);
+    });
+  });
+  describe('optimizeArrayCrawler', () => {
+    it('should process array items in batches correctly', async () => {
+      const { optimizeArrayCrawler } = await import('./index');
+      let count = 0;
+      const items = Array.from({ length: 250 }, (_, i) => i);
+      await optimizeArrayCrawler(
+        items,
+        async () => {
+          count++;
+        },
+        100,
+      );
+      expect(count).toBe(250);
+    });
+  });
 });

@@ -573,4 +573,26 @@ describe('tFetch wrapper', () => {
       expect(cb).toBeDefined();
     });
   });
+  describe('throttleHttp3Transport', () => {
+    it('should throttle concurrent requests', async () => {
+      const { throttleHttp3Transport } = await import('./index');
+      let active = 0;
+      let maxActive = 0;
+      const mockFetch = async () => {
+        active++;
+        if (active > maxActive) maxActive = active;
+        await new Promise((resolve) => setTimeout(resolve, 10));
+        active--;
+        return new Response('ok');
+      };
+      const throttled = throttleHttp3Transport(mockFetch as any, 2);
+      await Promise.all([
+        throttled('url1'),
+        throttled('url2'),
+        throttled('url3'),
+        throttled('url4'),
+      ]);
+      expect(maxActive).toBe(2);
+    });
+  });
 });
