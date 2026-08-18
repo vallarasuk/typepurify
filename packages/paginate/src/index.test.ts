@@ -290,4 +290,11 @@ describe('@typepurify/paginate', () => {
       expect(manager.getStitchedData().length).toBe(3);
     });
   });
+  describe('hydrateMultiSourceAggregator', () => {
+    it('should aggregate multi-source data', async () => {
+      const { hydrateMultiSourceAggregator } = await import('./index');
+      const aggregated = hydrateMultiSourceAggregator([[1, 2], [3, 4], [5]]);
+      expect(aggregated).toEqual([1, 2, 3, 4, 5]);
+    });
+  });
 });

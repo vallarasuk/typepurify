@@ -1,4 +1,4 @@
-## 0.5.8
+## 0.5.10\n\n### Minor Changes\n\n- Added `compileOpenAPI` — parses primitive OpenAPI components.schemas into a simplistic JS representation.\n\n## 0.5.8
 
 ### Minor Changes
 

@@ -445,3 +445,20 @@ export function usePersistentColumnResizer(
 
   return { widths, setColumnWidth };
 }
+
+/**
+ * Traverses CRDT operations to rebuild multiplayer table state.
+ */
+export function traverseCRDTMultiplayerHook(
+  operations: Array<{ type: 'insert' | 'delete'; id: string; value?: any }>,
+): Record<string, any> {
+  const state: Record<string, any> = {};
+  for (const op of operations) {
+    if (op.type === 'insert') {
+      state[op.id] = op.value;
+    } else if (op.type === 'delete') {
+      delete state[op.id];
+    }
+  }
+  return state;
+}

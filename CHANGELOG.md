@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.5.10] (Core: 1.6.10) - 2026-08-14
+
+### New Features — All Packages
+
+- **`typepurify` (core)**: Added `optimizeArrayCrawler` — batches array processing to prevent event loop blocking.
+- **`@typepurify/fetch`**: Added `throttleHttp3Transport` — a wrapper for `fetch` that restricts max concurrent requests via a queue.
+- **`@typepurify/retry`**: Added `broadcastEventEmitterListener` — a class that tracks subscribers and broadcasts custom events to them.
+- **`@typepurify/dedupe`**: Added `injectProxyLayer` — uses an ES6 Proxy to deduplicate and cache heavy object property accesses.
+- **`@typepurify/paginate`**: Added `hydrateMultiSourceAggregator` — aggregates multiple paginated chunks into a single unified array.
+- **`@typepurify/cache`**: Added `trackGraphQLGraphTracker` — generates consistent signatures (base64) from GraphQL query strings for caching.
+- **`@typepurify/types`**: Added `compileOpenAPI` — parses primitive OpenAPI `components.schemas` into a simplistic JS representation.
+- **`@typepurify/react-table`**: Added `traverseCRDTMultiplayerHook` — processes a stream of `insert` and `delete` CRDT operations to rebuild collaborative table state.
+- **`@typepurify/react-state`**: Added `bypassDOMBinder` — directly mutates a React ref's DOM node text content for high-performance updates.
+- **`@typepurify/llm`**: Added `chunkMultiModalParser` — chunks a multimodal input stream into arrays constrained by a `maxTokens` limit.
+- **`@typepurify/logger`**: Added `optimizeEdgeWorkerLogger` — a class that batches logs into memory and flushes them on demand for Edge execution environments.
+- **`@typepurify/security`**: Added `evaluateZeroTrustCompiler` — statically checks a string for unsafe patterns like `eval` or `new Function`.
+- **`@typepurify/cli`**: Added `composeDockerImageWizard` — programmatically composes a multi-line `Dockerfile` string from configuration objects.
+- **`@typepurify/json`**: Added `translateProtobufExporter` — simulates a Protobuf payload serialization layer by encoding JSON payloads as base64 byte streams.
+
 ## [0.5.4] (Core: 1.6.4) - 2026-08-04
 
 ### New Features — All Packages

@@ -346,3 +346,19 @@ export function generateMonorepoConfig(): string {
     2,
   );
 }
+
+/**
+ * Composes a Dockerfile string based on configuration.
+ */
+export function composeDockerImageWizard(config: {
+  baseImage: string;
+  workDir: string;
+  startCommand: string;
+}): string {
+  return [
+    `FROM ${config.baseImage}`,
+    `WORKDIR ${config.workDir}`,
+    `COPY . .`,
+    `CMD ${config.startCommand}`,
+  ].join('\n');
+}

@@ -395,4 +395,12 @@ describe('@typepurify/react-state', () => {
       expect(typeof useStore).toBe('function');
     });
   });
+  describe('bypassDOMBinder', () => {
+    it('should directly mutate ref current', async () => {
+      const { bypassDOMBinder } = await import('./index');
+      const ref = { current: { textContent: '' } };
+      bypassDOMBinder(ref, 'Fast Update');
+      expect(ref.current.textContent).toBe('Fast Update');
+    });
+  });
 });

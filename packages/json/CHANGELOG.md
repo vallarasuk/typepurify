@@ -1,4 +1,4 @@
-## 0.5.8
+## 0.5.10\n\n### Minor Changes\n\n- Added `translateProtobufExporter` — simulates a Protobuf payload serialization layer by encoding JSON payloads as base64 byte streams.\n\n## 0.5.8
 
 ### Minor Changes
 

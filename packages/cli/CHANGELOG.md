@@ -1,4 +1,4 @@
-## 0.5.8
+## 0.5.10\n\n### Minor Changes\n\n- Added `composeDockerImageWizard` — programmatically composes a multi-line Dockerfile string from configuration objects.\n\n## 0.5.8
 
 ### Minor Changes
 

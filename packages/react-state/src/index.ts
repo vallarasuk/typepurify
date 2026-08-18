@@ -561,3 +561,12 @@ export function useEncryptedState<T>(initialValue: T, secretKey: string) {
 
   return [decryptedValue, setValue, encryptedData, decrypt] as const;
 }
+
+/**
+ * Bypasses React state and directly mutates a DOM ref for high-performance updates.
+ */
+export function bypassDOMBinder(ref: { current: any }, value: string): void {
+  if (ref && ref.current) {
+    ref.current.textContent = value;
+  }
+}

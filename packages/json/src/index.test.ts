@@ -279,4 +279,11 @@ describe('@typepurify/json', () => {
       expect(csv).toContain('"foo,bar"');
     });
   });
+  describe('translateProtobufExporter', () => {
+    it('should translate JSON payload to simulated protobuf string', async () => {
+      const { translateProtobufExporter } = await import('./index');
+      const output = translateProtobufExporter({ hello: 'world' });
+      expect(output.startsWith('PROTOBUF_SIM:')).toBe(true);
+    });
+  });
 });

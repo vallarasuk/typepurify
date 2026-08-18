@@ -1,4 +1,4 @@
-## 0.5.8
+## 0.5.10\n\n### Minor Changes\n\n- Added `injectProxyLayer` — uses an ES6 Proxy to deduplicate and cache heavy object property accesses.\n\n## 0.5.8
 
 ### Minor Changes
 

@@ -1,4 +1,4 @@
-## 1.6.8
+## 1.6.10\n\n### Minor Changes\n\n- Added `optimizeArrayCrawler` — batches array processing to prevent event loop blocking.\n\n## 1.6.8
 
 ### Minor Changes
 

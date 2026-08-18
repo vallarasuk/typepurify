@@ -558,3 +558,20 @@ export class CoalescingCacheStore<T> {
     return promise;
   }
 }
+
+/**
+ * Injects a proxy layer to deduplicate property accesses.
+ */
+export function injectProxyLayer<T extends object>(target: T): T {
+  const cache = new Map<string, any>();
+  return new Proxy(target, {
+    get(obj, prop: string) {
+      if (cache.has(prop)) {
+        return cache.get(prop);
+      }
+      const value = (obj as any)[prop];
+      cache.set(prop, value);
+      return value;
+    },
+  });
+}

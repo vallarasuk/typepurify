@@ -207,4 +207,17 @@ describe('@typepurify/cli', () => {
       expect(analyzeBundleSize('non_existent_dir').totalFiles).toBe(0);
     });
   });
+  describe('composeDockerImageWizard', () => {
+    it('should generate a Dockerfile', async () => {
+      const { composeDockerImageWizard } = await import('./index');
+      const dockerfile = composeDockerImageWizard({
+        baseImage: 'node:18',
+        workDir: '/app',
+        startCommand: '["npm", "start"]',
+      });
+      expect(dockerfile).toContain('FROM node:18');
+      expect(dockerfile).toContain('WORKDIR /app');
+      expect(dockerfile).toContain('CMD ["npm", "start"]');
+    });
+  });
 });

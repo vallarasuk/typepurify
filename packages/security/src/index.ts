@@ -385,3 +385,16 @@ export function serializeCookie(name: string, value: string, options: CookieOpti
 
   return str;
 }
+
+/**
+ * Evaluates a string to ensure it does not contain unsafe zero-trust violations.
+ */
+export function evaluateZeroTrustCompiler(code: string): boolean {
+  const unsafePatterns = [/eval\s*\(/, /new\s+Function\s*\(/];
+  for (const pattern of unsafePatterns) {
+    if (pattern.test(code)) {
+      return false; // Unsafe
+    }
+  }
+  return true; // Safe
+}

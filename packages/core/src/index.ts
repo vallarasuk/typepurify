@@ -1005,3 +1005,58 @@ export function cleanV2<T>(input: T): T {
 
   return rootTarget;
 }
+
+/**
+ * Iterative object graph traversal (v2.0)
+ * Safely traverses deeply nested objects without stack overflow.
+ */
+export function traverseObjectGraphV2(
+  obj: any,
+  visitor: (value: any, keyPath: string[]) => void,
+): void {
+  if (obj === null || obj === undefined || typeof obj !== 'object') {
+    visitor(obj, []);
+    return;
+  }
+
+  const stack: Array<{ node: any; path: string[] }> = [{ node: obj, path: [] }];
+  const seen = new WeakSet();
+  seen.add(obj);
+
+  while (stack.length > 0) {
+    const { node, path } = stack.pop()!;
+    visitor(node, path);
+
+    const keys = Object.keys(node);
+    for (let i = keys.length - 1; i >= 0; i--) {
+      const key = keys[i];
+      if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue;
+
+      const val = node[key];
+      const nextPath = [...path, key];
+
+      if (val !== null && typeof val === 'object') {
+        if (!seen.has(val)) {
+          seen.add(val);
+          stack.push({ node: val, path: nextPath });
+        }
+      } else {
+        stack.push({ node: val, path: nextPath });
+      }
+    }
+  }
+}
+
+/**
+ * Optimized array crawler that processes items in batches.
+ */
+export async function optimizeArrayCrawler<T>(
+  items: T[],
+  processor: (item: T) => Promise<void>,
+  batchSize: number = 100,
+): Promise<void> {
+  for (let i = 0; i < items.length; i += batchSize) {
+    const batch = items.slice(i, i + batchSize);
+    await Promise.all(batch.map(processor));
+  }
+}

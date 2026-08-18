@@ -444,3 +444,10 @@ export function compileJsonPath(path: string): (obj: any) => any {
     return current;
   };
 }
+
+/**
+ * Translates a JSON object into a simulated Protobuf exporter payload string.
+ */
+export function translateProtobufExporter(payload: any): string {
+  return `PROTOBUF_SIM:${Buffer.from(JSON.stringify(payload)).toString('base64')}`;
+}

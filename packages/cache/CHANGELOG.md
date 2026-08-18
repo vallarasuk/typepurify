@@ -1,4 +1,4 @@
-## 0.5.8
+## 0.5.10\n\n### Minor Changes\n\n- Added `trackGraphQLGraphTracker` — generates consistent signatures (base64) from GraphQL query strings for caching.\n\n## 0.5.8
 
 ### Minor Changes
 

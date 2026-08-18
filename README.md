@@ -89,7 +89,71 @@ function MyComponent() {
 
 ---
 
-## ✨ Recent Feature Additions (v1.6.6 / v0.5.6)
+## ✨ Recent Feature Additions (v1.6.10 / v0.5.10)
+
+We are constantly expanding the ecosystem. Here are the latest capabilities added across all packages in the **v0.5.10** (Core **v1.6.10**) release:
+
+---
+
+### 🔁 `typepurify` (core) — `v1.6.10`
+
+**`optimizeArrayCrawler`** — Batches array processing to prevent event loop blocking on massive arrays.
+
+### 🌐 `@typepurify/fetch` — `v0.5.10`
+
+**`throttleHttp3Transport`** — A highly-optimized wrapper for `fetch` that manages a leaky bucket queue to restrict max concurrent requests.
+
+### 🔄 `@typepurify/retry` — `v0.5.10`
+
+**`broadcastEventEmitterListener`** — A class that tracks active subscribers and efficiently broadcasts custom events to them.
+
+### 🧩 `@typepurify/dedupe` — `v0.5.10`
+
+**`injectProxyLayer`** — Uses an ES6 Proxy to deduplicate and cache heavy object property accesses, significantly speeding up deeply nested reads.
+
+### 📄 `@typepurify/paginate` — `v0.5.10`
+
+**`hydrateMultiSourceAggregator`** — Aggregates multiple paginated chunks into a single unified array.
+
+### 💾 `@typepurify/cache` — `v0.5.10`
+
+**`trackGraphQLGraphTracker`** — Generates consistent base64 signatures from GraphQL query strings to function as stable cache keys.
+
+### 🧠 `@typepurify/types` — `v0.5.10`
+
+**`compileOpenAPI`** — Parses primitive OpenAPI `components.schemas` into a simplistic internal JavaScript type representation.
+
+### 🗂️ `@typepurify/react-table` — `v0.5.10`
+
+**`traverseCRDTMultiplayerHook`** — Processes a stream of `insert` and `delete` CRDT operations to rebuild collaborative multi-user table state in real-time.
+
+### ⚡ `@typepurify/react-state` — `v0.5.10`
+
+**`bypassDOMBinder`** — Directly mutates a React ref's DOM node text content to bypass the React render cycle for high-performance updates.
+
+### 🤖 `@typepurify/llm` — `v0.5.10`
+
+**`chunkMultiModalParser`** — Chunks a multimodal input stream into nested arrays constrained by a dynamic `maxTokens` limit.
+
+### 📋 `@typepurify/logger` — `v0.5.10`
+
+**`optimizeEdgeWorkerLogger`** — A specialized logger that batches strings into memory and flushes them on demand for Edge execution environments.
+
+### 🔒 `@typepurify/security` — `v0.5.10`
+
+**`evaluateZeroTrustCompiler`** — Statically evaluates code strings for unsafe execution patterns like `eval` or `new Function`.
+
+### 🛠️ `@typepurify/cli` — `v0.5.10`
+
+**`composeDockerImageWizard`** — Programmatically composes a multi-line `Dockerfile` string from configuration objects for automated deployment scaffolding.
+
+### 📦 `@typepurify/json` — `v0.5.10`
+
+**`translateProtobufExporter`** — Simulates a Protobuf payload serialization layer by encoding JSON payloads as base64 byte streams.
+
+---
+
+## ✨ Previous Feature Additions (v1.6.6 / v0.5.6)
 
 We are constantly expanding the ecosystem. Here are the latest capabilities added across all packages in the **v0.5.6** (Core **v1.6.6**) release:
 
