@@ -28,12 +28,14 @@ import { usePurifiedState } from '@typepurify/react-state';
 
 function ProfileForm() {
   // 'null' and undefined are automatically stripped
-  const [state, setState] = usePurifiedState(
+  const [state, setState, resetState] = usePurifiedState(
     { name: 'Alice', age: null },
     { stripEmptyStrings: true },
   );
 
   // Output: { name: "Alice" }
+  // Restore the initial state (v0.5.11 🚀)
+  resetState();
 }
 ```
 
@@ -45,10 +47,11 @@ A tiny alternative to React Hook Form that gives you easy registration, values, 
 import { useSmartForm } from '@typepurify/react-state';
 
 function ContactForm() {
-  const { register, handleSubmit, errors, isSubmitting } = useSmartForm({ email: '' });
+  const { register, handleSubmit, errors, isSubmitting, reset } = useSmartForm({ email: '' });
 
   const onSubmit = async (data) => {
     await api.post('/contact', data);
+    reset(); // Reset form values and errors (v0.5.11 🚀)
   };
 
   return (

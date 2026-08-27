@@ -379,6 +379,54 @@ describe('typepurify core engine', () => {
     });
   });
 
+  describe('stripAllEmpty', () => {
+    it('should deeply remove empty strings, arrays, objects, sets, and maps when stripAllEmpty is true', () => {
+      const payload = {
+        a: '',
+        b: [],
+        c: {},
+        d: new Set(),
+        e: new Map(),
+        f: { valid: true, emptyStr: '' },
+      };
+      expect(clean(payload, { stripAllEmpty: true })).toEqual({ f: { valid: true } });
+      const payloadInPlace = {
+        a: '',
+        b: [],
+        c: {},
+        d: new Set(),
+        e: new Map(),
+        f: { valid: true, emptyStr: '' },
+      };
+      cleanInPlace(payloadInPlace, { stripAllEmpty: true });
+      expect(payloadInPlace).toEqual({ f: { valid: true } });
+    });
+
+    it('should work asynchronously', async () => {
+      const payloadAsync = {
+        a: '',
+        b: [],
+        c: {},
+        d: new Set(),
+        e: new Map(),
+        f: { valid: true, emptyStr: '' },
+      };
+      expect(await cleanAsync(payloadAsync, { stripAllEmpty: true })).toEqual({
+        f: { valid: true },
+      });
+      const payloadInPlaceAsync = {
+        a: '',
+        b: [],
+        c: {},
+        d: new Set(),
+        e: new Map(),
+        f: { valid: true, emptyStr: '' },
+      };
+      await cleanInPlaceAsync(payloadInPlaceAsync, { stripAllEmpty: true });
+      expect(payloadInPlaceAsync).toEqual({ f: { valid: true } });
+    });
+  });
+
   describe('advancedJsonParser', () => {
     it('should parse valid JSON strings correctly', () => {
       const json = JSON.stringify({ key: 'value', num: 42 });

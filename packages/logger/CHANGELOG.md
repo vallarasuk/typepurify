@@ -1,4 +1,16 @@
-## 0.5.10\n\n### Minor Changes\n\n- Added `optimizeEdgeWorkerLogger` — a class that batches logs into memory and flushes them on demand for Edge execution environments.\n\n## 0.5.8
+## 0.5.11
+
+### Minor Changes
+
+- Added `customColors` — define custom ANSI formatting colors for log output.
+
+## 0.5.10
+
+### Minor Changes
+
+- Added `optimizeEdgeWorkerLogger` — a class that batches logs into memory and flushes them on demand for Edge execution environments.
+
+## 0.5.8
 
 ### Minor Changes
 

@@ -1,4 +1,16 @@
-## 0.5.10\n\n### Minor Changes\n\n- Added `bypassDOMBinder` — directly mutates a React refs DOM node text content for high-performance updates.\n\n## 0.5.8
+## 0.5.11
+
+### Minor Changes
+
+- Added `reset` and `resetState` — reset form values in `useSmartForm` and restore initial state in `usePurifiedState`.
+
+## 0.5.10
+
+### Minor Changes
+
+- Added `bypassDOMBinder` — directly mutates a React refs DOM node text content for high-performance updates.
+
+## 0.5.8
 
 ### Minor Changes
 

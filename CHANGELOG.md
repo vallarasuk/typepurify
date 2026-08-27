@@ -1,5 +1,22 @@
 # Changelog
 
+## [0.5.11] (Core: 1.6.11) - 2026-08-27
+
+### New Features — All Packages
+
+- **`typepurify` (core)**: Added `stripAllEmpty` option — aggressively strip all empty arrays, strings, objects, sets, and maps in a single pass.
+- **`@typepurify/dedupe`**: Added `clearDedupeCache` — manually evict specific cache entries or clear the entire deduplication cache.
+- **`@typepurify/fetch`**: Added `onTimeout` — lifecycle callback to execute custom logic when a request is aborted due to a timeout.
+- **`@typepurify/json`**: Added `safeJsonStringify` `replacer` — support for custom replacer functions during safe serialization.
+- **`@typepurify/llm`**: Added `extractMarkdownBlocksByLang` — extracts code blocks matching a specific programming language from a Markdown document.
+- **`@typepurify/logger`**: Added `customColors` — define custom ANSI formatting colors for log output.
+- **`@typepurify/paginate`**: Added `getPaginationInfo` — calculate comprehensive pagination metadata from dataset stats.
+- **`@typepurify/react-state`**: Added `reset` and `resetState` — reset form values in `useSmartForm` and restore initial state in `usePurifiedState`.
+- **`@typepurify/react-table`**: Added Manual Sorting methods — `clearSort`, `setSortKey`, `setSortDirection`, and `setMultiSort` for programmatic sort control.
+- **`@typepurify/retry`**: Added `onRetry` — configuration callback that fires on each failed attempt before a retry is executed.
+- **`@typepurify/security`**: Added `allowedTags` — provide a whitelist of HTML tags to preserve when using `stripHtmlTags`.
+- **`@typepurify/types`**: Added `DeepMutable` and `DeepNonNullable` — recursive utility types to enforce deep mutability and non-nullability.
+
 ## [0.5.10] (Core: 1.6.10) - 2026-08-14
 
 ### New Features — All Packages

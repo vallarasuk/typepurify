@@ -87,6 +87,22 @@ describe('@typepurify/logger', () => {
       consoleLogSpy.mockRestore();
     });
 
+    it('should apply custom colors if provided', () => {
+      const consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+      const logger = new Logger({
+        format: 'text',
+        colorize: true,
+        customColors: { info: '\x1b[35m' },
+      });
+
+      logger.info('Custom color message');
+
+      expect(consoleLogSpy).toHaveBeenCalledTimes(1);
+      expect(consoleLogSpy.mock.calls[0][0]).toContain('\x1b[35m');
+
+      consoleLogSpy.mockRestore();
+    });
+
     it('should sanitize sensitive metadata when sanitizeSensitiveData is true', () => {
       const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
       const logger = new Logger({ format: 'json', level: 'info', sanitizeSensitiveData: true });

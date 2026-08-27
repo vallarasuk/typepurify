@@ -34,6 +34,10 @@ const fetchUserProfile = dedupeAsync(async (userId: string) => {
 
 // Both of these will resolve at the same time, but only ONE network request is made!
 const [user1, user2] = await Promise.all([fetchUserProfile('u123'), fetchUserProfile('u123')]);
+
+// Manually evict specific cache entries or clear all:
+fetchUserProfile.clearDedupeCache('string:u123');
+fetchUserProfile.clearDedupeCache();
 ```
 
 ### 2. Global Request Deduplicator Class

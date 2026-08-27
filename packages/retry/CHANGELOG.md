@@ -1,4 +1,16 @@
-## 0.5.10\n\n### Minor Changes\n\n- Added `broadcastEventEmitterListener` — a class that tracks subscribers and broadcasts custom events to them.\n\n## 0.5.8
+## 0.5.11
+
+### Minor Changes
+
+- Added `onRetry` — configuration callback that fires on each failed attempt before a retry is executed.
+
+## 0.5.10
+
+### Minor Changes
+
+- Added `broadcastEventEmitterListener` — a class that tracks subscribers and broadcasts custom events to them.
+
+## 0.5.8
 
 ### Minor Changes
 

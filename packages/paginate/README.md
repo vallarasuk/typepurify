@@ -82,6 +82,7 @@ if (scroll.startLoad()) {
 - `parseOffset(page, limit)`: Converts 1-indexed page/limit into 0-indexed SQL offsets.
 - `extractCursor(data)`: Intelligently tries to find a cursor in a dynamic API response object.
 - `calculateTotalPages(total, limit)`
+- `getPaginationInfo(total, limit, current)`: Calculates comprehensive pagination metadata from dataset stats (v0.5.11 🚀).
 - `createCursorPaginator(items, cursorExtractor)`: Paginates static arrays using cursors.
 
 ### 5. Advanced Pagination State

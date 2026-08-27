@@ -273,9 +273,9 @@ export function dedupeSync<T extends (...args: any[]) => any>(
     if (args.length === 0) return '()';
     return JSON.stringify(args);
   },
-): T {
+): T & { clearDedupeCache: (key?: string) => void } {
   const cache = new Map<string, any>();
-  return function (...args: any[]) {
+  const wrapped = function (...args: any[]) {
     const key = keyGenerator(...args);
     if (cache.has(key)) {
       return cache.get(key);
@@ -283,7 +283,17 @@ export function dedupeSync<T extends (...args: any[]) => any>(
     const result = fn(...args);
     cache.set(key, result);
     return result;
-  } as T;
+  } as T & { clearDedupeCache: (key?: string) => void };
+
+  wrapped.clearDedupeCache = (key?: string) => {
+    if (key !== undefined) {
+      cache.delete(key);
+    } else {
+      cache.clear();
+    }
+  };
+
+  return wrapped;
 }
 
 /**

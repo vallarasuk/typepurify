@@ -171,10 +171,16 @@ export function sanitizeFilename(filename: string): string {
 /**
  * Completely strips all HTML tags from a string.
  * Useful for preventing XSS when you only want raw text.
+ * Optional allowedTags parameter lets you preserve specific tags (e.g. ['b', 'i']).
  */
-export function stripHtmlTags(input: string): string {
+export function stripHtmlTags(input: string, allowedTags?: string[]): string {
   if (!input) return '';
-  return input.replace(/<\/?[^>]+(>|$)/g, '');
+  if (!allowedTags || allowedTags.length === 0) {
+    return input.replace(/<\/?[^>]+(>|$)/g, '');
+  }
+  const allowed = allowedTags.join('|');
+  const regex = new RegExp(`<(?!\\/?(?:${allowed})\\b)[^>]+(>|$)`, 'gi');
+  return input.replace(regex, '');
 }
 
 export interface PasswordOptions {

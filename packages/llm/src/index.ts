@@ -153,6 +153,14 @@ export function extractFirstMarkdownBlock(text: string, lang?: string): string |
 }
 
 /**
+ * Extracts all markdown code blocks of a specific language.
+ */
+export function extractMarkdownBlocksByLang(text: string, lang: string): string[] {
+  const blocks = parseMarkdownBlocks(text);
+  return blocks[lang] || [];
+}
+
+/**
  * Schema validator agent for ensuring LLM JSON outputs adhere strictly to formatting rules.
  */
 export function validateLlmSchema(payload: any, schema: Record<string, any>): boolean {

@@ -1,4 +1,16 @@
-## 1.6.10\n\n### Minor Changes\n\n- Added `optimizeArrayCrawler` — batches array processing to prevent event loop blocking.\n\n## 1.6.8
+## 1.6.11
+
+### Minor Changes
+
+- Added `stripAllEmpty` option — aggressively strip all empty arrays, strings, objects, sets, and maps in a single pass.
+
+## 1.6.10
+
+### Minor Changes
+
+- Added `optimizeArrayCrawler` — batches array processing to prevent event loop blocking.
+
+## 1.6.8
 
 ### Minor Changes
 
@@ -135,7 +147,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Added official live preview and documentation website link in README (`typepurify.vallarasuk.com`).
+- Added official live preview and documentation website link in README (`typepurify.vallarasuk.in`).
 
 ## [1.0.1] - 2026-07-06
 

@@ -298,6 +298,50 @@ export function calculateHasNextPage(page: number, totalPages: number): boolean 
   return page < totalPages && totalPages > 0;
 }
 
+export interface PaginationInfo {
+  totalItems: number;
+  currentPage: number;
+  limit: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+  nextPage: number | null;
+  previousPage: number | null;
+  startIndex: number;
+  endIndex: number;
+}
+
+/**
+ * Returns comprehensive pagination metadata.
+ */
+export function getPaginationInfo(
+  totalItems: number,
+  currentPage: number,
+  limit: number,
+): PaginationInfo {
+  const totalPages = calculateTotalPages(totalItems, limit);
+  const page = Math.max(1, Math.min(currentPage, totalPages || 1));
+
+  const hasNextPage = calculateHasNextPage(page, totalPages);
+  const hasPreviousPage = calculateHasPreviousPage(page);
+
+  const startIndex = Math.max(0, (page - 1) * limit);
+  const endIndex = Math.max(0, Math.min(startIndex + limit - 1, totalItems - 1));
+
+  return {
+    totalItems,
+    currentPage: page,
+    limit,
+    totalPages,
+    hasNextPage,
+    hasPreviousPage,
+    nextPage: hasNextPage ? page + 1 : null,
+    previousPage: hasPreviousPage ? page - 1 : null,
+    startIndex,
+    endIndex,
+  };
+}
+
 /**
  * Generates an array of page numbers for pagination UI controls with max window limits.
  */

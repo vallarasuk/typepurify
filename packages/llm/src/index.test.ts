@@ -127,6 +127,15 @@ describe('@typepurify/llm', () => {
     });
   });
 
+  describe('extractMarkdownBlocksByLang', () => {
+    it('should extract all blocks of a specific language', async () => {
+      const { extractMarkdownBlocksByLang } = await import('./index');
+      const text = '```ts\nconst a = 1;\n```\n```json\n{}\n```\n```ts\nconst b = 2;\n```';
+      const blocks = extractMarkdownBlocksByLang(text, 'ts');
+      expect(blocks).toEqual(['const a = 1;', 'const b = 2;']);
+    });
+  });
+
   describe('validateLlmSchema', () => {
     it('should return true for valid schema match', () => {
       const payload = { name: 'AI', status: 'ok' };

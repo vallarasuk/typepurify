@@ -41,6 +41,10 @@ function MyTable() {
     currentPage,
     totalPages,
     setCurrentPage,
+    clearSort, // v0.5.11 🚀
+    setSortKey, // v0.5.11 🚀
+    setSortDirection, // v0.5.11 🚀
+    setMultiSort, // v0.5.11 🚀
   } = useTable({
     data,
     columns: [

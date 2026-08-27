@@ -1,4 +1,16 @@
-## 0.5.10\n\n### Minor Changes\n\n- Added `throttleHttp3Transport` — a wrapper for fetch that restricts max concurrent requests via a queue.\n\n## 0.5.8
+## 0.5.11
+
+### Minor Changes
+
+- Added `onTimeout` — lifecycle callback to execute custom logic when a request is aborted due to a timeout.
+
+## 0.5.10
+
+### Minor Changes
+
+- Added `throttleHttp3Transport` — a wrapper for fetch that restricts max concurrent requests via a queue.
+
+## 0.5.8
 
 ### Minor Changes
 

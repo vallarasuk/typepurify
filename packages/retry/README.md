@@ -37,7 +37,7 @@ const data = await retryAsync(
     delay: 1000, // Base delay in ms
     factor: 2, // Exponential backoff factor (1000ms, 2000ms, 4000ms)
     jitter: true, // Add randomness to prevent thundering herd
-    onRetry: (e, attempt) => console.warn(`Attempt ${attempt} failed: ${e.message}`),
+    onRetry: (e, attempt) => console.warn(`Attempt ${attempt} failed: ${e.message}`), // (v0.5.11 🚀)
   },
 );
 ```

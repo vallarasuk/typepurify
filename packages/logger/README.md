@@ -30,6 +30,7 @@ const log = new Logger({
   level: 'info',
   format: 'json', // or 'text'
   colorize: true,
+  customColors: { info: '\x1b[36m' }, // Override ANSI colors (v0.5.11 🚀)
 });
 
 log.info('Server started', { port: 3000 });

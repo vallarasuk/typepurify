@@ -55,6 +55,17 @@ const state: DeepReadonly<{ data: { items: string[] } }> = { data: { items: ['A'
 // state.data.items.push('B') // TS Error!
 ```
 
+**`DeepMutable<T>` & `DeepNonNullable<T>`**
+Recursively enforces deep mutability and non-nullability (v0.5.11 🚀).
+
+```typescript
+import type { DeepMutable, DeepNonNullable } from '@typepurify/types';
+
+type Locked = { readonly a: { readonly b: number | null } };
+type Unlocked = DeepMutable<DeepNonNullable<Locked>>;
+// => { a: { b: number } }
+```
+
 **`DeepMerge<T, U>`**
 Recursively merges two structural types together, resolving nested properties intelligently.
 

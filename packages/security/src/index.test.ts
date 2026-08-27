@@ -133,6 +133,11 @@ describe('@typepurify/security', () => {
       expect(stripHtmlTags('<script>alert(1)</script>')).toBe('alert(1)');
       expect(stripHtmlTags('Safe text')).toBe('Safe text');
     });
+
+    it('should retain allowed tags', async () => {
+      const { stripHtmlTags } = await import('./index');
+      expect(stripHtmlTags('<p>Hello <b>World</b></p>', ['b'])).toBe('Hello <b>World</b>');
+    });
   });
 
   describe('isStrongPassword', () => {

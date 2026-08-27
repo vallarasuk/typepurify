@@ -52,6 +52,7 @@ const data = await tFetch(
   {},
   {
     timeout: 5000, // Abort after 5s
+    onTimeout: (req) => console.warn('Request timed out: ', req.url), // Custom timeout handler
     retries: 3, // Auto-retry on failure
     retryDelay: 1000, // Exponential backoff delay
     interceptors: {

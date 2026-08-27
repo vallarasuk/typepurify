@@ -1,4 +1,16 @@
-## 0.5.10\n\n### Minor Changes\n\n- Added `injectProxyLayer` — uses an ES6 Proxy to deduplicate and cache heavy object property accesses.\n\n## 0.5.8
+## 0.5.11
+
+### Minor Changes
+
+- Added `clearDedupeCache` — manually evict specific cache entries or clear the entire deduplication cache.
+
+## 0.5.10
+
+### Minor Changes
+
+- Added `injectProxyLayer` — uses an ES6 Proxy to deduplicate and cache heavy object property accesses.
+
+## 0.5.8
 
 ### Minor Changes
 

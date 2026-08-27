@@ -72,6 +72,20 @@ describe('@typepurify/react-table', () => {
 
     expect(result.current.sortDirection).toBe('desc');
     expect(result.current.paginatedData[0].name).toBe('Charlie'); // age 35
+
+    // Manual setter tests
+    act(() => {
+      result.current.setSortKey('name');
+      result.current.setSortDirection('asc');
+    });
+    expect(result.current.sortKey).toBe('name');
+    expect(result.current.sortDirection).toBe('asc');
+
+    act(() => {
+      result.current.clearSort();
+    });
+    expect(result.current.sortKey).toBeNull();
+    expect(result.current.sortDirection).toBeNull();
   });
 
   it('should handle sorting with accessors', () => {
@@ -147,6 +161,12 @@ describe('@typepurify/react-table', () => {
       expect(result.current.multiSort.length).toBe(2);
       expect(result.current.paginatedData[0].name).toBe('Alice');
       expect(result.current.paginatedData[0].age).toBe(25); // Alice 25 comes before Alice 30
+
+      // Test setMultiSort
+      act(() => {
+        result.current.setMultiSort([{ key: 'id', direction: 'desc' }]);
+      });
+      expect(result.current.multiSort).toEqual([{ key: 'id', direction: 'desc' }]);
     });
   });
 

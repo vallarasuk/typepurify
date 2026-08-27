@@ -22,7 +22,9 @@ export type DeepRequired<T, O extends CleanOptions = {}> = T extends Builtin
 
 type ApplyStrictOptions<T, O extends CleanOptions> = O['stripEmptyStrings'] extends true
   ? Exclude<T, ''>
-  : T;
+  : O['stripAllEmpty'] extends true
+    ? Exclude<T, ''>
+    : T;
 
 type Builtin = Function | Date | Error | RegExp;
 
@@ -52,6 +54,8 @@ export interface CleanOptions {
   stripNaN?: boolean;
   /** Removes Infinity and -Infinity numeric values from the payload. */
   stripInfinity?: boolean;
+  /** Shortcut to remove all empty strings, arrays, objects, sets, and maps. */
+  stripAllEmpty?: boolean;
 }
 
 /**
@@ -96,7 +100,8 @@ export function clean<T, const O extends CleanOptions = {}>(
     }
     if (typeof obj === 'string') {
       const val = options.trimStrings ? obj.trim() : obj;
-      if (val === '' && options.stripEmptyStrings) return undefined as any;
+      if (val === '' && (options.stripEmptyStrings || options.stripAllEmpty))
+        return undefined as any;
       return val as any;
     }
     return obj as any;
@@ -114,7 +119,7 @@ export function clean<T, const O extends CleanOptions = {}>(
       }
     }
 
-    if (cleanedArray.length === 0 && options.stripEmptyArrays) {
+    if (cleanedArray.length === 0 && (options.stripEmptyArrays || options.stripAllEmpty)) {
       return undefined as any;
     }
     return cleanedArray as any;
@@ -130,7 +135,7 @@ export function clean<T, const O extends CleanOptions = {}>(
         cleanedMap.set(cleanedKey, cleanedValue);
       }
     }
-    if (cleanedMap.size === 0 && options.stripEmptyMaps) {
+    if (cleanedMap.size === 0 && (options.stripEmptyMaps || options.stripAllEmpty)) {
       return undefined as any;
     }
     return cleanedMap as any;
@@ -145,7 +150,7 @@ export function clean<T, const O extends CleanOptions = {}>(
         cleanedSet.add(cleanedValue);
       }
     }
-    if (cleanedSet.size === 0 && options.stripEmptySets) {
+    if (cleanedSet.size === 0 && (options.stripEmptySets || options.stripAllEmpty)) {
       return undefined as any;
     }
     return cleanedSet as any;
@@ -198,7 +203,7 @@ export function clean<T, const O extends CleanOptions = {}>(
     }
   }
 
-  if (!hasKeys && options.stripEmptyObjects) {
+  if (!hasKeys && (options.stripEmptyObjects || options.stripAllEmpty)) {
     return undefined as any;
   }
 
@@ -244,7 +249,8 @@ export function cleanInPlace<T, const O extends CleanOptions = {}>(
   if (typeof obj !== 'object') {
     if (typeof obj === 'string') {
       const val = options.trimStrings ? obj.trim() : obj;
-      if (val === '' && options.stripEmptyStrings) return undefined as any;
+      if (val === '' && (options.stripEmptyStrings || options.stripAllEmpty))
+        return undefined as any;
       return val as any;
     }
     return obj as any;
@@ -263,7 +269,7 @@ export function cleanInPlace<T, const O extends CleanOptions = {}>(
     }
     obj.length = writeIndex;
 
-    if (obj.length === 0 && options.stripEmptyArrays) {
+    if (obj.length === 0 && (options.stripEmptyArrays || options.stripAllEmpty)) {
       return undefined as any;
     }
     return obj as any;
@@ -286,7 +292,7 @@ export function cleanInPlace<T, const O extends CleanOptions = {}>(
         }
       }
     }
-    if (obj.size === 0 && options.stripEmptyMaps) {
+    if (obj.size === 0 && (options.stripEmptyMaps || options.stripAllEmpty)) {
       return undefined as any;
     }
     return obj as any;
@@ -303,7 +309,7 @@ export function cleanInPlace<T, const O extends CleanOptions = {}>(
         obj.add(cleanedValue);
       }
     }
-    if (obj.size === 0 && options.stripEmptySets) {
+    if (obj.size === 0 && (options.stripEmptySets || options.stripAllEmpty)) {
       return undefined as any;
     }
     return obj as any;
@@ -343,7 +349,7 @@ export function cleanInPlace<T, const O extends CleanOptions = {}>(
     }
   }
 
-  if (!hasKeys && options.stripEmptyObjects) {
+  if (!hasKeys && (options.stripEmptyObjects || options.stripAllEmpty)) {
     return undefined as any;
   }
 
@@ -394,7 +400,8 @@ export async function cleanAsync<T, const O extends CleanOptions = {}>(
   if (typeof obj !== 'object') {
     if (typeof obj === 'string') {
       const val = options.trimStrings ? obj.trim() : obj;
-      if (val === '' && options.stripEmptyStrings) return undefined as any;
+      if (val === '' && (options.stripEmptyStrings || options.stripAllEmpty))
+        return undefined as any;
       return val as any;
     }
     return obj as any;
@@ -412,7 +419,7 @@ export async function cleanAsync<T, const O extends CleanOptions = {}>(
       }
     }
 
-    if (cleanedArray.length === 0 && options.stripEmptyArrays) {
+    if (cleanedArray.length === 0 && (options.stripEmptyArrays || options.stripAllEmpty)) {
       return undefined as any;
     }
     return cleanedArray as any;
@@ -428,7 +435,7 @@ export async function cleanAsync<T, const O extends CleanOptions = {}>(
         cleanedMap.set(cleanedKey, cleanedValue);
       }
     }
-    if (cleanedMap.size === 0 && options.stripEmptyMaps) {
+    if (cleanedMap.size === 0 && (options.stripEmptyMaps || options.stripAllEmpty)) {
       return undefined as any;
     }
     return cleanedMap as any;
@@ -443,7 +450,7 @@ export async function cleanAsync<T, const O extends CleanOptions = {}>(
         cleanedSet.add(cleanedValue);
       }
     }
-    if (cleanedSet.size === 0 && options.stripEmptySets) {
+    if (cleanedSet.size === 0 && (options.stripEmptySets || options.stripAllEmpty)) {
       return undefined as any;
     }
     return cleanedSet as any;
@@ -492,7 +499,7 @@ export async function cleanAsync<T, const O extends CleanOptions = {}>(
     }
   }
 
-  if (!hasKeys && options.stripEmptyObjects) {
+  if (!hasKeys && (options.stripEmptyObjects || options.stripAllEmpty)) {
     return undefined as any;
   }
 
@@ -541,7 +548,8 @@ export async function cleanInPlaceAsync<T, const O extends CleanOptions = {}>(
   if (typeof obj !== 'object') {
     if (typeof obj === 'string') {
       const val = options.trimStrings ? obj.trim() : obj;
-      if (val === '' && options.stripEmptyStrings) return undefined as any;
+      if (val === '' && (options.stripEmptyStrings || options.stripAllEmpty))
+        return undefined as any;
       return val as any;
     }
     return obj as any;
@@ -560,7 +568,7 @@ export async function cleanInPlaceAsync<T, const O extends CleanOptions = {}>(
     }
     obj.length = writeIndex;
 
-    if (obj.length === 0 && options.stripEmptyArrays) {
+    if (obj.length === 0 && (options.stripEmptyArrays || options.stripAllEmpty)) {
       return undefined as any;
     }
     return obj as any;
@@ -582,7 +590,7 @@ export async function cleanInPlaceAsync<T, const O extends CleanOptions = {}>(
         }
       }
     }
-    if (obj.size === 0 && options.stripEmptyMaps) {
+    if (obj.size === 0 && (options.stripEmptyMaps || options.stripAllEmpty)) {
       return undefined as any;
     }
     return obj as any;
@@ -599,7 +607,7 @@ export async function cleanInPlaceAsync<T, const O extends CleanOptions = {}>(
         obj.add(cleanedValue);
       }
     }
-    if (obj.size === 0 && options.stripEmptySets) {
+    if (obj.size === 0 && (options.stripEmptySets || options.stripAllEmpty)) {
       return undefined as any;
     }
     return obj as any;
@@ -639,7 +647,7 @@ export async function cleanInPlaceAsync<T, const O extends CleanOptions = {}>(
     }
   }
 
-  if (!hasKeys && options.stripEmptyObjects) {
+  if (!hasKeys && (options.stripEmptyObjects || options.stripAllEmpty)) {
     return undefined as any;
   }
 

@@ -1,4 +1,16 @@
-## 0.5.10\n\n### Minor Changes\n\n- Added `hydrateMultiSourceAggregator` — aggregates multiple paginated chunks into a single unified array.\n\n## 0.5.8
+## 0.5.11
+
+### Minor Changes
+
+- Added `getPaginationInfo` — calculate comprehensive pagination metadata from dataset stats.
+
+## 0.5.10
+
+### Minor Changes
+
+- Added `hydrateMultiSourceAggregator` — aggregates multiple paginated chunks into a single unified array.
+
+## 0.5.8
 
 ### Minor Changes
 

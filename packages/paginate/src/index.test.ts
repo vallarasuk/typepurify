@@ -186,6 +186,23 @@ describe('@typepurify/paginate', () => {
     });
   });
 
+  describe('getPaginationInfo', () => {
+    it('should return comprehensive pagination metadata', async () => {
+      const { getPaginationInfo } = await import('./index');
+      const info = getPaginationInfo(100, 2, 10);
+      expect(info.totalItems).toBe(100);
+      expect(info.currentPage).toBe(2);
+      expect(info.limit).toBe(10);
+      expect(info.totalPages).toBe(10);
+      expect(info.hasNextPage).toBe(true);
+      expect(info.hasPreviousPage).toBe(true);
+      expect(info.nextPage).toBe(3);
+      expect(info.previousPage).toBe(1);
+      expect(info.startIndex).toBe(10);
+      expect(info.endIndex).toBe(19);
+    });
+  });
+
   describe('calculateHasPreviousPage and calculateHasNextPage', () => {
     it('should correctly determine previous page existence', async () => {
       const { calculateHasPreviousPage } = await import('./index');

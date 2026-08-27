@@ -93,9 +93,13 @@ const isValid = validateLlmSchema(parsedJson, { name: 'string', age: 'number' })
 Extract the first markdown block (e.g., JSON or TypeScript) cleanly from LLM output.
 
 ```typescript
-import { extractFirstMarkdownBlock } from '@typepurify/llm';
+import { extractFirstMarkdownBlock, extractMarkdownBlocksByLang } from '@typepurify/llm';
 
+// Extract first block
 const cleanCode = extractFirstMarkdownBlock(llmOutput, 'typescript');
+
+// Extract all blocks of a specific language (v0.5.11 🚀)
+const jsBlocks = extractMarkdownBlocksByLang(llmOutput, 'javascript');
 ```
 
 ### 7. Message Formatting (`wrapUserMessage`)

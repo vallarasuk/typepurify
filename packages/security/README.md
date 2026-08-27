@@ -36,6 +36,7 @@ import { sanitizeUrl, sanitizeFilename, escapeHtml, stripHtmlTags } from '@typep
 const url = sanitizeUrl('https://example.com');
 const filename = sanitizeFilename('user_upload.png');
 const safeHtml = escapeHtml('<div>');
+const stripped = stripHtmlTags('<p><b>Hi</b></p>', { allowedTags: ['b'] }); // (v0.5.11 🚀)
 ```
 
 ### 3. JWT Inspection

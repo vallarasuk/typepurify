@@ -89,7 +89,63 @@ function MyComponent() {
 
 ---
 
-## ✨ Recent Feature Additions (v1.6.10 / v0.5.10)
+## ✨ Recent Feature Additions (v1.6.11 / v0.5.11)
+
+We are constantly expanding the ecosystem. Here are the latest capabilities added across all packages in the **v0.5.11** (Core **v1.6.11**) release:
+
+---
+
+### 🔁 `typepurify` (core) — `v1.6.11`
+
+**`stripAllEmpty`** — New option to aggressively strip all empty arrays, strings, objects, sets, and maps in a single pass.
+
+### 🧩 `@typepurify/dedupe` — `v0.5.11`
+
+**`clearDedupeCache`** — Manually evict specific cache entries or clear the entire deduplication cache.
+
+### 🌐 `@typepurify/fetch` — `v0.5.11`
+
+**`onTimeout`** — Lifecycle callback to execute custom logic when a request is aborted due to a timeout.
+
+### 📦 `@typepurify/json` — `v0.5.11`
+
+**`safeJsonStringify` `replacer`** — Added support for custom replacer functions during safe serialization.
+
+### 🤖 `@typepurify/llm` — `v0.5.11`
+
+**`extractMarkdownBlocksByLang`** — Extracts code blocks matching a specific programming language from a Markdown document.
+
+### 📋 `@typepurify/logger` — `v0.5.11`
+
+**`customColors`** — Define custom ANSI formatting colors for log output.
+
+### 📄 `@typepurify/paginate` — `v0.5.11`
+
+**`getPaginationInfo`** — Calculate comprehensive pagination metadata (total pages, next/prev, etc.) from dataset stats.
+
+### ⚡ `@typepurify/react-state` — `v0.5.11`
+
+**`reset` / `resetState`** — Reset form values in `useSmartForm` and restore initial state in `usePurifiedState`.
+
+### 🗂️ `@typepurify/react-table` — `v0.5.11`
+
+**Manual Sorting** — Added `clearSort`, `setSortKey`, `setSortDirection`, and `setMultiSort` for programmatic sort control.
+
+### 🔄 `@typepurify/retry` — `v0.5.11`
+
+**`onRetry`** — Configuration callback that fires on each failed attempt before a retry is executed.
+
+### 🔒 `@typepurify/security` — `v0.5.11`
+
+**`allowedTags`** — Provide a whitelist of HTML tags to preserve when using `stripHtmlTags`.
+
+### 🧠 `@typepurify/types` — `v0.5.11`
+
+**`DeepMutable` / `DeepNonNullable`** — Recursive utility types to enforce deep mutability and non-nullability.
+
+---
+
+## ✨ Previous Feature Additions (v1.6.10 / v0.5.10)
 
 We are constantly expanding the ecosystem. Here are the latest capabilities added across all packages in the **v0.5.10** (Core **v1.6.10**) release:
 
@@ -550,10 +606,10 @@ I build lightweight, high-performance developer utilities and media automation e
 
 **Connect With Me**
 
-- **Portfolio:** [vallarasuk.com](https://vallarasuk.com)
+- **Portfolio:** [vallarasuk.in](https://vallarasuk.in)
 - **GitHub:** [github.com/vallarasuk](https://github.com/vallarasuk)
 - **LinkedIn:** [linkedin.com/in/vallarasuk](https://linkedin.com/in/vallarasuk)
-- **Community:** [Join my WhatsApp Developer Squad](http://squad.vallarasuk.com/)
+- **Community:** [Join my WhatsApp Developer Squad](http://squad.vallarasuk.in/)
 
 ---
 
