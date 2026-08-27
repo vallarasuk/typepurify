@@ -606,10 +606,10 @@ I build lightweight, high-performance developer utilities and media automation e
 
 **Connect With Me**
 
-- **Portfolio:** [vallarasuk.com](https://vallarasuk.com)
+- **Portfolio:** [vallarasuk.in](https://vallarasuk.in)
 - **GitHub:** [github.com/vallarasuk](https://github.com/vallarasuk)
 - **LinkedIn:** [linkedin.com/in/vallarasuk](https://linkedin.com/in/vallarasuk)
-- **Community:** [Join my WhatsApp Developer Squad](http://squad.vallarasuk.com/)
+- **Community:** [Join my WhatsApp Developer Squad](http://squad.vallarasuk.in/)
 
 ---
 
