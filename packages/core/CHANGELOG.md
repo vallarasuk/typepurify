@@ -1,4 +1,16 @@
-## 1.6.10\n\n### Minor Changes\n\n- Added `optimizeArrayCrawler` — batches array processing to prevent event loop blocking.\n\n## 1.6.8
+## 1.6.11
+
+### Minor Changes
+
+- Added `stripAllEmpty` option — aggressively strip all empty arrays, strings, objects, sets, and maps in a single pass.
+
+## 1.6.10
+
+### Minor Changes
+
+- Added `optimizeArrayCrawler` — batches array processing to prevent event loop blocking.
+
+## 1.6.8
 
 ### Minor Changes
 

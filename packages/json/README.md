@@ -28,10 +28,12 @@ import { safeParse, safeJsonStringify } from '@typepurify/json';
 const data = safeParse('{ bad json }', { fallback: true });
 
 // Safe Stringify: Automatically detects and removes circular references!
-const obj: any = { name: 'Alice' };
+const obj: any = { name: 'Alice', secret: '123' };
 obj.self = obj;
 
-const jsonStr = safeJsonStringify(obj); // Output: {"name":"Alice"}
+// With optional custom replacer (v0.5.11 🚀)
+const jsonStr = safeJsonStringify(obj, (key, value) => (key === 'secret' ? '***' : value));
+// Output: {"name":"Alice","secret":"***"}
 ```
 
 ### 2. JSON Diffing

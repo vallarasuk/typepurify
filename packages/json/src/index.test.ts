@@ -163,6 +163,12 @@ describe('@typepurify/json', () => {
       expect(safeJsonStringify({ a: 1 })).toContain('"a": 1');
     });
 
+    it('should apply replacer function if provided', async () => {
+      const { safeJsonStringify } = await import('./index');
+      const replacer = (key: string, value: any) => (key === 'a' ? 2 : value);
+      expect(safeJsonStringify({ a: 1 }, replacer)).toContain('"a": 2');
+    });
+
     it('should handle circular references safely', async () => {
       const { safeJsonStringify } = await import('./index');
       const circ: any = { a: 1 };

@@ -6,6 +6,7 @@ export interface LoggerOptions {
   colorize?: boolean;
   silent?: boolean;
   sanitizeSensitiveData?: boolean;
+  customColors?: Partial<Record<LogLevel, string>>;
 }
 
 const LEVEL_COLORS: Record<LogLevel, string> = {
@@ -76,7 +77,8 @@ export class Logger {
     let levelStr = `[${level.toUpperCase()}]`;
 
     if (this.options.colorize) {
-      levelStr = `${LEVEL_COLORS[level]}${levelStr}${RESET_COLOR}`;
+      const color = this.options.customColors?.[level] || LEVEL_COLORS[level];
+      levelStr = `${color}${levelStr}${RESET_COLOR}`;
     }
 
     return `${timestamp} ${levelStr} ${message}${metaStr}`;

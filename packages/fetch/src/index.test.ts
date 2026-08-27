@@ -106,6 +106,27 @@ describe('tFetch wrapper', () => {
       ).rejects.toThrow('Timeout of 50ms exceeded');
     });
 
+    it('should call onTimeout callback if provided when the request exceeds the timeout', async () => {
+      fetchMock.mockImplementationOnce((_url: any, init?: RequestInit) => {
+        return new Promise((resolve, reject) => {
+          const timeout = setTimeout(() => resolve({}), 500);
+          const signal = init?.signal;
+          if (signal) {
+            signal.addEventListener('abort', () => {
+              clearTimeout(timeout);
+              reject((signal as any).reason || new Error('Aborted'));
+            });
+          }
+        });
+      });
+
+      const onTimeoutSpy = vi.fn();
+      await expect(
+        tFetch('https://api.example.com/data', undefined, { timeout: 50, onTimeout: onTimeoutSpy }),
+      ).rejects.toThrow('Timeout of 50ms exceeded');
+      expect(onTimeoutSpy).toHaveBeenCalledWith('https://api.example.com/data');
+    });
+
     it('should clear the timeout if the request succeeds', async () => {
       fetchMock.mockResolvedValueOnce({
         ok: true,

@@ -1,4 +1,16 @@
-## 0.5.10\n\n### Minor Changes\n\n- Added `traverseCRDTMultiplayerHook` — processes a stream of insert and delete CRDT operations to rebuild collaborative table state.\n\n## 0.5.8
+## 0.5.11
+
+### Minor Changes
+
+- Added Manual Sorting methods — `clearSort`, `setSortKey`, `setSortDirection`, and `setMultiSort` for programmatic sort control.
+
+## 0.5.10
+
+### Minor Changes
+
+- Added `traverseCRDTMultiplayerHook` — processes a stream of insert and delete CRDT operations to rebuild collaborative table state.
+
+## 0.5.8
 
 ### Minor Changes
 

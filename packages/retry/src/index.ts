@@ -196,6 +196,7 @@ export async function withExponentialBackoff<T>(
   fn: () => Promise<T>,
   retries = 3,
   delay = 1000,
+  onRetry?: (error: Error, attempt: number) => void,
 ): Promise<T> {
   for (let i = 0; i < retries; i++) {
     try {
@@ -203,6 +204,7 @@ export async function withExponentialBackoff<T>(
     } catch (err) {
       if (i === retries - 1)
         throw new RetryExhaustedError('Exponential retry failed', err as Error);
+      if (onRetry) onRetry(err as Error, i + 1);
       const jitter = Math.random() * 200;
       await new Promise((res) => setTimeout(res, delay * Math.pow(2, i) + jitter));
     }
@@ -217,12 +219,14 @@ export async function withLinearBackoff<T>(
   fn: () => Promise<T>,
   retries = 3,
   stepMs = 100,
+  onRetry?: (error: Error, attempt: number) => void,
 ): Promise<T> {
   for (let i = 0; i < retries; i++) {
     try {
       return await fn();
     } catch (err) {
       if (i === retries - 1) throw new RetryExhaustedError('Linear retry failed', err as Error);
+      if (onRetry) onRetry(err as Error, i + 1);
       await new Promise((res) => setTimeout(res, (i + 1) * stepMs));
     }
   }
@@ -236,6 +240,7 @@ export async function withFibonacciBackoff<T>(
   fn: () => Promise<T>,
   retries = 3,
   baseDelay = 100,
+  onRetry?: (error: Error, attempt: number) => void,
 ): Promise<T> {
   let a = 1;
   let b = 1;
@@ -244,6 +249,7 @@ export async function withFibonacciBackoff<T>(
       return await fn();
     } catch (err) {
       if (i === retries - 1) throw new RetryExhaustedError('Fibonacci retry failed', err as Error);
+      if (onRetry) onRetry(err as Error, i + 1);
       const delay = a * baseDelay;
       const next = a + b;
       a = b;
@@ -261,6 +267,7 @@ export async function* withRetryAsyncGenerator<T>(
   fn: () => AsyncGenerator<T, void, unknown>,
   retries = 3,
   delay = 1000,
+  onRetry?: (error: Error, attempt: number) => void,
 ): AsyncGenerator<T, void, unknown> {
   let attempt = 0;
   while (true) {
@@ -273,6 +280,7 @@ export async function* withRetryAsyncGenerator<T>(
     } catch (err) {
       if (attempt >= retries) throw err;
       attempt++;
+      if (onRetry) onRetry(err as Error, attempt);
       await new Promise((res) => setTimeout(res, delay * Math.pow(2, attempt - 1)));
     }
   }

@@ -141,6 +141,12 @@ export function useTable<T>(options: UseTableOptions<T>) {
     }
   };
 
+  const clearSort = () => {
+    setSortKey(null);
+    setSortDirection(null);
+    setMultiSort([]);
+  };
+
   const handleColumnResize = (key: string, width: number) => {
     setColumnWidths((prev) => ({ ...prev, [key]: width }));
   };
@@ -232,6 +238,10 @@ export function useTable<T>(options: UseTableOptions<T>) {
     setCurrentPage,
     setPageSize,
     handleSort,
+    clearSort,
+    setSortKey,
+    setSortDirection,
+    setMultiSort,
     getSortDirection: (key: string) => {
       if (sortKey === key) return sortDirection;
       const multi = multiSort.find((s) => s.key === key);

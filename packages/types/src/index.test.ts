@@ -151,6 +151,22 @@ describe('@typepurify/types', () => {
     });
   });
 
+  describe('DeepMutable', () => {
+    it('should remove readonly recursively', async () => {
+      type RO = { readonly a: { readonly b: number } };
+      type Mutable = import('./index').DeepMutable<RO>;
+      expectTypeOf<Mutable>().toEqualTypeOf<{ a: { b: number } }>();
+    });
+  });
+
+  describe('DeepNonNullable', () => {
+    it('should remove null and undefined recursively', async () => {
+      type NullableObj = { a: string | null; b?: { c: number | undefined } };
+      type NonNull = import('./index').DeepNonNullable<NullableObj>;
+      expectTypeOf<NonNull>().toEqualTypeOf<{ a: string; b: { c: number } }>();
+    });
+  });
+
   describe('RegexMatchLiteral', () => {
     it('should extract regex match literal types', async () => {
       type Matched = import('./index').RegexMatchLiteral<'abc_test_xyz', 'test'>;

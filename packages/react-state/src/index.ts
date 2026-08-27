@@ -7,7 +7,11 @@ import { clean, type DeepRequired, type CleanOptions } from 'typepurify';
 export function usePurifiedState<T, const O extends CleanOptions = {}>(
   initialState: T | (() => T),
   options?: O,
-): [DeepRequired<T, O>, (newState: T | ((prevState: DeepRequired<T, O>) => T)) => void] {
+): [
+  DeepRequired<T, O>,
+  (newState: T | ((prevState: DeepRequired<T, O>) => T)) => void,
+  () => void,
+] {
   const [state, setState] = useState<DeepRequired<T, O>>(() => {
     const value = typeof initialState === 'function' ? (initialState as Function)() : initialState;
     return clean(value, options);
@@ -24,7 +28,15 @@ export function usePurifiedState<T, const O extends CleanOptions = {}>(
     [options],
   );
 
-  return [state, setPurifiedState];
+  const resetState = useCallback(() => {
+    setState(() => {
+      const value =
+        typeof initialState === 'function' ? (initialState as Function)() : initialState;
+      return clean(value, options);
+    });
+  }, [initialState, options]);
+
+  return [state, setPurifiedState, resetState];
 }
 
 /**
@@ -83,7 +95,12 @@ export function useSmartForm<T extends Record<string, any>>(initialValues: T) {
     };
   };
 
-  return { values, errors, isSubmitting, register, setValues, setErrors, handleSubmit };
+  const reset = useCallback(() => {
+    setValues(initialValues);
+    setErrors({});
+  }, [initialValues]);
+
+  return { values, errors, isSubmitting, register, setValues, setErrors, handleSubmit, reset };
 }
 
 /**

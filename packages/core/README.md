@@ -188,6 +188,7 @@ An optimized in-memory chunk buffer for streaming data purification operations w
 
 ### Options Configuration (`CleanOptions`)
 
+- `stripAllEmpty`: Aggressively strips all empty arrays, strings, objects, sets, and maps in a single pass (v1.6.11 🚀)
 - `stripEmptyStrings`: Removes `""`
 - `stripEmptyArrays`: Removes `[]`
 - `stripEmptyObjects`: Removes `{}`

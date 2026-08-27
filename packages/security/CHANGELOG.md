@@ -1,3 +1,9 @@
+## 0.5.11
+
+### Minor Changes
+
+- Added `allowedTags` — provide a whitelist of HTML tags to preserve when using `stripHtmlTags`.
+
 ## 0.5.10
 
 ### Minor Changes

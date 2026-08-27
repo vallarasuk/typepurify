@@ -7,6 +7,9 @@ export interface PurifyFetchOptions extends CleanOptions {
   /** Timeout in milliseconds before the request is aborted. */
   timeout?: number;
 
+  /** Callback executed when a request times out */
+  onTimeout?: (req: RequestInfo | URL) => void;
+
   /** Number of retry attempts for failed requests. Defaults to 0. */
   retries?: number;
 
@@ -73,6 +76,9 @@ export async function tFetch<T = any>(
 
         timeoutId = setTimeout(() => {
           abortController?.abort(new Error(`Timeout of ${purifyOptions.timeout}ms exceeded`));
+          if (purifyOptions.onTimeout) {
+            purifyOptions.onTimeout(currentInput);
+          }
         }, purifyOptions.timeout);
       }
 

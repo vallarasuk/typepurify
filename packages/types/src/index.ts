@@ -160,6 +160,28 @@ export type Writable<T> = {
 };
 
 /**
+ * DeepMutable recursively removes readonly modifiers from all properties of T.
+ */
+export type DeepMutable<T> = T extends Function
+  ? T
+  : T extends Array<infer U>
+    ? Array<DeepMutable<U>>
+    : T extends object
+      ? { -readonly [K in keyof T]: DeepMutable<T[K]> }
+      : T;
+
+/**
+ * DeepNonNullable recursively removes null and undefined from all properties.
+ */
+export type DeepNonNullable<T> = T extends Function
+  ? T
+  : T extends Array<infer U>
+    ? Array<DeepNonNullable<U>>
+    : T extends object
+      ? { [K in keyof T]: DeepNonNullable<NonNullable<T[K]>> }
+      : NonNullable<T>;
+
+/**
  * Extracts regex pattern match results as string union type.
  */
 export type RegexMatchLiteral<

@@ -237,6 +237,24 @@ describe('@typepurify/dedupe', () => {
   });
 
   describe('dedupeSync', () => {
+    it('should allow clearing the cache manually with clearDedupeCache', () => {
+      let calls = 0;
+      const fn = (x: number) => {
+        calls++;
+        return x * 2;
+      };
+      const deduped = dedupeSync(fn);
+      deduped(5);
+      deduped(5);
+      expect(calls).toBe(1);
+      deduped.clearDedupeCache('number:5');
+      deduped(5);
+      expect(calls).toBe(2);
+      deduped.clearDedupeCache();
+      deduped(5);
+      expect(calls).toBe(3);
+    });
+
     it('should cache synchronous calls', async () => {
       let calls = 0;
       const fn = (x: number) => {

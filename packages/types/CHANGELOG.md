@@ -1,4 +1,16 @@
-## 0.5.10\n\n### Minor Changes\n\n- Added `compileOpenAPI` — parses primitive OpenAPI components.schemas into a simplistic JS representation.\n\n## 0.5.8
+## 0.5.11
+
+### Minor Changes
+
+- Added `DeepMutable` and `DeepNonNullable` — recursive utility types to enforce deep mutability and non-nullability.
+
+## 0.5.10
+
+### Minor Changes
+
+- Added `compileOpenAPI` — parses primitive OpenAPI components.schemas into a simplistic JS representation.
+
+## 0.5.8
 
 ### Minor Changes
 

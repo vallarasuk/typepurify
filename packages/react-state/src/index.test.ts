@@ -107,6 +107,25 @@ describe('@typepurify/react-state', () => {
 
       expect(result.current.isSubmitting).toBe(false);
     });
+
+    it('should reset form values and errors', () => {
+      const { result } = renderHook(() => useSmartForm({ name: 'Alice' }));
+
+      act(() => {
+        result.current.setValues({ name: 'Bob' });
+        result.current.setErrors({ name: 'Invalid' });
+      });
+
+      expect(result.current.values.name).toBe('Bob');
+      expect(result.current.errors.name).toBe('Invalid');
+
+      act(() => {
+        result.current.reset();
+      });
+
+      expect(result.current.values.name).toBe('Alice');
+      expect(result.current.errors).toEqual({});
+    });
   });
 
   describe('useApiQuery', () => {
@@ -158,6 +177,22 @@ describe('@typepurify/react-state', () => {
       });
 
       expect(result.current[0]).toEqual({ count: 2 });
+    });
+
+    it('should reset state to initial value', () => {
+      const { result } = renderHook(() => usePurifiedState({ a: 1 }));
+
+      act(() => {
+        result.current[1]({ a: 2 } as any);
+      });
+
+      expect(result.current[0]).toEqual({ a: 2 });
+
+      act(() => {
+        result.current[2](); // resetState
+      });
+
+      expect(result.current[0]).toEqual({ a: 1 });
     });
   });
 

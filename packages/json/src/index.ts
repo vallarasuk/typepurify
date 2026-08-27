@@ -279,12 +279,16 @@ export function jsonToXml(obj: Record<string, any>, rootTag = 'root'): string {
  * Safely stringifies a JSON object, automatically detecting and removing circular references.
  * Never throws an error.
  */
-export function safeJsonStringify(obj: any, space: number | string = 2): string {
+export function safeJsonStringify(
+  obj: any,
+  replacer?: (this: any, key: string, value: any) => any,
+  space: number | string = 2,
+): string {
   try {
-    return JSON.stringify(obj, null, space);
+    return JSON.stringify(obj, replacer, space);
   } catch (err) {
     if (err instanceof Error && err.message.includes('circular')) {
-      return JSON.stringify(removeCircular(obj), null, space);
+      return JSON.stringify(removeCircular(obj), replacer, space);
     }
     return '{}';
   }
