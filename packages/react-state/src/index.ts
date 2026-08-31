@@ -587,3 +587,4 @@ export function bypassDOMBinder(ref: { current: any }, value: string): void {
     ref.current.textContent = value;
   }
 }
+export * from './reduxBridge';

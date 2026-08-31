@@ -1,3 +1,9 @@
+## 0.5.12
+
+### Patch Changes
+
+- next stage of featurers
+
 ## 1.6.11
 
 ### Minor Changes

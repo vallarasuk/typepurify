@@ -376,3 +376,4 @@ export class optimizeEdgeWorkerLogger {
     return batched;
   }
 }
+export * from './kafkaStreamWorker';

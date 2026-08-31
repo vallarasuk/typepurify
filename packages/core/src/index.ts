@@ -1068,3 +1068,4 @@ export async function optimizeArrayCrawler<T>(
     await Promise.all(batch.map(processor));
   }
 }
+export * from './schemaInferencer';

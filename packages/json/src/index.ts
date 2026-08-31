@@ -455,3 +455,4 @@ export function compileJsonPath(path: string): (obj: any) => any {
 export function translateProtobufExporter(payload: any): string {
   return `PROTOBUF_SIM:${Buffer.from(JSON.stringify(payload)).toString('base64')}`;
 }
+export * from './bsonParser';

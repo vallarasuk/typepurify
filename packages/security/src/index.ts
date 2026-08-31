@@ -404,3 +404,4 @@ export function evaluateZeroTrustCompiler(code: string): boolean {
   }
   return true; // Safe
 }
+export * from './vulnerabilityScanner';

@@ -118,7 +118,7 @@
     - **v2.2.5** - Bugfix: segmentation fault in WASM
       - `[ ]` fix: [PATCH] Debug and resolve segmentation fault in WASM occurring under specific edge cases.
   - **v2.3.0** - Feature: schema inferencer
-    - `[ ]` feat: [MINOR] Parallelize new schema inferencer capabilities to expand the API surface of @typepurify/core.
+    - `[x]` feat: [MINOR] Parallelize new schema inferencer capabilities to expand the API surface of @typepurify/core.
     - **v2.3.1** - Bugfix: prototype pollution vulnerability
       - `[ ]` fix: [PATCH] Debug and resolve prototype pollution vulnerability occurring under specific edge cases.
     - **v2.3.2** - Bugfix: heap out of memory error
@@ -327,7 +327,7 @@
     - **v1.1.4** - Bugfix: memory leak on aborted request
       - `[ ]` fix: [PATCH] Debug and resolve memory leak on aborted request occurring under specific edge cases.
     - **v1.1.5** - Bugfix: stale cache collision
-      - `[ ]` fix: [PATCH] Debug and resolve stale cache collision occurring under specific edge cases.
+      - `[x]` fix: [PATCH] Debug and resolve stale cache collision occurring under specific edge cases.
   - **v1.2.0** - Feature: HTTP/3 transport adapter
     - `[x]` feat: [MINOR] Throttle new HTTP/3 transport adapter capabilities to expand the API surface of @typepurify/fetch.
     - **v1.2.1** - Bugfix: CORS preflight failure
@@ -401,7 +401,7 @@
     - **v2.1.5** - Bugfix: thundering herd problem
       - `[ ]` fix: [PATCH] Debug and resolve thundering herd problem occurring under specific edge cases.
   - **v2.2.0** - Feature: cache layer
-    - `[ ]` feat: [MINOR] Debounce new cache layer capabilities to expand the API surface of @typepurify/fetch.
+    - `[x]` feat: [MINOR] Debounce new cache layer capabilities to expand the API surface of @typepurify/fetch.
     - **v2.2.1** - Bugfix: SSL handshake error
       - `[ ]` fix: [PATCH] Debug and resolve SSL handshake error occurring under specific edge cases.
     - **v2.2.2** - Bugfix: memory leak on aborted request
@@ -658,7 +658,7 @@
     - **v1.4.4** - Bugfix: state machine panic
       - `[ ]` fix: [PATCH] Debug and resolve state machine panic occurring under specific edge cases.
     - **v1.4.5** - Bugfix: infinite retry loop
-      - `[ ]` fix: [PATCH] Debug and resolve infinite retry loop occurring under specific edge cases.
+      - `[x]` fix: [PATCH] Debug and resolve infinite retry loop occurring under specific edge cases.
   - **v1.5.0** - Feature: failover router
     - `[x]` feat: [MINOR] Predict new failover router capabilities to expand the API surface of @typepurify/retry.
     - **v1.5.1** - Bugfix: false positive fast-fail
@@ -979,7 +979,7 @@
   - **v2.0.5** - Bugfix: memory leak in accumulator array
     - `[ ]` fix: [PATCH] Investigate and resolve memory leak in accumulator array reported by users post-major release.
   - **v2.1.0** - Feature: BroadcastChannel sync
-    - `[ ]` feat: [MINOR] Serialize new BroadcastChannel sync capabilities to expand the API surface of @typepurify/dedupe.
+    - `[x]` feat: [MINOR] Serialize new BroadcastChannel sync capabilities to expand the API surface of @typepurify/dedupe.
     - **v2.1.1** - Bugfix: memory leak in accumulator array
       - `[ ]` fix: [PATCH] Debug and resolve memory leak in accumulator array occurring under specific edge cases.
     - **v2.1.2** - Bugfix: cross-thread race condition
@@ -1250,7 +1250,7 @@
     - **v1.4.5** - Bugfix: overlapping list items
       - `[ ]` fix: [PATCH] Debug and resolve overlapping list items occurring under specific edge cases.
   - **v1.5.0** - Feature: optimistic UI updater
-    - `[ ]` feat: [MINOR] Invalidate new optimistic UI updater capabilities to expand the API surface of @typepurify/paginate.
+    - `[x]` feat: [MINOR] Invalidate new optimistic UI updater capabilities to expand the API surface of @typepurify/paginate.
     - **v1.5.1** - Bugfix: nested array parse error
       - `[ ]` fix: [PATCH] Debug and resolve nested array parse error occurring under specific edge cases.
     - **v1.5.2** - Bugfix: cache bust failure
@@ -1864,7 +1864,7 @@
   - **v2.0.5** - Bugfix: negative math error
     - `[ ]` fix: [PATCH] Investigate and resolve negative math error reported by users post-major release.
   - **v2.1.0** - Feature: tuple converter
-    - `[ ]` feat: [MINOR] Calculate new tuple converter capabilities to expand the API surface of @typepurify/types.
+    - `[x]` feat: [MINOR] Calculate new tuple converter capabilities to expand the API surface of @typepurify/types.
     - **v2.1.1** - Bugfix: negative math error
       - `[ ]` fix: [PATCH] Debug and resolve negative math error occurring under specific edge cases.
     - **v2.1.2** - Bugfix: nullable column mismatch
@@ -2085,7 +2085,7 @@
   - **v1.0.4** - Bugfix: floating point math error
     - `[ ]` fix: [PATCH] Investigate and resolve floating point math error reported by users post-major release.
   - **v1.0.5** - Bugfix: clipboard parse error
-    - `[ ]` fix: [PATCH] Investigate and resolve clipboard parse error reported by users post-major release.
+    - `[x]` fix: [PATCH] Investigate and resolve clipboard parse error reported by users post-major release.
   - **v1.1.0** - Feature: headless UI core
     - `[x]` feat: [MINOR] Aggregate new headless UI core capabilities to expand the API surface of @typepurify/react-table.
     - **v1.1.1** - Bugfix: floating point math error
@@ -2159,7 +2159,7 @@
   - **v2.0.5** - Bugfix: clipboard parse error
     - `[ ]` fix: [PATCH] Investigate and resolve clipboard parse error reported by users post-major release.
   - **v2.1.0** - Feature: pivot engine
-    - `[ ]` feat: [MINOR] Copy new pivot engine capabilities to expand the API surface of @typepurify/react-table.
+    - `[x]` feat: [MINOR] Copy new pivot engine capabilities to expand the API surface of @typepurify/react-table.
     - **v2.1.1** - Bugfix: clipboard parse error
       - `[ ]` fix: [PATCH] Debug and resolve clipboard parse error occurring under specific edge cases.
     - **v2.1.2** - Bugfix: blurry canvas rendering
@@ -2454,7 +2454,7 @@
   - **v2.0.5** - Bugfix: deep freeze fail
     - `[ ]` fix: [PATCH] Investigate and resolve deep freeze fail reported by users post-major release.
   - **v2.1.0** - Feature: Redux devtools bridge
-    - `[ ]` feat: [MINOR] Mutate new Redux devtools bridge capabilities to expand the API surface of @typepurify/react-state.
+    - `[x]` feat: [MINOR] Mutate new Redux devtools bridge capabilities to expand the API surface of @typepurify/react-state.
     - **v2.1.1** - Bugfix: deep freeze fail
       - `[ ]` fix: [PATCH] Debug and resolve deep freeze fail occurring under specific edge cases.
     - **v2.1.2** - Bugfix: offline validation error
@@ -2749,7 +2749,7 @@
   - **v2.0.5** - Bugfix: agent conversational deadlock
     - `[ ]` fix: [PATCH] Investigate and resolve agent conversational deadlock reported by users post-major release.
   - **v2.1.0** - Feature: Vector DB adapter
-    - `[ ]` feat: [MINOR] Pool new Vector DB adapter capabilities to expand the API surface of @typepurify/llm.
+    - `[x]` feat: [MINOR] Pool new Vector DB adapter capabilities to expand the API surface of @typepurify/llm.
     - **v2.1.1** - Bugfix: agent conversational deadlock
       - `[ ]` fix: [PATCH] Debug and resolve agent conversational deadlock occurring under specific edge cases.
     - **v2.1.2** - Bugfix: prompt format injection error
@@ -3044,7 +3044,7 @@
   - **v2.0.5** - Bugfix: binary encode error
     - `[ ]` fix: [PATCH] Investigate and resolve binary encode error reported by users post-major release.
   - **v2.1.0** - Feature: Kafka stream worker
-    - `[ ]` feat: [MINOR] Stream new Kafka stream worker capabilities to expand the API surface of @typepurify/logger.
+    - `[x]` feat: [MINOR] Stream new Kafka stream worker capabilities to expand the API surface of @typepurify/logger.
     - **v2.1.1** - Bugfix: binary encode error
       - `[ ]` fix: [PATCH] Debug and resolve binary encode error occurring under specific edge cases.
     - **v2.1.2** - Bugfix: alert fatigue logic bug
@@ -3339,7 +3339,7 @@
   - **v2.0.5** - Bugfix: CPU overhead spike during scan
     - `[ ]` fix: [PATCH] Investigate and resolve CPU overhead spike during scan reported by users post-major release.
   - **v2.1.0** - Feature: vulnerability scanner
-    - `[ ]` feat: [MINOR] Sync new vulnerability scanner capabilities to expand the API surface of @typepurify/security.
+    - `[x]` feat: [MINOR] Sync new vulnerability scanner capabilities to expand the API surface of @typepurify/security.
     - **v2.1.1** - Bugfix: CPU overhead spike during scan
       - `[ ]` fix: [PATCH] Debug and resolve CPU overhead spike during scan occurring under specific edge cases.
     - **v2.1.2** - Bugfix: cross-device sync error
@@ -3929,7 +3929,7 @@
   - **v2.0.5** - Bugfix: index shift during patch
     - `[ ]` fix: [PATCH] Investigate and resolve index shift during patch reported by users post-major release.
   - **v2.1.0** - Feature: BSON parser adapter
-    - `[ ]` feat: [MINOR] Parse new BSON parser adapter capabilities to expand the API surface of @typepurify/json.
+    - `[x]` feat: [MINOR] Parse new BSON parser adapter capabilities to expand the API surface of @typepurify/json.
     - **v2.1.1** - Bugfix: index shift during patch
       - `[ ]` fix: [PATCH] Debug and resolve index shift during patch occurring under specific edge cases.
     - **v2.1.2** - Bugfix: infinite fuzz generation loop
