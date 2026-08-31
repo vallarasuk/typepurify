@@ -594,3 +594,4 @@ export function throttleHttp3Transport(fetchFn: typeof fetch, maxConcurrent: num
   };
 }
 export * from './debounceCache';
+export * from './rateLimiter';

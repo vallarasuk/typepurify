@@ -1,3 +1,9 @@
+## [0.5.14] - 2026-08-31
+
+### New Features
+
+- Added `WasmLogFormatter` — ultra-fast log formatter leveraging Wasm.
+
 ## 0.5.12
 
 ### Patch Changes

@@ -1,3 +1,9 @@
+## [0.5.14] - 2026-08-31
+
+### New Features
+
+- Added `SqlitePersistentStore` — a SQLite-backed persistent cache adapter.
+
 ## 0.5.11
 
 ### Patch Changes

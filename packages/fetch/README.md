@@ -3,6 +3,8 @@
   <p>A type-safe, auto-purifying wrapper around the native <code>fetch</code> API.</p>
 </div>
 
+**New in v0.5.14**: Added `RateLimiter` — a token bucket rate limiter for fetch requests.
+
 ---
 
 [![npm version](https://img.shields.io/npm/v/@typepurify/fetch.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/fetch)

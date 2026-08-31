@@ -1,3 +1,9 @@
+## [0.5.14] - 2026-08-31
+
+### New Features
+
+- Added `PrometheusExporter` — exports metrics for request deduplication cache hits.
+
 ## 0.5.12
 
 ### Patch Changes

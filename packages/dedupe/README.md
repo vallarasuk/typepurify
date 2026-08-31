@@ -3,6 +3,8 @@
   <p>Highly optimized async request deduplicator to prevent redundant API calls and state thrashing.</p>
 </div>
 
+**New in v0.5.14**: Added `PrometheusExporter` — exports metrics for request deduplication cache hits.
+
 ---
 
 [![npm version](https://img.shields.io/npm/v/@typepurify/dedupe.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/dedupe)

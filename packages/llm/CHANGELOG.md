@@ -1,3 +1,9 @@
+## [0.5.14] - 2026-08-31
+
+### New Features
+
+- Added `AgentStateMachine` — state machine to track autonomous LLM agent execution states.
+
 ## 0.5.12
 
 ### Patch Changes

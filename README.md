@@ -11,6 +11,8 @@
 
 ---
 
+**🎉 Latest Release (v0.5.14)**: We've just shipped 14 massive new features across all packages including WebAssembly loaders, SQLite persistence backends, RASP Security middleware, and CRDT synchronizers! Check out the \`CHANGELOG.md\` for details!
+
 ## 🚀 Welcome to the Monorepo
 
 **TypePurify** is a lightning-fast, zero-dependency ecosystem designed to deeply clean your data structures while strictly maintaining TypeScript type safety. No Zod. No Yup. Just pure, clean data.

@@ -1069,3 +1069,4 @@ export async function optimizeArrayCrawler<T>(
   }
 }
 export * from './schemaInferencer';
+export * from './wasmBindings';

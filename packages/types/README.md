@@ -3,6 +3,8 @@
   <p>Advanced TypeScript utility types and structural helpers for complex applications.</p>
 </div>
 
+**New in v0.5.14**: Added `Add`, `Subtract`, `IsGreaterThan` — math operator types.
+
 ---
 
 [![npm version](https://img.shields.io/npm/v/@typepurify/types.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/types)

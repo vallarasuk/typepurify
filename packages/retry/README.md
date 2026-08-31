@@ -3,6 +3,8 @@
   <p>Standalone, zero-dependency retry utility for async functions with exponential backoff.</p>
 </div>
 
+**New in v0.5.14**: Added `CircuitStateMachine` — a state machine for the circuit breaker pattern.
+
 ---
 
 [![npm version](https://img.shields.io/npm/v/@typepurify/retry.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/retry)

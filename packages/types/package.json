@@ -1,6 +1,6 @@
 {
   "name": "@typepurify/types",
-  "version": "0.5.12",
+  "version": "0.5.13",
   "description": "Advanced TypeScript utility types and helpers.",
   "publishConfig": {
     "access": "public"

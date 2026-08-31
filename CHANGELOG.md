@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.5.14] (Core: 1.6.14) - 2026-08-31
+
+### New Features — All Packages
+
+- **`typepurify` (core) `v1.6.14`**: Added \`WasmModule\` — WebAssembly binding loader with fallback mode for high-performance transformations.
+- **`@typepurify/fetch`**: Added \`RateLimiter\` — a token bucket rate limiter for fetch requests.
+- **`@typepurify/retry`**: Added \`CircuitStateMachine\` — a state machine for the circuit breaker pattern.
+- **`@typepurify/dedupe`**: Added \`PrometheusExporter\` — exports metrics for request deduplication cache hits.
+- **`@typepurify/paginate`**: Added \`VirtualizedListRenderer\` — calculations for rendering virtualized paginated lists.
+- **`@typepurify/cache`**: Added \`SqlitePersistentStore\` — a SQLite-backed persistent cache adapter.
+- **`@typepurify/types`**: Added \`Add\`, \`Subtract\`, \`IsGreaterThan\` — math operator types.
+- **`@typepurify/react-table`**: Added \`useInlineEditor\` — a hook for inline table cell editing state.
+- **`@typepurify/react-state`**: Added \`produce\` / \`Draft\` — structural clone mutability fallback mock for immer.
+- **`@typepurify/llm`**: Added \`AgentStateMachine\` — state machine to track autonomous LLM agent execution states.
+- **`@typepurify/logger`**: Added \`WasmLogFormatter\` — ultra-fast log formatter leveraging Wasm.
+- **`@typepurify/security`**: Added \`createRaspMiddleware\` — runtime application self-protection middleware for Express.
+- **`@typepurify/cli`**: Added \`GitHookInjectorV2\` — safe injector for git pre-commit hooks.
+- **`@typepurify/json`**: Added \`CrdtSynchronizer\` — conflict-free replicated data type synchronizer for JSON objects.
+
 ## [0.5.11] (Core: 1.6.11) - 2026-08-27
 
 ### New Features — All Packages

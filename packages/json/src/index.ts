@@ -456,3 +456,5 @@ export function translateProtobufExporter(payload: any): string {
   return `PROTOBUF_SIM:${Buffer.from(JSON.stringify(payload)).toString('base64')}`;
 }
 export * from './bsonParser';
+
+export * from './crdtSynchronizer';

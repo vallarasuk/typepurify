@@ -3,6 +3,8 @@
   <p>High-performance in-memory cache with TTL and LRU eviction policies.</p>
 </div>
 
+**New in v0.5.14**: Added `SqlitePersistentStore` — a SQLite-backed persistent cache adapter.
+
 ---
 
 [![npm version](https://img.shields.io/npm/v/@typepurify/cache.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/cache)

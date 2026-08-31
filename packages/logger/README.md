@@ -3,6 +3,8 @@
   <p>Enterprise logging suite with JSON transports, automatic error formatting, and rate limiting.</p>
 </div>
 
+**New in v0.5.14**: Added `WasmLogFormatter` — ultra-fast log formatter leveraging Wasm.
+
 ---
 
 [![npm version](https://img.shields.io/npm/v/@typepurify/logger.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/logger)

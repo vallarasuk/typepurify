@@ -481,3 +481,5 @@ export function hydrateMultiSourceAggregator<T>(sources: Array<T[]>): T[] {
   return sources.reduce((acc, source) => acc.concat(source), []);
 }
 export * from './optimisticUpdater';
+
+export * from './virtualizedListRenderer';

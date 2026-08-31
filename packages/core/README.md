@@ -3,6 +3,8 @@
   <p>The ultimate zero-schema JSON cleaner for TypeScript. Recursively remove null, undefined, and empty objects while preserving exact type inference. No Zod or Yup needed.</p>
 </div>
 
+**New in v1.6.14**: Added `WasmModule` — WebAssembly binding loader with fallback mode for high-performance transformations.
+
 ---
 
 [![npm version](https://img.shields.io/npm/v/typepurify.svg?style=flat-square)](https://www.npmjs.com/package/typepurify)

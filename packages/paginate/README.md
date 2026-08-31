@@ -3,6 +3,8 @@
   <p>Smart pagination utilities and offset/cursor-based calculation engines.</p>
 </div>
 
+**New in v0.5.14**: Added `VirtualizedListRenderer` — calculations for rendering virtualized paginated lists.
+
 ---
 
 [![npm version](https://img.shields.io/npm/v/@typepurify/paginate.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/paginate)

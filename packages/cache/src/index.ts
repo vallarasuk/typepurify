@@ -469,4 +469,6 @@ export function trackGraphQLGraphTracker(query: string): string {
   const cleaned = query.replace(/\s+/g, '').trim();
   return Buffer.from(cleaned).toString('base64');
 }
-export * from './sqliteStore';
+
+
+export * from './sqlitePersistentStore';

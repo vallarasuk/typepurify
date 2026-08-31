@@ -130,7 +130,7 @@
     - **v2.3.5** - Bugfix: memory leak edge cases
       - `[ ]` fix: [PATCH] Debug and resolve memory leak edge cases occurring under specific edge cases.
   - **v2.4.0** - Feature: WASM bindings
-    - `[ ]` feat: [MINOR] Redesign new WASM bindings capabilities to expand the API surface of @typepurify/core.
+    - `[x]` feat: [MINOR] Redesign new WASM bindings capabilities to expand the API surface of @typepurify/core.
     - **v2.4.1** - Bugfix: heap out of memory error
       - `[ ]` fix: [PATCH] Debug and resolve heap out of memory error occurring under specific edge cases.
     - **v2.4.2** - Bugfix: garbage collection latency
@@ -413,7 +413,7 @@
     - **v2.2.5** - Bugfix: zombie connection thread
       - `[ ]` fix: [PATCH] Debug and resolve zombie connection thread occurring under specific edge cases.
   - **v2.3.0** - Feature: rate limiter logic
-    - `[ ]` feat: [MINOR] Cache new rate limiter logic capabilities to expand the API surface of @typepurify/fetch.
+    - `[x]` feat: [MINOR] Cache new rate limiter logic capabilities to expand the API surface of @typepurify/fetch.
     - **v2.3.1** - Bugfix: memory leak on aborted request
       - `[ ]` fix: [PATCH] Debug and resolve memory leak on aborted request occurring under specific edge cases.
     - **v2.3.2** - Bugfix: stale cache collision
@@ -696,7 +696,7 @@
     - **v2.1.5** - Bugfix: network state desync
       - `[ ]` fix: [PATCH] Debug and resolve network state desync occurring under specific edge cases.
   - **v2.2.0** - Feature: circuit state machine
-    - `[ ]` feat: [MINOR] Pause new circuit state machine capabilities to expand the API surface of @typepurify/retry.
+    - `[x]` feat: [MINOR] Pause new circuit state machine capabilities to expand the API surface of @typepurify/retry.
     - **v2.2.1** - Bugfix: timer drift
       - `[ ]` fix: [PATCH] Debug and resolve timer drift occurring under specific edge cases.
     - **v2.2.2** - Bugfix: event listener memory leak
@@ -991,7 +991,7 @@
     - **v2.1.5** - Bugfix: TTL overestimation
       - `[ ]` fix: [PATCH] Debug and resolve TTL overestimation occurring under specific edge cases.
   - **v2.2.0** - Feature: Prometheus metric exporter
-    - `[ ]` feat: [MINOR] Export new Prometheus metric exporter capabilities to expand the API surface of @typepurify/dedupe.
+    - `[x]` feat: [MINOR] Export new Prometheus metric exporter capabilities to expand the API surface of @typepurify/dedupe.
     - **v2.2.1** - Bugfix: cross-thread race condition
       - `[ ]` fix: [PATCH] Debug and resolve cross-thread race condition occurring under specific edge cases.
     - **v2.2.2** - Bugfix: OPTIONS request drop
@@ -1274,7 +1274,7 @@
   - **v2.0.5** - Bugfix: scroll position loss
     - `[ ]` fix: [PATCH] Investigate and resolve scroll position loss reported by users post-major release.
   - **v2.1.0** - Feature: virtualized list renderer
-    - `[ ]` feat: [MINOR] Aggregate new virtualized list renderer capabilities to expand the API surface of @typepurify/paginate.
+    - `[x]` feat: [MINOR] Aggregate new virtualized list renderer capabilities to expand the API surface of @typepurify/paginate.
     - **v2.1.1** - Bugfix: scroll position loss
       - `[ ]` fix: [PATCH] Debug and resolve scroll position loss occurring under specific edge cases.
     - **v2.1.2** - Bugfix: partial source crash
@@ -1569,7 +1569,7 @@
   - **v2.0.5** - Bugfix: filter resize bug
     - `[ ]` fix: [PATCH] Investigate and resolve filter resize bug reported by users post-major release.
   - **v2.1.0** - Feature: SQLite persistent store
-    - `[ ]` feat: [MINOR] Coalesce new SQLite persistent store capabilities to expand the API surface of @typepurify/cache.
+    - `[x]` feat: [MINOR] Coalesce new SQLite persistent store capabilities to expand the API surface of @typepurify/cache.
     - **v2.1.1** - Bugfix: filter resize bug
       - `[ ]` fix: [PATCH] Debug and resolve filter resize bug occurring under specific edge cases.
     - **v2.1.2** - Bugfix: reconnect miss
@@ -1876,7 +1876,7 @@
     - **v2.1.5** - Bugfix: non-deterministic generation
       - `[ ]` fix: [PATCH] Debug and resolve non-deterministic generation occurring under specific edge cases.
   - **v2.2.0** - Feature: math operator type
-    - `[ ]` feat: [MINOR] Infer new math operator type capabilities to expand the API surface of @typepurify/types.
+    - `[x]` feat: [MINOR] Infer new math operator type capabilities to expand the API surface of @typepurify/types.
     - **v2.2.1** - Bugfix: nullable column mismatch
       - `[ ]` fix: [PATCH] Debug and resolve nullable column mismatch occurring under specific edge cases.
     - **v2.2.2** - Bugfix: invalid char strip
@@ -2171,7 +2171,7 @@
     - **v2.1.5** - Bugfix: ambiguous NLP query
       - `[ ]` fix: [PATCH] Debug and resolve ambiguous NLP query occurring under specific edge cases.
   - **v2.2.0** - Feature: inline editor state
-    - `[ ]` feat: [MINOR] Highlight new inline editor state capabilities to expand the API surface of @typepurify/react-table.
+    - `[x]` feat: [MINOR] Highlight new inline editor state capabilities to expand the API surface of @typepurify/react-table.
     - **v2.2.1** - Bugfix: blurry canvas rendering
       - `[ ]` fix: [PATCH] Debug and resolve blurry canvas rendering occurring under specific edge cases.
     - **v2.2.2** - Bugfix: cell conflict in multiplayer
@@ -2466,7 +2466,7 @@
     - **v2.1.5** - Bugfix: stale hydration warning
       - `[ ]` fix: [PATCH] Debug and resolve stale hydration warning occurring under specific edge cases.
   - **v2.2.0** - Feature: Immer draft state
-    - `[ ]` feat: [MINOR] Freeze new Immer draft state capabilities to expand the API surface of @typepurify/react-state.
+    - `[x]` feat: [MINOR] Freeze new Immer draft state capabilities to expand the API surface of @typepurify/react-state.
     - **v2.2.1** - Bugfix: offline validation error
       - `[ ]` fix: [PATCH] Debug and resolve offline validation error occurring under specific edge cases.
     - **v2.2.2** - Bugfix: binder memory leak
@@ -2761,7 +2761,7 @@
     - **v2.1.5** - Bugfix: false positive hallucination flag
       - `[ ]` fix: [PATCH] Debug and resolve false positive hallucination flag occurring under specific edge cases.
   - **v2.2.0** - Feature: agent state machine
-    - `[ ]` feat: [MINOR] Route new agent state machine capabilities to expand the API surface of @typepurify/llm.
+    - `[x]` feat: [MINOR] Route new agent state machine capabilities to expand the API surface of @typepurify/llm.
     - **v2.2.1** - Bugfix: prompt format injection error
       - `[ ]` fix: [PATCH] Debug and resolve prompt format injection error occurring under specific edge cases.
     - **v2.2.2** - Bugfix: payload size limit breach
@@ -3056,7 +3056,7 @@
     - **v2.1.5** - Bugfix: error obfuscation bug
       - `[ ]` fix: [PATCH] Debug and resolve error obfuscation bug occurring under specific edge cases.
   - **v2.2.0** - Feature: WASM log formatter
-    - `[ ]` feat: [MINOR] Serialize new WASM log formatter capabilities to expand the API surface of @typepurify/logger.
+    - `[x]` feat: [MINOR] Serialize new WASM log formatter capabilities to expand the API surface of @typepurify/logger.
     - **v2.2.1** - Bugfix: alert fatigue logic bug
       - `[ ]` fix: [PATCH] Debug and resolve alert fatigue logic bug occurring under specific edge cases.
     - **v2.2.2** - Bugfix: stdout restriction crash
@@ -3351,7 +3351,7 @@
     - **v2.1.5** - Bugfix: key size bloat
       - `[ ]` fix: [PATCH] Debug and resolve key size bloat occurring under specific edge cases.
   - **v2.2.0** - Feature: RASP middleware
-    - `[ ]` feat: [MINOR] Detect new RASP middleware capabilities to expand the API surface of @typepurify/security.
+    - `[x]` feat: [MINOR] Detect new RASP middleware capabilities to expand the API surface of @typepurify/security.
     - **v2.2.1** - Bugfix: cross-device sync error
       - `[ ]` fix: [PATCH] Debug and resolve cross-device sync error occurring under specific edge cases.
     - **v2.2.2** - Bugfix: policy propagation latency
@@ -3634,7 +3634,7 @@
   - **v2.0.5** - Bugfix: YAML spacing error in CI generation
     - `[ ]` fix: [PATCH] Investigate and resolve YAML spacing error in CI generation reported by users post-major release.
   - **v2.1.0** - Feature: git hook injector
-    - `[ ]` feat: [MINOR] Inject new git hook injector capabilities to expand the API surface of @typepurify/cli.
+    - `[x]` feat: [MINOR] Inject new git hook injector capabilities to expand the API surface of @typepurify/cli.
     - **v2.1.1** - Bugfix: YAML spacing error in CI generation
       - `[ ]` fix: [PATCH] Debug and resolve YAML spacing error in CI generation occurring under specific edge cases.
     - **v2.1.2** - Bugfix: stale cache rule
@@ -3941,7 +3941,7 @@
     - **v2.1.5** - Bugfix: small payload overhead
       - `[ ]` fix: [PATCH] Debug and resolve small payload overhead occurring under specific edge cases.
   - **v2.2.0** - Feature: CRDT synchronizer
-    - `[ ]` feat: [MINOR] Patch new CRDT synchronizer capabilities to expand the API surface of @typepurify/json.
+    - `[x]` feat: [MINOR] Patch new CRDT synchronizer capabilities to expand the API surface of @typepurify/json.
     - **v2.2.1** - Bugfix: infinite fuzz generation loop
       - `[ ]` fix: [PATCH] Debug and resolve infinite fuzz generation loop occurring under specific edge cases.
     - **v2.2.2** - Bugfix: optional field map error

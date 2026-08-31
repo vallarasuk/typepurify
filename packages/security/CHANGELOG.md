@@ -1,3 +1,9 @@
+## [0.5.14] - 2026-08-31
+
+### New Features
+
+- Added `createRaspMiddleware` — runtime application self-protection middleware for Express.
+
 ## 0.5.12
 
 ### Patch Changes
