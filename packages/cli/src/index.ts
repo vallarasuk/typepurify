@@ -363,5 +363,4 @@ export function composeDockerImageWizard(config: {
   ].join('\n');
 }
 
-
 export * from './gitHookInjectorV2';

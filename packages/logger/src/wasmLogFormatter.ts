@@ -13,12 +13,12 @@ export class WasmLogFormatter {
 
   public format(level: string, message: string, meta: Record<string, any>): string {
     const timestamp = new Date().toISOString();
-    
+
     if (this.useWasm) {
       // Stub for actual WASM invocation
       return `[WASM-OPT] ${timestamp} [${level.toUpperCase()}]: ${message} ${JSON.stringify(meta)}`;
     }
-    
+
     return `${timestamp} [${level.toUpperCase()}]: ${message} ${JSON.stringify(meta)}`;
   }
 }

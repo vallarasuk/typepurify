@@ -7,9 +7,9 @@ describe('VirtualizedListRenderer', () => {
       totalItems: 100,
       itemHeight: 50,
       containerHeight: 500,
-      overscan: 2
+      overscan: 2,
     });
-    
+
     // Scrolled to top
     const range = renderer.getRenderRange(0);
     expect(range.startIndex).toBe(0);

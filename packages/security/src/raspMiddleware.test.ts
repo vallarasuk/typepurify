@@ -6,14 +6,14 @@ describe('RaspMiddleware', () => {
     const middleware = createRaspMiddleware({ blockSqlInjection: true });
     const req: any = {
       headers: { 'content-length': '50' },
-      body: { query: 'SELECT * FROM users' }
+      body: { query: 'SELECT * FROM users' },
     };
     const res: any = {
       status: vi.fn().mockReturnThis(),
-      json: vi.fn()
+      json: vi.fn(),
     };
     const next = vi.fn();
-    
+
     middleware(req, res, next);
     expect(res.status).toHaveBeenCalledWith(403);
     expect(next).not.toHaveBeenCalled();

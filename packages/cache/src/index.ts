@@ -470,5 +470,4 @@ export function trackGraphQLGraphTracker(query: string): string {
   return Buffer.from(cleaned).toString('base64');
 }
 
-
 export * from './sqlitePersistentStore';

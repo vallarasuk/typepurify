@@ -17,7 +17,7 @@ export function useInlineEditor<T>(config: InlineEditorConfig<T>) {
   const [error, setError] = useState<string | null>(null);
 
   const startEdit = useCallback(() => setIsEditing(true), []);
-  
+
   const cancelEdit = useCallback(() => {
     setData(config.initialData);
     setIsEditing(false);
@@ -29,7 +29,7 @@ export function useInlineEditor<T>(config: InlineEditorConfig<T>) {
       setError('Validation failed');
       return;
     }
-    
+
     setIsSaving(true);
     setError(null);
     try {

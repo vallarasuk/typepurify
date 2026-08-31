@@ -508,5 +508,4 @@ export class broadcastEventEmitterListener {
   }
 }
 
-
 export * from './circuitStateMachine';

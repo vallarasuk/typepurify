@@ -35,7 +35,9 @@ export class WasmModule {
    */
   invoke<T = any>(functionName: string, ...args: any[]): T {
     if (this.fallbackMode || !this.isLoaded || !this.instance) {
-      throw new Error(`[WasmModule] Cannot invoke '${functionName}': module not loaded or running in fallback mode.`);
+      throw new Error(
+        `[WasmModule] Cannot invoke '${functionName}': module not loaded or running in fallback mode.`,
+      );
     }
 
     const func = this.instance.exports[functionName];

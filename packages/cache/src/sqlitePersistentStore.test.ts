@@ -12,15 +12,15 @@ vi.mock('sqlite3', () => {
       get(query: string, params: any, cb: any) {
         cb(null, null); // Return not found
       }
-    }
-  }
+    },
+  };
 });
 
 describe('SqlitePersistentStore', () => {
   it('should initialize and run set operations', async () => {
     const store = new SqlitePersistentStore();
     // Wait for the async table creation to finish
-    await new Promise(resolve => setTimeout(resolve, 50));
+    await new Promise((resolve) => setTimeout(resolve, 50));
     await expect(store.set('key1', { value: 1 })).resolves.toBeUndefined();
     await expect(store.get('key1')).resolves.toEqual({ value: 1 });
   });

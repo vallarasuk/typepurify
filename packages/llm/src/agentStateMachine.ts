@@ -22,7 +22,7 @@ export class AgentStateMachine {
     if (this.state === 'ERROR' && newState !== 'IDLE') {
       throw new Error('Cannot transition from ERROR to anything but IDLE.');
     }
-    
+
     this.state = newState;
     if (payload && this.state === 'THINKING') {
       this.context.memory.lastThought = payload;

@@ -11,7 +11,7 @@ export class RateLimiter {
   private maxRequests: number;
   private timeWindowMs: number;
   private blockWait: boolean;
-  
+
   private tokens: number;
   private lastRefillTime: number;
   private queue: Array<() => void> = [];
@@ -20,7 +20,7 @@ export class RateLimiter {
     this.maxRequests = options.maxRequests ?? 100;
     this.timeWindowMs = options.timeWindowMs ?? 60000;
     this.blockWait = options.blockWait ?? true;
-    
+
     this.tokens = this.maxRequests;
     this.lastRefillTime = Date.now();
   }
@@ -31,7 +31,7 @@ export class RateLimiter {
   private refillTokens(): void {
     const now = Date.now();
     const elapsedTime = now - this.lastRefillTime;
-    
+
     if (elapsedTime > this.timeWindowMs) {
       this.tokens = this.maxRequests;
       this.lastRefillTime = now;
@@ -55,7 +55,7 @@ export class RateLimiter {
       const resolve = this.queue.shift();
       if (resolve) resolve();
     }
-    
+
     if (this.queue.length > 0) {
       // Schedule next check
       const nextAvailableTime = this.timeWindowMs / this.maxRequests;
@@ -69,7 +69,7 @@ export class RateLimiter {
    */
   async acquire(): Promise<void> {
     this.refillTokens();
-    
+
     if (this.tokens > 0) {
       this.tokens--;
       return Promise.resolve();
@@ -81,7 +81,7 @@ export class RateLimiter {
 
     return new Promise<void>((resolve) => {
       this.queue.push(resolve);
-      
+
       // Start processing queue if this is the first item
       if (this.queue.length === 1) {
         const nextAvailableTime = this.timeWindowMs / this.maxRequests;
@@ -89,7 +89,7 @@ export class RateLimiter {
       }
     });
   }
-  
+
   /**
    * Syncs the rate limiter state from external headers (e.g. RateLimit-Remaining).
    */

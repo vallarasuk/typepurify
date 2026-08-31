@@ -15,17 +15,19 @@ export class CrdtSynchronizer {
 
   public apply(ops: CrdtOp[]): void {
     // Sort ops chronologically to ensure deterministic merging
-    ops.sort((a, b) => a.timestamp - b.timestamp).forEach((op) => {
-      const current = this.state.get(op.key);
-      if (!current || op.timestamp > current.timestamp) {
-        if (op.type === 'set') {
-          this.state.set(op.key, { value: op.value, timestamp: op.timestamp });
-        } else if (op.type === 'delete') {
-          // Tombstone
-          this.state.set(op.key, { value: undefined, timestamp: op.timestamp });
+    ops
+      .sort((a, b) => a.timestamp - b.timestamp)
+      .forEach((op) => {
+        const current = this.state.get(op.key);
+        if (!current || op.timestamp > current.timestamp) {
+          if (op.type === 'set') {
+            this.state.set(op.key, { value: op.value, timestamp: op.timestamp });
+          } else if (op.type === 'delete') {
+            // Tombstone
+            this.state.set(op.key, { value: undefined, timestamp: op.timestamp });
+          }
         }
-      }
-    });
+      });
   }
 
   public getState(): Record<string, any> {

@@ -6,7 +6,7 @@ describe('WasmModule', () => {
     const wasm = new WasmModule({ fallbackMode: true });
     expect(() => wasm.invoke('test')).toThrow('module not loaded or running in fallback mode');
   });
-  
+
   it('should handle load failure and fallback', async () => {
     const wasm = new WasmModule();
     const mockBuffer = new ArrayBuffer(8);

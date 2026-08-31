@@ -34,7 +34,7 @@ export class VirtualizedListRenderer {
    */
   public getRenderRange(scrollTop: number): RenderRange {
     const visibleCount = Math.ceil(this.containerHeight / this.itemHeight);
-    
+
     // Calculate raw start and end indices based on scroll
     let startIndex = Math.floor(scrollTop / this.itemHeight);
     let endIndex = startIndex + visibleCount;

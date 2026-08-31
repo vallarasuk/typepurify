@@ -26,19 +26,19 @@ export class SqlitePersistentStore {
         key TEXT PRIMARY KEY,
         value TEXT,
         expiresAt INTEGER
-      )`
+      )`,
     );
   }
 
   async set(key: string, value: any, ttlMs?: number): Promise<void> {
     const expiresAt = ttlMs ? Date.now() + ttlMs : null;
     const strValue = JSON.stringify(value);
-    
+
     return new Promise((resolve, reject) => {
       this.db.run(
         `INSERT OR REPLACE INTO ${this.tableName} (key, value, expiresAt) VALUES (?, ?, ?)`,
         [key, strValue, expiresAt],
-        (err: any) => (err ? reject(err) : resolve())
+        (err: any) => (err ? reject(err) : resolve()),
       );
     });
   }
@@ -60,7 +60,7 @@ export class SqlitePersistentStore {
           } catch {
             resolve(null);
           }
-        }
+        },
       );
     });
   }
@@ -68,7 +68,7 @@ export class SqlitePersistentStore {
   async delete(key: string): Promise<void> {
     return new Promise((resolve, reject) => {
       this.db.run(`DELETE FROM ${this.tableName} WHERE key = ?`, [key], (err: any) =>
-        err ? reject(err) : resolve()
+        err ? reject(err) : resolve(),
       );
     });
   }
