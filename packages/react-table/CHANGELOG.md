@@ -1,3 +1,9 @@
+## [0.5.14] - 2026-08-31
+
+### New Features
+
+- Added `useInlineEditor` — a hook for inline table cell editing state.
+
 ## 0.5.12
 
 ### Patch Changes

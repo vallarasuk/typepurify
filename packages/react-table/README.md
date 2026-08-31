@@ -3,6 +3,8 @@
   <p>Universal, zero-dependency Data Table utilities for sorting, filtering, and pagination.</p>
 </div>
 
+**New in v0.5.14**: Added `useInlineEditor` — a hook for inline table cell editing state.
+
 ---
 
 [![npm version](https://img.shields.io/npm/v/@typepurify/react-table.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/react-table)

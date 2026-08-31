@@ -1,6 +1,6 @@
 {
   "name": "@typepurify/retry",
-  "version": "0.5.12",
+  "version": "0.5.13",
   "description": "Standalone retry utility for async functions.",
   "publishConfig": {
     "access": "public"

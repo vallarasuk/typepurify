@@ -1,3 +1,9 @@
+## [0.5.14] - 2026-08-31
+
+### New Features
+
+- Added `VirtualizedListRenderer` — calculations for rendering virtualized paginated lists.
+
 ## 0.5.12
 
 ### Patch Changes

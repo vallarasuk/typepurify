@@ -1,6 +1,6 @@
 {
   "name": "@typepurify/dedupe",
-  "version": "0.5.12",
+  "version": "0.5.13",
   "description": "Request deduplicator to prevent duplicate API calls.",
   "publishConfig": {
     "access": "public"

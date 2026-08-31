@@ -1,3 +1,9 @@
+## [0.5.14] - 2026-08-31
+
+### New Features
+
+- Added `CrdtSynchronizer` — conflict-free replicated data type synchronizer for JSON objects.
+
 ## 0.5.12
 
 ### Patch Changes

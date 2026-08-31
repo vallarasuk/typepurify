@@ -3,6 +3,8 @@
   <p>Lightweight security inspection tools and input sanitization for TypeScript.</p>
 </div>
 
+**New in v0.5.14**: Added `createRaspMiddleware` — runtime application self-protection middleware for Express.
+
 ---
 
 ## 🚀 Overview

@@ -3,6 +3,8 @@
   <p>Scaffolding and analysis CLI tool for generating TypePurify resources and maintaining repository health.</p>
 </div>
 
+**New in v0.5.14**: Added `GitHookInjectorV2` — safe injector for git pre-commit hooks.
+
 ---
 
 [![npm version](https://img.shields.io/npm/v/@typepurify/cli.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/cli)

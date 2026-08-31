@@ -3,6 +3,8 @@
   <p>AI response utilities, ReDoS-safe JSON extraction, SSE stream parsing, and prompt management.</p>
 </div>
 
+**New in v0.5.14**: Added `AgentStateMachine` — state machine to track autonomous LLM agent execution states.
+
 ---
 
 [![npm version](https://img.shields.io/npm/v/@typepurify/llm.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/llm)

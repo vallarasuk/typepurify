@@ -3,6 +3,8 @@
   <p>Tiny alternative React hooks (like <code>usePurifiedState</code>, <code>useSmartForm</code>, <code>useApiQuery</code>) for form, loading, and query state that automatically sanitize.</p>
 </div>
 
+**New in v0.5.14**: Added `produce` / `Draft` — structural clone mutability fallback mock for immer.
+
 ---
 
 [![npm version](https://img.shields.io/npm/v/@typepurify/react-state.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/react-state)

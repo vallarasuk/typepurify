@@ -1,3 +1,9 @@
+## [0.5.14] - 2026-08-31
+
+### New Features
+
+- Added `CircuitStateMachine` — a state machine for the circuit breaker pattern.
+
 ## 0.5.12
 
 ### Patch Changes

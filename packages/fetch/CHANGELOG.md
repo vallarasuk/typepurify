@@ -1,3 +1,9 @@
+## [0.5.14] - 2026-08-31
+
+### New Features
+
+- Added `RateLimiter` — a token bucket rate limiter for fetch requests.
+
 ## 0.5.12
 
 ### Patch Changes

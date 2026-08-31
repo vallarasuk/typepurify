@@ -3,6 +3,8 @@
   <p>Advanced JSON manipulation tools with safe parsing, diffing, and circular reference handling.</p>
 </div>
 
+**New in v0.5.14**: Added `CrdtSynchronizer` — conflict-free replicated data type synchronizer for JSON objects.
+
 ---
 
 [![npm version](https://img.shields.io/npm/v/@typepurify/json.svg?style=flat-square)](https://www.npmjs.com/package/@typepurify/json)

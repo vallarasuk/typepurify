@@ -1,3 +1,9 @@
+## [0.5.14] - 2026-08-31
+
+### New Features
+
+- Added `GitHookInjectorV2` — safe injector for git pre-commit hooks.
+
 ## 0.5.11
 
 ### Patch Changes

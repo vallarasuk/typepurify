@@ -362,4 +362,5 @@ export function composeDockerImageWizard(config: {
     `CMD ${config.startCommand}`,
   ].join('\n');
 }
-export * from './gitHookInjector';
+
+export * from './gitHookInjectorV2';
