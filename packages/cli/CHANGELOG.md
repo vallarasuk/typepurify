@@ -1,3 +1,11 @@
+## 0.5.11
+
+### Patch Changes
+
+- next stage of featurers
+- Updated dependencies
+  - typepurify@0.5.12
+
 ## 0.5.10\n\n### Minor Changes\n\n- Added `composeDockerImageWizard` — programmatically composes a multi-line Dockerfile string from configuration objects.\n\n## 0.5.8
 
 ### Minor Changes

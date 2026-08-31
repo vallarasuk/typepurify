@@ -1,3 +1,11 @@
+## 0.5.11
+
+### Patch Changes
+
+- next stage of featurers
+- Updated dependencies
+  - typepurify@0.5.12
+
 ## 0.5.10\n\n### Minor Changes\n\n- Added `trackGraphQLGraphTracker` — generates consistent signatures (base64) from GraphQL query strings for caching.\n\n## 0.5.8
 
 ### Minor Changes

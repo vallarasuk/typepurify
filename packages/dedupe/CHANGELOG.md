@@ -1,3 +1,11 @@
+## 0.5.12
+
+### Patch Changes
+
+- next stage of featurers
+- Updated dependencies
+  - typepurify@0.5.12
+
 ## 0.5.11
 
 ### Minor Changes
