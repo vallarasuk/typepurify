@@ -25,7 +25,7 @@
   ],
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts --minify --tsconfig tsconfig.build.json",
-    "test": "vitest run",
+    "test": "vitest run src/",
     "lint": "eslint 'src/**/*.{js,ts}'",
     "format": "prettier --write 'src/**/*.{js,ts,json,md}'",
     "format:check": "prettier --check 'src/**/*.{js,ts,json,md}'",

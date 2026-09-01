@@ -562,7 +562,6 @@ describe('tFetch wrapper', () => {
       const { MultiplexCircuitBreaker } = await import('./index');
 
       const originalFetch = global.fetch;
-      // @ts-expect-error - overriding global fetch for tests
       global.fetch = vi.fn().mockImplementation((url: string) => {
         if (url.includes('fail.com')) {
           return Promise.resolve({ ok: false, status: 500 });

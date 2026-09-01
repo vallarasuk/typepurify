@@ -323,7 +323,10 @@ describe('@typepurify/react-table', () => {
   describe('createTreeGridNodes', () => {
     it('should flatten tree hierarchy with depth and hasChildren flags', async () => {
       const { createTreeGridNodes } = await import('./index');
-      const tree = [{ id: '1', label: 'Root', children: [{ id: '1-1', label: 'Child' }] }];
+      type TreeNode = { id: string; label: string; children?: TreeNode[] };
+      const tree: TreeNode[] = [
+        { id: '1', label: 'Root', children: [{ id: '1-1', label: 'Child' }] },
+      ];
       const nodes = createTreeGridNodes(tree);
       expect(nodes).toHaveLength(2);
       expect(nodes[0].depth).toBe(0);
