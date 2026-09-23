@@ -1,5 +1,17 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.14
+
+### New Features
+
+- Added `useLocalStorageState` — A React hook for automatically syncing and persisting component state to localStorage.
+
+### Patch Changes
+
+- bump all packages
+- Updated dependencies
+  - typepurify@0.5.15
+
 ### New Features
 
 - Added `produce` / `Draft` — structural clone mutability fallback mock for immer.

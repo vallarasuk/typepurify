@@ -1,3 +1,5 @@
+**New in this version**: Added `PromptTemplateEngine` — An advanced template engine tailored for dynamic LLM prompt generation and variable substitution.
+
 <div align="center">
   <h1>✨ @typepurify/llm</h1>
   <p>AI response utilities, ReDoS-safe JSON extraction, SSE stream parsing, and prompt management.</p>

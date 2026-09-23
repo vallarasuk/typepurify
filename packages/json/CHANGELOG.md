@@ -1,5 +1,17 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.14
+
+### New Features
+
+- Added `StreamingJsonParser` — A chunk-based JSON parser designed for memory-efficient processing of massive JSON files.
+
+### Patch Changes
+
+- bump all packages
+- Updated dependencies
+  - typepurify@0.5.15
+
 ### New Features
 
 - Added `CrdtSynchronizer` — conflict-free replicated data type synchronizer for JSON objects.

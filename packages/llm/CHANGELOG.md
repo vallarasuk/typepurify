@@ -1,5 +1,17 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.14
+
+### New Features
+
+- Added `PromptTemplateEngine` — An advanced template engine tailored for dynamic LLM prompt generation and variable substitution.
+
+### Patch Changes
+
+- bump all packages
+- Updated dependencies
+  - typepurify@0.5.15
+
 ### New Features
 
 - Added `AgentStateMachine` — state machine to track autonomous LLM agent execution states.

@@ -379,3 +379,5 @@ export class optimizeEdgeWorkerLogger {
 export * from './kafkaStreamWorker';
 
 export * from './wasmLogFormatter';
+
+export * from './HighSpeedLogger';

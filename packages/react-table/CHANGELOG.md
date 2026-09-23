@@ -1,5 +1,17 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.14
+
+### New Features
+
+- Added `VirtualScrollTable` — A lightweight, high-performance virtualized table component for rendering massive datasets without UI lag.
+
+### Patch Changes
+
+- bump all packages
+- Updated dependencies
+  - typepurify@0.5.15
+
 ### New Features
 
 - Added `useInlineEditor` — a hook for inline table cell editing state.

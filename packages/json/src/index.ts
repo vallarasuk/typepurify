@@ -458,3 +458,4 @@ export function translateProtobufExporter(payload: any): string {
 export * from './bsonParser';
 
 export * from './crdtSynchronizer';
+export * from './StreamingJsonParser';

@@ -1,3 +1,5 @@
+**New in this version**: Added `MemoryBufferCache` — A high-performance in-memory cache buffer with Least Recently Used (LRU) eviction capabilities.
+
 <div align="center">
   <h1>✨ @typepurify/cache</h1>
   <p>High-performance in-memory cache with TTL and LRU eviction policies.</p>

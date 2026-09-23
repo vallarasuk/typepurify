@@ -1,3 +1,5 @@
+**New in this version**: Added `InteractivePrompt` — A highly customizable utility for building rich, interactive CLI prompts.
+
 <div align="center">
   <h1>✨ @typepurify/cli</h1>
   <p>Scaffolding and analysis CLI tool for generating TypePurify resources and maintaining repository health.</p>

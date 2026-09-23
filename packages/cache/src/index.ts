@@ -471,3 +471,4 @@ export function trackGraphQLGraphTracker(query: string): string {
 }
 
 export * from './sqlitePersistentStore';
+export * from './MemoryBufferCache';

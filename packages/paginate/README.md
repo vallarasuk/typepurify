@@ -1,3 +1,5 @@
+**New in this version**: Added `CursorPaginator` — A robust utility for implementing seamless, high-performance cursor-based pagination.
+
 <div align="center">
   <h1>✨ @typepurify/paginate</h1>
   <p>Smart pagination utilities and offset/cursor-based calculation engines.</p>

@@ -405,3 +405,4 @@ export function chunkMultiModalParser(inputs: any[], maxTokens: number): any[][]
 export * from './vectorDbAdapter';
 
 export * from './agentStateMachine';
+export * from './PromptTemplateEngine';

@@ -590,3 +590,4 @@ export function bypassDOMBinder(ref: { current: any }, value: string): void {
 export * from './reduxBridge';
 
 export * from './immerDraftState';
+export * from './useLocalStorageState';

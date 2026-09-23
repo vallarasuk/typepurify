@@ -1,9 +1,11 @@
+**New in this version**: Added `HighSpeedLogger` — High-performance log formatting powered by WebAssembly bindings for extreme throughput.
+
 <div align="center">
   <h1>✨ @typepurify/logger</h1>
   <p>Enterprise logging suite with JSON transports, automatic error formatting, and rate limiting.</p>
 </div>
 
-**New in v0.5.14**: Added `WasmLogFormatter` — ultra-fast log formatter leveraging Wasm.
+**New in v0.5.14**: Added `HighSpeedLogger` — ultra-fast log formatter leveraging Wasm.
 
 ---
 

@@ -1,5 +1,17 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.14
+
+### New Features
+
+- Added `Sanitizer` — A high-performance, strict HTML and XSS sanitizer for scrubbing untrusted user input.
+
+### Patch Changes
+
+- bump all packages
+- Updated dependencies
+  - typepurify@0.5.15
+
 ### New Features
 
 - Added `createRaspMiddleware` — runtime application self-protection middleware for Express.

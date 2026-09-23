@@ -1,5 +1,17 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.14
+
+### New Features
+
+- Added `CursorPaginator` — A robust utility for implementing seamless, high-performance cursor-based pagination.
+
+### Patch Changes
+
+- bump all packages
+- Updated dependencies
+  - typepurify@0.5.15
+
 ### New Features
 
 - Added `VirtualizedListRenderer` — calculations for rendering virtualized paginated lists.
