@@ -475,3 +475,4 @@ export function traverseCRDTMultiplayerHook(
 export * from './pivotEngine';
 
 export * from './inlineEditorState';
+export * from './VirtualScrollTable';

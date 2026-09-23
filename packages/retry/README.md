@@ -1,3 +1,5 @@
+**New in this version**: Added `CircuitBreaker` — A resilient circuit breaker implementation to prevent cascading failures in distributed systems.
+
 <div align="center">
   <h1>✨ @typepurify/retry</h1>
   <p>Standalone, zero-dependency retry utility for async functions with exponential backoff.</p>

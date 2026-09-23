@@ -1,5 +1,17 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.14
+
+### New Features
+
+- Added `CircuitBreaker` — A resilient circuit breaker implementation to prevent cascading failures in distributed systems.
+
+### Patch Changes
+
+- bump all packages
+- Updated dependencies
+  - typepurify@0.5.15
+
 ### New Features
 
 - Added `CircuitStateMachine` — a state machine for the circuit breaker pattern.

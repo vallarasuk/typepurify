@@ -407,3 +407,4 @@ export function evaluateZeroTrustCompiler(code: string): boolean {
 export * from './vulnerabilityScanner';
 
 export * from './raspMiddleware';
+export * from './Sanitizer';

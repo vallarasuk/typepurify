@@ -1,5 +1,17 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.14
+
+### New Features
+
+- Added `StreamDeduplicator` — A stream-based deduplication utility optimized for processing large datasets in real-time.
+
+### Patch Changes
+
+- bump all packages
+- Updated dependencies
+  - typepurify@0.5.15
+
 ### New Features
 
 - Added `PrometheusExporter` — exports metrics for request deduplication cache hits.

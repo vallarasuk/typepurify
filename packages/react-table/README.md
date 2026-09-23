@@ -1,3 +1,5 @@
+**New in this version**: Added `VirtualScrollTable` — A lightweight, high-performance virtualized table component for rendering massive datasets without UI lag.
+
 <div align="center">
   <h1>✨ @typepurify/react-table</h1>
   <p>Universal, zero-dependency Data Table utilities for sorting, filtering, and pagination.</p>

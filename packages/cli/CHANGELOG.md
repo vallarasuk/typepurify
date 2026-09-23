@@ -1,5 +1,17 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.13
+
+### New Features
+
+- Added `InteractivePrompt` — A highly customizable utility for building rich, interactive CLI prompts.
+
+### Patch Changes
+
+- bump all packages
+- Updated dependencies
+  - typepurify@0.5.15
+
 ### New Features
 
 - Added `GitHookInjectorV2` — safe injector for git pre-commit hooks.

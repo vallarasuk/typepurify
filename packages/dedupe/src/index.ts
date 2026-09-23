@@ -588,3 +588,4 @@ export function injectProxyLayer<T extends object>(target: T): T {
 export * from './broadcastSync';
 
 export * from './prometheusExporter';
+export * from './StreamDeduplicator';

@@ -1,3 +1,5 @@
+**New in this version**: Added `StreamDeduplicator` — A stream-based deduplication utility optimized for processing large datasets in real-time.
+
 <div align="center">
   <h1>✨ @typepurify/dedupe</h1>
   <p>Highly optimized async request deduplicator to prevent redundant API calls and state thrashing.</p>

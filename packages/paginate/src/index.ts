@@ -483,3 +483,4 @@ export function hydrateMultiSourceAggregator<T>(sources: Array<T[]>): T[] {
 export * from './optimisticUpdater';
 
 export * from './virtualizedListRenderer';
+export * from './CursorPaginator';

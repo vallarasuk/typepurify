@@ -1,5 +1,17 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.14
+
+### New Features
+
+- Added `RetryableFetch` — A robust fetch wrapper with automatic exponential backoff and jitter for resilient networking.
+
+### Patch Changes
+
+- bump all packages
+- Updated dependencies
+  - typepurify@0.5.15
+
 ### New Features
 
 - Added `RateLimiter` — a token bucket rate limiter for fetch requests.

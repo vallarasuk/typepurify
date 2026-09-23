@@ -281,3 +281,4 @@ export function compileOpenAPI(schema: any): Record<string, string> {
 export * from './tupleConverter';
 
 export * from './mathOperatorType';
+export * from './DeepReadonly';

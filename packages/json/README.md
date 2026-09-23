@@ -1,3 +1,5 @@
+**New in this version**: Added `StreamingJsonParser` — A chunk-based JSON parser designed for memory-efficient processing of massive JSON files.
+
 <div align="center">
   <h1>✨ @typepurify/json</h1>
   <p>Advanced JSON manipulation tools with safe parsing, diffing, and circular reference handling.</p>

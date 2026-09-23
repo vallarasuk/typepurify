@@ -1,3 +1,5 @@
+**New in this version**: Added `RetryableFetch` — A robust fetch wrapper with automatic exponential backoff and jitter for resilient networking.
+
 <div align="center">
   <h1>✨ @typepurify/fetch</h1>
   <p>A type-safe, auto-purifying wrapper around the native <code>fetch</code> API.</p>

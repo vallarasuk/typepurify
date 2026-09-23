@@ -1,5 +1,11 @@
 ## [1.6.14] - 2026-08-31
 
+## 0.5.15
+
+### Patch Changes
+
+- bump all packages
+
 ### New Features
 
 - Added `WasmModule` — WebAssembly binding loader with fallback mode for high-performance transformations.

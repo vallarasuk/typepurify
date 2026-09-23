@@ -1,3 +1,5 @@
+**New in this version**: Added `DeepReadonly` — A robust utility type for recursively enforcing immutability on complex, nested objects.
+
 <div align="center">
   <h1>✨ @typepurify/types</h1>
   <p>Advanced TypeScript utility types and structural helpers for complex applications.</p>

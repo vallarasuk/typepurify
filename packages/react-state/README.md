@@ -1,3 +1,5 @@
+**New in this version**: Added `useLocalStorageState` — A React hook for automatically syncing and persisting component state to localStorage.
+
 <div align="center">
   <h1>✨ @typepurify/react-state</h1>
   <p>Tiny alternative React hooks (like <code>usePurifiedState</code>, <code>useSmartForm</code>, <code>useApiQuery</code>) for form, loading, and query state that automatically sanitize.</p>

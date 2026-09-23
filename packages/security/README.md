@@ -1,3 +1,5 @@
+**New in this version**: Added `Sanitizer` — A high-performance, strict HTML and XSS sanitizer for scrubbing untrusted user input.
+
 <div align="center">
   <h1>✨ @typepurify/security</h1>
   <p>Lightweight security inspection tools and input sanitization for TypeScript.</p>
