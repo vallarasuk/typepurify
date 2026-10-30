@@ -1,5 +1,20 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.15
+
+### New Features
+
+- Added `DeepSecuritySanitizer` — deep object graph sanitization neutralizing SQL injection patterns, stripping NoSQL operator injections, and rejecting prototype pollution.
+
+### Bug Fixes
+
+- Fixed `Sanitizer` to safely escape HTML entities, strip script tags, remove malicious inline event handlers (`onload`, `onclick`), and neutralize pseudo-protocols.
+
+### Patch Changes
+
+- Updated dependencies
+  - typepurify@0.5.16
+
 ## 0.5.14
 
 ### New Features

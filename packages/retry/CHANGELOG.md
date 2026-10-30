@@ -1,5 +1,20 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.15
+
+### New Features
+
+- Added `AdaptiveBackoffRetry` — exponential backoff with full jitter to eliminate thundering herd problems, with custom retry predicates.
+
+### Bug Fixes
+
+- Fixed `CircuitBreaker` to implement complete state-machine execution flow (CLOSED, OPEN, HALF_OPEN) with failure thresholds and recovery probe timeouts.
+
+### Patch Changes
+
+- Updated dependencies
+  - typepurify@0.5.16
+
 ## 0.5.14
 
 ### New Features

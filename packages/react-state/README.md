@@ -1,4 +1,4 @@
-**New in this version**: Added `useLocalStorageState` — A React hook for automatically syncing and persisting component state to localStorage.
+**New in this version**: Added `usePurifiedReducer` for automatically purified reducer state flows, and full localStorage persistence synchronization in `useLocalStorageState`.
 
 <div align="center">
   <h1>✨ @typepurify/react-state</h1>

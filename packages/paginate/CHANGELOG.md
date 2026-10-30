@@ -1,5 +1,20 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.15
+
+### New Features
+
+- Added `BiDirectionalPaginator` — GraphQL/Relay connection-compliant bidirectional pagination with `pageInfo` and node purification.
+
+### Bug Fixes
+
+- Fixed `CursorPaginator` to resolve nextCursor, compute remaining page bounds, and slice items instead of returning the unpaginated input array.
+
+### Patch Changes
+
+- Updated dependencies
+  - typepurify@0.5.16
+
 ## 0.5.14
 
 ### New Features

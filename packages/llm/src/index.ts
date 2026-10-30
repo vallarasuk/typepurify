@@ -406,3 +406,4 @@ export * from './vectorDbAdapter';
 
 export * from './agentStateMachine';
 export * from './PromptTemplateEngine';
+export * from './StructuredOutputGuard';

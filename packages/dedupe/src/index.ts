@@ -589,3 +589,4 @@ export * from './broadcastSync';
 
 export * from './prometheusExporter';
 export * from './StreamDeduplicator';
+export * from './SlidingWindowDeduplicator';

@@ -484,3 +484,4 @@ export * from './optimisticUpdater';
 
 export * from './virtualizedListRenderer';
 export * from './CursorPaginator';
+export * from './BiDirectionalPaginator';

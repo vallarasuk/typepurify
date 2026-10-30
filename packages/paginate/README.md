@@ -1,4 +1,4 @@
-**New in this version**: Added `CursorPaginator` — A robust utility for implementing seamless, high-performance cursor-based pagination.
+**New in this version**: Added `BiDirectionalPaginator` for GraphQL/Relay-compliant bidirectional pagination, plus nextCursor and page limit bounds in `CursorPaginator`.
 
 <div align="center">
   <h1>✨ @typepurify/paginate</h1>

@@ -1,5 +1,20 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.15
+
+### New Features
+
+- Added `JsonPatch` — full RFC 6902 JSON patch implementation with path validation and type purification.
+
+### Bug Fixes
+
+- Fixed `StreamingJsonParser` to buffer partial chunks and parse line-delimited streaming records (NDJSON).
+
+### Patch Changes
+
+- Updated dependencies
+  - typepurify@0.5.16
+
 ## 0.5.14
 
 ### New Features

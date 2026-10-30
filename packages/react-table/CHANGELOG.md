@@ -1,5 +1,20 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.15
+
+### New Features
+
+- Added `MultiSortTableEngine` — multi-column hierarchical sorting for table rows with customizable nulls positioning and row purification.
+
+### Bug Fixes
+
+- Fixed `VirtualScrollTable` to compute dynamic window slices, row indices, overscan offsets, and total heights.
+
+### Patch Changes
+
+- Updated dependencies
+  - typepurify@0.5.16
+
 ## 0.5.14
 
 ### New Features

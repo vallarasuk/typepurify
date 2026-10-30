@@ -1,4 +1,4 @@
-**New in this version**: Added `Sanitizer` — A high-performance, strict HTML and XSS sanitizer for scrubbing untrusted user input.
+**New in this version**: Added `DeepSecuritySanitizer` for deep SQL/NoSQL injection protection, plus robust HTML entity escaping and XSS scrubbing in `Sanitizer`.
 
 <div align="center">
   <h1>✨ @typepurify/security</h1>

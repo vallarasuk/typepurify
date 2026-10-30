@@ -1,4 +1,4 @@
-**New in this version**: Added `HighSpeedLogger` — High-performance log formatting powered by WebAssembly bindings for extreme throughput.
+**New in this version**: Added `BatchLogger` for asynchronous log batching with automated credential redaction, plus structured log levels in `HighSpeedLogger`.
 
 <div align="center">
   <h1>✨ @typepurify/logger</h1>

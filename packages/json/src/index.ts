@@ -459,3 +459,4 @@ export * from './bsonParser';
 
 export * from './crdtSynchronizer';
 export * from './StreamingJsonParser';
+export * from './JsonPatch';
