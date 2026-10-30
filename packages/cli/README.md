@@ -1,4 +1,4 @@
-**New in this version**: Added `InteractivePrompt` — A highly customizable utility for building rich, interactive CLI prompts.
+**New in this version**: Added `DiffReporter` for terminal purification diff summaries and byte saving calculations, plus validation and choice enforcement in `InteractivePrompt`.
 
 <div align="center">
   <h1>✨ @typepurify/cli</h1>

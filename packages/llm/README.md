@@ -1,4 +1,4 @@
-**New in this version**: Added `PromptTemplateEngine` — An advanced template engine tailored for dynamic LLM prompt generation and variable substitution.
+**New in this version**: Added `StructuredOutputGuard` for extracting and repairing JSON from LLM outputs, plus dot-nested variable paths and strict mode in `PromptTemplateEngine`.
 
 <div align="center">
   <h1>✨ @typepurify/llm</h1>

@@ -1,5 +1,20 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.15
+
+### New Features
+
+- Added `SlidingWindowDeduplicator` — time-windowed deduplication for incoming event streams with automatic TTL expiration.
+
+### Bug Fixes
+
+- Fixed `StreamDeduplicator` object comparison to properly support deep structural deduplication and custom `keyFn` extractors.
+
+### Patch Changes
+
+- Updated dependencies
+  - typepurify@0.5.16
+
 ## 0.5.14
 
 ### New Features

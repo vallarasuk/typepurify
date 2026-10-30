@@ -1,5 +1,20 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.14
+
+### New Features
+
+- Added `TaggedCache` — enterprise multi-tag cache invalidation engine supporting `invalidateTag` and `invalidateTags`.
+
+### Bug Fixes
+
+- Fixed memory leak in `MemoryBufferCache` by introducing max capacity limits (`maxSize`), LRU eviction, and TTL expirations.
+
+### Patch Changes
+
+- Updated dependencies
+  - typepurify@0.5.16
+
 ## 0.5.13
 
 ### New Features

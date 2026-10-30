@@ -476,3 +476,4 @@ export * from './pivotEngine';
 
 export * from './inlineEditorState';
 export * from './VirtualScrollTable';
+export * from './MultiSortTableEngine';

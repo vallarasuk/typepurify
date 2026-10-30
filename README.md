@@ -11,7 +11,7 @@
 
 ---
 
-**🎉 Latest Release (v0.5.14)**: We've just shipped 14 massive new features across all packages including WebAssembly loaders, SQLite persistence backends, RASP Security middleware, and CRDT synchronizers! Check out the \`CHANGELOG.md\` for details!
+**🎉 Latest Release (v0.5.16)**: We've just shipped 14 massive new features and critical bug fixes across all 14 packages! Highlights include `cleanDiff` structural path tracking, `TaggedCache` multi-tag invalidation, `SlidingWindowDeduplicator`, `RequestInterceptorChain`, `JsonPatch` RFC 6902, `StructuredOutputGuard` for LLM outputs, `BatchLogger` with credential redaction, `BiDirectionalPaginator`, `usePurifiedReducer`, `MultiSortTableEngine`, `AdaptiveBackoffRetry` full jitter, `DeepSecuritySanitizer`, and `Paths<T>` / `PathValue<T, P>`! Check out [`CHANGELOG.md`](CHANGELOG.md) for full details!
 
 ## 🚀 Welcome to the Monorepo
 

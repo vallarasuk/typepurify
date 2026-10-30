@@ -1,5 +1,17 @@
 ## [1.6.14] - 2026-08-31
 
+## 0.5.16
+
+### New Features
+
+- Added `cleanDiff` — returns cleaned payloads along with full structural diff paths of stripped fields, statistics, and counters.
+- Added `flattenClean` & `unflattenClean` — high-performance zero-dependency flattening and unflattening of nested purified payloads with built-in prototype pollution immunity.
+
+### Bug Fixes
+
+- Fixed prototype pollution vulnerabilities by rejecting `__proto__`, `constructor`, and `prototype` keys during deep object cleaning.
+- Preserved `URL` and `URLSearchParams` runtime instances from being corrupted into plain objects during recursive cleaning.
+
 ## 0.5.15
 
 ### Patch Changes

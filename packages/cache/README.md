@@ -1,4 +1,4 @@
-**New in this version**: Added `MemoryBufferCache` — A high-performance in-memory cache buffer with Least Recently Used (LRU) eviction capabilities.
+**New in this version**: Added `TaggedCache` for tag-based multi-key cache invalidation, and bounded LRU/TTL memory leak protection in `MemoryBufferCache`.
 
 <div align="center">
   <h1>✨ @typepurify/cache</h1>

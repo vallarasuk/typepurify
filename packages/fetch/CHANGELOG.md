@@ -1,5 +1,20 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.15
+
+### New Features
+
+- Added `RequestInterceptorChain` — composable request and response middleware pipeline for header injection and payload transformation.
+
+### Bug Fixes
+
+- Fixed `RetryableFetch` to properly retry on network errors, transient 5xx statuses, and 429 rate limits with exponential backoff delay.
+
+### Patch Changes
+
+- Updated dependencies
+  - typepurify@0.5.16
+
 ## 0.5.14
 
 ### New Features

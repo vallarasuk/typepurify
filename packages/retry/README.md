@@ -1,4 +1,4 @@
-**New in this version**: Added `CircuitBreaker` — A resilient circuit breaker implementation to prevent cascading failures in distributed systems.
+**New in this version**: Added `AdaptiveBackoffRetry` with full jitter exponential backoff, and robust stateful threshold monitoring in `CircuitBreaker`.
 
 <div align="center">
   <h1>✨ @typepurify/retry</h1>

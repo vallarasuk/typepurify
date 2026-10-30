@@ -1,5 +1,24 @@
 # Changelog
 
+## [0.5.16] - 2026-10-30
+
+### New Features & Bug Fixes — All 14 Packages
+
+- **`typepurify` (core) `v0.5.16`**: Added `cleanDiff` for structural diff tracking of stripped keys and `flattenClean` / `unflattenClean` utilities; fixed prototype pollution attack vectors and preserved `URL` instances.
+- **`@typepurify/cache` `v0.5.14`**: Added `TaggedCache` multi-tag cache invalidation engine (`invalidateTag`, `invalidateTags`); resolved memory leak in `MemoryBufferCache` with LRU eviction and TTL.
+- **`@typepurify/cli` `v0.5.14`**: Added `DiffReporter` for formatted terminal purification diff summaries and byte saving calculations; enhanced `InteractivePrompt` with default answers, custom validators, and choice enforcement.
+- **`@typepurify/dedupe` `v0.5.15`**: Added `SlidingWindowDeduplicator` for rolling time-window event deduplication; fixed object deduplication in `StreamDeduplicator` with deep structural hashing and custom key extractors.
+- **`@typepurify/fetch` `v0.5.15`**: Added `RequestInterceptorChain` for composable request and response middleware; fixed `RetryableFetch` to support genuine exponential backoff retries on network failures and 5xx/429 HTTP statuses.
+- **`@typepurify/json` `v0.5.15`**: Added `JsonPatch` RFC 6902 compliant patch applicator with type purification; fixed `StreamingJsonParser` to buffer partial tokens and parse line-delimited JSON streams.
+- **`@typepurify/llm` `v0.5.15`**: Added `StructuredOutputGuard` to extract, repair malformed JSON syntax, and purify LLM outputs; improved `PromptTemplateEngine` with dot-notation variable paths, falsy value handling, and strict mode.
+- **`@typepurify/logger` `v0.5.15`**: Added `BatchLogger` asynchronous batch logging sink with automated credential redaction; enhanced `HighSpeedLogger` with log severity filtering and timestamp injection.
+- **`@typepurify/paginate` `v0.5.15`**: Added `BiDirectionalPaginator` for GraphQL/Relay-compliant bidirectional keyset pagination; fixed `CursorPaginator` nextCursor resolution and boundary calculations.
+- **`@typepurify/react-state` `v0.5.15`**: Added `usePurifiedReducer` hook for automatic state tree purification on dispatch; fixed `useLocalStorageState` with full browser `localStorage` synchronization and SSR safety.
+- **`@typepurify/react-table` `v0.5.15`**: Added `MultiSortTableEngine` for multi-column sorting and nulls handling; fixed `VirtualScrollTable` to compute dynamic window offsets, visible row slices, and overscan heights.
+- **`@typepurify/retry` `v0.5.15`**: Added `AdaptiveBackoffRetry` full-jitter exponential retry runner; fixed `CircuitBreaker` with complete state transitions (CLOSED, OPEN, HALF_OPEN) and reset timeouts.
+- **`@typepurify/security` `v0.5.15`**: Added `DeepSecuritySanitizer` neutralizing SQL injection and stripping NoSQL query injection vectors; fixed `Sanitizer` with HTML entity escaping and XSS event-handler removal.
+- **`@typepurify/types` `v0.5.15`**: Added `Paths<T>`, `PathValue<T, P>`, `getByPath`, and `setByPath` for type-safe nested property access; fixed `DeepReadonly<T>` to preserve primitive types and built-in objects.
+
 ## [0.5.14] (Core: 1.6.14) - 2026-08-31
 
 ### New Features — All Packages

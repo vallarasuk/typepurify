@@ -365,3 +365,4 @@ export function composeDockerImageWizard(config: {
 
 export * from './gitHookInjectorV2';
 export * from './InteractivePrompt';
+export * from './DiffReporter';

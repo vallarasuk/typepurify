@@ -381,3 +381,4 @@ export * from './kafkaStreamWorker';
 export * from './wasmLogFormatter';
 
 export * from './HighSpeedLogger';
+export * from './BatchLogger';

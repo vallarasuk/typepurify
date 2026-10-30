@@ -1,5 +1,20 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.14
+
+### New Features
+
+- Added `DiffReporter` — formats and visualizes purification field diffs, removed paths, and byte saving estimates for the CLI.
+
+### Bug Fixes
+
+- Fixed `InteractivePrompt` to support default answers, custom validation predicates, and choice enforcement instead of a static placeholder answer.
+
+### Patch Changes
+
+- Updated dependencies
+  - typepurify@0.5.16
+
 ## 0.5.13
 
 ### New Features

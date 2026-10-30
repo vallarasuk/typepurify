@@ -282,3 +282,4 @@ export * from './tupleConverter';
 
 export * from './mathOperatorType';
 export * from './DeepReadonly';
+export * from './PathTypes';

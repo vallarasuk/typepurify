@@ -510,3 +510,4 @@ export class broadcastEventEmitterListener {
 
 export * from './circuitStateMachine';
 export * from './CircuitBreaker';
+export * from './AdaptiveBackoffRetry';

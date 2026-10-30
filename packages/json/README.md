@@ -1,4 +1,4 @@
-**New in this version**: Added `StreamingJsonParser` — A chunk-based JSON parser designed for memory-efficient processing of massive JSON files.
+**New in this version**: Added `JsonPatch` for RFC 6902 JSON patch modifications, and streaming line-buffered parsing in `StreamingJsonParser`.
 
 <div align="center">
   <h1>✨ @typepurify/json</h1>

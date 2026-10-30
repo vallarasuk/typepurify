@@ -1,4 +1,4 @@
-**New in this version**: Added `VirtualScrollTable` — A lightweight, high-performance virtualized table component for rendering massive datasets without UI lag.
+**New in this version**: Added `MultiSortTableEngine` for multi-column sorting and nulls handling, plus dynamic window offsets and overscan slicing in `VirtualScrollTable`.
 
 <div align="center">
   <h1>✨ @typepurify/react-table</h1>

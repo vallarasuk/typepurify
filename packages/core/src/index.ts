@@ -172,6 +172,8 @@ export function clean<T, const O extends CleanOptions = {}>(
     obj instanceof WeakMap ||
     obj instanceof WeakSet ||
     typeof obj === 'function' ||
+    (typeof URL !== 'undefined' && obj instanceof URL) ||
+    (typeof URLSearchParams !== 'undefined' && obj instanceof URLSearchParams) ||
     (typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView(obj)) ||
     (typeof ArrayBuffer !== 'undefined' && obj instanceof ArrayBuffer) ||
     (typeof SharedArrayBuffer !== 'undefined' && obj instanceof SharedArrayBuffer)
@@ -193,6 +195,7 @@ export function clean<T, const O extends CleanOptions = {}>(
 
   for (const key in obj) {
     if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue;
       const val = obj[key];
       const cleanedVal = clean(val, options, seen, key);
 
@@ -322,6 +325,8 @@ export function cleanInPlace<T, const O extends CleanOptions = {}>(
     obj instanceof WeakMap ||
     obj instanceof WeakSet ||
     typeof obj === 'function' ||
+    (typeof URL !== 'undefined' && obj instanceof URL) ||
+    (typeof URLSearchParams !== 'undefined' && obj instanceof URLSearchParams) ||
     (typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView(obj)) ||
     (typeof ArrayBuffer !== 'undefined' && obj instanceof ArrayBuffer) ||
     (typeof SharedArrayBuffer !== 'undefined' && obj instanceof SharedArrayBuffer)
@@ -337,6 +342,7 @@ export function cleanInPlace<T, const O extends CleanOptions = {}>(
 
   for (const key in obj) {
     if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue;
       const val = obj[key];
       const cleanedVal = cleanInPlace(val, options, seen, key);
 
@@ -468,6 +474,8 @@ export async function cleanAsync<T, const O extends CleanOptions = {}>(
     obj instanceof WeakMap ||
     obj instanceof WeakSet ||
     typeof obj === 'function' ||
+    (typeof URL !== 'undefined' && obj instanceof URL) ||
+    (typeof URLSearchParams !== 'undefined' && obj instanceof URLSearchParams) ||
     (typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView(obj)) ||
     (typeof ArrayBuffer !== 'undefined' && obj instanceof ArrayBuffer) ||
     (typeof SharedArrayBuffer !== 'undefined' && obj instanceof SharedArrayBuffer)
@@ -489,6 +497,7 @@ export async function cleanAsync<T, const O extends CleanOptions = {}>(
 
   for (const k in obj) {
     if (Object.prototype.hasOwnProperty.call(obj, k)) {
+      if (k === '__proto__' || k === 'constructor' || k === 'prototype') continue;
       const val = obj[k];
       const cleanedVal = await cleanAsync(val, options, seen, k, state);
 
@@ -620,6 +629,8 @@ export async function cleanInPlaceAsync<T, const O extends CleanOptions = {}>(
     obj instanceof WeakMap ||
     obj instanceof WeakSet ||
     typeof obj === 'function' ||
+    (typeof URL !== 'undefined' && obj instanceof URL) ||
+    (typeof URLSearchParams !== 'undefined' && obj instanceof URLSearchParams) ||
     (typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView(obj)) ||
     (typeof ArrayBuffer !== 'undefined' && obj instanceof ArrayBuffer) ||
     (typeof SharedArrayBuffer !== 'undefined' && obj instanceof SharedArrayBuffer)
@@ -635,6 +646,7 @@ export async function cleanInPlaceAsync<T, const O extends CleanOptions = {}>(
 
   for (const k in obj) {
     if (Object.prototype.hasOwnProperty.call(obj, k)) {
+      if (k === '__proto__' || k === 'constructor' || k === 'prototype') continue;
       const val = obj[k];
       const cleanedVal = await cleanInPlaceAsync(val, options, seen, k, state);
 
@@ -1070,3 +1082,5 @@ export async function optimizeArrayCrawler<T>(
 }
 export * from './schemaInferencer';
 export * from './wasmBindings';
+export * from './cleanDiff';
+export * from './flattenClean';

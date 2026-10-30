@@ -1,5 +1,20 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.15
+
+### New Features
+
+- Added `BatchLogger` — high-throughput asynchronous batch log sink with automatic credential redaction and payload purification.
+
+### Bug Fixes
+
+- Fixed `HighSpeedLogger` to support log severity levels (`debug`, `info`, `warn`, `error`), level priority filtering, and timestamp injection.
+
+### Patch Changes
+
+- Updated dependencies
+  - typepurify@0.5.16
+
 ## 0.5.14
 
 ### New Features

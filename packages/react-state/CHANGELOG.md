@@ -1,5 +1,20 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.15
+
+### New Features
+
+- Added `usePurifiedReducer` — React hook combining `useReducer` with automatic state purification on action dispatch.
+
+### Bug Fixes
+
+- Fixed `useLocalStorageState` to properly read, parse, and write to browser `localStorage` with SSR compatibility and automatic value purification.
+
+### Patch Changes
+
+- Updated dependencies
+  - typepurify@0.5.16
+
 ## 0.5.14
 
 ### New Features

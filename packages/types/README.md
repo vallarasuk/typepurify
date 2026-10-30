@@ -1,4 +1,4 @@
-**New in this version**: Added `DeepReadonly` — A robust utility type for recursively enforcing immutability on complex, nested objects.
+**New in this version**: Added `PathValue` and `getByPath`/`setByPath` for type-safe nested path access, plus built-in primitive preservation in `DeepReadonly`.
 
 <div align="center">
   <h1>✨ @typepurify/types</h1>

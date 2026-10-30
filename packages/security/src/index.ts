@@ -408,3 +408,4 @@ export * from './vulnerabilityScanner';
 
 export * from './raspMiddleware';
 export * from './Sanitizer';
+export * from './DeepSecuritySanitizer';

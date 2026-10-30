@@ -1,5 +1,20 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.15
+
+### New Features
+
+- Added `StructuredOutputGuard` — extracts, repairs malformed JSON syntax, and cleans LLM outputs into strictly-typed records.
+
+### Bug Fixes
+
+- Fixed `PromptTemplateEngine` to properly interpolate nested dot-notation paths (`{{user.name}}`), preserve falsy values (`0`, `false`), and support strict mode.
+
+### Patch Changes
+
+- Updated dependencies
+  - typepurify@0.5.16
+
 ## 0.5.14
 
 ### New Features

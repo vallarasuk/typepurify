@@ -1,4 +1,4 @@
-**New in this version**: Added `RetryableFetch` — A robust fetch wrapper with automatic exponential backoff and jitter for resilient networking.
+**New in this version**: Added `RequestInterceptorChain` for pipeline request/response manipulation, and exponential backoff retry support in `RetryableFetch`.
 
 <div align="center">
   <h1>✨ @typepurify/fetch</h1>

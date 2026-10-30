@@ -1,4 +1,4 @@
-**New in this version**: Added `StreamDeduplicator` — A stream-based deduplication utility optimized for processing large datasets in real-time.
+**New in this version**: Added `SlidingWindowDeduplicator` for rolling time-window event deduplication, and deep structural object deduplication in `StreamDeduplicator`.
 
 <div align="center">
   <h1>✨ @typepurify/dedupe</h1>

@@ -1,5 +1,20 @@
 ## [0.5.14] - 2026-08-31
 
+## 0.5.15
+
+### New Features
+
+- Added `Paths<T>`, `PathValue<T, P>`, `getByPath`, and `setByPath` — type-safe dot-notation nested path resolution and mutation utilities.
+
+### Bug Fixes
+
+- Fixed `DeepReadonly<T>` to preserve primitives, dates, functions, arrays, maps, and sets without corrupting property signatures.
+
+### Patch Changes
+
+- Updated dependencies
+  - typepurify@0.5.16
+
 ## 0.5.14
 
 ### New Features
